@@ -1,0 +1,38 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "645Fj32gwe0axHm9m6bL-"
+uri = "file://artifacts/lingerie-shop/public/images/hero.png"
+type = "image"
+title = "French luxury lingerie boutique"
+
+[[generated]]
+id = "Nb0uuBsmm4ZFL92qzMfqz"
+uri = "file://artifacts/lingerie-shop/public/images/product-1.png"
+type = "image"
+title = "luxury lace lingerie set"
+
+[[generated]]
+id = "-Jwgt8I8kILzCRXVm0pwP"
+uri = "file://artifacts/lingerie-shop/public/images/product-2.png"
+type = "image"
+title = "delicate lace lingerie texture"
+
+[[generated]]
+id = "bteqLsjdi66WX9N-OfrHR"
+uri = "file://artifacts/lingerie-shop/public/images/blog-1.png"
+type = "image"
+title = "woman getting ready in lingerie"
+
+[[generated]]
+id = "QCp3lOLL04PU5Yu0fJPdo"
+uri = "file://artifacts/lingerie-shop/public/images/blog-2.png"
+type = "image"
+title = "luxury silk nightgown hanging"
+
+[[generated]]
+id = "XEd4EeqXT31qFHIqjqujS"
+uri = "file://artifacts/lingerie-shop/public/images/blog-3.png"
+type = "image"
+title = "self-care beauty routine"
