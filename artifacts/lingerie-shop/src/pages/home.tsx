@@ -124,12 +124,15 @@ export default function Home() {
               >
                 <div className="aspect-[3/4] relative overflow-hidden">
                   <img
-                    src="/images/product-1.png"
-                    alt="Ensemble de lingerie féminine en dentelle"
+                    src="/images/product-photo1.jpg"
+                    alt="Parure de charme rose Intimari - soutien-gorge ouvert dentelle romantique"
                     className="object-cover w-full h-full"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 ring-1 ring-inset ring-primary/20 pointer-events-none"></div>
+                </div>
+                <div className="absolute top-4 left-4 bg-secondary text-secondary-foreground text-xs px-3 py-1.5 font-medium tracking-wider">
+                  VENTE FLASH — 40%
                 </div>
               </motion.div>
               <motion.div
@@ -139,23 +142,28 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="lg:w-1/2 flex flex-col justify-center"
               >
-                <span className="text-primary font-serif uppercase tracking-[0.2em] text-sm mb-4">Édition Limitée</span>
-                <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6 text-foreground">L'Ensemble "Nuit Parisienne"</h2>
-                <p className="text-muted-foreground text-lg font-light mb-8 leading-relaxed">
-                  Notre création signature. Un soutien-gorge en dentelle brodée et une culotte assortie, conçus pour allier confort exceptionnel et sophistication intemporelle. Les finitions dorées ajoutent une touche de luxe discret.
+                <span className="text-primary font-serif uppercase tracking-[0.2em] text-sm mb-4">Vente Flash Exclusive</span>
+                <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6 text-foreground">Parure Intimari Rose</h2>
+                <p className="text-muted-foreground text-lg font-light mb-4 leading-relaxed">
+                  Un soutien-gorge ouvert en dentelle romantique et sa culotte en tulle fluide, pensés pour la femme qui célèbre sa féminité avec audace et élégance.
                 </p>
+                <div className="flex items-baseline space-x-3 mb-8">
+                  <span className="text-3xl font-semibold text-secondary">80€</span>
+                  <span className="text-lg text-muted-foreground line-through">133€</span>
+                  <span className="bg-secondary/10 text-secondary text-xs px-2 py-1 font-medium">-40%</span>
+                </div>
                 <ul className="space-y-4 mb-10 text-sm">
                   <li className="flex items-center text-foreground/80">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></span>
-                    Dentelle de Calais exquise
+                    Soutien-gorge ouvert dentelle romantique
                   </li>
                   <li className="flex items-center text-foreground/80">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></span>
-                    Détails en soie pure
+                    Culotte tulle fluide légèrement transparente
                   </li>
                   <li className="flex items-center text-foreground/80">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></span>
-                    Coupe flatteuse et maintien parfait
+                    Bijoux métalliques dorés inclus
                   </li>
                 </ul>
                 <div>
