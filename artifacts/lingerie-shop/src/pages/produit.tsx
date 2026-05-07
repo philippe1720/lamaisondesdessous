@@ -92,24 +92,36 @@ export default function Produit() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Product Images */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="aspect-[3/4] relative bg-muted overflow-hidden">
               <img 
-                src="/images/product-1.png" 
-                alt="Ensemble lingerie féminine de luxe blanc et or" 
+                src="/images/product-photo1.jpg" 
+                alt="Parure de charme rose Intimari - soutien-gorge ouvert dentelle romantique vue de face" 
                 className="object-cover w-full h-full"
+                width={600}
+                height={800}
               />
             </div>
-            <div className="grid grid-cols-2 gap-6">
-              <div className="aspect-square relative bg-muted overflow-hidden">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="aspect-[3/4] relative bg-muted overflow-hidden">
                 <img 
-                  src="/images/product-2.png" 
-                  alt="Détail dentelle lingerie de luxe" 
+                  src="/images/product-photo2.jpg" 
+                  alt="Parure Intimari rose - dos réglable soutien-gorge dentelle féminine" 
                   className="object-cover w-full h-full"
+                  width={300}
+                  height={400}
+                  loading="lazy"
                 />
               </div>
-              <div className="aspect-square relative bg-muted overflow-hidden flex items-center justify-center p-8 text-center bg-card border border-primary/20">
-                <p className="font-serif text-lg italic text-primary">"Le raffinement absolu dans chaque détail."</p>
+              <div className="aspect-[3/4] relative bg-muted overflow-hidden">
+                <img 
+                  src="/images/product-photo3.jpg" 
+                  alt="Détail ensemble lingerie rose - soutien-gorge ouvert et culotte tulle" 
+                  className="object-cover w-full h-full"
+                  width={300}
+                  height={400}
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
