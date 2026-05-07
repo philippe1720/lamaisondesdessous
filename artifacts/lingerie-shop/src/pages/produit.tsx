@@ -35,9 +35,9 @@ export default function Produit() {
   return (
     <>
       <SEO
-        title="Ensemble Lingerie Dentelle 'Nuit Parisienne'"
-        description="Achetez notre ensemble de lingerie de luxe. Soutien-gorge et culotte en dentelle brodée pour un confort et une élégance incomparables."
-        keywords="soutien-gorge dentelle, culotte brodée, ensemble lingerie, sous-vêtements femme, lingerie de luxe"
+        title="Parure de charme rose * Soutien-gorge ouvert dentelle romantique"
+        description="Parure de charme rose * Soutien-gorge ouvert dentelle romantique. Ensemble lingerie féminine Intimari Rose : décolleté spectaculaire, dentelle délicate, culotte tulle fluide. Vivez des instants inoubliables."
+        keywords="parure de charme rose, soutien-gorge ouvert dentelle, lingerie romantique, ensemble lingerie féminine, dessous féminin, sous-vêtements femme, lingerie de luxe"
         canonical="/produit"
         type="product"
         image="/images/product-1.png"
@@ -46,7 +46,7 @@ export default function Produit() {
           {JSON.stringify({
             "@context": "https://schema.org/",
             "@type": "Product",
-            "name": "Ensemble Lingerie 'Nuit Parisienne'",
+            "name": "Parure de charme rose - Ensemble Intimari Rose - Soutien-gorge ouvert dentelle romantique",
             "image": [
               `${SITE_CONFIG.url}/images/product-1.png`,
               `${SITE_CONFIG.url}/images/product-2.png`
@@ -116,7 +116,7 @@ export default function Produit() {
 
           {/* Product Details */}
           <div className="flex flex-col">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-foreground">L'Ensemble "Nuit Parisienne"</h1>
+            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-foreground">Éveillez Vos Sens avec l'Ensemble Intimari Rose</h1>
             
             <div className="flex items-baseline space-x-4 mb-6">
               <span className="text-3xl font-semibold text-secondary">89€</span>
@@ -124,9 +124,29 @@ export default function Produit() {
               <span className="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded font-medium ml-2">-40%</span>
             </div>
 
-            <p className="text-muted-foreground leading-relaxed mb-8 font-light">
-              Une création signature qui incarne l'essence même de notre maison. Cet ensemble de lingerie luxueux associe une dentelle délicate brodée à la main et des touches de soie pure. Le soutien-gorge offre un maintien parfait tout en légèreté, tandis que la culotte assortie sculpte délicatement la silhouette. L'habillage de nuit idéal pour se sentir exceptionnelle.
-            </p>
+            <div className="text-muted-foreground leading-relaxed mb-8 font-light space-y-5">
+              <p>
+                Fermez les yeux un instant. Imaginez la douceur infinie d'un voile léger qui se pose délicatement sur votre peau. Vous vous glissez dans ce vêtement intime féminin et, instantanément, votre posture change. Vous vous sentez belle, audacieuse, irrésistible. Ce n'est plus seulement de la lingerie, c'est une véritable célébration de votre corps.
+              </p>
+              <p>
+                Avec son rose vibrant qui illumine le teint, cet ensemble sous-vêtement a été pensé pour les femmes qui refusent de choisir entre le frisson de la séduction et le besoin absolu de confort.
+              </p>
+              <h2 className="font-serif text-xl font-medium text-foreground mt-6">Un décolleté spectaculaire, un maintien sur-mesure</h2>
+              <p>
+                Laissez-vous envoûter par la coupe audacieuse de son soutien-gorge. Libéré des coques traditionnelles, il dévoile subtilement la courbe de vos seins, simplement caressés par une délicate bande de dentelle froncée. Le résultat ? Un effet visuel époustouflant qui sublime votre poitrine avec une élégance rare. Grâce à son dos et ses bretelles entièrement réglables, ce soutien-gorge s'adapte parfaitement à votre morphologie pour vous offrir un maintien rassurant et un confort qui vous accompagnera tout au long de vos moments les plus intimes.
+              </p>
+              <h2 className="font-serif text-xl font-medium text-foreground">Une douceur qui se fond sur la peau</h2>
+              <p>
+                La culotte assortie, confectionnée dans un tulle fluide et légèrement transparent, épouse vos hanches sans jamais les marquer. Elle se fait oublier au porter pour ne laisser place qu'à une sensation de légèreté absolue.
+              </p>
+              <h2 className="font-serif text-xl font-medium text-foreground">Le détail qui fait la différence</h2>
+              <p>
+                Parce que vous méritez ce qu'il y a de plus précieux, deux petits bijoux métalliques viennent capter la lumière : l'un niché au creux de votre décolleté, l'autre délicatement posé sur le devant de la culotte. Une touche finale de glamour pour une parure d'exception.
+              </p>
+              <p className="font-serif italic text-foreground text-lg">
+                Ne rêvez plus de la femme fatale et confiante que vous êtes... Incarnez-la.
+              </p>
+            </div>
 
             {/* Size Selection */}
             <div className="mb-10">
