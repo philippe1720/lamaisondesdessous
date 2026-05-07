@@ -131,8 +131,8 @@ export default function Produit() {
             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-foreground">Éveillez Vos Sens avec l'Ensemble Intimari Rose</h1>
             
             <div className="flex items-baseline space-x-4 mb-6">
-              <span className="text-3xl font-semibold text-secondary">80€</span>
-              <span className="text-xl text-muted-foreground line-through">133€</span>
+              <span className="text-3xl font-semibold text-secondary">48€</span>
+              <span className="text-xl text-muted-foreground line-through">80€</span>
               <span className="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded font-medium ml-2">-40%</span>
             </div>
 

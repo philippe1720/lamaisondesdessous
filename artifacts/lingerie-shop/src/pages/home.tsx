@@ -148,8 +148,8 @@ export default function Home() {
                   Un soutien-gorge ouvert en dentelle romantique et sa culotte en tulle fluide, pensés pour la femme qui célèbre sa féminité avec audace et élégance.
                 </p>
                 <div className="flex items-baseline space-x-3 mb-8">
-                  <span className="text-3xl font-semibold text-secondary">80€</span>
-                  <span className="text-lg text-muted-foreground line-through">133€</span>
+                  <span className="text-3xl font-semibold text-secondary">48€</span>
+                  <span className="text-lg text-muted-foreground line-through">80€</span>
                   <span className="bg-secondary/10 text-secondary text-xs px-2 py-1 font-medium">-40%</span>
                 </div>
                 <ul className="space-y-4 mb-10 text-sm">
