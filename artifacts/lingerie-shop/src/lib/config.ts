@@ -8,4 +8,4 @@ export const SITE_CONFIG = {
   }
 };
 
-export const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/VOTRE_LIEN";
+export const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_7sYaEW3576NG4yFfZM3cc00";
