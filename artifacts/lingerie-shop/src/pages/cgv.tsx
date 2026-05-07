@@ -14,8 +14,8 @@ export default function CGV() {
         
         <div className="prose prose-sm md:prose-base prose-p:font-light prose-headings:font-serif prose-headings:font-bold max-w-none text-muted-foreground">
           <h2>1. Mentions Légales</h2>
-          <p>Le site "La Maison des Dessous" est édité par la société fictive LMDD SAS au capital de 10 000€, immatriculée au RCS de Paris sous le numéro 000 000 000.</p>
-          <p>Siège social : 123 rue de la Soie, 75008 Paris, France.<br/>
+          <p>Le site "La Maison des Dessous" est édité par la société <strong>Niard Philippe</strong>, immatriculée au RCS de Caen sous le numéro <strong>882 907 116 00017</strong>.</p>
+          <p>Siège social : 14 rue de Hambourhen, 14790 Verson, France.<br/>
           Contact : contact@lamaisondesdessous.fr</p>
 
           <h2>2. Prix et Paiement</h2>
