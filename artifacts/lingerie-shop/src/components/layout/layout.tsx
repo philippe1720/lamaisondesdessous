@@ -9,6 +9,9 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   return (
     <div className="flex min-h-[100dvh] flex-col bg-background text-foreground font-sans">
+      <div className="w-full bg-secondary text-secondary-foreground text-center text-xs tracking-widest uppercase py-2 font-medium">
+        Livraison gratuite
+      </div>
       <Header />
       <main className="flex-1 flex flex-col">
         {children}
