@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Lingerie Boutique"
+version = "1.0.0"
+id = "artifacts/lingerie-shop"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24021
+
+[services.development]
+run = "pnpm --filter @workspace/lingerie-shop run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/lingerie-shop", "run", "build" ]
+publicDir = "artifacts/lingerie-shop/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24021"
+BASE_PATH = "/"
