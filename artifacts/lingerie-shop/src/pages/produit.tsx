@@ -35,9 +35,9 @@ export default function Produit() {
   return (
     <>
       <SEO
-        title="Parure de charme rose * Soutien-gorge ouvert dentelle romantique"
-        description="Parure de charme rose * Soutien-gorge ouvert dentelle romantique. Ensemble lingerie féminine Intimari Rose : décolleté spectaculaire, dentelle délicate, culotte tulle fluide. Vivez des instants inoubliables."
-        keywords="parure de charme rose, soutien-gorge ouvert dentelle, lingerie romantique, ensemble lingerie féminine, dessous féminin, sous-vêtements femme, lingerie de luxe"
+       title="Ensemble Lingerie Dentelle Rose | Élégance & Confort"
+description="Découvrez notre parure de charme rose. Un ensemble de lingerie fine en dentelle conçu pour sublimer votre silhouette en alliant raffinement, maintien et confiance en soi."
+keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégante, sous-vêtements dentelle confort"
         canonical="/produit"
         type="product"
         image="/images/product-1.png"
