@@ -58,7 +58,7 @@ export default function Home() {
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="font-serif text-4xl text-primary font-semibold mb-4 tracking-wide">Le Savoir-Faire Parisien</h2>
+              <h2 className="font-serif text-4xl text-primary font-semibold mb-4 tracking-wide">L'élégance Européenne</h2>
               <div className="w-16 h-px bg-primary mx-auto opacity-50"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto text-center">
