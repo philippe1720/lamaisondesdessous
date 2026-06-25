@@ -30,14 +30,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 1. Gère l'API (le backend)
 app.use("/api", router);
 
-// Sert les fichiers visuels du site (Frontend de la boutique)
+// 2. Connecte le dossier contenant le design de la boutique
 const clientDist = path.join(process.cwd(), "artifacts/lingerie-shop/dist/public");
 app.use(express.static(clientDist));
 
-// Redirige la navigation vers l'accueil du site
-app.get("*", (req, res) => {
+// 3. Redirige proprement vers la page d'accueil sans utiliser de symbole interdit
+app.use((req, res) => {
   res.sendFile(path.join(clientDist, "index.html"));
 });
 
