@@ -128,7 +128,7 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
 
           {/* Product Details */}
           <div className="flex flex-col">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-foreground">Éveillez Vos Sens avec l'Ensemble Intimari Rose</h1>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-foreground">Ensemble Lingerie Haut de Gamme en Dentelle — Collection Intimari Rose</h1>
             
             <div className="flex items-baseline space-x-4 mb-6">
               <span className="text-3xl font-semibold text-secondary">79,99€</span>
