@@ -316,7 +316,7 @@ const CONTENT: Record<string, ArticleContent> = {
   title: "Lingerie haut de gamme : pourquoi investir dans la qualité",
   description: "Découvrez pourquoi la lingerie haut de gamme est un investissement durable. Matières nobles, finitions soignées, confort longue durée : on vous explique tout.",
   keywords: "lingerie haut de gamme, qualité lingerie, investir lingerie, matières nobles lingerie, durabilité sous-vêtements",
-  image: "/images/blog-4.png",
+  image: "/images/blog-1.png",
   date: "28 Juin 2026",
   dateISO: "2026-06-28T08:00:00+01:00",
   author: "Sophie, Créatrice",
