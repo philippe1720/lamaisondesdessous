@@ -143,15 +143,15 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
               <p>
                 Avec son rose vibrant qui illumine le teint, cet ensemble sous-vêtement a été pensé pour les femmes qui refusent de choisir entre le frisson de la séduction et le besoin absolu de confort.
               </p>
-              <h2 className="font-serif text-xl font-medium text-foreground mt-6">Un décolleté spectaculaire, un maintien sur-mesure</h2>
+           <h2 className="font-serif text-xl font-medium text-foreground mt-6">Soutien-gorge en dentelle : décolleté sublime et maintien sur-mesure</h2>
               <p>
                 Laissez-vous envoûter par la coupe audacieuse de son soutien-gorge. Libéré des coques traditionnelles, il dévoile subtilement la courbe de vos seins, simplement caressés par une délicate bande de dentelle froncée. Le résultat ? Un effet visuel époustouflant qui sublime votre poitrine avec une élégance rare. Grâce à son dos et ses bretelles entièrement réglables, ce soutien-gorge s'adapte parfaitement à votre morphologie pour vous offrir un maintien rassurant et un confort qui vous accompagnera tout au long de vos moments les plus intimes.
               </p>
-              <h2 className="font-serif text-xl font-medium text-foreground">Une douceur qui se fond sur la peau</h2>
+             <h2 className="...">Culotte en tulle : confort et douceur pour toutes les morphologies</h2>
               <p>
                 La culotte assortie, confectionnée dans un tulle fluide et légèrement transparent, épouse vos hanches sans jamais les marquer. Elle se fait oublier au porter pour ne laisser place qu'à une sensation de légèreté absolue.
               </p>
-              <h2 className="font-serif text-xl font-medium text-foreground">Le détail qui fait la différence</h2>
+              <h2 className="...">Finitions haut de gamme : les détails qui font la différence</h2>
               <p>
                 Parce que vous méritez ce qu'il y a de plus précieux, deux petits bijoux métalliques viennent capter la lumière : l'un niché au creux de votre décolleté, l'autre délicatement posé sur le devant de la culotte. Une touche finale de glamour pour une parure d'exception.
               </p>
