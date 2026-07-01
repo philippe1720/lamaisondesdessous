@@ -424,7 +424,53 @@ const CONTENT: Record<string, ArticleContent> = {
         </blockquote>
       </>
     )
-  }
+  },
+  "lingerie-ete-vacances-conseils-matieres": {
+  title: "Lingerie d'été : comment rester fraîche et élégante en vacances",
+  description: "Quelles matières privilégier pour votre lingerie en été ? Nos conseils pour rester au frais tout en restant élégante, à la plage comme en voyage.",
+  keywords: "lingerie été, lingerie vacances, matières respirantes lingerie, lingerie chaleur, dentelle été",
+  image: "/images/blog-4.png",
+  date: "1 Juillet 2026",
+  dateISO: "2026-07-01T08:00:00+01:00",
+  author: "Sophie, Créatrice",
+  body: (
+    <>
+      <p>
+        Les beaux jours arrivent, la valise se prépare, et un détail échappe souvent à l'attention jusqu'au dernier moment : la lingerie. Pourtant, c'est elle qui conditionne tout le reste. Le confort sous une robe légère, la liberté de mouvement en plein soleil, l'aisance pendant les longues journées de chaleur. Voici comment bien choisir sa lingerie pour traverser l'été sans y penser.
+      </p>
+
+      <h2>Pourquoi la matière compte plus que tout en été</h2>
+      <p>
+        L'hiver pardonne beaucoup : une matière un peu épaisse, une doublure synthétique, tout cela passe inaperçu sous plusieurs couches de vêtements. L'été est bien plus exigeant. La peau transpire davantage et frotte plus directement contre le tissu. Une lingerie inadaptée se rappelle alors à vous toute la journée, alors qu'une pièce bien choisie se fait complètement oublier.
+      </p>
+      <p>
+        Le problème n'est jamais la transpiration en elle-même, c'est naturel et sain. Ce qui pose souci, c'est une matière qui ne sait pas l'évacuer : l'humidité reste prisonnière contre la peau, la pièce colle, et les irritations ne sont jamais loin.
+      </p>
+
+      <h2>Les matières à privilégier quand il fait chaud</h2>
+      <p>
+        La dentelle fine et le tulle léger restent d'excellents choix estivaux : contrairement aux idées reçues, une dentelle de qualité laisse largement mieux respirer la peau qu'une microfibre synthétique. C'est d'ailleurs tout l'intérêt d'une lingerie haut de gamme : les matières nobles sont pensées pour épouser la peau sans jamais l'étouffer.
+      </p>
+      <p>
+        À l'inverse, mieux vaut éviter les doublures plastifiées et les matières trop brillantes, qui emprisonnent la chaleur et retiennent l'humidité contre la peau bien plus longtemps qu'il n'est confortable.
+      </p>
+
+      <h2>Le confort avant tout, même en vacances</h2>
+      <p>
+        En été, on a naturellement envie de légèreté : des bretelles fines mais bien réglables, des coupes qui ne compriment pas, des matières qui suivent chaque mouvement. C'est aussi le moment idéal pour redécouvrir des pièces plus délicates, moins couvrantes, que l'on garde parfois de côté le reste de l'année.
+      </p>
+
+      <h2>Une lingerie qui voyage bien</h2>
+      <p>
+        Autre avantage des matières fines comme la dentelle et le tulle : elles se froissent très peu et reprennent leur forme presque instantanément, même roulées au fond d'une valise. C'est un vrai atout pour les vacances, où l'on n'a ni le temps ni l'envie de repasser sa lingerie avant de la porter.
+      </p>
+
+      <p>
+        Chez <strong>La Maison des Dessous</strong>, nos pièces en dentelle et tulle léger ont justement été pensées pour accompagner chaque saison, été compris. Découvrez notre <a href="/produit">collection Intimari Rose</a> et préparez votre valise l'esprit tranquille.
+      </p>
+    </>
+  )
+},
 };
 
 export default function BlogArticle() {
