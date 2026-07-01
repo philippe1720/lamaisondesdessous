@@ -429,7 +429,7 @@ const CONTENT: Record<string, ArticleContent> = {
   title: "Lingerie d'été : comment rester fraîche et élégante en vacances",
   description: "Quelles matières privilégier pour votre lingerie en été ? Nos conseils pour rester au frais tout en restant élégante, à la plage comme en voyage.",
   keywords: "lingerie été, lingerie vacances, matières respirantes lingerie, lingerie chaleur, dentelle été",
-  image: "/images/blog-4.png",
+  image: "/images/blog-4.jpg",
   date: "1 Juillet 2026",
   dateISO: "2026-07-01T08:00:00+01:00",
   author: "Sophie, Créatrice",
