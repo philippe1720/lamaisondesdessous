@@ -77,7 +77,7 @@ export const ARTICLES = [
   slug: "lingerie-ete-vacances-conseils-matieres",
   title: "Lingerie d'été : comment rester fraîche et élégante en vacances",
   excerpt: "Quelles matières privilégier pour votre lingerie en été ? Nos conseils pour rester au frais tout en restant élégante, à la plage comme en voyage.",
-  image: "/images/blog-4.png",
+  image: "/images/blog-4.jpg",
   date: "1 Juillet 2026",
   year: 2026,
   category: "Conseils",
