@@ -20,7 +20,7 @@ export default function QuiSommesNous() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <div className="aspect-[4/5] relative">
             <img 
-              src="/images/blog-1.png" 
+              src="/images/blog-4.jpg" 
               alt="L'esprit de notre marque de lingerie" 
               className="object-cover w-full h-full rounded-sm"
             />
