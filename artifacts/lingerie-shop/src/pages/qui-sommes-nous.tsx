@@ -1,4 +1,4 @@
-mport React from 'react';
+import React from 'react';
 import { SEO } from '@/lib/seo';
 export default function QuiSommesNous() {
   return (
