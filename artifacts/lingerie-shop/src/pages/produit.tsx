@@ -223,24 +223,33 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
         </div>
 
         {/* Reviews Section */}
-        <div className="mt-32 border-t border-border/50 pt-20">
-          <h2 className="font-serif text-3xl font-bold text-center mb-12">L'Avis de nos Clientes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { name: "Sophie M.", rating: 5, comment: "Absolument magnifique. La dentelle est d'une douceur incroyable et le maintien est parfait. Je me sens si élégante quand je le porte." },
-              { name: "Claire D.", rating: 5, comment: "Un véritable bijou. La qualité est au rendez-vous, on sent vraiment que c'est de la lingerie de luxe. La taille correspond parfaitement." },
-              { name: "Juliette L.", rating: 5, comment: "J'ai profité de la vente flash et je ne regrette pas ! L'ensemble est sublime, la livraison était très soignée. Une belle expérience d'achat." }
-            ].map((review, i) => (
-              <div key={i} className="bg-card p-8 border border-border/50 shadow-sm relative">
-                <div className="text-primary flex space-x-1 mb-4">
-                  {[...Array(review.rating)].map((_, j) => (
-                    <svg key={j} className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                  ))}
-                </div>
-                <p className="text-muted-foreground text-sm font-light italic mb-6 leading-relaxed">"{review.comment}"</p>
-                <div className="text-sm font-medium">{review.name}</div>
-                <div className="text-xs text-muted-foreground mt-1">Achat vérifié</div>
-              </div>
+<div className="mt-32 border-t border-border/50 pt-20">
+  <h2 className="font-serif text-3xl font-bold text-center mb-6">L'Avis de nos Clientes</h2>
+  <div className="max-w-xl mx-auto text-center bg-card border border-border/50 p-10">
+    <p className="text-muted-foreground font-light leading-relaxed mb-4">
+      Cette pièce vient d'arriver dans notre collection, et les premiers avis ne sont pas encore là.
+    </p>
+    <p className="text-muted-foreground font-light leading-relaxed">
+      Vous serez peut-être la première à partager votre expérience — nous vous recontacterons après votre achat pour recueillir votre avis en toute transparence.
+    </p>
+  </div>
+</div>
+
+{/* Trust / Founder Section */}
+<div className="mt-20 border-t border-border/50 pt-16">
+  <div className="max-w-2xl mx-auto text-center">
+    <h2 className="font-serif text-2xl font-bold mb-4">Une Marque Française, Portée avec Exigence</h2>
+    <p className="text-muted-foreground font-light leading-relaxed mb-6">
+      La Maison des Dessous est un projet porté seul, en Normandie, avec la conviction que la lingerie mérite le même soin que n'importe quelle pièce d'exception. Chaque pièce est sélectionnée avec attention pour son confort et sa qualité.
+    </p>
+    <a 
+      href="/qui-sommes-nous" 
+      className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors font-medium text-sm"
+    >
+      Découvrir notre histoire →
+    </a>
+  </div>
+</div>
             ))}
           </div>
         </div>
