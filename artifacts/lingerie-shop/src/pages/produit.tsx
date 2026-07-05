@@ -250,10 +250,7 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
     </a>
   </div>
 </div>
-            ))}
-          </div>
-        </div>
-      </div>
+            )
     </>
   );
 }
