@@ -5,21 +5,26 @@ import { Button } from '@/components/ui/button';
 import { SITE_CONFIG, STRIPE_PAYMENT_LINK } from '@/lib/config';
 
 export default function Produit() {
-  const [timeLeft, setTimeLeft] = useState(3600); // 1 hour in seconds
+  const LAUNCH_OFFER_END = new Date('2026-07-31T23:59:59+02:00').getTime();
+  const [timeLeft, setTimeLeft] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const diff = LAUNCH_OFFER_END - now;
+      setTimeLeft(diff > 0 ? Math.floor(diff / 1000) : 0);
+    };
+    updateTimer();
+    const timer = setInterval(updateTimer, 1000);
     return () => clearInterval(timer);
   }, []);
 
   const formatTime = (seconds: number) => {
-    const h = Math.floor(seconds / 3600);
+    const d = Math.floor(seconds / 86400);
+    const h = Math.floor((seconds % 86400) / 3600);
     const m = Math.floor((seconds % 3600) / 60);
-    const s = seconds % 60;
-    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    return `${d}j ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m`;
   };
 
   const handlePurchase = () => {
@@ -61,7 +66,7 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
               "@type": "Offer",
               "url": `${SITE_CONFIG.url}/produit`,
               "priceCurrency": "EUR",
-              "price": "89.00",
+              "price": "79.99",
               "itemCondition": "https://schema.org/NewCondition",
               "availability": "https://schema.org/InStock"
             }
@@ -70,7 +75,7 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
       </SEO>
 
       <div className="container mx-auto px-4 py-16 md:py-24">
-        {/* Flash Sale Banner */}
+        {/* Launch Offer Banner */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,11 +87,11 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
               <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
             </span>
             <span className="font-serif font-semibold text-secondary tracking-wider uppercase text-sm">
-              Vente Flash Exculsive
+              Offre de Lancement
             </span>
           </div>
-          <div className="font-mono text-xl md:text-2xl font-bold text-foreground">
-            Se termine dans : <span className="text-primary">{formatTime(timeLeft)}</span>
+          <div className="font-mono text-lg md:text-xl font-bold text-foreground">
+            Prix courant dès le 1er août : <span className="text-primary">{formatTime(timeLeft)}</span>
           </div>
         </motion.div>
 
@@ -132,8 +137,9 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
             
             <div className="flex items-baseline space-x-4 mb-6">
               <span className="text-3xl font-semibold text-secondary">79,99€</span>
-              <span className="text-xl text-muted-foreground line-through">130€</span>
-              <span className="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded font-medium ml-2">-40%</span>
+              <span className="text-sm text-muted-foreground">
+                Prix courant à partir du 1er août : <span className="line-through">89€</span>
+              </span>
             </div>
 
             <div className="text-muted-foreground leading-relaxed mb-8 font-light space-y-5">
@@ -223,34 +229,34 @@ keywords="ensemble lingerie dentelle, parure rose femme, lingerie fine élégant
         </div>
 
         {/* Reviews Section */}
-<div className="mt-32 border-t border-border/50 pt-20">
-  <h2 className="font-serif text-3xl font-bold text-center mb-6">L'Avis de nos Clientes</h2>
-  <div className="max-w-xl mx-auto text-center bg-card border border-border/50 p-10">
-    <p className="text-muted-foreground font-light leading-relaxed mb-4">
-      Cette pièce vient d'arriver dans notre collection, et les premiers avis ne sont pas encore là.
-    </p>
-    <p className="text-muted-foreground font-light leading-relaxed">
-      Vous serez peut-être la première à partager votre expérience — nous vous recontacterons après votre achat pour recueillir votre avis en toute transparence.
-    </p>
-  </div>
-</div>
+        <div className="mt-32 border-t border-border/50 pt-20">
+          <h2 className="font-serif text-3xl font-bold text-center mb-6">L'Avis de nos Clientes</h2>
+          <div className="max-w-xl mx-auto text-center bg-card border border-border/50 p-10">
+            <p className="text-muted-foreground font-light leading-relaxed mb-4">
+              Cette pièce vient d'arriver dans notre collection, et les premiers avis ne sont pas encore là.
+            </p>
+            <p className="text-muted-foreground font-light leading-relaxed">
+              Vous serez peut-être la première à partager votre expérience — nous vous recontacterons après votre achat pour recueillir votre avis en toute transparence.
+            </p>
+          </div>
+        </div>
 
-{/* Trust / Founder Section */}
-<div className="mt-20 border-t border-border/50 pt-16">
-  <div className="max-w-2xl mx-auto text-center">
-    <h2 className="font-serif text-2xl font-bold mb-4">Une Marque Française, Portée avec Exigence</h2>
-    <p className="text-muted-foreground font-light leading-relaxed mb-6">
-      La Maison des Dessous est un projet porté seul, en Normandie, avec la conviction que la lingerie mérite le même soin que n'importe quelle pièce d'exception. Chaque pièce est sélectionnée avec attention pour son confort et sa qualité.
-    </p>
-    <a 
-      href="/qui-sommes-nous" 
-      className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors font-medium text-sm"
-    >
-      Découvrir notre histoire →
-    </a>
-</div>
-    </div>
-  </div>
+        {/* Trust / Founder Section */}
+        <div className="mt-20 border-t border-border/50 pt-16">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="font-serif text-2xl font-bold mb-4">Une Marque Française, Portée avec Exigence</h2>
+            <p className="text-muted-foreground font-light leading-relaxed mb-6">
+              La Maison des Dessous est un projet porté seul, en Normandie, avec la conviction que la lingerie mérite le même soin que n'importe quelle pièce d'exception. Chaque pièce est sélectionnée avec attention pour son confort et sa qualité.
+            </p>
+            <a 
+              href="/qui-sommes-nous" 
+              className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors font-medium text-sm"
+            >
+              Découvrir notre histoire →
+            </a>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
