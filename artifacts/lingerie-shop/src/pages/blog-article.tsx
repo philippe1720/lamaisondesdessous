@@ -209,7 +209,7 @@ const CONTENT: Record<string, ArticleContent> = {
     title: "Bien choisir son soutien-gorge : taille, forme et confort",
     description: "80% des femmes portent la mauvaise taille de soutien-gorge. Guide complet pour trouver votre taille exacte et choisir le modèle adapté à votre poitrine et morphologie.",
     keywords: "choisir taille soutien-gorge, soutien-gorge confort, guide taille soutien-gorge, bonnets soutien-gorge, soutien-gorge morphologie",
-    image: "/images/blog-3.png",
+    image: "/images/photo4.jpg",
     date: "07 Janvier 2025",
     dateISO: "2025-01-07T08:00:00+01:00",
     author: "Marie, Experte Lingerie",
