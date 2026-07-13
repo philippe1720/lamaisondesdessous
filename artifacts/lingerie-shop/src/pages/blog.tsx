@@ -67,7 +67,7 @@ export const ARTICLES = [
   slug: "lingerie-haut-de-gamme-pourquoi-investir-qualite",
   title: "Lingerie haut de gamme : pourquoi investir dans la qualité",
   excerpt: "Matières nobles, finitions soignées, confort longue durée : découvrez pourquoi la lingerie haut de gamme est un investissement qui change tout.",
-  image: "/images/blog-1.png",
+  image: "/images/soutiengorgesexy.jpg",
   date: "28 Juin 2026",
   year: 2026,
   category: "Conseils",
