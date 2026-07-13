@@ -475,7 +475,7 @@ const CONTENT: Record<string, ArticleContent> = {
     title: "Soutien-gorge mal ajusté : 5 signes qui ne trompent pas",
     description: "Bretelles qui glissent, dos qui remonte ou poitrine qui déborde ? Découvrez les signes d'un soutien-gorge mal ajusté et les solutions pour retrouver du confort.",
     keywords: "soutien-gorge mal ajusté, soutien-gorge qui remonte, bretelles qui glissent, bonnet trop petit, choisir soutien-gorge",
-    image: "/soutiengorge.jpeg",
+    image: "/soutiengorge.jpeg ",
     date: "13 Juillet 2026",
     dateISO: "2026-07-13T08:00:00+02:00",
     author: "Sophie, Créatrice",
