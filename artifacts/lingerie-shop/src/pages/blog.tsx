@@ -83,6 +83,16 @@ export const ARTICLES = [
   category: "Conseils",
   readTime: "4 min"
 },
+    {
+    slug: "soutien-gorge-mal-ajuste-signes-solutions",
+    title: "Soutien-gorge mal ajusté : 5 signes qui ne trompent pas",
+    excerpt: "Dos qui remonte, bretelles qui glissent ou poitrine qui déborde : découvrez comment reconnaître un soutien-gorge mal ajusté et retrouver enfin du confort.",
+    image: "/images/blog-3.png",
+    date: "13 Juillet 2026",
+    year: 2026,
+    category: "Guide",
+    readTime: "3 min"
+  },
 ];
 
 const CATEGORIES = ["Tous", "Guide", "Entretien", "Tendances", "Bien-être"];
