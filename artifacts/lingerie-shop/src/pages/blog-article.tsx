@@ -268,7 +268,7 @@ const CONTENT: Record<string, ArticleContent> = {
     title: "Rituel beauté : l'importance de la belle lingerie",
     description: "La confiance en soi commence par la lingerie que l'on porte. Découvrez comment les dessous féminins transforment votre posture, votre humeur et votre regard sur vous-même.",
     keywords: "lingerie confiance en soi, belle lingerie bien-être, dessous féminins beauté, lingerie luxe rituel beauté, sous-vêtements femme confiance",
-    image: "/images/blog-1.png",
+    image: "/images/femmelingerierouge.jpeg",
     date: "28 Octobre 2024",
     dateISO: "2024-10-28T08:00:00+01:00",
     author: "Sophie, Créatrice",
