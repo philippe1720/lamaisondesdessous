@@ -374,7 +374,7 @@ const CONTENT: Record<string, ArticleContent> = {
     title: "Comment bien choisir son habillage de nuit",
     description: "Nuisette en soie ou combinaison satinée ? Guide complet pour choisir votre habillage de nuit selon vos envies, votre morphologie et la saison.",
     keywords: "habillage de nuit, nuisette soie, combinaison satinée, lingerie de nuit, choisir pyjama femme, dessous féminins nuit",
-    image: "/images/blog-2.png",
+    image: "/images/lingeriedenuit.jpg",
     date: "12 Juin 2024",
     dateISO: "2024-06-12T08:00:00+01:00",
     author: "Sophie, Créatrice",
