@@ -47,7 +47,7 @@ export const ARTICLES = [
     slug: "rituel-beaute-et-confiance-en-soi",
     title: "Rituel beauté : l'importance de la belle lingerie",
     excerpt: "La confiance en soi commence par les vêtements que l'on porte contre sa peau. Comment une belle lingerie transforme votre posture et votre regard sur vous-même.",
-    image: "/images/blog-1.png",
+    image: "/images/femmelingerierouge.jpeg",
     date: "28 Octobre 2024",
     year: 2024,
     category: "Bien-être",
