@@ -37,7 +37,7 @@ export const ARTICLES = [
     slug: "choisir-son-soutien-gorge-taille-confort",
     title: "Bien choisir son soutien-gorge : taille, forme et confort",
     excerpt: "80% des femmes portent la mauvaise taille de soutien-gorge. Comment trouver la pièce parfaite pour votre poitrine, votre morfologie et votre mode de vie.",
-    image: "/images/blog-3.png",
+    image: "/images/photo4.jpg",
     date: "07 Janvier 2025",
     year: 2025,
     category: "Guide",
