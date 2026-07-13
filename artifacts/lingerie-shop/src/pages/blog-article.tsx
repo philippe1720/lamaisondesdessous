@@ -471,6 +471,60 @@ const CONTENT: Record<string, ArticleContent> = {
     </>
   )
 },
+  "soutien-gorge-mal-ajuste-signes-solutions": {
+    title: "Soutien-gorge mal ajusté : 5 signes qui ne trompent pas",
+    description: "Bretelles qui glissent, dos qui remonte ou poitrine qui déborde ? Découvrez les signes d'un soutien-gorge mal ajusté et les solutions pour retrouver du confort.",
+    keywords: "soutien-gorge mal ajusté, soutien-gorge qui remonte, bretelles qui glissent, bonnet trop petit, choisir soutien-gorge",
+    image: "/images/blog-3.png",
+    date: "13 Juillet 2026",
+    dateISO: "2026-07-13T08:00:00+02:00",
+    author: "Sophie, Créatrice",
+    body: (
+      <>
+        <p>
+          Un soutien-gorge ne devrait jamais être une source d'inconfort. Pourtant, il suffit d'une taille ou d'une coupe mal adaptée pour provoquer des bretelles qui tombent, des bonnets qui débordent ou une bande qui remonte dans le dos. Voici les signes à reconnaître pour retrouver une lingerie agréable à porter.
+        </p>
+
+        <h2>La bande remonte dans le dos</h2>
+        <p>
+          La bande sous la poitrine assure l'essentiel du maintien. Si elle remonte dans le dos, le tour est probablement trop grand ou l'élastique s'est détendu. Essayez un réglage plus serré ou un tour de dos inférieur.
+        </p>
+
+        <h2>La poitrine déborde des bonnets</h2>
+        <p>
+          Un débordement au-dessus ou sur les côtés indique généralement que les bonnets sont trop petits. Essayez un bonnet supérieur tout en conservant le même tour de dos afin de donner davantage de place à la poitrine.
+        </p>
+
+        <h2>Les bonnets forment des plis</h2>
+        <p>
+          Des bonnets qui bâillent ne signifient pas toujours qu'ils sont trop grands. La forme du modèle peut simplement ne pas correspondre à votre poitrine. Un balconnet, un triangle ou un soutien-gorge plus souple peut offrir un meilleur ajustement.
+        </p>
+
+        <h2>Les bretelles glissent constamment</h2>
+        <p>
+          Commencez par régler leur longueur. Si elles continuent de tomber, le tour de dos peut être trop large ou les bretelles trop écartées pour vos épaules. Un modèle à bretelles rapprochées ou croisées sera souvent plus adapté.
+        </p>
+
+        <h2>Les armatures deviennent douloureuses</h2>
+        <p>
+          Les armatures doivent entourer la poitrine sans la piquer ni l'écraser. Une gêne persistante peut signaler un bonnet trop petit, une armature trop étroite ou une coupe inadaptée à votre morphologie.
+        </p>
+
+        <h2>Le bon soutien-gorge se fait oublier</h2>
+        <p>
+          La bande doit rester horizontale, les bonnets doivent envelopper toute la poitrine et les bretelles doivent tenir sans creuser les épaules. N'hésitez pas à essayer plusieurs formes : deux soutiens-gorge affichant la même taille peuvent offrir un résultat très différent.
+        </p>
+
+        <p>
+          Chez <strong>La Maison des Dessous</strong>, nous sélectionnons des ensembles qui associent féminité et confort. Découvrez notre <a href="/produit">collection de lingerie</a> et trouvez la pièce qui saura mettre votre silhouette en valeur.
+        </p>
+
+        <blockquote>
+          Un soutien-gorge bien choisi ne comprime pas votre corps : il accompagne naturellement chacun de vos mouvements.
+        </blockquote>
+      </>
+    )
+  },
 };
 
 export default function BlogArticle() {
