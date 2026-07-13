@@ -57,7 +57,7 @@ export const ARTICLES = [
     slug: "comment-choisir-sa-lingerie-de-nuit",
     title: "Comment bien choisir son habillage de nuit",
     excerpt: "Nuisette en soie ou combinaison satinée ? Nos conseils pour des nuits douces et élégantes, en harmonie avec vos envies et votre morphologie.",
-    image: "/images/blog-2.png",
+    image: "/images/lingeriedenuit.jpg",
     date: "12 Juin 2024",
     year: 2024,
     category: "Guide",
