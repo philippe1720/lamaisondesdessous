@@ -1,0 +1,391 @@
+{
+  "updatedAt": "2026-10-08T15:26:00Z",
+  "products": [
+    {
+      "id": "20985",
+      "slug": "bas-autofixants-couture-noirs-20-deniers",
+      "name": "Bas autofixants couture noirs — 20 deniers",
+      "description": "Une couture arrière et une jarretière en dentelle pour retrouver l’élégance des bas classiques.",
+      "composition": "100 % polyamide",
+      "category": "autofixants",
+      "brand": "Cotelli Legwear",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/20985_300_bas_autofixants_couture_noir_1-cotelli_legwear.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20985/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20985/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20985/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "4024144038749",
+          "size": "XS",
+          "color": "Noir",
+          "stock": 3,
+          "priceCents": 2340
+        },
+        {
+          "ean": "4024144038756",
+          "size": "S",
+          "color": "Noir",
+          "stock": 2,
+          "priceCents": 2340
+        },
+        {
+          "ean": "4024144038763",
+          "size": "M",
+          "color": "Noir",
+          "stock": 2,
+          "priceCents": 2340
+        },
+        {
+          "ean": "4024144038770",
+          "size": "L",
+          "color": "Noir",
+          "stock": 3,
+          "priceCents": 2340
+        },
+        {
+          "ean": "4024144038787",
+          "size": "XL",
+          "color": "Noir",
+          "stock": 1,
+          "priceCents": 2340
+        }
+      ]
+    },
+    {
+      "id": "20986",
+      "slug": "bas-autofixants-rouges-satines",
+      "name": "Bas autofixants rouges satinés",
+      "description": "Un voile rouge extensible, terminé par une jarretière en dentelle doublée de silicone.",
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "category": "autofixants",
+      "brand": "Cotelli Legwear",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/20986_300_bas_autofixants_rouge-cotelli_legwear.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20986/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20986/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20986/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "4024144096916",
+          "size": "XS",
+          "color": "Rouge",
+          "stock": 2,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096923",
+          "size": "S",
+          "color": "Rouge",
+          "stock": 2,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096930",
+          "size": "M",
+          "color": "Rouge",
+          "stock": 1,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096947",
+          "size": "L",
+          "color": "Rouge",
+          "stock": 2,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096954",
+          "size": "XL",
+          "color": "Rouge",
+          "stock": 1,
+          "priceCents": 2272
+        }
+      ]
+    },
+    {
+      "id": "20987",
+      "slug": "bas-autofixants-blancs-satines",
+      "name": "Bas autofixants blancs satinés",
+      "description": "Un voile blanc satiné et une finition dentelle pour accompagner vos tenues claires.",
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "category": "autofixants",
+      "brand": "Cotelli Legwear",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/20987_300_bas_autofixants_blanc-cotelli_legwear.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20987/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20987/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20987/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "4024144096862",
+          "size": "XS",
+          "color": "Blanc",
+          "stock": 1,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096879",
+          "size": "S",
+          "color": "Blanc",
+          "stock": 2,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096886",
+          "size": "M",
+          "color": "Blanc",
+          "stock": 2,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096893",
+          "size": "L",
+          "color": "Blanc",
+          "stock": 2,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144096909",
+          "size": "XL",
+          "color": "Blanc",
+          "stock": 3,
+          "priceCents": 2272
+        }
+      ]
+    },
+    {
+      "id": "20988",
+      "slug": "bas-resille-noirs-a-jarretiere-lacee",
+      "name": "Bas résille noirs à jarretière lacée",
+      "description": "Une résille noire et un détail lacé derrière la cuisse, à attacher à votre porte-jarretelles.",
+      "composition": "100 % polyamide",
+      "category": "porte-jarretelles",
+      "brand": "Cotelli Legwear",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/20988_300_bas_resille_noir-cotelli_legwear.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20988/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20988/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20988/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "4024144073580",
+          "size": "S/M",
+          "color": "Noir",
+          "stock": 3,
+          "priceCents": 2272
+        },
+        {
+          "ean": "4024144073603",
+          "size": "M/L",
+          "color": "Noir",
+          "stock": 0,
+          "priceCents": 2272
+        }
+      ]
+    },
+    {
+      "id": "20990",
+      "slug": "bas-resille-autofixants-noirs",
+      "name": "Bas résille autofixants noirs",
+      "description": "La texture de la résille, avec une jarretière siliconée pour un port sans porte-jarretelles.",
+      "composition": "100 % polyamide",
+      "category": "autofixants",
+      "brand": "Cotelli Legwear",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/20990_300_bas_resille_autofixants_noir-cotelli_legwear.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20990/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20990/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20990/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "4024144021246",
+          "size": "S",
+          "color": "Noir",
+          "stock": 1,
+          "priceCents": 1826
+        },
+        {
+          "ean": "4024144021970",
+          "size": "M",
+          "color": "Noir",
+          "stock": 1,
+          "priceCents": 1826
+        },
+        {
+          "ean": "4024144022076",
+          "size": "L",
+          "color": "Noir",
+          "stock": 2,
+          "priceCents": 1826
+        },
+        {
+          "ean": "4024144022090",
+          "size": "XL",
+          "color": "Noir",
+          "stock": 1,
+          "priceCents": 1826
+        }
+      ]
+    },
+    {
+      "id": "20992",
+      "slug": "bas-autofixants-beiges-dentelle-large-20-deniers",
+      "name": "Bas autofixants beiges — dentelle large 20 deniers",
+      "description": "Un voile beige 20 deniers surmonté d’une jarretière en dentelle de 14 cm doublée de silicone.",
+      "composition": "80 % polyamide, 20 % élasthanne",
+      "category": "autofixants",
+      "brand": "Cotelli Legwear",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/20992_300_bas_autofixants_large_jarretiere_dentelle_beige-cotelli_legwear.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20992/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20992/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/20992/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "4024144325504",
+          "size": "1",
+          "color": "Beige",
+          "stock": 4,
+          "priceCents": 2958
+        },
+        {
+          "ean": "4024144325511",
+          "size": "2",
+          "color": "Beige",
+          "stock": 4,
+          "priceCents": 2958
+        },
+        {
+          "ean": "4024144325528",
+          "size": "3",
+          "color": "Beige",
+          "stock": 4,
+          "priceCents": 2958
+        },
+        {
+          "ean": "4024144325535",
+          "size": "4",
+          "color": "Beige",
+          "stock": 4,
+          "priceCents": 2958
+        },
+        {
+          "ean": "4024144325542",
+          "size": "5",
+          "color": "Beige",
+          "stock": 5,
+          "priceCents": 2958
+        }
+      ]
+    },
+    {
+      "id": "22177",
+      "slug": "bas-resille-noirs-a-dentelle-florale",
+      "name": "Bas résille noirs à dentelle florale",
+      "description": "Une fine résille avec bordure florale et pointes renforcées, à porter avec un porte-jarretelles.",
+      "composition": "90 % polyamide, 10 % élasthanne",
+      "category": "porte-jarretelles",
+      "brand": "Daring Intimates",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/22177_300_bas_resille_net_stockings_with_lace_top-daring_intimates.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22177/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22177/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22177/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "8713221827500",
+          "size": "TU",
+          "color": "",
+          "stock": 11,
+          "priceCents": 1929
+        }
+      ]
+    },
+    {
+      "id": "22178",
+      "slug": "bas-autofixants-satin-touch-20-deniers",
+      "name": "Bas autofixants Satin Touch — 20 deniers",
+      "description": "Un voile noir semi-transparent, une bordure florale et deux bandes de silicone.",
+      "composition": "80 % polyamide, 20 % élasthanne",
+      "category": "autofixants",
+      "brand": "Daring Intimates",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/22178_300_bas_autofixants_satin_touch_20d-daring_intimates.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22178/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22178/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22178/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "8713221827494",
+          "size": "TU",
+          "color": "",
+          "stock": 12,
+          "priceCents": 2220
+        }
+      ]
+    },
+    {
+      "id": "22179",
+      "slug": "bas-resille-noirs-extravagant",
+      "name": "Bas résille noirs Extravagant",
+      "description": "Une résille extensible avec pointes renforcées, conçue pour se fixer à un porte-jarretelles.",
+      "composition": "90 % polyamide, 10 % élasthanne",
+      "category": "porte-jarretelles",
+      "brand": "Daring Intimates",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/22179_300_bas_resille_extravagant_fishnet_tights-daring_intimates.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22179/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22179/photo4_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22179/photo3_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "8713221827517",
+          "size": "TU",
+          "color": "",
+          "stock": 7,
+          "priceCents": 1929
+        }
+      ]
+    },
+    {
+      "id": "22289",
+      "slug": "bas-resille-autofixants-beiges-ohyeah",
+      "name": "Bas résille autofixants beiges Ohyeah",
+      "description": "Une résille beige extensible et une jarretière en dentelle avec bande de silicone.",
+      "composition": "88 % polyamide, 12 % élasthanne",
+      "category": "autofixants",
+      "brand": "Ohyeah",
+      "images": [
+        "https://www.busyx.com/photos_produits/bas_collants/22289_300_bas_resille_jarretiere_dentelle_beige-ohyeah.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22289/photo2_300.jpg",
+        "https://www.busyx-pro.com/media/produits/alt_images/22289/photo1_300.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "3760343975874",
+          "size": "TU",
+          "color": "Beige",
+          "stock": 1,
+          "priceCents": 1461
+        },
+        {
+          "ean": "3760343975867",
+          "size": "Grande Taille",
+          "color": "Beige",
+          "stock": 6,
+          "priceCents": 1461
+        }
+      ]
+    }
+  ]
+}
