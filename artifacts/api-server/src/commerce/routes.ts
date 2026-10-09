@@ -9,7 +9,7 @@ export const commerceRouter = Router();
 const enabled = () => process.env.CHECKOUT_ENABLED === 'true' && Boolean(process.env.STRIPE_SECRET_KEY && process.env.BUSYX_FEED_URL && process.env.SITE_URL);
 commerceRouter.get('/commerce/config', async (_req, res) => {
   let upsell = null;
-  try { if(process.env.UPSELL_EAN) upsell=upsellProduct(await supplierRows()); } catch { /* Optional offer is omitted when not verifiable. */ }
+  try { if(process.env.BUSYX_FEED_URL) upsell=upsellProduct(await supplierRows()); } catch { /* Optional offer is omitted when not verifiable. */ }
   const points=relayPoints();
   res.json({ checkoutEnabled: enabled(), pickupEnabled: points.length>0, points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
 });
