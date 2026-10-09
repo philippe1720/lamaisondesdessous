@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
   name: "La Maison des Dessous",
-  description: "Boutique de lingerie féminine d'exception. Un univers féminin, sensuel et raffiné.",
+  description: "La maison dédiée aux bas pour femme : autofixants, voile et résille pour porte-jarretelles.",
   url: "https://lamaisondesdessous.fr",
   contact: {
     email: "contact@lamaisondesdessous.fr",
