@@ -26,7 +26,7 @@ Branche de travail, à vérifier avant fusion dans la branche déployée par Ren
 
 `PICKUP_POINTS_JSON` : tableau de points vérifiés auprès du transporteur, avec `id`, `name`, `address`, `postcode`, `city`. Sans liste, Pickup est désactivé et expliqué. Ce mécanisme est une première liste sélectionnable, pas un moteur géographique national. Brancher ensuite la recherche du transporteur.
 
-`UPSELL_EAN` : référence du cadeau payant, disponible dans le flux configuré. Le flux actuel Lingerie ne contient ni huile ni bougie : l'étendre ou configurer un flux complet avant activation. `UPSELL_DESCRIPTION` permet de rédiger le texte. Le prix applique 30 % de marge au coût TTC, sans doubler le transport. L'offre disparaît en cas d'indisponibilité.
+`UPSELL_EAN` : référence de l'offre complémentaire payante. Par défaut : `3479228260621`, mini bougie de massage vanille 35 ml choisie par Philippe. Une valeur vide désactive l'offre. Le flux actuel Lingerie ne contient pas cette référence : l'étendre ou configurer un flux complet avant activation. Aucun prix ni stock n'est inventé. `UPSELL_DESCRIPTION` permet de modifier le texte. Le prix applique 30 % de marge au coût TTC, sans doubler le transport. L'offre disparaît en cas d'indisponibilité.
 
 ## Exploitation initiale
 
