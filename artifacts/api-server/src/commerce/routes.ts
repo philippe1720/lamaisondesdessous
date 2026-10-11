@@ -45,12 +45,12 @@ commerceRouter.post('/checkout', async (req, res) => {
       if(!offer || offer.ean!==req.body.upsell || lines.some(l=>l.ean===offer.ean)) {res.status(409).json({error:'L’offre complémentaire n’est plus disponible. Continuez sans cet article.'});return;}
       chosen.push({product:{id:offer.supplierId,slug:'',name:offer.name,description:offer.description,composition:'',category:'complement',brand:'',images:[offer.image],variants:[]},variant:{ean:offer.ean,size:'',color:'',stock:offer.stock,priceCents:offer.priceCents},quantity:1});
     }
-    const shipping=delivery==='home'?258:0;
+    const shipping=0;
     const total=chosen.reduce((s,l)=>s+l.variant.priceCents*l.quantity,0)+shipping;
     if(req.body.expectedTotal!==total) {res.status(409).json({error:'Un prix a changé. Revenez au panier et actualisez la page avant de continuer.'});return;}
-    const params=new URLSearchParams({mode:'payment',success_url:`${origin}/commande/confirmation`,cancel_url:`${origin}/panier`,locale:'fr',customer_creation:'always','shipping_address_collection[allowed_countries][0]':'FR','phone_number_collection[enabled]':'true','metadata[delivery]':'colissimo_home','payment_intent_data[metadata][delivery]':'colissimo_home','shipping_options[0][shipping_rate_data][type]':'fixed_amount','shipping_options[0][shipping_rate_data][fixed_amount][amount]':'258','shipping_options[0][shipping_rate_data][fixed_amount][currency]':'eur','shipping_options[0][shipping_rate_data][display_name]':'Colissimo domicile — supplément'});
+    const params=new URLSearchParams({mode:'payment',success_url:`${origin}/commande/confirmation`,cancel_url:`${origin}/panier`,locale:'fr',customer_creation:'always','shipping_address_collection[allowed_countries][0]':'FR','phone_number_collection[enabled]':'true','metadata[delivery]':'colissimo_home','payment_intent_data[metadata][delivery]':'colissimo_home','shipping_options[0][shipping_rate_data][type]':'fixed_amount','shipping_options[0][shipping_rate_data][fixed_amount][amount]':'0','shipping_options[0][shipping_rate_data][fixed_amount][currency]':'eur','shipping_options[0][shipping_rate_data][display_name]':'Colissimo domicile offert'});
     params.set('shipping_options[0][shipping_rate_data][fixed_amount][amount]',String(shipping));
-    params.set('shipping_options[0][shipping_rate_data][display_name]',delivery==='home'?'Colissimo domicile — supplément':'Colissimo Pickup offert');
+    params.set('shipping_options[0][shipping_rate_data][display_name]',delivery==='home'?'Colissimo domicile offert':'Colissimo Pickup offert');
     params.set('metadata[delivery]',delivery);
     params.set('payment_intent_data[metadata][delivery]',delivery);
     if(point) {

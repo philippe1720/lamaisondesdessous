@@ -19,14 +19,14 @@ test('Checkout validates supplier stock, price, delivery and builds a single Str
  };
  const server=express().use(express.json()).use('/api',commerceRouter).listen(0); await once(server,'listening');
  const address=server.address() as {port:number};const origin=`http://localhost:${address.port}`;
- const valid={lines:[{ean:variant.ean,quantity:1}],delivery:'home',expectedTotal:priceCents(890)+258};
+ const valid={lines:[{ean:variant.ean,quantity:1}],delivery:'home',expectedTotal:priceCents(890)};
  const send=(body:unknown)=>nativeFetch(origin+'/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
  try{
   assert.equal((await send({...valid,lines:[...valid.lines,...valid.lines]})).status,400);
   assert.equal((await send({...valid,expectedTotal:1})).status,409);
   assert.equal((await send({...valid,delivery:'pickup',pickup:'untrusted'})).status,400);
   stock=0;assert.equal((await send(valid)).status,409);assert.equal(stripeCalls,0);
-  stock=3;assert.equal((await send(valid)).status,200);assert.equal(stripeCalls,1);
+  stock=3;assert.equal((await send(valid)).status,200);assert.equal(stripeCalls,1);assert.equal(captured?.get('shipping_options[0][shipping_rate_data][fixed_amount][amount]'),'0');
   assert.equal(captured?.get('mode'),'payment');assert.equal(captured?.get('line_items[0][price_data][unit_amount]'),String(priceCents(890)));
   assert.equal(captured?.get('line_items[0][price_data][product_data][metadata][ean]'),variant.ean);
   assert.equal((await send({...valid,delivery:'pickup',pickup:'relay-1',expectedTotal:priceCents(890)})).status,200);

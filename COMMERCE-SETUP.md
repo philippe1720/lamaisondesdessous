@@ -7,7 +7,7 @@ Branche de travail, à vérifier avant fusion dans la branche déployée par Ren
 - Dix références de bas, trois pour porte-jarretelles et sept autofixantes, avec variantes EAN/taille, composition et photos du fournisseur.
 - Accueil spécialisé, catalogue, filtres de couleur, fiches, guide, navigation mobile et panier local persistant.
 - Prix public en centimes : `ceil((achat_HT_centimes * 120 + 57000) / 70)`. Hypothèse de TVA d'achat 20 % non récupérée. Marge de 30 % sur le prix de vente avant Stripe, cotisations, retours et remises ; ce n'est pas une majoration de 30 %.
-- 5,70 € de coût Pickup inclus dans chaque paire. Supplément domicile par commande : 2,58 €. Chronopost sur demande uniquement.
+- 5,70 € de coût Pickup inclus dans chaque paire. Livraison standard offerte à domicile comme en Pickup. Le coût domicile supplémentaire de 2,58 € est absorbé : les prix des produits restent inchangés, donc la marge réelle est inférieure à 30 % en livraison domicile. Chronopost sur demande uniquement.
 - Pages HTML générées au build pour les catégories et fiches ; sitemap ; parcours de commande non indexable.
 - Contrôle serveur du stock et du prix à partir du flux avant de créer un paiement Stripe unique. Les coûts fournisseurs et le token ne sont pas exposés dans le front.
 - Offre complémentaire facultative et relais contrôlés depuis une configuration serveur. Aucun article inventé.
@@ -53,6 +53,6 @@ Les conditions commerciales et informations existantes du site restent à relire
 
 - Compilation Vite et serveur Express réussies ; 15 pages HTML et sitemap générés.
 - Contrôles TypeScript front et serveur réussis.
-- Tests : calcul TTC/marge, CSV multi-lignes, rejet de paniers invalides ; intégration checkout avec fournisseur et Stripe simulés (rupture, changement de prix, relais inconnu, métadonnées EAN, frais domicile/Pickup, désactivation).
+- Tests : calcul TTC/marge, CSV multi-lignes, rejet de paniers invalides ; intégration checkout avec fournisseur et Stripe simulés (rupture, changement de prix, relais inconnu, métadonnées EAN, gratuité domicile/Pickup, désactivation).
 - Aucun paiement Stripe réel ou de test distant effectué : les clés ne sont pas configurées.
 - Vérification visuelle navigateur non réalisée : le téléchargement du navigateur de test a échoué dans cet environnement. À effectuer avant fusion.

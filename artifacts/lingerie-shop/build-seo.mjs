@@ -13,7 +13,7 @@ const pages=[
   ['/bas-autofixants','Bas autofixants','Des bas à jarretière siliconée pour un port sans porte-jarretelles.',list(products.filter(p=>p.category==='autofixants'))],
   ['/bas-porte-jarretelles','Bas pour porte-jarretelles','Des bas à fixer aux attaches d’un porte-jarretelles, non fourni.',list(products.filter(p=>p.category==='porte-jarretelles'))],
   ['/guide-des-bas','Bien choisir ses bas','Maintien, taille et deniers : les repères pour choisir vos bas.', '<h2>Autofixants ou porte-jarretelles ?</h2><p>Les autofixants possèdent une bande de silicone. Les autres bas nécessitent des attaches.</p><h2>La taille</h2><p>Consultez les correspondances du fabricant. Une taille unique ne convient pas à toutes les morphologies.</p>'],
-  ...products.map(p=>[`/produit/${p.slug}`,p.name,p.description,`<img src="${esc(p.images[0])}" alt="${esc(p.name)}" width="300"><p>Composition : ${esc(p.composition)}</p><p>Marque : ${esc(p.brand)}</p><p>Tailles : ${p.variants.map(v=>esc(v.size)).join(', ')}</p><p>À partir de ${(Math.min(...p.variants.map(v=>v.priceCents))/100).toFixed(2)} € — Pickup offert.</p>`])
+  ...products.map(p=>[`/produit/${p.slug}`,p.name,p.description,`<img src="${esc(p.images[0])}" alt="${esc(p.name)}" width="300"><p>Composition : ${esc(p.composition)}</p><p>Marque : ${esc(p.brand)}</p><p>Tailles : ${p.variants.map(v=>esc(v.size)).join(', ')}</p><p>À partir de ${(Math.min(...p.variants.map(v=>v.priceCents))/100).toFixed(2)} € — Livraison standard offerte à domicile et en Pickup.</p>`])
 ];
 await mkdir(path.join(out,'seo'),{recursive:true});
 for(const [url,title,description,body] of pages){
