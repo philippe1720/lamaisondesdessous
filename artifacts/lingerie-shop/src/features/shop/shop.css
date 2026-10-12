@@ -7,3 +7,5 @@
 .stocking-product>section{min-width:0}.stocking-thumbs{flex-wrap:wrap}.stocking-page{width:100%;min-width:0}.stocking-size-guide table{table-layout:fixed;overflow-wrap:anywhere}
 
 .stocking-button:not(.secondary){background:#841c32;color:#fff;border-color:#841c32}.stocking-sizes button[aria-pressed=true]{color:hsl(var(--foreground))}
+
+.stocking-delivery label{display:flex;align-items:center;padding:14px;border:1px solid hsl(var(--border));cursor:pointer}.stocking-delivery label:has(input:checked){border-color:#841c32;background:#841c3210;font-weight:700}.stocking-delivery input[type=radio]{accent-color:#841c32;flex-shrink:0}
