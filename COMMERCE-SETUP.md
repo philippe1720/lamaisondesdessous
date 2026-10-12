@@ -54,5 +54,41 @@ Les conditions commerciales et informations existantes du site restent à relire
 - Compilation Vite et serveur Express réussies ; 15 pages HTML et sitemap générés.
 - Contrôles TypeScript front et serveur réussis.
 - Tests : calcul TTC/marge, CSV multi-lignes, rejet de paniers invalides ; intégration checkout avec fournisseur et Stripe simulés (rupture, changement de prix, relais inconnu, métadonnées EAN, gratuité domicile/Pickup, désactivation).
-- Aucun paiement Stripe réel ou de test distant effectué : les clés ne sont pas configurées.
-- Vérification visuelle navigateur non réalisée : le téléchargement du navigateur de test a échoué dans cet environnement. À effectuer avant fusion.
+- Aucun paiement Stripe réel ou de test distant effectué par nos tests locaux.
+- Vérification navigateur réalisée avec Chromium sur ordinateur et mobile ; transports et paiements simulés pour les parcours de recette.
+
+## Parcours client — mise à jour du 11 octobre 2026
+
+- Guide `/guide-des-tailles` et aide sur chaque fiche. Tableau général Cottelli en cm sourcé : https://www.orion.de/product/stockings-25407895021. Il ne s'agit pas d'un tableau cuisse/longueur spécifique aux bas : les tailles 1–5 et S/M ne sont pas converties arbitrairement. Les correspondances spécifiques des bas Daring Intimates et Ohyeah restent à obtenir auprès de BusyX. Le guide Ohyeah public https://ohyeahqueen.com/pages/size-chart n'indique pas les mensurations cuisse/longueur de notre référence : il n'est pas transposé aux bas.
+- Caractéristiques extraites du CSV BusyX du 8 octobre : deniers seulement lorsqu'indiqués, aspect, maintien, pointes, jarretière, contenu. Les 39 photos existent en résolution 800 ; elles sont agrandissables.
+- Livraison/retours : page `/livraison-retours`, liens sur fiches, checkout et pied de page. Conservation du délai commercial de 30 jours déjà présent dans le site ; distinction avec le droit légal de 14 jours. Délai standard indicatif 3–5 jours ouvrés, Chronopost payant sur demande. Confirmer les délais de préparation et l'adresse de retour opérationnelle avec le fournisseur avant ouverture.
+- Bougie : choix ajouter/continuer sans ajouter de même visibilité ; sélection mémorisée pendant la commande ; retrait possible avant paiement. Elle n'est visible que si le flux la fournit avec stock, image et prix valides.
+
+### Colissimo : activation nécessaire
+
+Ajouter `COLISSIMO_API_KEY` (clé du service points de retrait fournie par Colissimo, ou accès agréé proposé par BusyX). Ne pas employer la clé Stripe ou le token CSV. Documentation : https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-pdr/fr.
+
+Le formulaire recherche par code postal + ville, affiche adresse et horaires, puis revérifie le relais côté serveur avant paiement. Les points fermés sont exclus. Sans clé, `PICKUP_POINTS_JSON` reste utilisable pour une sélection manuellement vérifiée, filtrée par code postal ; sans l'un ou l'autre, la sélection reste indisponible, sans relais fictif. La compatibilité des identifiants sélectionnés avec le traitement dropshipping BusyX doit être vérifiée sur une commande de test.
+
+### Stripe : confirmation, notifications et suivi
+
+La page privée `/commande/confirmation?session_id=…#access=…` vérifie le paiement auprès de Stripe. Elle affiche les articles avec tailles, quantités, montants, adresse ou point Pickup, remboursement et suivi. Un code aléatoire de 256 bits enregistré sur la session Stripe protège les coordonnées. Les pages privées désactivent Google Analytics, le cache et le referrer. Le panier est diminué des quantités payées une seule fois sur cet appareil ; les autres achats restent présents.
+
+Créer dans Stripe **en environnement test** une destination webhook **snapshot** :
+- URL : `https://lamaisondesdessous.fr/api/stripe/webhook`
+- Événements : `checkout.session.completed`, `checkout.session.async_payment_succeeded`.
+- Mettre le secret de cette destination dans Render : `STRIPE_WEBHOOK_SECRET=whsec_…`, puis redéployer.
+
+La signature est vérifiée sur le corps brut avec tolérance de 5 minutes. Le serveur consulte l'état actuel Stripe ; il note durablement `payment_verified=true` sur les sessions payées de cette boutique. Les événements répétés réécrivent la même information, sans commande fournisseur ni expédition automatique. Les erreurs Stripe renvoient 503 pour provoquer une nouvelle livraison du webhook. Stripe reste le registre durable : aucune base locale éphémère n'est utilisée.
+
+Le reçu e-mail reste celui de Stripe, à activer dans son tableau de bord ; aucun e-mail personnalisé d'expédition n'est encore envoyé automatiquement. La cliente peut conserver/imprimer son lien de confirmation et retrouver ses dernières commandes sur le même appareil via `/suivi-commande`. Un changement d'appareil nécessite le lien privé conservé ; aucun accès par simple numéro de commande.
+
+**Après expédition par BusyX**, ouvrir le paiement dans Stripe et ajouter aux métadonnées du paiement (PaymentIntent) :
+- `tracking_number` : numéro exact du colis.
+- `tracking_carrier` : `colissimo` ou `chronopost`.
+
+La page de suivi lit ces données en direct et propose le lien officiel du transporteur. Elle ne simule ni expédition ni livraison. Envoyer le numéro de suivi à la cliente reste manuel tant qu'aucune intégration de notification fournisseur n'est configurée. Ne pas modifier `order_access` sur la session Checkout.
+
+### Recette de cette mise à jour
+
+Tests simulés : vérification signature, rejet d'altération/rejeu expiré, événement répété, accès refusé avec un mauvais code, détails/adresse, suivi et remboursement, recherche transporteur et exclusion des relais fermés, checkout zéro frais standard. Recette Stripe et Colissimo avec les vrais comptes encore requise ; aucun encaissement ni commande BusyX n'a été déclenché.

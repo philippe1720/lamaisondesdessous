@@ -10,10 +10,10 @@
       "category": "autofixants",
       "brand": "Cotelli Legwear",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/20985_300_bas_autofixants_couture_noir_1-cotelli_legwear.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20985/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20985/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20985/photo3_300.jpg"
+        "/images/bas/20985-1.jpg",
+        "/images/bas/20985-2.jpg",
+        "/images/bas/20985-3.jpg",
+        "/images/bas/20985-4.jpg"
       ],
       "variants": [
         {
@@ -51,7 +51,14 @@
           "stock": 1,
           "priceCents": 2340
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Voile transparent",
+        "Deniers": "20 deniers",
+        "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus",
+        "Finition": "Couture arrière"
+      }
     },
     {
       "id": "20986",
@@ -62,10 +69,10 @@
       "category": "autofixants",
       "brand": "Cotelli Legwear",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/20986_300_bas_autofixants_rouge-cotelli_legwear.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20986/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20986/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20986/photo3_300.jpg"
+        "/images/bas/20986-1.jpg",
+        "/images/bas/20986-2.jpg",
+        "/images/bas/20986-3.jpg",
+        "/images/bas/20986-4.jpg"
       ],
       "variants": [
         {
@@ -103,7 +110,13 @@
           "stock": 1,
           "priceCents": 2272
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Voile satiné",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
+      }
     },
     {
       "id": "20987",
@@ -114,10 +127,10 @@
       "category": "autofixants",
       "brand": "Cotelli Legwear",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/20987_300_bas_autofixants_blanc-cotelli_legwear.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20987/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20987/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20987/photo3_300.jpg"
+        "/images/bas/20987-1.jpg",
+        "/images/bas/20987-2.jpg",
+        "/images/bas/20987-3.jpg",
+        "/images/bas/20987-4.jpg"
       ],
       "variants": [
         {
@@ -155,7 +168,13 @@
           "stock": 3,
           "priceCents": 2272
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Voile satiné",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
+      }
     },
     {
       "id": "20988",
@@ -166,10 +185,10 @@
       "category": "porte-jarretelles",
       "brand": "Cotelli Legwear",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/20988_300_bas_resille_noir-cotelli_legwear.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20988/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20988/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20988/photo3_300.jpg"
+        "/images/bas/20988-1.jpg",
+        "/images/bas/20988-2.jpg",
+        "/images/bas/20988-3.jpg",
+        "/images/bas/20988-4.jpg"
       ],
       "variants": [
         {
@@ -186,7 +205,13 @@
           "stock": 0,
           "priceCents": 2272
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Résille ajourée",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Porte-jarretelles nécessaire, non fourni",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
+      }
     },
     {
       "id": "20990",
@@ -197,10 +222,10 @@
       "category": "autofixants",
       "brand": "Cotelli Legwear",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/20990_300_bas_resille_autofixants_noir-cotelli_legwear.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20990/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20990/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20990/photo3_300.jpg"
+        "/images/bas/20990-1.jpg",
+        "/images/bas/20990-2.jpg",
+        "/images/bas/20990-3.jpg",
+        "/images/bas/20990-4.jpg"
       ],
       "variants": [
         {
@@ -231,7 +256,13 @@
           "stock": 1,
           "priceCents": 1826
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Résille ajourée",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
+      }
     },
     {
       "id": "20992",
@@ -242,10 +273,10 @@
       "category": "autofixants",
       "brand": "Cotelli Legwear",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/20992_300_bas_autofixants_large_jarretiere_dentelle_beige-cotelli_legwear.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20992/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20992/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/20992/photo3_300.jpg"
+        "/images/bas/20992-1.jpg",
+        "/images/bas/20992-2.jpg",
+        "/images/bas/20992-3.jpg",
+        "/images/bas/20992-4.jpg"
       ],
       "variants": [
         {
@@ -283,7 +314,14 @@
           "stock": 5,
           "priceCents": 2958
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Voile transparent",
+        "Deniers": "20 deniers",
+        "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus",
+        "Jarretière": "Dentelle de 14 cm"
+      }
     },
     {
       "id": "22177",
@@ -294,10 +332,10 @@
       "category": "porte-jarretelles",
       "brand": "Daring Intimates",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/22177_300_bas_resille_net_stockings_with_lace_top-daring_intimates.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22177/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22177/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22177/photo3_300.jpg"
+        "/images/bas/22177-1.jpg",
+        "/images/bas/22177-2.jpg",
+        "/images/bas/22177-3.jpg",
+        "/images/bas/22177-4.jpg"
       ],
       "variants": [
         {
@@ -307,7 +345,14 @@
           "stock": 11,
           "priceCents": 1929
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Résille ajourée",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Porte-jarretelles nécessaire, non fourni",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus",
+        "Pointes": "Renforcées"
+      }
     },
     {
       "id": "22178",
@@ -318,10 +363,10 @@
       "category": "autofixants",
       "brand": "Daring Intimates",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/22178_300_bas_autofixants_satin_touch_20d-daring_intimates.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22178/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22178/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22178/photo3_300.jpg"
+        "/images/bas/22178-1.jpg",
+        "/images/bas/22178-2.jpg",
+        "/images/bas/22178-3.jpg",
+        "/images/bas/22178-4.jpg"
       ],
       "variants": [
         {
@@ -331,7 +376,14 @@
           "stock": 12,
           "priceCents": 2220
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Voile semi-transparent",
+        "Deniers": "20 deniers",
+        "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus",
+        "Pointes": "Renforcées"
+      }
     },
     {
       "id": "22179",
@@ -342,10 +394,10 @@
       "category": "porte-jarretelles",
       "brand": "Daring Intimates",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/22179_300_bas_resille_extravagant_fishnet_tights-daring_intimates.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22179/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22179/photo4_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22179/photo3_300.jpg"
+        "/images/bas/22179-1.jpg",
+        "/images/bas/22179-2.jpg",
+        "/images/bas/22179-3.jpg",
+        "/images/bas/22179-4.jpg"
       ],
       "variants": [
         {
@@ -355,7 +407,14 @@
           "stock": 7,
           "priceCents": 1929
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Résille ajourée",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Porte-jarretelles nécessaire, non fourni",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus",
+        "Pointes": "Renforcées"
+      }
     },
     {
       "id": "22289",
@@ -366,9 +425,9 @@
       "category": "autofixants",
       "brand": "Ohyeah",
       "images": [
-        "https://www.busyx.com/photos_produits/bas_collants/22289_300_bas_resille_jarretiere_dentelle_beige-ohyeah.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22289/photo2_300.jpg",
-        "https://www.busyx-pro.com/media/produits/alt_images/22289/photo1_300.jpg"
+        "/images/bas/22289-1.jpg",
+        "/images/bas/22289-2.jpg",
+        "/images/bas/22289-3.jpg"
       ],
       "variants": [
         {
@@ -385,7 +444,13 @@
           "stock": 6,
           "priceCents": 1461
         }
-      ]
+      ],
+      "details": {
+        "Aspect": "Résille ajourée",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
+      }
     }
   ]
 }

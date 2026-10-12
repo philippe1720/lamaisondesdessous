@@ -14,7 +14,7 @@ export function findVariant(products: Product[], ean: string) {
 }
 type ShopState = {
   products: Product[]; lines: Line[]; setQuantity: (ean: string, quantity: number) => void;
-  add: (ean: string) => void; total: number; count: number; loading: boolean;
+  completeOrder: (id:string, items:{ean:string;quantity:number}[]) => void; add: (ean: string) => void; total: number; count: number; loading: boolean;
 };
 const ShopContext = createContext<ShopState | null>(null);
 export function ShopProvider({ children }: { children: ReactNode }) {
@@ -46,8 +46,20 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     const quantity = Math.min(10, item.variant.stock, (previous.find(l => l.ean === ean)?.quantity || 0) + 1);
     return [...previous.filter(l => l.ean !== ean), { ean, quantity }];
   });
+  const completeOrder=(id:string,items:{ean:string;quantity:number}[])=>{
+    try {
+      const pending=JSON.parse(sessionStorage.getItem('lmd-pending-checkout') || 'null');
+      if(pending?.id!==id)return;
+      const ids:string[]=JSON.parse(localStorage.getItem('lmd-completed-orders') || '[]');
+      if(ids.includes(id))return;
+      localStorage.setItem('lmd-completed-orders',JSON.stringify([...ids,id].slice(-100)));
+      setLines(previous=>previous.map(line=>({...line,quantity:Math.max(0,line.quantity-(items.find(i=>i.ean===line.ean)?.quantity || 0))})).filter(line=>line.quantity>0));
+      sessionStorage.removeItem('lmd-upsell');
+      sessionStorage.removeItem('lmd-pending-checkout');
+    }catch{/* Keep the basket if storage is unavailable; never clear unrelated items. */}
+  };
   const total = lines.reduce((sum, l) => sum + (findVariant(products, l.ean)?.variant.priceCents || 0) * l.quantity, 0);
-  return <ShopContext.Provider value={{ products, lines, setQuantity, add, total, count: lines.reduce((s,l) => s+l.quantity,0), loading }}>{children}</ShopContext.Provider>;
+  return <ShopContext.Provider value={{ products, lines, setQuantity, add, completeOrder, total, count: lines.reduce((s,l) => s+l.quantity,0), loading }}>{children}</ShopContext.Provider>;
 }
 export function useShop() {
   const state = useContext(ShopContext);

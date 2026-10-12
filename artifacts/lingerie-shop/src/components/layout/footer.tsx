@@ -41,6 +41,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    <nav className="stocking-footer-links" aria-label="Aide à la commande"><a href="/guide-des-tailles">Guide des tailles</a><a href="/livraison-retours">Livraison et retours</a><a href="/suivi-commande">Suivre ma commande</a></nav></footer>
   );
 }

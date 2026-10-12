@@ -8,6 +8,8 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const navigation='<nav><a href="/">Accueil</a> · <a href="/boutique">Tous les bas</a> · <a href="/bas-autofixants">Autofixants</a> · <a href="/bas-porte-jarretelles">Pour porte-jarretelles</a> · <a href="/guide-des-bas">Guide des bas</a></nav>';
 const list=items=>'<ul>'+items.map(p=>`<li><a href="/produit/${p.slug}">${esc(p.name)}</a><p>${esc(p.description)}</p></li>`).join('')+'</ul>';
 const pages=[
+  ['/guide-des-tailles','Guide des tailles par marque','Prenez vos mesures en centimètres et consultez les repères disponibles pour Cottelli, Daring Intimates et Ohyeah.','<p>Pour des bas, relevez votre hauteur, le tour de cuisse et la hauteur talon–jarretière. Les correspondances dépendent du modèle ; les tailles uniques ne conviennent pas à toutes les morphologies.</p>'],
+  ['/livraison-retours','Livraison et retours','Livraison standard offerte à domicile et en Pickup en France métropolitaine.','<p>Délai indicatif : 3 à 5 jours ouvrés. Chronopost payant sur demande, tarif et délai à confirmer avant commande.</p><p>Rétractation : 14 jours. Délai commercial de retour : 30 jours sous conditions. Contact : contact@lamaisondesdessous.fr.</p>'],
   ['/', 'Bas pour femme : autofixants, voile et résille','Une maison entièrement dédiée aux bas pour femme.',list(products)],
   ['/boutique','Tous nos bas','Découvrez notre sélection de bas pour femme.',list(products)],
   ['/bas-autofixants','Bas autofixants','Des bas à jarretière siliconée pour un port sans porte-jarretelles.',list(products.filter(p=>p.category==='autofixants'))],

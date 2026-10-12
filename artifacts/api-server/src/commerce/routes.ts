@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomBytes } from 'node:crypto';
 import { liveCatalog, snapshot, type Product } from './catalog';
 import { validateLines } from './core';
 import { relayPoints, upsellProduct } from './options';
 import { supplierRows } from './catalog';
+
+import { pickupAvailable, searchRelays } from './relay';
 
 export const commerceRouter = Router();
 const enabled = () => process.env.CHECKOUT_ENABLED === 'true' && Boolean(process.env.STRIPE_SECRET_KEY && process.env.BUSYX_FEED_URL && process.env.SITE_URL);
@@ -11,7 +13,14 @@ commerceRouter.get('/commerce/config', async (_req, res) => {
   let upsell = null;
   try { if(process.env.BUSYX_FEED_URL) upsell=upsellProduct(await supplierRows()); } catch { /* Optional offer is omitted when not verifiable. */ }
   const points=relayPoints();
-  res.json({ checkoutEnabled: enabled(), pickupEnabled: points.length>0, points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
+  res.json({ checkoutEnabled: enabled(), pickupEnabled: pickupAvailable(), points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
+});
+commerceRouter.get('/pickup-points',async(req,res)=>{
+  res.set('Cache-Control','no-store');
+  if(!pickupAvailable()){res.status(503).json({error:'La recherche de relais est momentanément indisponible. La livraison à domicile reste offerte.'});return;}
+  const postcode=String(req.query.postcode || ''),city=String(req.query.city || '');
+  if(!/^\d{5}$/.test(postcode) || /^(97|98)/.test(postcode) || city.length>100){res.status(400).json({error:'Saisissez un code postal de France métropolitaine.'});return;}
+  try{res.json({points:await searchRelays(postcode,city)});}catch{res.status(503).json({error:'Impossible de rechercher les relais. Réessayez ou choisissez la livraison à domicile offerte.'});}
 });
 commerceRouter.get('/catalog', async (_req, res) => {
   try {
@@ -29,7 +38,10 @@ commerceRouter.post('/checkout', async (req, res) => {
   try { lines = validateLines(req.body?.lines); }
   catch { res.status(400).json({error:'Panier invalide.'}); return; }
   const delivery=req.body.delivery;
-  const point=delivery==='pickup'?relayPoints().find(p=>p.id===req.body.pickup):undefined;
+  let point;
+  if(delivery==='pickup') {
+    try{point=(await searchRelays(String(req.body.pickupPostcode || ''),String(req.body.pickupCity || ''))).find(p=>p.id===req.body.pickup);}catch{res.status(503).json({error:'Impossible de vérifier ce relais. Relancez la recherche ou choisissez la livraison à domicile.'});return;}
+  }
   if (!['home','pickup'].includes(delivery) || (delivery==='pickup' && !point)) { res.status(400).json({error:'Choisissez un mode de livraison et un point de retrait valide.'}); return; }
   try {
     const {products,rows} = await liveCatalog();
@@ -48,10 +60,14 @@ commerceRouter.post('/checkout', async (req, res) => {
     const shipping=0;
     const total=chosen.reduce((s,l)=>s+l.variant.priceCents*l.quantity,0)+shipping;
     if(req.body.expectedTotal!==total) {res.status(409).json({error:'Un prix a changé. Revenez au panier et actualisez la page avant de continuer.'});return;}
-    const params=new URLSearchParams({mode:'payment',success_url:`${origin}/commande/confirmation`,cancel_url:`${origin}/panier`,locale:'fr',customer_creation:'always','shipping_address_collection[allowed_countries][0]':'FR','phone_number_collection[enabled]':'true','metadata[delivery]':'colissimo_home','payment_intent_data[metadata][delivery]':'colissimo_home','shipping_options[0][shipping_rate_data][type]':'fixed_amount','shipping_options[0][shipping_rate_data][fixed_amount][amount]':'0','shipping_options[0][shipping_rate_data][fixed_amount][currency]':'eur','shipping_options[0][shipping_rate_data][display_name]':'Colissimo domicile offert'});
+    const access=randomBytes(32).toString('hex');
+    const params=new URLSearchParams({mode:'payment',success_url:`${origin}/commande/confirmation?session_id={CHECKOUT_SESSION_ID}#access=${access}`,cancel_url:`${origin}/panier`,locale:'fr',customer_creation:'always','shipping_address_collection[allowed_countries][0]':'FR','phone_number_collection[enabled]':'true','metadata[delivery]':'colissimo_home','payment_intent_data[metadata][delivery]':'colissimo_home','shipping_options[0][shipping_rate_data][type]':'fixed_amount','shipping_options[0][shipping_rate_data][fixed_amount][amount]':'0','shipping_options[0][shipping_rate_data][fixed_amount][currency]':'eur','shipping_options[0][shipping_rate_data][display_name]':'Colissimo domicile offert'});
     params.set('shipping_options[0][shipping_rate_data][fixed_amount][amount]',String(shipping));
     params.set('shipping_options[0][shipping_rate_data][display_name]',delivery==='home'?'Colissimo domicile offert':'Colissimo Pickup offert');
     params.set('metadata[delivery]',delivery);
+    params.set('metadata[store]','lmd');
+    params.set('metadata[order_access]',access);
+    params.set('custom_text[after_submit][message]','Conservez votre lien de confirmation pour retrouver votre récapitulatif et le suivi de votre colis.');
     params.set('payment_intent_data[metadata][delivery]',delivery);
     if(point) {
       params.set('metadata[pickup_id]',point.id);
@@ -70,8 +86,8 @@ commerceRouter.post('/checkout', async (req, res) => {
       params.set(`metadata[item_${i}]`,`${variant.ean}:${quantity}`);
     }
     const response=await fetch('https://api.stripe.com/v1/checkout/sessions',{method:'POST',headers:{Authorization:`Bearer ${process.env.STRIPE_SECRET_KEY}`,'Content-Type':'application/x-www-form-urlencoded','Idempotency-Key':randomUUID()},body:params,signal:AbortSignal.timeout(20000)});
-    const session=await response.json() as {url?:string};
+    const session=await response.json() as {url?:string;id?:string};
     if(!response.ok || !session.url?.startsWith('https://checkout.stripe.com/')) throw new Error('Stripe unavailable');
-    res.json({url:session.url});
+    res.json({url:session.url,sessionId:session.id});
   } catch { res.status(503).json({error:'Nous ne pouvons pas vérifier le stock ou ouvrir le paiement pour le moment. Réessayez dans quelques instants.'}); }
 });

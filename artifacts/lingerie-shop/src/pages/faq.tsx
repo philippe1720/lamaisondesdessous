@@ -18,11 +18,11 @@ const FAQS = [
   },
   {
     question: "Acceptez-vous les retours ?",
-    answer: "Oui, vous disposez de 30 jours pour retourner votre article. Attention, pour des raisons d'hygiène, la lingerie (culotte, string, tanga) doit être renvoyée non portée, non lavée, avec l'étiquette d'origine intacte et le sceau d'hygiène en place."
+    answer: "Le droit de rétractation est de 14 jours. Notre délai commercial est de 30 jours pour les articles non portés, non lavés, avec étiquettes et emballage intacts. Consultez la page Livraison et retours pour la procédure, les frais et les exceptions applicables."
   },
   {
     question: "Quels sont les délais de livraison ?",
-    answer: "Pour la France métropolitaine, la livraison standard prend 3 à 5 jours ouvrés. Une livraison express en 24-48h est également disponible lors du paiement."
+    answer: "Pour la France métropolitaine, la livraison standard prend 3 à 5 jours ouvrés. La livraison standard à domicile et en Pickup est offerte. Chronopost est payant, sur demande avant commande ; le tarif et le délai sont à confirmer."
   },
   {
     question: "Le paiement est-il sécurisé ?",

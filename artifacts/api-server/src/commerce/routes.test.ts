@@ -24,12 +24,12 @@ test('Checkout validates supplier stock, price, delivery and builds a single Str
  try{
   assert.equal((await send({...valid,lines:[...valid.lines,...valid.lines]})).status,400);
   assert.equal((await send({...valid,expectedTotal:1})).status,409);
-  assert.equal((await send({...valid,delivery:'pickup',pickup:'untrusted'})).status,400);
+  assert.equal((await send({...valid,delivery:'pickup',pickupPostcode:'75001',pickupCity:'Paris',pickup:'untrusted'})).status,400);
   stock=0;assert.equal((await send(valid)).status,409);assert.equal(stripeCalls,0);
   stock=3;assert.equal((await send(valid)).status,200);assert.equal(stripeCalls,1);assert.equal(captured?.get('shipping_options[0][shipping_rate_data][fixed_amount][amount]'),'0');
-  assert.equal(captured?.get('mode'),'payment');assert.equal(captured?.get('line_items[0][price_data][unit_amount]'),String(priceCents(890)));
+  assert.equal(captured?.get('mode'),'payment');assert.match(captured?.get('success_url') || '',/session_id=\{CHECKOUT_SESSION_ID\}#access=[a-f0-9]{64}/);assert.equal(captured?.get('metadata[store]'),'lmd');assert.equal(captured?.get('line_items[0][price_data][unit_amount]'),String(priceCents(890)));
   assert.equal(captured?.get('line_items[0][price_data][product_data][metadata][ean]'),variant.ean);
-  assert.equal((await send({...valid,delivery:'pickup',pickup:'relay-1',expectedTotal:priceCents(890)})).status,200);
+  assert.equal((await send({...valid,delivery:'pickup',pickupPostcode:'75001',pickupCity:'Paris',pickup:'relay-1',expectedTotal:priceCents(890)})).status,200);
   assert.equal(captured?.get('shipping_options[0][shipping_rate_data][fixed_amount][amount]'),'0');
   assert.equal(captured?.get('metadata[pickup_id]'),'relay-1');
   process.env.CHECKOUT_ENABLED='false';assert.equal((await send(valid)).status,503);
