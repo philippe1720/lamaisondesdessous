@@ -10,10 +10,13 @@ import { pickupAvailable, searchRelays } from './relay';
 export const commerceRouter = Router();
 const enabled = () => process.env.CHECKOUT_ENABLED === 'true' && Boolean(process.env.STRIPE_SECRET_KEY && process.env.BUSYX_FEED_URL && process.env.SITE_URL);
 commerceRouter.get('/commerce/config', async (_req, res) => {
+  res.set('Cache-Control','no-store');
+  const key=process.env.STRIPE_SECRET_KEY || '';
+  const paymentMode=/^(sk|rk)_live_/.test(key)?'live':/^(sk|rk)_test_/.test(key)?'test':null;
   let upsell = null;
   try { if(process.env.BUSYX_FEED_URL) upsell=upsellProduct(await supplierRows()); } catch { /* Optional offer is omitted when not verifiable. */ }
   const points=relayPoints();
-  res.json({ checkoutEnabled: enabled(), pickupEnabled: pickupAvailable(), points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
+  res.json({ checkoutEnabled: enabled(), paymentMode, pickupEnabled: pickupAvailable(), points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
 });
 commerceRouter.get('/pickup-points',async(req,res)=>{
   res.set('Cache-Control','no-store');

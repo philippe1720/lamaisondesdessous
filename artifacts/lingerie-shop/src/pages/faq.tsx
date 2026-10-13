@@ -8,30 +8,13 @@ import {
 } from "@/components/ui/accordion";
 
 const FAQS = [
-  {
-    question: "Comment choisir ma taille de lingerie ?",
-    answer: "Nous taillons normalement. Vous pouvez vous référer à notre guide des tailles détaillé sur la page produit. En cas de doute entre deux tailles, nous vous conseillons de prendre la taille supérieure pour les modèles en dentelle."
-  },
-  {
-    question: "Comment entretenir mes dessous en dentelle et soie ?",
-    answer: "Nous recommandons fortement un lavage à la main à l'eau tiède (max 30°C) avec un savon doux. Si vous utilisez la machine, placez toujours votre lingerie de luxe dans un filet de protection, sélectionnez un cycle délicat sans essorage. Le séchage doit se faire à l'air libre, à plat."
-  },
-  {
-    question: "Acceptez-vous les retours ?",
-    answer: "Le droit de rétractation est de 14 jours. Notre délai commercial est de 30 jours pour les articles non portés, non lavés, avec étiquettes et emballage intacts. Consultez la page Livraison et retours pour la procédure, les frais et les exceptions applicables."
-  },
-  {
-    question: "Quels sont les délais de livraison ?",
-    answer: "Pour la France métropolitaine, la livraison standard prend 3 à 5 jours ouvrés. La livraison standard à domicile et en Pickup est offerte. Chronopost est payant, sur demande avant commande ; le tarif et le délai sont à confirmer."
-  },
-  {
-    question: "Le paiement est-il sécurisé ?",
-    answer: "Absolument. Nous utilisons Stripe, l'un des leaders mondiaux du paiement en ligne. Vos données bancaires sont cryptées et ne sont jamais stockées sur nos serveurs."
-  },
-  {
-    question: "Les emballages sont-ils discrets ?",
-    answer: "Oui, toutes nos commandes sont expédiées dans des cartons neutres sans mention de la marque à l'extérieur. À l'intérieur, votre ensemble lingerie est soigneusement emballé dans du papier de soie luxueux."
-  },
+  {question: "Comment choisir la taille de mes bas ?", answer: "Consultez les variantes de la fiche et le guide des tailles par marque. Les correspondances changent selon le fabricant et le modèle. Nous ne conseillons pas de prendre systématiquement une taille au-dessus. Lorsque des mesures ne sont pas confirmées, le guide le précise."},
+  {question: "Quelle différence entre autofixants et bas pour porte-jarretelles ?", answer: "Les autofixants possèdent une bande de silicone à l’intérieur de la jarretière. Les autres bas se fixent aux attaches d’un porte-jarretelles, à prévoir séparément s’il n’est pas inclus dans la fiche produit."},
+  {question: "Comment entretenir mes bas ?", answer: "Suivez les instructions de l’étiquette du fabricant. Pour les enfiler, retirez les bijoux qui pourraient accrocher le fil et déroulez doucement le bas, sans tirer uniquement sur la dentelle. Évitez la chaleur directe pour le séchage."},
+  {question: "Quels sont les frais et délais de livraison ?", answer: "La livraison standard est offerte en France métropolitaine. Le délai indicatif affiché est de 3 à 5 jours ouvrés à compter de la commande. Le point Pickup peut être choisi lorsque la recherche de relais est disponible. Chronopost est payant et proposé sur demande, après confirmation du tarif et du délai avant achat."},
+  {question: "Comment se passe le paiement ?", answer: "Après le récapitulatif, le bouton de paiement ouvre la page sécurisée de Stripe. Vous y renseignez vos coordonnées et votre moyen de paiement. La boutique ne reçoit pas votre numéro de carte. Si un mode test est signalé, aucun paiement réel ni envoi n’a lieu."},
+  {question: "Où retrouver ma commande ?", answer: "Après paiement, conservez votre lien privé de confirmation. Il donne accès aux articles, aux tailles, à l’adresse et à l’état du paiement. Le suivi du colis apparaît lorsque son numéro a été renseigné après expédition. Ce lien contient des informations personnelles : ne le partagez pas."},
+  {question: "Puis-je retourner un article ?", answer: "Vous disposez d’un droit de rétractation de 14 jours après réception. Le délai commercial de 30 jours s’applique sous les conditions décrites sur la page Livraison et retours. Cette page précise aussi les frais de retour et les exceptions ; un défaut ou une erreur de commande relève d’une procédure distincte."},
 ];
 
 export default function FAQ() {
@@ -39,13 +22,13 @@ export default function FAQ() {
     <>
       <SEO
         title="Foire Aux Questions | Aide & Service Client"
-        description="Trouvez les réponses à vos questions concernant l'achat de notre lingerie, les tailles, l'entretien, la livraison et les retours."
+        description="Trouvez les réponses à vos questions concernant l’achat de bas, les tailles, l'entretien, la livraison et les retours."
         canonical="/faq"
       />
       <div className="container mx-auto px-4 py-16 md:py-24 max-w-3xl">
         <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-center">Foire Aux Questions</h1>
         <p className="text-center text-muted-foreground font-light mb-12">
-          Tout ce que vous devez savoir sur nos ensembles de lingerie, l'entretien et nos services.
+          Tailles, maintien, paiement et livraison : les réponses pour préparer votre commande.
         </p>
 
         <Accordion type="single" collapsible className="w-full space-y-4">

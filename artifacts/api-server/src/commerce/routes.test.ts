@@ -22,6 +22,12 @@ test('Checkout validates supplier stock, price, delivery and builds a single Str
  const valid={lines:[{ean:variant.ean,quantity:1}],delivery:'home',expectedTotal:priceCents(890)};
  const send=(body:unknown)=>nativeFetch(origin+'/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
  try{
+  const configResponse=await nativeFetch(origin+'/api/commerce/config');
+  assert.equal(configResponse.headers.get('cache-control'),'no-store');
+  assert.equal(((await configResponse.json()) as {paymentMode:string}).paymentMode,'test');
+  process.env.STRIPE_SECRET_KEY='sk_live_fixture';
+  assert.equal(((await (await nativeFetch(origin+'/api/commerce/config')).json()) as {paymentMode:string}).paymentMode,'live');
+  process.env.STRIPE_SECRET_KEY='sk_test_fixture';
   assert.equal((await send({...valid,lines:[...valid.lines,...valid.lines]})).status,400);
   assert.equal((await send({...valid,expectedTotal:1})).status,409);
   assert.equal((await send({...valid,delivery:'pickup',pickupPostcode:'75001',pickupCity:'Paris',pickup:'untrusted'})).status,400);

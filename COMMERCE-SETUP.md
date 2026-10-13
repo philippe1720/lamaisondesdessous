@@ -92,3 +92,18 @@ La page de suivi lit ces données en direct et propose le lien officiel du trans
 ### Recette de cette mise à jour
 
 Tests simulés : vérification signature, rejet d'altération/rejeu expiré, événement répété, accès refusé avec un mauvais code, détails/adresse, suivi et remboursement, recherche transporteur et exclusion des relais fermés, checkout zéro frais standard. Recette Stripe et Colissimo avec les vrais comptes encore requise ; aucun encaissement ni commande BusyX n'a été déclenché.
+
+
+## Passage au paiement réel — 13 octobre 2026
+
+Le code utilise la clé serveur STRIPE_SECRET_KEY pour créer Checkout. Il n’y a pas de bouton logiciel à convertir ni de clé publique à ajouter au front pour ce parcours hébergé.
+
+1. Dans le compte Stripe de production, vérifier que les paiements et virements sont autorisés ; terminer les demandes du tableau de bord si nécessaire.
+2. Dans Render, remplacer STRIPE_SECRET_KEY par la clé de production du compte correspondant (sk_live_… ; une clé restreinte rk_live_… doit disposer des droits nécessaires).
+3. Créer une destination webhook de production pour /api/stripe/webhook et les deux événements indiqués plus haut, puis enregistrer son secret propre dans STRIPE_WEBHOOK_SECRET. Le secret test ne convient pas.
+4. Garder CHECKOUT_ENABLED=true, SITE_URL=https://lamaisondesdessous.fr et BUSYX_FEED_URL valide. Enregistrer et redéployer.
+5. Le champ public paymentMode de /api/commerce/config indique uniquement le mode déduit du préfixe de la clé, jamais sa valeur. live n’est pas une preuve de validité de la clé ni d’encaissement effectif. Le checkout indique explicitement le mode test avant paiement.
+6. Vérifier l’ouverture de Checkout, le montant, la taille et la livraison. Les simulations locales ne constituent pas une transaction réelle validée. Les commandes de test restent dans l’espace Stripe de test et ne seront pas consultables avec la clé réelle.
+7. Recréer tout code promotionnel voulu dans le compte réel ; le code de test n’y existe pas automatiquement. Activer les reçus du compte réel.
+
+Corrections éditoriales : page À propos recentrée sur les bas, FAQ sans promesses de papier de soie ni conseils de taille arbitraires, liens sociaux factices remplacés par les liens panier/suivi. Les anciennes pages de blog et le dossier légal restent à reprendre. L’adresse e-mail utilisable et les coordonnées actuelles du vendeur restent à fournir par Philippe pour finaliser ces pages.
