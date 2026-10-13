@@ -341,7 +341,7 @@
         {
           "ean": "8713221827500",
           "size": "TU",
-          "color": "",
+          "color": "Noir",
           "stock": 11,
           "priceCents": 1929
         }
@@ -372,7 +372,7 @@
         {
           "ean": "8713221827494",
           "size": "TU",
-          "color": "",
+          "color": "Noir",
           "stock": 12,
           "priceCents": 2220
         }
@@ -403,7 +403,7 @@
         {
           "ean": "8713221827517",
           "size": "TU",
-          "color": "",
+          "color": "Noir",
           "stock": 7,
           "priceCents": 1929
         }

@@ -7,6 +7,7 @@ import { Layout } from "@/components/layout/layout";
 
 import Home, { Guide } from "@/features/shop/home";
 import { Catalogue, ProductPage } from "@/features/shop/catalogue";
+import { AdvicePage } from '@/features/shop/editorial';
 import { Basket, Checkout } from "@/features/shop/basket";
 import { OrderConfirmation } from "@/features/shop/order";
 import { DeliveryReturns, SizeGuide } from "@/features/shop/services";
@@ -27,6 +28,8 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/boutique" component={Catalogue} />
+        <Route path="/bas-resille" component={Catalogue} />
+        <Route path="/conseils/:slug" component={AdvicePage} />
         <Route path="/bas-autofixants" component={Catalogue} />
         <Route path="/bas-porte-jarretelles" component={Catalogue} />
         <Route path="/produit/:slug">{params => <ProductPage key={params.slug} />}</Route>

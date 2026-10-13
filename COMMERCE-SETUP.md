@@ -107,3 +107,11 @@ Le code utilise la clé serveur STRIPE_SECRET_KEY pour créer Checkout. Il n’y
 7. Recréer tout code promotionnel voulu dans le compte réel ; le code de test n’y existe pas automatiquement. Activer les reçus du compte réel.
 
 Corrections éditoriales : page À propos recentrée sur les bas, FAQ sans promesses de papier de soie ni conseils de taille arbitraires, liens sociaux factices remplacés par les liens panier/suivi. Les anciennes pages de blog et le dossier légal restent à reprendre. L’adresse e-mail utilisable et les coordonnées actuelles du vendeur restent à fournir par Philippe pour finaliser ces pages.
+
+## Contenus SEO — 13 octobre 2026
+
+Source éditoriale partagée : `src/data/editorial.json` côté boutique, utilisée par React et `build-seo.mjs`. Trois catégories (dont `/bas-resille`), dix compléments de fiches et quatre guides sous `/conseils/`. Les informations commerciales restent dans `catalog.json` et sont complétées par le flux de stock/prix ; les textes ne sont donc pas écrasés lors d’une actualisation du stock.
+
+Les liens des guides ciblent les catégories et les produits existants. Le guide de prise de mesures complète le tableau par marque `/guide-des-tailles`, sans créer de correspondances absentes du fournisseur. Les dénominations/mesures des dix références proviennent du catalogue BusyX déjà importé, sans changement de prix, EAN ou tailles. Sources générales de vérification : FALKE Lunelle 8 DEN (consigne sur la crème et la bande silicone), https://www.falke.com/dk_en/p/lunelle-8-den-women-stay-ups/41535_0999/ ; définition du denier, https://viennemilano.com/blogs/tights/whats-a-denier. Aucune méthode d’entretien propre à une autre marque n’est transposée aux produits vendus.
+
+Le build génère 24 pages HTML et met à jour le sitemap. Les descriptions longues et les liens sont présents avant exécution JavaScript. Les données Product descriptives des fiches sont également incluses dans le HTML initial ; prix et stock structurés restent à traiter avec une stratégie de fraîcheur adaptée au flux fournisseur.

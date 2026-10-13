@@ -1,5 +1,6 @@
 import { Link, useLocation, useRoute } from 'wouter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { editorial, EditorialSections } from './editorial';
 import { DeliveryNote, SizeHelp } from './services';
 import { SEO } from '@/lib/seo';
 import { useShop, money, type Product } from './cart';
@@ -15,15 +16,19 @@ export function Catalogue() {
   const { products } = useShop(); const [location] = useLocation();
   const [color, setColor] = useState('');
   const category = location === '/bas-autofixants' ? 'autofixants' : location === '/bas-porte-jarretelles' ? 'porte-jarretelles' : '';
-  const filtered = products.filter(p => !category || p.category === category);
+  const page=editorial.categories.find(c=>c.path===location);
+  const resille=location==='/bas-resille';
+  useEffect(()=>setColor(''),[location]);
+  const filtered = products.filter(p => resille ? p.details.Aspect==='Résille ajourée' : !category || p.category === category);
   const colors = [...new Set(filtered.flatMap(p => p.variants.map(v => v.color)).filter(Boolean))];
-  const title = category === 'autofixants' ? 'Les bas autofixants' : category ? 'Les bas pour porte-jarretelles' : 'Tous nos bas';
-  return <><SEO title={title} canonical={location} description="Découvrez notre sélection de bas en voile et en résille : autofixants ou à porter avec un porte-jarretelles. Livraison standard offerte à domicile et en Pickup." />
+  const title = page?.title || 'Tous nos bas';
+  return <><SEO title={title} canonical={location} description={page?.description || "Découvrez notre sélection de bas en voile et en résille : autofixants ou à porter avec un porte-jarretelles."} />
     <main className="stocking-page"><p className="stocking-eyebrow">LA MAISON DES DESSOUS · LE SENS DU DÉTAIL</p><h1>{title}</h1>
-      <p className="stocking-intro">{category === 'autofixants' ? 'Une jarretière siliconée pour porter vos bas sans attaches. Voile délicat ou résille, trouvez votre finition.' : category ? 'Des bas conçus pour se fixer à un porte-jarretelles. Celui-ci est vendu séparément et n’est pas inclus dans notre sélection.' : 'Le voile, la résille, la dentelle. Une sélection entièrement consacrée aux bas pour femme.'}</p>
-      <nav className="stocking-filters" aria-label="Collections"><Link href="/boutique">Tous les bas</Link><Link href="/bas-autofixants">Autofixants</Link><Link href="/bas-porte-jarretelles">Pour porte-jarretelles</Link></nav>
+      <p className="stocking-intro">{page?.intro || 'Le voile, la résille, la dentelle. Une sélection entièrement consacrée aux bas pour femme.'}</p>
+      <nav className="stocking-filters" aria-label="Collections"><Link href="/boutique">Tous les bas</Link><Link href="/bas-autofixants">Autofixants</Link><Link href="/bas-porte-jarretelles">Pour porte-jarretelles</Link><Link href="/bas-resille">Résille</Link></nav>
       <label className="stocking-select">Couleur <select value={color} onChange={e=>setColor(e.target.value)}><option value="">Toutes</option>{colors.map(c=><option key={c}>{c}</option>)}</select></label>
       <div className="stocking-grid">{filtered.filter(p=>!color || p.variants.some(v=>v.color===color)).map(p=><ProductCard key={p.id} product={p}/>)}</div>
+      {page && <EditorialSections sections={page.sections} links={page.links}/>}
       <p className="stocking-note">Vous hésitez ? <Link href="/guide-des-bas">Consultez notre guide des bas.</Link></p>
     </main></>;
 }
@@ -33,6 +38,7 @@ export function ProductPage() {
   const product = products.find(p=>p.slug===params?.slug);
   const [ean,setEan] = useState(''); const [photo,setPhoto] = useState(0); const [added,setAdded] = useState(false);
   if (!product) return <main className="stocking-page"><SEO title="Produit introuvable"><meta name="robots" content="noindex"/></SEO><h1>Produit introuvable</h1><Link href="/boutique">Retour aux bas</Link></main>;
+  const copy=editorial.products[product.id as keyof typeof editorial.products];
   const variant = product.variants.find(v=>v.ean===ean);
   const price = variant?.priceCents ?? Math.min(...product.variants.map(v=>v.priceCents));
   return <><SEO title={product.name} description={product.description} canonical={`/produit/${product.slug}`} image={product.images[0]} type="product">
@@ -45,6 +51,6 @@ export function ProductPage() {
       <button className="stocking-button" disabled={!variant || variant.stock<1} onClick={()=>{if(variant){add(variant.ean);setAdded(true);}}}>Ajouter au panier</button>
       <button className="stocking-button secondary" disabled={!variant || variant.stock<1} onClick={()=>{if(variant){add(variant.ean);navigate('/commande/attention');}}}>Commander maintenant</button>
       <p role="status">{added && <>Ajouté à votre panier. <Link href="/panier">Voir mon panier →</Link></>}</p>
-      <div className="stocking-details"><h2>Les détails</h2><dl className="stocking-specs">{Object.entries(product.details).map(([key,value])=><div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl><h2>La matière</h2><p>{product.composition}</p><h2>Le maintien</h2><p>{product.category==='autofixants'?'Jarretière avec silicone. À porter sur une peau propre et sèche, sans crème sous la bande.':'À fixer à un porte-jarretelles, non fourni.'}</p><h2>Prendre soin de vos bas</h2><p>Enfilez-les délicatement, sans tirer sur la dentelle. Pour le lavage, suivez les indications de l’étiquette du fabricant.</p><DeliveryNote/><div id="guide-taille"><SizeHelp brand={product.brand} reference={product.name}/></div></div>
+      <div className="stocking-details">{copy && <EditorialSections sections={copy.sections} links={copy.links}/>}<h2>Les détails</h2><dl className="stocking-specs">{Object.entries(product.details).map(([key,value])=><div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl><h2>La matière</h2><p>{product.composition}</p><h2>Le maintien</h2><p>{product.category==='autofixants'?'Jarretière avec silicone. À porter sur une peau propre et sèche, sans crème sous la bande.':'À fixer à un porte-jarretelles, non fourni.'}</p><h2>Prendre soin de vos bas</h2><p>Enfilez-les délicatement, sans tirer sur la dentelle. Pour le lavage, suivez les indications de l’étiquette du fabricant.</p><DeliveryNote/><div id="guide-taille"><SizeHelp brand={product.brand} reference={product.name}/></div></div>
     </section></div></main></>;
 }

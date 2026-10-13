@@ -19,6 +19,7 @@ export function Header() {
     { href: '/boutique', label: 'Boutique' },
     { href: '/bas-autofixants', label: 'Autofixants' },
     { href: '/bas-porte-jarretelles', label: 'Pour porte-jarretelles' },
+    { href: '/bas-resille', label: 'Résille' },
     { href: '/guide-des-bas', label: 'Guide' },
     { href: '/panier', label: `Panier (${count})` },
     { href: '/qui-sommes-nous', label: 'À propos' },
@@ -40,7 +41,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm font-medium lg:flex">
+        <nav className="hidden items-center gap-5 text-sm font-medium xl:flex">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -57,7 +58,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setMobileOpen((open) => !open)}
-          className="inline-flex h-10 w-10 items-center justify-center lg:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center xl:hidden"
           aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           aria-expanded={mobileOpen}
         >
@@ -66,7 +67,7 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-border bg-background px-4 py-4 lg:hidden">
+        <nav className="border-t border-border bg-background px-4 py-4 xl:hidden">
           <div className="container mx-auto grid gap-1">
             {links.map((link) => (
               <Link
