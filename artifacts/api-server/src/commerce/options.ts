@@ -18,5 +18,5 @@ export function upsellProduct(rows: Record<string,string>[]) {
   const description = ean === '3479228260621'
     ? 'Une mini bougie de massage à la vanille, format 35 ml, pour accompagner votre moment de détente. Utiliser selon les instructions du fabricant.'
     : 'Une petite attention pour compléter votre commande.';
-  return {ean, name:row.Libel, description:process.env.UPSELL_DESCRIPTION || description, image:row['URL image'], priceCents:priceCents(cost,0), stock:Number(row.Stock), supplierId:row['ID du produit']};
+  return {ean, name:row.Libel, description:process.env.UPSELL_DESCRIPTION || description, image:row['URL image'], priceCents:ean==='3479228260621'?490:priceCents(cost,0), stock:Number(row.Stock), supplierId:row['ID du produit']};
 }

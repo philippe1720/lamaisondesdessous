@@ -2,20 +2,22 @@ import { Router } from 'express';
 import { randomUUID, randomBytes } from 'node:crypto';
 import { liveCatalog, snapshot, type Product } from './catalog';
 import { validateLines } from './core';
-import { relayPoints, upsellProduct } from './options';
-import { supplierRows } from './catalog';
+import { relayPoints } from './options';
+import { offerRouter, currentUpsell, acceptedOffer } from './offer';
+
 
 import { pickupAvailable, searchRelays } from './relay';
 
 import { paymentConfiguration, stripeSecretKey } from './payment-config';
 
 export const commerceRouter = Router();
+commerceRouter.use(offerRouter);
 const enabled = () => paymentConfiguration().checkoutEnabled;
 commerceRouter.get('/commerce/config', async (_req, res) => {
   res.set('Cache-Control','no-store');
   const {paymentMode}=paymentConfiguration();
   let upsell = null;
-  try { if(process.env.BUSYX_FEED_URL) upsell=upsellProduct(await supplierRows()); } catch { /* Optional offer is omitted when not verifiable. */ }
+  try { if(process.env.BUSYX_FEED_URL) upsell=await currentUpsell(); } catch { /* Optional offer is omitted when not verifiable. */ }
   const points=relayPoints();
   res.json({ checkoutEnabled: enabled(), paymentMode, pickupEnabled: pickupAvailable(), points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
 });
@@ -58,8 +60,8 @@ commerceRouter.post('/checkout', async (req, res) => {
       chosen.push({product,variant,quantity:line.quantity});
     }
     if(req.body.upsell) {
-      const offer=upsellProduct(rows);
-      if(!offer || offer.ean!==req.body.upsell || lines.some(l=>l.ean===offer.ean)) {res.status(409).json({error:'L’offre complémentaire n’est plus disponible. Continuez sans cet article.'});return;}
+      const offer=await currentUpsell(rows);
+      if(!offer || offer.ean!==req.body.upsell || !acceptedOffer(req,offer.ean,offer.priceCents) || lines.some(l=>l.ean===offer.ean)) {res.status(409).json({error:'L’offre complémentaire n’est plus disponible. Continuez sans cet article.'});return;}
       chosen.push({product:{id:offer.supplierId,slug:'',name:offer.name,description:offer.description,composition:'',category:'complement',brand:'',images:[offer.image],variants:[]},variant:{ean:offer.ean,size:'',color:'',stock:offer.stock,priceCents:offer.priceCents},quantity:1});
     }
     const shipping=0;

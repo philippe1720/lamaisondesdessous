@@ -7,8 +7,8 @@ export type Product = { id: string; slug: string; name: string; description: str
 export async function snapshot(): Promise<{updatedAt: string; products: Product[]}> {
   return JSON.parse(await readFile(path.resolve(process.cwd(), 'artifacts/lingerie-shop/src/data/catalog.json'), 'utf8'));
 }
-export async function supplierRows() {
-  const url = new URL(process.env.BUSYX_FEED_URL || '');
+export async function supplierRows(feedUrl = process.env.BUSYX_FEED_URL || '') {
+  const url = new URL(feedUrl);
   if (url.protocol !== 'https:' || url.hostname !== 'www.busyx.com' || url.pathname !== '/csv_generator.php') throw new Error('Supplier configuration missing');
   const response = await fetch(url, { signal: AbortSignal.timeout(20000), redirect: 'error' });
   if (!response.ok) throw new Error('Supplier unavailable');

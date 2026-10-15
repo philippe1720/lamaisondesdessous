@@ -26,7 +26,7 @@ Branche de travail, à vérifier avant fusion dans la branche déployée par Ren
 
 `PICKUP_POINTS_JSON` : tableau de points vérifiés auprès du transporteur, avec `id`, `name`, `address`, `postcode`, `city`. Sans liste, Pickup est désactivé et expliqué. Ce mécanisme est une première liste sélectionnable, pas un moteur géographique national. Brancher ensuite la recherche du transporteur.
 
-`UPSELL_EAN` : référence de l'offre complémentaire payante. Par défaut : `3479228260621`, mini bougie de massage vanille 35 ml choisie par Philippe. Une valeur vide désactive l'offre. Le flux actuel Lingerie ne contient pas cette référence : l'étendre ou configurer un flux complet avant activation. Aucun prix ni stock n'est inventé. `UPSELL_DESCRIPTION` permet de modifier le texte. Le prix applique 30 % de marge au coût TTC, sans doubler le transport. L'offre disparaît en cas d'indisponibilité.
+`UPSELL_EAN` : référence de l'offre complémentaire payante. Par défaut : `3479228260621`, mini bougie de massage vanille 35 ml choisie par Philippe. Une valeur vide désactive l'offre. Le flux actuel Lingerie ne contient pas cette référence : l'étendre ou configurer un flux complet avant activation. Aucun prix ni stock n'est inventé. `UPSELL_DESCRIPTION` permet de modifier le texte. Pour cet EAN, le prix demandé est fixé à 4,90 € TTC, sans supplément de livraison. La marge de 30 % n’est pas garantie : vérifier le coût d’achat et le tarif fournisseur du colis groupé. Aucun prix barré à 8,50 € n’est affiché. L'offre disparaît en cas d'indisponibilité.
 
 ## Exploitation initiale
 
@@ -115,3 +115,11 @@ Source éditoriale partagée : `src/data/editorial.json` côté boutique, utilis
 Les liens des guides ciblent les catégories et les produits existants. Le guide de prise de mesures complète le tableau par marque `/guide-des-tailles`, sans créer de correspondances absentes du fournisseur. Les dénominations/mesures des dix références proviennent du catalogue BusyX déjà importé, sans changement de prix, EAN ou tailles. Sources générales de vérification : FALKE Lunelle 8 DEN (consigne sur la crème et la bande silicone), https://www.falke.com/dk_en/p/lunelle-8-den-women-stay-ups/41535_0999/ ; définition du denier, https://viennemilano.com/blogs/tights/whats-a-denier. Aucune méthode d’entretien propre à une autre marque n’est transposée aux produits vendus.
 
 Le build génère 24 pages HTML et met à jour le sitemap. Les descriptions longues et les liens sont présents avant exécution JavaScript. Les données Product descriptives des fiches sont également incluses dans le HTML initial ; prix et stock structurés restent à traiter avec une stratégie de fraîcheur adaptée au flux fournisseur.
+
+
+### Offre bougie à 4,90 € (15 octobre 2026)
+- L’offre apparaît après « Continuer ma commande », avant livraison et Stripe. Elle reste facultative, une unité avec des bas.
+- Inclure EAN 3479228260621 dans `BUSYX_FEED_URL`, ou fournir `BUSYX_UPSELL_FEED_URL` (un autre export CSV BusyX, même format, contenant la bougie). Aucun stock, coût ou visuel n’est remplacé par une valeur inventée.
+- `SESSION_SECRET` doit être défini et stable sur toutes les instances Render. Le cookie signé HttpOnly/SameSite contient une échéance serveur de deux minutes et conserve l’offre 24 heures : recharger ne relance pas le compteur. Le prix accepté avant expiration reste utilisable pendant cette période, sous réserve du stock revérifié à la création de Checkout. La limite concerne l’ajout, pas le temps accordé pour remplir ses coordonnées.
+- Après expiration, la bougie ne peut plus être ajoutée pour cette session d’offre ; les bas restent achetables. Une session d’offre dure 24 heures. Le bouton de refus reste accessible pendant le chargement, après expiration et en cas d’erreur.
+- Contrôler le coût HT : pour 30 % de marge avant frais avec le calcul actuel (achat TTC et pas de port additionnel), viser au maximum 2,85 € HT à 4,90 € de vente. Ce n’est pas une vérification du tarif fournisseur réel.
