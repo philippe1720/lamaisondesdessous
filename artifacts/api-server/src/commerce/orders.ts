@@ -1,10 +1,11 @@
 import { Router, type Request, type Response } from 'express';
 import { createHmac, timingSafeEqual } from 'node:crypto';
+import { stripeSecretKey } from './payment-config';
 const validId = (id:unknown):id is string => typeof id==='string' && /^cs_(test_|live_)?[a-zA-Z0-9_]{10,250}$/.test(id);
 const same=(a:string,b:string)=>a.length===b.length && timingSafeEqual(Buffer.from(a),Buffer.from(b));
 export async function stripeRequest(path:string, body?:URLSearchParams, idempotency?:string):Promise<any> {
   if(!process.env.STRIPE_SECRET_KEY) throw new Error('Stripe non configuré');
-  const response=await fetch('https://api.stripe.com/v1/'+path,{method:body?'POST':'GET',headers:{Authorization:`Bearer ${process.env.STRIPE_SECRET_KEY}`,...(body?{'Content-Type':'application/x-www-form-urlencoded'}:{}),...(idempotency?{'Idempotency-Key':idempotency}:{})},body,signal:AbortSignal.timeout(15000)});
+  const response=await fetch('https://api.stripe.com/v1/'+path,{method:body?'POST':'GET',headers:{Authorization:`Bearer ${stripeSecretKey()}`,...(body?{'Content-Type':'application/x-www-form-urlencoded'}:{}),...(idempotency?{'Idempotency-Key':idempotency}:{})},body,signal:AbortSignal.timeout(15000)});
   if(!response.ok) throw new Error('Stripe indisponible');
   return response.json();
 }

@@ -8,13 +8,13 @@ import {priceCents} from './core';
 
 test('Checkout validates supplier stock, price, delivery and builds a single Stripe payment',async()=>{
  const base=await snapshot(), product=base.products[0], variant=product.variants[0];
- const nativeFetch=globalThis.fetch; let stock=3; let captured:URLSearchParams|undefined; let stripeCalls=0;
+ const nativeFetch=globalThis.fetch; let stock=3; let captured:URLSearchParams|undefined; let stripeCalls=0; let stripeStatus=200; let authorization='';
  const old={...process.env};
  Object.assign(process.env,{CHECKOUT_ENABLED:'true',STRIPE_SECRET_KEY:'sk_test_fixture',BUSYX_FEED_URL:'https://www.busyx.com/csv_generator.php?token=fixture',SITE_URL:'https://shop.example',PICKUP_POINTS_JSON:JSON.stringify([{id:'relay-1',name:'Relais',address:'1 rue du Test',postcode:'75001',city:'Paris'}])});
  globalThis.fetch=async (input:any,init:any)=>{
   const url=String(input);
   if(url.startsWith('https://www.busyx.com/')) return new Response(`ID du produit;EAN13;Prix unitaire HT;Stock\n${product.id};${variant.ean};8,90;${stock}\n`,{status:200});
-  if(url==='https://api.stripe.com/v1/checkout/sessions'){stripeCalls++;captured=new URLSearchParams(init.body);return Response.json({url:'https://checkout.stripe.com/c/pay/cs_test_fixture'});}
+  if(url==='https://api.stripe.com/v1/checkout/sessions'){stripeCalls++;authorization=init.headers.Authorization;if(stripeStatus!==200)return Response.json({error:{type:'authentication_error',code:'api_key_expired',message:'SECRET SHOULD NOT LEAK'}},{status:stripeStatus});captured=new URLSearchParams(init.body);return Response.json({url:'https://checkout.stripe.com/c/pay/cs_test_fixture'});}
   return nativeFetch(input,init);
  };
  const server=express().use(express.json()).use('/api',commerceRouter).listen(0); await once(server,'listening');
@@ -27,6 +27,16 @@ test('Checkout validates supplier stock, price, delivery and builds a single Str
   assert.equal(((await configResponse.json()) as {paymentMode:string}).paymentMode,'test');
   process.env.STRIPE_SECRET_KEY='sk_live_fixture';
   assert.equal(((await (await nativeFetch(origin+'/api/commerce/config')).json()) as {paymentMode:string}).paymentMode,'live');
+  process.env.STRIPE_SECRET_KEY='pk_live_fixture';
+  const badConfig=await (await nativeFetch(origin+'/api/commerce/config')).json() as any;
+  assert.equal(badConfig.checkoutEnabled,false);assert.equal(badConfig.paymentMode,null);
+  assert.equal((await send(valid)).status,503);assert.equal(stripeCalls,0);
+  process.env.STRIPE_SECRET_KEY='  sk_live_fixture  ';
+  assert.equal((await send(valid)).status,200);assert.equal(authorization,'Bearer sk_live_fixture');
+  stripeStatus=401;
+  const rejected=await send(valid);assert.equal(rejected.status,503);
+  const rejection=await rejected.text();assert.match(rejection,/panier est conservé/);assert.ok(!rejection.includes('SECRET'));
+  stripeStatus=200;stripeCalls=0;
   process.env.STRIPE_SECRET_KEY='sk_test_fixture';
   assert.equal((await send({...valid,lines:[...valid.lines,...valid.lines]})).status,400);
   assert.equal((await send({...valid,expectedTotal:1})).status,409);

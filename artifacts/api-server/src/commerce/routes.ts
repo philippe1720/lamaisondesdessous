@@ -7,12 +7,13 @@ import { supplierRows } from './catalog';
 
 import { pickupAvailable, searchRelays } from './relay';
 
+import { paymentConfiguration, stripeSecretKey } from './payment-config';
+
 export const commerceRouter = Router();
-const enabled = () => process.env.CHECKOUT_ENABLED === 'true' && Boolean(process.env.STRIPE_SECRET_KEY && process.env.BUSYX_FEED_URL && process.env.SITE_URL);
+const enabled = () => paymentConfiguration().checkoutEnabled;
 commerceRouter.get('/commerce/config', async (_req, res) => {
   res.set('Cache-Control','no-store');
-  const key=process.env.STRIPE_SECRET_KEY || '';
-  const paymentMode=/^(sk|rk)_live_/.test(key)?'live':/^(sk|rk)_test_/.test(key)?'test':null;
+  const {paymentMode}=paymentConfiguration();
   let upsell = null;
   try { if(process.env.BUSYX_FEED_URL) upsell=upsellProduct(await supplierRows()); } catch { /* Optional offer is omitted when not verifiable. */ }
   const points=relayPoints();
@@ -35,7 +36,7 @@ commerceRouter.get('/catalog', async (_req, res) => {
 // Stripe stores the chosen EAN/size in line-item metadata; orders are fulfilled manually initially.
 commerceRouter.post('/checkout', async (req, res) => {
   if (!enabled()) { res.status(503).json({error:'Le paiement est en cours de configuration.'}); return; }
-  const origin = process.env.SITE_URL!;
+  const origin = process.env.SITE_URL!.trim().replace(/\/+$/, '');
   if (req.headers.origin && req.headers.origin !== new URL(origin).origin) { res.status(403).json({error:'Origine non autorisée.'}); return; }
   let lines: ReturnType<typeof validateLines>;
   try { lines = validateLines(req.body?.lines); }
@@ -46,6 +47,7 @@ commerceRouter.post('/checkout', async (req, res) => {
     try{point=(await searchRelays(String(req.body.pickupPostcode || ''),String(req.body.pickupCity || ''))).find(p=>p.id===req.body.pickup);}catch{res.status(503).json({error:'Impossible de vérifier ce relais. Relancez la recherche ou choisissez la livraison à domicile.'});return;}
   }
   if (!['home','pickup'].includes(delivery) || (delivery==='pickup' && !point)) { res.status(400).json({error:'Choisissez un mode de livraison et un point de retrait valide.'}); return; }
+  let stage: 'stock' | 'payment' = 'stock';
   try {
     const {products,rows} = await liveCatalog();
     const chosen: {product:Product; variant:Product['variants'][number]; quantity:number}[] = [];
@@ -88,9 +90,16 @@ commerceRouter.post('/checkout', async (req, res) => {
       params.set(`${prefix}[price_data][product_data][metadata][supplier_id]`,product.id);
       params.set(`metadata[item_${i}]`,`${variant.ean}:${quantity}`);
     }
-    const response=await fetch('https://api.stripe.com/v1/checkout/sessions',{method:'POST',headers:{Authorization:`Bearer ${process.env.STRIPE_SECRET_KEY}`,'Content-Type':'application/x-www-form-urlencoded','Idempotency-Key':randomUUID()},body:params,signal:AbortSignal.timeout(20000)});
-    const session=await response.json() as {url?:string;id?:string};
-    if(!response.ok || !session.url?.startsWith('https://checkout.stripe.com/')) throw new Error('Stripe unavailable');
+    stage = 'payment';
+    const response=await fetch('https://api.stripe.com/v1/checkout/sessions',{method:'POST',headers:{Authorization:`Bearer ${stripeSecretKey()}`,'Content-Type':'application/x-www-form-urlencoded','Idempotency-Key':randomUUID()},body:params,signal:AbortSignal.timeout(20000)});
+    const session=await response.json() as {url?:string;id?:string;error?:{code?:string;type?:string}};
+    if(!response.ok) {
+      // Keep raw Stripe messages (which can contain credentials) out of logs and responses.
+      const safeCode=(value:unknown)=>typeof value==='string' && /^[a-z_]{1,80}$/.test(value)?value:undefined;
+      console.error('Stripe checkout rejected', {status:response.status,code:safeCode(session.error?.code),type:safeCode(session.error?.type),requestId:response.headers.get('request-id')});
+      res.status(503).json({error:'Le service de paiement est momentanément indisponible. Votre panier est conservé et aucun paiement n’a été effectué.'});return;
+    }
+    if(!session.url?.startsWith('https://checkout.stripe.com/')) throw new Error('Stripe unavailable');
     res.json({url:session.url,sessionId:session.id});
-  } catch { res.status(503).json({error:'Nous ne pouvons pas vérifier le stock ou ouvrir le paiement pour le moment. Réessayez dans quelques instants.'}); }
+  } catch { res.status(503).json({error:stage==='stock'?'Nous ne pouvons pas vérifier les disponibilités pour le moment. Votre panier est conservé. Réessayez dans quelques instants.':'Impossible d’ouvrir le paiement Stripe pour le moment. Votre panier est conservé et aucun paiement n’a été effectué.'}); }
 });
