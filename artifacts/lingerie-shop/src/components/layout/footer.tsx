@@ -26,10 +26,10 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="font-serif text-lg font-semibold mb-4 text-primary">Nous Suivre</h3>
+            <h3 className="font-serif text-lg font-semibold mb-4 text-primary">Votre commande</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Instagram</a></li>
-              <li><a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Pinterest</a></li>
+              <li><Link href="/panier" className="hover:text-primary transition-colors">Voir mon panier</Link></li>
+              <li><Link href="/suivi-commande" className="hover:text-primary transition-colors">Suivre ma commande</Link></li>
             </ul>
           </div>
         </div>
@@ -41,6 +41,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    <nav className="stocking-footer-links" aria-label="Aide à la commande"><a href="/guide-des-tailles">Guide des tailles</a><a href="/livraison-retours">Livraison et retours</a><a href="/suivi-commande">Suivre ma commande</a></nav></footer>
   );
 }

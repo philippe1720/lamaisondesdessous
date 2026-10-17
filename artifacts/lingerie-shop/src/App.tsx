@@ -5,8 +5,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { HelmetProvider } from 'react-helmet-async';
 import { Layout } from "@/components/layout/layout";
 
-import Home from "@/pages/home";
-import Produit from "@/pages/produit";
+import Home, { Guide } from "@/features/shop/home";
+import { Catalogue, ProductPage } from "@/features/shop/catalogue";
+import { AdvicePage } from '@/features/shop/editorial';
+import { Basket, Checkout } from "@/features/shop/basket";
+import { OrderConfirmation } from "@/features/shop/order";
+import { DeliveryReturns, SizeGuide } from "@/features/shop/services";
+import { ShopProvider } from "@/features/shop/cart";
+import "@/features/shop/shop.css";
 import Blog from "@/pages/blog";
 import BlogArticle from "@/pages/blog-article";
 import CGV from "@/pages/cgv";
@@ -21,7 +27,20 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/produit" component={Produit} />
+        <Route path="/boutique" component={Catalogue} />
+        <Route path="/bas-resille" component={Catalogue} />
+        <Route path="/conseils/:slug" component={AdvicePage} />
+        <Route path="/bas-autofixants" component={Catalogue} />
+        <Route path="/bas-porte-jarretelles" component={Catalogue} />
+        <Route path="/produit/:slug">{params => <ProductPage key={params.slug} />}</Route>
+        <Route path="/produit" component={Catalogue} />
+        <Route path="/panier" component={Basket} />
+        <Route path="/commande/confirmation" component={OrderConfirmation} />
+        <Route path="/commande/:step" component={Checkout} />
+        <Route path="/livraison-retours" component={DeliveryReturns} />
+        <Route path="/guide-des-tailles" component={SizeGuide} />
+        <Route path="/suivi-commande" component={OrderConfirmation} />
+        <Route path="/guide-des-bas" component={Guide} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogArticle} />
         <Route path="/cgv" component={CGV} />
@@ -39,7 +58,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <Router />
+            <ShopProvider><Router /></ShopProvider>
           </WouterRouter>
           <Toaster />
         </TooltipProvider>

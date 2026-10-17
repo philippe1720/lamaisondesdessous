@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'wouter';
 import { SEO } from '@/lib/seo';
 
 export default function CGV() {
@@ -24,8 +25,9 @@ export default function CGV() {
           <h2>3. Livraison</h2>
           <p>La livraison de nos produits de lingerie de luxe s'effectue en France métropolitaine dans un délai de 3 à 5 jours ouvrés. Chaque commande est préparée avec le plus grand soin dans un emballage discret et élégant.</p>
 
+          <p>La livraison standard à domicile et en Pickup est offerte. Chronopost est payant et disponible sur demande, après confirmation du tarif et du délai. <Link href="/livraison-retours">Voir les modalités de livraison et de retour.</Link></p>
           <h2>4. Droit de rétractation et Retours</h2>
-          <p>Conformément à la législation, vous disposez d'un délai de 30 jours pour changer d'avis. Cependant, pour des raisons évidentes d'hygiène, les articles de lingerie (soutien-gorge, culotte, nuisette) ne pourront être retournés ou échangés que s'ils n'ont jamais été portés, non lavés, avec leurs étiquettes d'origine attachées et dans leur emballage intact.</p>
+          <p>Vous disposez du droit de rétractation de 14 jours à compter de la réception, ainsi que de notre délai commercial de retour de 30 jours pour les articles non portés, non lavés, avec étiquettes et emballage intacts. Les frais de retour pour changement d’avis sont à votre charge. L’exclusion pour hygiène ne concerne que les biens scellés, descellés après livraison et ne pouvant être renvoyés pour des raisons d’hygiène ou de santé ; elle ne supprime pas vos droits en cas de défaut ou de non-conformité. <Link href="/livraison-retours">Procédure de retour et modalités de remboursement.</Link></p>
 
           <h2>5. Propriété intellectuelle</h2>
           <p>L'ensemble des éléments édités sur ce site, incluant les photographies, textes et design, sont la propriété exclusive de La Maison des Dessous.</p>
