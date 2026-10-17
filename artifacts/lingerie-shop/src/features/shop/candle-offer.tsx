@@ -8,15 +8,6 @@ type OfferResponse = {
   offer: {ean:string;name:string;description:string;image:string;priceCents:number} | null;
   expiresAt?:number; serverNow?:number; accepted?:boolean;
 };
-function CandleIllustration() {
-  return <div className="stocking-candle-art" role="img" aria-label="Illustration de la mini bougie de massage vanille, photographie produit à fournir">
-    <div className="stocking-candle-art-glow" />
-    <div className="stocking-candle-art-flame" />
-    <div className="stocking-candle-art-jar"><span>VANILLE</span><small>BOUGIE DE MASSAGE<br/>35 ML</small></div>
-    <small className="stocking-art-disclaimer">Illustration — visuel du fournisseur à venir</small>
-  </div>;
-}
-
 export function CandleOffer({lines,onChoose}:{lines:Line[];onChoose:(value:boolean)=>void}) {
   // Affichage immédiat de la page et du chrono : aucune attente de réseau pour voir l'offre.
   const [previewDeadline,setPreviewDeadline]=useState(()=>Date.now()+OFFER_DURATION_MS);
@@ -79,16 +70,17 @@ export function CandleOffer({lines,onChoose}:{lines:Line[];onChoose:(value:boole
   }
   const expired=remaining<=0 && !data?.accepted;
   const unavailable=data?.offer===null;
-  const image=data?.offer?.image;
   return <section className="stocking-offer stocking-candle-offer" aria-label="Offre complémentaire facultative : mini bougie de massage vanille">
     <div className="stocking-candle-product">
       <div className="stocking-candle-photo">
-        {image?<img src={image} alt={data?.offer?.name || 'Mini bougie de massage vanille'} />:<CandleIllustration/>}
+        <img src="/images/upsell/bougie-massage-vanille-plaisir-secret.webp" width={800} height={1200} alt="Bougie de massage Plaisir Secret à la vanille, 35 ml, dans sa boîte en forme de cœur" />
       </div>
       <div className="stocking-candle-info">
         <p className="stocking-eyebrow">UNE ATTENTION POUR VOUS</p>
         <h2>Mini bougie de massage à la vanille — 35 ml</h2>
-        <p>Pour prolonger votre moment de douceur après avoir choisi vos bas.</p>
+        <p>Une bougie spécialement conçue pour le massage, au parfum de vanille et à la texture douce et soyeuse.</p>
+        <p>Plaisir Secret · 35 ml · Fabriquée en France</p>
+        <p className="stocking-candle-footnote">Présentée dans une boîte en forme de cœur. Pour l’utilisation, suivez les indications du fabricant sur l’emballage.</p>
         <p className="stocking-candle-price">{money(DISPLAY_PRICE)}</p>
         <p className="stocking-candle-footnote">Une seule bougie par commande. Aucun supplément de livraison standard.</p>
         <p className="stocking-candle-timer-label">Votre offre pendant encore :</p>
