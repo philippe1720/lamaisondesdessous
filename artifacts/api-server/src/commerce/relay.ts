@@ -8,7 +8,7 @@ export async function searchRelays(postcode: string, city: string): Promise<Pick
   const shippingDate = `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}`;
   const response = await fetch('https://ws.colissimo.fr/pointretrait-ws-cxf/rest/v2/pointretrait/findRDVPointRetraitAcheminement', {
     method:'POST', headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({apiKey:process.env.COLISSIMO_API_KEY,zipCode:postcode,city,address:'',countryCode:'FR',shippingDate,filterRelay:'1',lang:'FR',requestId:'lmd'}),signal:AbortSignal.timeout(12000),redirect:'error'
+    body:JSON.stringify({apikey:process.env.COLISSIMO_API_KEY,zipCode:postcode,city,address:'',countryCode:'FR',shippingDate,filterRelay:'1',lang:'FR',requestId:'lmd'}),signal:AbortSignal.timeout(12000),redirect:'error'
   });
   if (!response.ok) throw new Error('Transporteur indisponible');
   const data = await response.json() as any;
