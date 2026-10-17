@@ -24,7 +24,22 @@ function writeOffer(res:Response,state:OfferState) {
   const payload=Buffer.from(JSON.stringify(state)).toString('base64url');
   res.cookie(COOKIE,payload+'.'+signature(payload),{httpOnly:true,secure:process.env.SITE_URL?.startsWith('https://'),sameSite:'strict',path:'/api',maxAge:Math.max(0,state.until-Date.now())});
 }
+// Temporary, merchant-verified availability. This is not a live supplier stock feed.
+// The merchant must update the count after each order and recheck before renewing.
+export function manualCandle(now=Date.now()) {
+  if(process.env.UPSELL_MANUAL_ENABLED!=='true') return undefined;
+  const stock=Number(process.env.UPSELL_MANUAL_STOCK);
+  const verifiedAt=Date.parse(process.env.UPSELL_MANUAL_VERIFIED_AT || '');
+  if(!Number.isSafeInteger(stock) || stock<1 || !Number.isFinite(verifiedAt) ||
+      verifiedAt>now || now-verifiedAt>=DAY) return null;
+  return {ean:'3479228260621',name:'Mini bougie de massage vanille — Plaisir Secret 35 ml',
+    description:'Bougie de massage à la vanille, texture douce et soyeuse. Plaisir Secret, 35 ml, fabriquée en France.',
+    image:new URL('/images/upsell/bougie-massage-vanille-plaisir-secret.webp',process.env.SITE_URL).href,
+    priceCents:490,stock,supplierId:'13737'};
+}
 export async function currentUpsell(rows?:Record<string,string>[]) {
+  const manual=manualCandle();
+  if(manual!==undefined) return manual;
   const separate=process.env.BUSYX_UPSELL_FEED_URL;
   return upsellProduct(separate?await supplierRows(separate):rows || await supplierRows());
 }
