@@ -20,3 +20,21 @@
 .stocking-offer-actions .stocking-offer-yes{flex:1.2;min-height:60px;font-size:16px;padding:18px}
 .stocking-offer-actions .stocking-offer-no{flex:1;min-height:48px;font-size:14px;padding:13px}
 @media(max-width:600px){.stocking-candle-offer{padding:20px 14px}.stocking-offer-actions{flex-direction:column;gap:4px}.stocking-offer-actions .stocking-offer-yes{width:100%}.stocking-offer-actions .stocking-offer-no{width:100%}}
+
+/* Upsell bougie: fiche produit dédiée, affichée immédiatement avant livraison. */
+.stocking-candle-product{display:grid;grid-template-columns:minmax(220px,.9fr) minmax(0,1.1fr);gap:30px;align-items:center;text-align:left}
+.stocking-candle-photo{min-height:340px;display:flex;align-items:center;justify-content:center;background:#f5eee9;border-radius:5px}
+.stocking-candle-photo>img{display:block;width:100%;max-height:420px;object-fit:contain}
+.stocking-candle-art{width:100%;height:360px;position:relative;display:flex;align-items:center;justify-content:flex-end;flex-direction:column;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#fff7ef 0%,#e4d1c7 74%,#d0b9b1 100%);padding-bottom:26px}
+.stocking-candle-art-glow{position:absolute;width:220px;height:150px;background:#f9e5aa;filter:blur(52px);opacity:.6;top:95px}
+.stocking-candle-art-jar{width:160px;height:175px;background:linear-gradient(110deg,#77473b,#a56c58 45%,#6a392f);border:7px solid #72483b;border-top:13px solid #e9d6c9;border-radius:14px 14px 18px 18px;box-shadow:8px 16px 20px #6e4b3d55;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f9e6cb;letter-spacing:.14em;z-index:2}
+.stocking-candle-art-jar>span{font:22px Georgia,serif}.stocking-candle-art-jar>small{font-size:9px;text-align:center;line-height:1.8}
+.stocking-candle-art-flame{width:19px;height:35px;position:absolute;top:100px;background:linear-gradient(#fff8c4,#df954b);border-radius:100% 0 100% 100%;transform:rotate(-45deg);z-index:3}
+.stocking-art-disclaimer{color:#604d45;position:absolute;bottom:6px;font-size:9px;z-index:3}
+.stocking-candle-info h2{font:clamp(1.6rem,3vw,2.3rem)/1.3 Georgia,serif;margin:12px 0}
+.stocking-candle-timer-label{font-size:13px;margin-bottom:0!important}
+.stocking-candle-info .stocking-offer-clock{display:block;width:max-content;margin:10px 0 18px;color:#841c32;font-weight:bold}
+.stocking-candle-info .stocking-choice{display:flex;flex-wrap:wrap;align-items:stretch}
+.stocking-candle-info .stocking-button{margin:5px 0}
+.stocking-candle-footnote{font-size:13px}
+@media(max-width:650px){.stocking-candle-product{grid-template-columns:1fr;gap:15px}.stocking-candle-photo{min-height:260px}.stocking-candle-art{height:280px}.stocking-candle-art-flame{top:45px}.stocking-candle-info .stocking-choice{flex-direction:column}}
