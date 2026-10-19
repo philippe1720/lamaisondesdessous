@@ -14,6 +14,13 @@ export function Footer() {
             <p className="text-muted-foreground text-sm max-w-sm mt-4">
               {SITE_CONFIG.description}
             </p>
+            <nav aria-label="Nos réseaux sociaux" className="mt-6">
+              <p className="text-sm font-medium mb-2">Retrouvez-nous sur</p>
+              <div className="flex flex-wrap gap-3">
+                <a href="https://www.instagram.com/la_maison_des_dessous/" target="_blank" rel="noopener noreferrer" aria-label="La Maison des Dessous sur Instagram (nouvel onglet)" className="inline-flex min-h-11 items-center rounded-md border border-border px-4 py-2 text-sm hover:text-primary hover:border-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Instagram</a>
+                <a href="https://www.tiktok.com/@la.maison.des.des5" target="_blank" rel="noopener noreferrer" aria-label="La Maison des Dessous sur TikTok (nouvel onglet)" className="inline-flex min-h-11 items-center rounded-md border border-border px-4 py-2 text-sm hover:text-primary hover:border-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">TikTok</a>
+              </div>
+            </nav>
           </div>
           
           <div>
