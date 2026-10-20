@@ -9,6 +9,7 @@ interface SEOProps {
   canonical?: string;
   type?: 'website' | 'article' | 'product';
   image?: string;
+  noindex?: boolean;
   children?: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ export function SEO({
   canonical,
   type = 'website',
   image = '/images/hero.png',
+  noindex = false,
   children
 }: SEOProps) {
   const fullTitle = title ? `${title} | ${SITE_CONFIG.name}` : SITE_CONFIG.name;
@@ -28,6 +30,7 @@ export function SEO({
   return (
     <Helmet>
       <title>{fullTitle}</title>
+      {noindex && <meta name="robots" content="noindex, follow" />}
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       
