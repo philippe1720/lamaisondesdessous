@@ -16,6 +16,8 @@ import "@/features/shop/shop.css";
 import Blog from "@/pages/blog";
 import BlogArticle from "@/pages/blog-article";
 import CGV from "@/pages/cgv";
+import MentionsLegales from "@/pages/mentions-legales";
+import PolitiqueConfidentialite from "@/pages/politique-confidentialite";
 import QuiSommesNous from "@/pages/qui-sommes-nous";
 import FAQ from "@/pages/faq";
 import NotFound from "@/pages/not-found";
@@ -44,6 +46,8 @@ function Router() {
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogArticle} />
         <Route path="/cgv" component={CGV} />
+        <Route path="/mentions-legales" component={MentionsLegales} />
+        <Route path="/politique-de-confidentialite" component={PolitiqueConfidentialite} />
         <Route path="/qui-sommes-nous" component={QuiSommesNous} />
         <Route path="/faq" component={FAQ} />
         <Route component={NotFound} />
