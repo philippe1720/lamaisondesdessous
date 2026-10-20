@@ -5,11 +5,15 @@ import { Router } from 'wouter';
 import Blog from './src/pages/blog';
 import BlogArticle, { CONTENT } from './src/pages/blog-article';
 import CGV from './src/pages/cgv';
+import MentionsLegales from './src/pages/mentions-legales';
+import PolitiqueConfidentialite from './src/pages/politique-confidentialite';
 
 export function renderPages() {
   const routes = [
     {url:'/blog', Component:Blog},
     {url:'/cgv', Component:CGV},
+    {url:'/mentions-legales', Component:MentionsLegales},
+    {url:'/politique-de-confidentialite', Component:PolitiqueConfidentialite},
     ...Object.keys(CONTENT).map(slug=>({url:`/blog/${slug}`,Component:BlogArticle})),
   ];
   return routes.map(({url,Component})=>{
