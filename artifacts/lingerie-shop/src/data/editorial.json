@@ -2,32 +2,104 @@
   "categories": [
     {
       "path": "/bas-autofixants",
-      "title": "Bas autofixants pour femme",
-      "description": "Bas autofixants en voile ou en résille, avec maintien siliconé : comparez les couleurs, les finitions et les tailles disponibles.",
-      "intro": "Les bas autofixants se portent sans porte-jarretelles. Leur bande de silicone, placée à l’intérieur de la jarretière, assure le contact avec la cuisse. Découvrez nos modèles en voile noir, beige, blanc ou rouge, ainsi que nos résilles noires et beiges.",
+      "title": "Bas autofixants femme : voile et dentelle",
+      "description": "Bas autofixants pour femme : voile noir ou beige, dentelle, résille et modèles 20 deniers. Comparez les tailles, les finitions et le maintien siliconé.",
+      "intro": "Envie de bas autofixants qui se portent sans porte-jarretelles ? Nos modèles pour femme utilisent une bande de silicone sous la jarretière. Choisissez entre un voile fin, une résille noire ou beige et des finitions en dentelle. Sur chaque fiche, vous retrouvez la taille proposée et les caractéristiques confirmées du modèle.",
       "sections": [
         {
-          "title": "Voile ou résille : quel rendu choisir ?",
+          "title": "Quels bas autofixants choisir : voile, dentelle ou résille ?",
           "paragraphs": [
-            "Le voile habille la jambe d’une surface fine et continue. La résille laisse apparaître la peau entre les mailles : son dessin reste visible même lorsque la couleur se rapproche de celle de la peau. Pour un détail vertical au dos de la jambe, regardez le modèle noir à couture arrière.",
-            "Les deniers sont indiqués lorsque le fournisseur les précise. Nos modèles annoncés à 20 deniers offrent un rendu en voile ; ce chiffre ne renseigne pas, à lui seul, sur leur brillance ou sur la largeur de leur dentelle."
+            "Pour un effet discret sous une tenue, regardez nos modèles en voile noir ou beige. Les bas noirs à couture arrière ajoutent un trait vertical au dos de la jambe ; les modèles satinés ont un rendu différent. La dentelle se trouve sur la bordure haute, tandis que le voile ou la résille habille la jambe.",
+            "Si vous aimez les mailles ajourées, les bas résille autofixants noirs se portent sans attaches, tout comme notre modèle beige Ohyeah. Vérifiez la rubrique « Maintien » de chaque fiche : une jolie jarretière en dentelle n'est pas nécessairement autofixante."
           ]
         },
         {
-          "title": "Une taille adaptée, une bande bien placée",
+          "title": "Bas autofixants 20 deniers : que signifie ce chiffre ?",
           "paragraphs": [
-            "Choisissez la taille à partir des indications du modèle, pas uniquement de votre taille de vêtement. La bande doit reposer à plat, sans rouler ni vous comprimer. Une taille unique désigne une plage de mesures, pas une compatibilité avec toutes les morphologies.",
-            "Placez les autofixants sur une peau propre et sèche. Si la bande descend, vérifiez le positionnement, la taille et les consignes d’entretien avant de chercher un maintien plus serré."
+            "Le denier caractérise le fil utilisé, pas la largeur de dentelle ni la résistance à toutes les accroches. Nos bas noirs à couture arrière et les bas Satin Touch portent tous deux l'indication 20 deniers, mais leur finition est différente : voile transparent pour les premiers, semi-transparent pour les seconds.",
+            "Pour les modèles sans denier communiqué par le fournisseur, nous n'en inventons pas. Comparez plutôt les photos, la composition et les détails présents sur la fiche produit."
           ]
         },
         {
-          "title": "Faut-il prévoir un accessoire ?",
+          "title": "Comment choisir sa taille et éviter que les bas glissent ?",
           "paragraphs": [
-            "Ces modèles n’exigent pas de porte-jarretelles. Chaque référence est vendue par paire ; les autres pièces visibles sur les photos ne font pas partie du paquet. Si vous préférez des attaches, choisissez la catégorie des bas pour porte-jarretelles."
+            "La bande siliconée doit rester à plat sur la cuisse, sans rouler ni serrer. Prenez vos mesures, consultez le guide de la marque et placez les bas sur une peau propre et sèche : une crème sous le silicone peut perturber le maintien.",
+            "Selon le modèle, les tailles vont de XS à XL, de 1 à 5 ou sont indiquées en taille unique. Ces systèmes ne sont pas interchangeables. Si vous préférez des bas tenus par des attaches, découvrez la collection pour porte-jarretelles."
           ]
         }
       ],
       "links": [
+        {
+          "href": "/produit/bas-autofixants-couture-noirs-20-deniers",
+          "label": "Bas noirs à couture arrière — 20 deniers"
+        },
+        {
+          "href": "/produit/bas-autofixants-satin-touch-20-deniers",
+          "label": "Bas noirs Satin Touch — 20 deniers"
+        },
+        {
+          "href": "/produit/bas-autofixants-beiges-dentelle-large-20-deniers",
+          "label": "Bas beiges — dentelle large 20 deniers"
+        },
+        {
+          "href": "/conseils/comment-choisir-taille-bas",
+          "label": "Choisir la bonne taille de bas"
+        },
+        {
+          "href": "/conseils/pourquoi-bas-autofixants-glissent",
+          "label": "Que vérifier si vos autofixants glissent ?"
+        },
+        {
+          "href": "/bas-resille",
+          "label": "Voir les bas résille pour femme"
+        },
+        {
+          "href": "/bas-porte-jarretelles",
+          "label": "Comparer avec les bas pour porte-jarretelles"
+        }
+      ]
+    },
+    {
+      "path": "/bas-porte-jarretelles",
+      "title": "Bas pour porte-jarretelles : résille noire",
+      "description": "Bas pour porte-jarretelles en résille noire : bordure florale, jarretière lacée et différentes tailles. Modèles à attaches ; porte-jarretelles non fourni.",
+      "intro": "Vous recherchez des bas pour porte-jarretelles, parfois appelés « bas jarretelles » ? Contrairement aux autofixants, ils se fixent aux attaches d'un porte-jarretelles. Notre sélection actuelle réunit des bas résille noirs, avec différentes bordures : dentelle florale, détail lacé ou finition simple. Le porte-jarretelles est vendu séparément.",
+      "sections": [
+        {
+          "title": "Comment tiennent les bas pour porte-jarretelles ?",
+          "paragraphs": [
+            "Ces bas ne disposent pas du maintien siliconé des autofixants : ils sont prévus pour être retenus par les attaches d'un porte-jarretelles. Il faut donc disposer de cet accessoire pour les porter. Vérifiez aussi le bon réglage des jarretelles afin de maintenir les bas sans les étirer excessivement.",
+            "La présence de dentelle ne suffit pas à savoir si des bas nécessitent des attaches. Chaque fiche précise le type de maintien, pour éviter de confondre bas pour porte-jarretelles et bas autofixants."
+          ]
+        },
+        {
+          "title": "Quels bas résille noirs choisir ?",
+          "paragraphs": [
+            "Vous pouvez préférer les bas à jarretière lacée Cotelli Legwear, dont le détail se voit à l'arrière de la cuisse, ou les bas Daring Intimates à bordure florale. La référence Daring « Extravagant » mise sur une résille extensible et des pointes renforcées.",
+            "Les tailles diffèrent selon le modèle : S/M ou M/L sur la référence lacée, taille unique sur les deux références Daring. Une taille unique n'est pas une garantie de compatibilité avec toutes les morphologies ; vérifiez les indications disponibles avant de commander."
+          ]
+        },
+        {
+          "title": "Comment enfiler et régler des bas à attaches ?",
+          "paragraphs": [
+            "Rassemblez délicatement le bas dans les mains, placez la pointe sur le pied et déroulez la matière jusqu'à la cuisse. Fixez ensuite les attaches de votre porte-jarretelles sur la bordure prévue, puis ajustez leur longueur pour éviter plis et tension.",
+            "Les compositions, les pointes renforcées lorsqu'elles existent et les tailles proposées figurent sur chaque fiche. Notre collection de bas pour porte-jarretelles est distincte des modèles autofixants avec silicone."
+          ]
+        }
+      ],
+      "links": [
+        {
+          "href": "/produit/bas-resille-noirs-a-jarretiere-lacee",
+          "label": "Bas résille noirs à jarretière lacée"
+        },
+        {
+          "href": "/produit/bas-resille-noirs-a-dentelle-florale",
+          "label": "Bas résille noirs à dentelle florale"
+        },
+        {
+          "href": "/produit/bas-resille-noirs-extravagant",
+          "label": "Bas résille noirs Extravagant"
+        },
         {
           "href": "/conseils/bas-autofixants-ou-porte-jarretelles",
           "label": "Comparer les deux types de maintien"
@@ -37,96 +109,70 @@
           "label": "Choisir la taille de ses bas"
         },
         {
-          "href": "/conseils/pourquoi-bas-autofixants-glissent",
-          "label": "Mes autofixants glissent : les vérifications utiles"
-        },
-        {
           "href": "/bas-resille",
-          "label": "Voir tous les bas résille"
-        }
-      ]
-    },
-    {
-      "path": "/bas-porte-jarretelles",
-      "title": "Bas pour porte-jarretelles",
-      "description": "Bas en résille à fixer à un porte-jarretelles : comparez les modèles noirs, les bordures et les tailles. Accessoire non fourni.",
-      "intro": "Ces bas se fixent aux attaches d’un porte-jarretelles. Notre sélection réunit des résilles noires à jarretière lacée ou à finition dentelle, pour celles qui préfèrent ce mode de maintien. Le porte-jarretelles n’est pas inclus.",
-      "sections": [
-        {
-          "title": "Des bas à attaches, différents des autofixants",
-          "paragraphs": [
-            "La bordure haute reçoit les attaches : elle ne remplace pas une bande de silicone. Prévoyez un porte-jarretelles adapté avant de commander. L’aspect dentelle ne permet pas, à lui seul, de savoir comment un bas tient ; vérifiez toujours la rubrique Maintien de la fiche."
-          ]
-        },
-        {
-          "title": "Trois résilles noires à comparer",
-          "paragraphs": [
-            "Le modèle à jarretière lacée porte son détail derrière la cuisse. Les références Daring Intimates proposent une résille extensible avec pointes renforcées ; la version à dentelle florale met l’accent sur la bordure. Consultez les différentes vues pour comparer ces finitions.",
-            "Un renfort aux pointes n’empêche pas toutes les accroches. Les bagues, ongles et fermetures peuvent tirer un fil : rassemblez le bas dans les mains et déroulez-le doucement sur la jambe."
-          ]
-        },
-        {
-          "title": "Choisir la taille et régler les attaches",
-          "paragraphs": [
-            "Un bas trop court peut tirer sur les attaches. Un bas trop long peut former des plis. Reportez-vous aux mesures propres au fabricant et ajustez les jarretelles pour soutenir le bas sans le tendre excessivement. Les tailles S/M et M/L ne se convertissent pas automatiquement en centimètres.",
-            "Les tailles uniques Daring ne disposent pas encore de correspondances de cuisse et de longueur confirmées dans notre guide. Nous l’indiquons pour vous permettre de choisir en connaissance de cause."
-          ]
-        }
-      ],
-      "links": [
-        {
-          "href": "/conseils/bas-autofixants-ou-porte-jarretelles",
-          "label": "Autofixants ou porte-jarretelles : faire son choix"
-        },
-        {
-          "href": "/conseils/comment-choisir-taille-bas",
-          "label": "Prendre ses mesures"
-        },
-        {
-          "href": "/bas-resille",
-          "label": "Comparer toutes les résilles"
+          "label": "Découvrir tous les bas résille"
         }
       ]
     },
     {
       "path": "/bas-resille",
-      "title": "Bas résille pour femme",
-      "description": "Bas résille noirs ou beiges : choisissez un maintien autofixant ou pour porte-jarretelles, puis comparez les tailles et les finitions.",
-      "intro": "La résille dessine un motif ajouré sur la jambe. Retrouvez ici nos cinq modèles noirs ou beiges : certains tiennent par une bande de silicone, d’autres nécessitent un porte-jarretelles. La matière et le maintien sont deux critères distincts.",
+      "title": "Bas résille femme : noirs et beiges",
+      "description": "Bas résille femme noirs ou beiges : découvrez les modèles autofixants avec silicone et ceux pour porte-jarretelles. Comparez dentelle, tailles et maintien.",
+      "intro": "Les bas résille pour femme dessinent une maille ajourée sur la jambe. Vous cherchez une résille noire, des bas résille beiges ou un modèle qui tient sans porte-jarretelles ? Notre sélection réunit les deux types de maintien. Commencez par choisir entre autofixants avec silicone et bas à attaches, puis comparez la maille, la dentelle et les tailles.",
       "sections": [
         {
-          "title": "Commencer par le maintien",
+          "title": "Bas résille autofixants ou bas pour porte-jarretelles ?",
           "paragraphs": [
-            "Pour porter une résille sans attaches, choisissez un modèle autofixant. Pour l’associer à un porte-jarretelles, consultez les modèles qui le prévoient. Les deux familles sont réunies sur cette page afin de comparer les finitions sans confondre leur utilisation."
+            "Les bas résille autofixants se maintiennent grâce à une bande de silicone à l'intérieur de la jarretière. Ils se portent sans accessoire supplémentaire. Notre sélection comprend notamment une résille noire Cotelli et des bas résille beiges Ohyeah.",
+            "Les autres modèles demandent un porte-jarretelles : c'est le cas des résilles noires à jarretière lacée, à dentelle florale et Extravagant. Le porte-jarretelles n'est pas fourni. Le choix du maintien est essentiel, même lorsque deux modèles se ressemblent sur les photos."
           ]
         },
         {
-          "title": "Résille noire ou beige ?",
+          "title": "Bas résille noirs : quel style de dentelle ?",
           "paragraphs": [
-            "Le noir souligne le dessin des mailles et contraste avec la peau. Le beige Ohyeah offre une autre lecture du motif, selon votre carnation et la lumière. Beige ne signifie pas invisible : la maille reste ajourée et sa teinte ne correspond pas nécessairement à toutes les peaux.",
-            "Les photos permettent aussi de comparer la jarretière : dentelle florale, détail lacé ou bordure siliconée. Ouvrez les vues de chaque produit avant de choisir."
+            "La résille noire fait ressortir le dessin des mailles et les détails de la jarretière. Pour porter une résille noire sans attaches, regardez la version autofixante ; pour un effet plus travaillé, comparez la bordure florale Daring et le détail lacé à l'arrière de la cuisse sur le modèle Cotelli.",
+            "Toutes les photos ne montrent pas nécessairement les mêmes accessoires. Chaque référence est vendue par paire ; les vêtements et porte-jarretelles visibles sur certaines images ne sont pas inclus."
           ]
         },
         {
-          "title": "La taille et la composition restent importantes",
+          "title": "Bas résille beiges : ce qu'il faut savoir",
           "paragraphs": [
-            "Une maille extensible ne dispense pas de choisir une taille adaptée. Les compositions et les variantes sont détaillées sur les fiches. Les deniers ne sont pas renseignés pour ces résilles : nous ne leur attribuons pas une valeur à partir de la photo.",
-            "Chaque référence contient une paire de bas. Les chaussures, vêtements et porte-jarretelles éventuellement photographiés ne sont pas inclus."
+            "Le modèle beige Ohyeah associe une résille extensible et une jarretière en dentelle avec bande siliconée. La teinte beige ne rend pas la maille invisible : son aspect varie selon la carnation et la lumière.",
+            "La référence existe en taille unique et en grande taille, avec une disponibilité susceptible de changer. Consultez la fiche avant de choisir ; nous ne déduisons pas de mensurations précises d'une appellation « grande taille »."
+          ]
+        },
+        {
+          "title": "Taille, matière et deniers des bas résille",
+          "paragraphs": [
+            "La résille est une maille ajourée : elle ne se choisit pas uniquement sur sa couleur. Regardez aussi la composition, le maintien et les tailles proposées. Les deniers ne sont pas renseignés pour ces modèles par le fournisseur : nous n'en annonçons pas sans donnée vérifiable.",
+            "Pour éviter une mauvaise surprise, commencez par le maintien souhaité, puis comparez les tailles et les finitions sur les fiches produits."
           ]
         }
       ],
       "links": [
         {
+          "href": "/produit/bas-resille-autofixants-noirs",
+          "label": "Voir les bas résille autofixants noirs"
+        },
+        {
+          "href": "/produit/bas-resille-autofixants-beiges-ohyeah",
+          "label": "Voir les bas résille autofixants beiges Ohyeah"
+        },
+        {
+          "href": "/produit/bas-resille-noirs-a-dentelle-florale",
+          "label": "Voir les bas résille noirs à dentelle florale"
+        },
+        {
           "href": "/bas-autofixants",
-          "label": "Voir les bas autofixants"
+          "label": "Explorer tous les bas autofixants"
         },
         {
           "href": "/bas-porte-jarretelles",
-          "label": "Voir les bas pour porte-jarretelles"
+          "label": "Explorer les bas pour porte-jarretelles"
         },
         {
           "href": "/conseils/comment-choisir-taille-bas",
-          "label": "Consulter les conseils de taille"
+          "label": "Conseils pour bien choisir sa taille"
         }
       ]
     }
