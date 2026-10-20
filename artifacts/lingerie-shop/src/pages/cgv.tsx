@@ -77,7 +77,7 @@ export default function CGV() {
       </section>
       <section>
         <h2>11. Données personnelles et propriété intellectuelle</h2>
-        <p>Les informations nécessaires à la commande sont utilisées pour le paiement, la livraison, l'assistance et le respect des obligations légales, pour les besoins de la commande, du paiement, de la livraison et de l’assistance. Les demandes concernant les données personnelles peuvent être adressées à <a href="mailto:contact@lamaisondesdessous.fr">contact@lamaisondesdessous.fr</a>.</p>
+        <p>Les informations nécessaires à la commande sont utilisées pour traiter la commande, le paiement, la livraison, l'assistance et les obligations légales. Les demandes concernant les données personnelles peuvent être adressées à <a href="mailto:contact@lamaisondesdessous.fr">contact@lamaisondesdessous.fr</a>.</p>
         <p>Les textes, logos, photographies de fournisseurs et autres contenus restent protégés par les droits de leurs titulaires respectifs. Leur présence sur ce site n'emporte pas transfert de propriété intellectuelle au client.</p>
       </section>
       <section>
