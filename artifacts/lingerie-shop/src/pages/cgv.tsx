@@ -11,7 +11,7 @@ export default function CGV() {
     <h1 className="font-serif text-4xl md:text-5xl font-bold mb-8">Mentions légales et conditions générales de vente</h1>
     <div className="prose prose-sm md:prose-base prose-p:font-light prose-headings:font-serif max-w-none text-muted-foreground">
       <section id="mentions-legales">
-        <h2>1. Mentions Légales</h2>
+        <h2>Mentions légales</h2>
           <p>Le site "La Maison des Dessous" est édité par la société <strong>Niard Philippe</strong>, immatriculée au RCS de Caen sous le numéro <strong>882 907 116 00017</strong>.</p>
           <p>Siège social : 14 rue de Hambourhen, 14790 Verson, France.<br/>
           Contact : contact@lamaisondesdessous.fr</p>
