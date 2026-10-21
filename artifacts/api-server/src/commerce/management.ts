@@ -122,10 +122,18 @@ managementRouter.post('/gestion/orders/:id', async (req, res) => {
         res.status(400).json({ error: 'Numéro ou transporteur incorrect.' }); return;
       }
       updated = await update(id, { tracking_number: number, tracking_carrier: carrier, shipped_at: new Date().toISOString() });
+      // Save shipment first; failure of an optional email must never erase tracking.
+      try { const { notifyCustomerShipping } = await import('./management-mail');
+        if (await notifyCustomerShipping(updated)) updated = await ownedOrder(id);
+      } catch { /* Retry notification from the management dashboard. */ }
     } else if (action === 'notify_customer') {
       const { notifyCustomerShipping } = await import('./management-mail');
       const ok = await notifyCustomerShipping(s);
-      if (!ok) { res.status(503).json({ error: 'Notification non envoyée. Vérifiez les paramètres du service e-mail.' }); return; }
+      if (!ok) { res.status(503).json({ error: 'Notification non envoyée. Vérifiez les paramètres du service e-mail et le suivi.' }); return; }
+      updated = await ownedOrder(id);
+    } else if (action === 'notify_paid') {
+      const { notifyPaidCheckout } = await import('./management-mail');
+      await notifyPaidCheckout(s);
       updated = await ownedOrder(id);
     } else { res.sendStatus(400); return; }
     res.json({ order: toOrder(updated) });
