@@ -43,6 +43,7 @@ footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size
     <nav id="nav">
       <button class="navitem active" data-page="direction">⌂ &nbsp; Direction</button>
       <button class="navitem" data-page="commandes">▣ &nbsp; Commandes & expéditions</button>
+      <button class="navitem" data-page="sandbox">◉ &nbsp; Laboratoire Stripe TEST</button>
       <button class="navitem" data-page="sav">♡ &nbsp; Service client</button>
       <button class="navitem" data-page="finances">€ &nbsp; Comptabilité & finances</button>
       <button class="navitem" data-page="commercial">◈ &nbsp; Direction commerciale</button>
@@ -91,6 +92,20 @@ footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size
         <p class="help">Ne renseignez un numéro de suivi qu'après une expédition réelle. Cela rendra le suivi visible à la cliente sur sa page de commande.</p>
       </article>
     </section>
+    <section id="sandbox" hidden>
+      <div class="panel">
+        <p class="eyebrow">Laboratoire de commande · Séparé du paiement réel</p>
+        <h3>Tester ton parcours client sans encaisser d’argent</h3>
+        <p>Ce laboratoire utilise une <strong>clé Stripe Test différente</strong> de celle de la boutique. Tu parcours les vraies pages de produits, le panier, la bougie facultative, la livraison et Stripe Checkout. Les transactions sont fictives, identifiées TEST et exclues du chiffre d’affaires réel.</p>
+        <div class="notice"><strong>Avant de commencer :</strong> configure dans Render <code>STRIPE_TEST_SECRET_KEY</code> avec une clé secrète Stripe commençant par <code>sk_test_</code>. Ne remplace jamais <code>STRIPE_SECRET_KEY</code>. Ne partage jamais les clés ici.</div>
+        <div class="row-actions"><span class="status" id="sandbox-status">Vérification de Stripe Test…</span><button id="start-sandbox" class="button" disabled>Lancer une commande fictive →</button></div>
+        <p class="help">La visite se déroule dans cet onglet. Tu reviens ici en cliquant sur « Quitter le test » dans la barre orange en haut du site.</p>
+        <h3 style="margin-top:30px">Effectuer le test de paiement</h3>
+        <p>Sur la page de paiement Stripe, utilise une carte de test officielle comme <strong>4242 4242 4242 4242</strong>, une date d’expiration future et un CVC de trois chiffres. Ne saisis pas de vraie carte pour ce test. Le lien de confirmation ramène au site.</p>
+        <p><strong>Aucun achat BusyX ni colis</strong> ne sera créé. Le mail automatique de commande réelle ne part pas pour ces paiements fictifs.</p>
+        <p class="help">Si la recherche Pickup est indisponible, tu peux vérifier la livraison à domicile et tester le relais séparément quand son service est prêt. La disponibilité fournisseur doit être accessible pour reproduire les prix et tailles réels.</p>
+      </div>
+    </section>
     <section id="sav" hidden><div class="panel"><h3>Service après-vente</h3><p>Une demande de cliente se traite d'abord à partir de sa référence Stripe, du paiement réel et de l'état de livraison.</p><div class="module-list"><div class="module-item"><span>Retrouver la cliente et le montant réglé</span><button data-go="commandes" class="button light small">Commandes →</button></div><div class="module-item"><span>Vérifier la date, le mode et le numéro de livraison</span><button data-go="commandes" class="button light small">Suivi →</button></div><div class="module-item"><span>Informer la cliente sur les retours ou les garanties</span><a href="/livraison-retours" target="_blank">Politique de retours ↗</a></div></div><h3 style="margin-top:25px">Réponses prêtes à adapter</h3><div id="sav-templates"></div></div></section>
     <section id="finances" hidden>
       <div class="cards"><div class="card"><div class="label">Encaissements bruts (30 j)</div><div class="value" id="finance-gross">—</div></div><div class="card"><div class="label">Transactions payées (30 j)</div><div class="value" id="finance-orders">—</div></div><div class="card"><div class="label">Règlements de test</div><div class="value" id="finance-test">—</div></div><div class="card"><div class="label">Frais et coût fournisseur</div><div class="value">À saisir</div></div></div>
@@ -125,10 +140,14 @@ function loginView(message=''){ $('app').style.display='none';$('login').style.d
 function appView(){ $('login').style.display='none';$('app').style.display='block'; }
 $('login-form').addEventListener('submit',async ev=>{ev.preventDefault();$('login-status').textContent='Vérification…';try{await api('/api/gestion/login','POST',{password:$('password').value});$('password').value='';await initialize();}catch(e){$('login-status').textContent=e.message;}});
 $('logout').addEventListener('click',async()=>{try{await api('/api/gestion/logout','POST',{})}finally{loginView('Vous êtes déconnecté.');}});
-const titles={direction:'Vue de direction',commandes:'Commandes & expéditions',sav:'Service après-vente',finances:'Comptabilité & finances',commercial:'Direction commerciale',communication:'Community manager',secretariat:'Secrétariat & RH',technique:'Maintenance technique'};
+const titles={direction:'Vue de direction',commandes:'Commandes & expéditions',sandbox:'Laboratoire Stripe TEST',sav:'Service après-vente',finances:'Comptabilité & finances',commercial:'Direction commerciale',communication:'Community manager',secretariat:'Secrétariat & RH',technique:'Maintenance technique'};
 function page(name){if(!titles[name])return;state.shown=name;for(const key of Object.keys(titles))$(key).hidden=key!==name;for(const b of document.querySelectorAll('.navitem'))b.classList.toggle('active',b.dataset.page===name);$('title').textContent=titles[name];}
 document.addEventListener('click',ev=>{const b=ev.target.closest('[data-go], [data-page]');if(b)page(b.dataset.go||b.dataset.page)});
 $('refresh').addEventListener('click',()=>loadOrders());
+$('start-sandbox').addEventListener('click',()=>{
+ try { sessionStorage.setItem('lmd-sandbox-mode','active');sessionStorage.removeItem('lmd-upsell');window.location.assign('/boutique'); }
+ catch { flash('Le navigateur interdit ce mode de stockage. Essayez en dehors de la navigation privée.'); }
+});
 const realOrders=()=>state.orders.filter(o=>!o.test),recent=()=>realOrders().filter(o=>o.created>=Date.now()/1000-30*86400);
 function setMetrics(){
  const orders=recent(),paid=orders.reduce((v,o)=>v+o.amount,0);
@@ -163,7 +182,8 @@ function selectOrder(id){
  $('selected-status').textContent=order.status==='shipped'?'Expédition renseignée':order.status==='supplier_ordered'?'Commande transmise au fournisseur':'À commander chez BusyX';
  $('selected-mail').textContent='Boutique : '+(order.merchantNotified?'envoyé':'non envoyé')+' · Confirmation cliente : '+(order.customerNotified?'envoyée':'non envoyée')+' · Expédition : '+(order.shippingNotified?'envoyée':'non envoyée');
  $('tracking-number').value=order.trackingNumber;$('tracking-carrier').value=order.carrier;$('note').value=order.note;
- $('supplier').disabled=order.status!=='to_process';$('save-tracking').disabled=order.test;
+ $('supplier').disabled=order.test || order.status!=='to_process';$('save-tracking').disabled=order.test;
+ $('save-note').disabled=order.test;$('confirm-email').disabled=order.test;$('send-tracking').disabled=order.test;
  $('order-details').scrollIntoView({behavior:'smooth',block:'start'});
 }
 async function modify(action,fields={}){
@@ -181,6 +201,7 @@ $('send-tracking').onclick=()=>modify('notify_customer');
 async function loadOrders(){
  try{const result=await api('/api/gestion/orders');state.orders=result.orders;renderOrders();setMetrics();
    if(result.hasMore)flash('Attention : Stripe possède plus de 100 sessions. Les statistiques affichées ne sont pas exhaustives.');
+   else if(result.sandboxUnavailable)flash('Les ventes réelles sont consultables, mais Stripe Test ne répond pas.');
    else flash('Commandes actualisées depuis Stripe · '+new Date().toLocaleTimeString('fr-FR'),true);
  }catch(e){flash(e.message);}
 }
@@ -213,6 +234,13 @@ async function initialize(){
  $('mail-chip').textContent=state.mail?'✉ Notifications configurées':'✉ Emails à configurer';$('mail-chip').classList.toggle('good',state.mail);
  $('tech-mail').textContent=state.mail?'Service Resend prêt (envoi à confirmer par test réel)':'Resend / expéditeur non configurés';
  try{const r=await fetch('/api/healthz',{cache:'no-store'});$('health').textContent=r.ok?'Serveur accessible':'Erreur';}catch{$('health').textContent='Indisponible'}
+ try {
+   const config=await api('/api/gestion/sandbox/config');
+   const ready=Boolean(config.checkoutEnabled);
+   $('sandbox-status').textContent=ready?'Stripe Test configuré':'Clé Stripe Test absente';
+   $('sandbox-status').classList.toggle('good',ready);
+   $('start-sandbox').disabled=!ready;
+ }catch { $('sandbox-status').textContent='Mode test indisponible'; }
  await loadOrders();
 }
 async function start(){try{const info=await api('/api/gestion/session');if(info.setupNeeded)loginView('Pour activer l’accès privé : configurer ADMIN_PASSWORD et ADMIN_SESSION_SECRET dans les variables de Render.');else if(info.authenticated)await initialize();else loginView();}catch(e){loginView(e.message)}}
