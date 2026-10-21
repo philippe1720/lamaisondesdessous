@@ -74,3 +74,10 @@ export async function notifyCustomerShipping(s: any) {
   if (ok) await updateMarker(s.id, 'shipping_notified_at');
   return ok;
 }
+
+export async function testMerchantNotification() {
+  const config=mailConfig();
+  return validEmail(config.owner) && await send(config.owner,
+    'La Maison des Dessous — test du centre de pilotage',
+    'Votre notification de commande est configurée. Ce message est un test : aucune commande n’a été créée.');
+}
