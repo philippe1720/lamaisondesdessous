@@ -96,6 +96,15 @@ const update = (id: string, fields: Record<string, string>) => {
   return stripeRequest('checkout/sessions/' + id, data);
 };
 
+managementRouter.post('/gestion/test-email', async (_req, res) => {
+  try {
+    const { testMerchantNotification } = await import('./management-mail');
+    const ok = await testMerchantNotification();
+    if (!ok) { res.status(503).json({ error: 'Échec du test. Vérifiez votre adresse de réception et la validation du domaine e-mail.' }); return; }
+    res.json({ sent: true });
+  } catch { res.status(503).json({ error: 'Service e-mail indisponible.' }); }
+});
+
 managementRouter.get('/gestion/orders', async (_req, res) => {
   try {
     // Consults Stripe directly: no false "orders" generated from a browser visit.
@@ -132,6 +141,9 @@ managementRouter.post('/gestion/orders/:id', async (req, res) => {
       if (!ok) { res.status(503).json({ error: 'Notification non envoyée. Vérifiez les paramètres du service e-mail et le suivi.' }); return; }
       updated = await ownedOrder(id);
     } else if (action === 'notify_paid') {
+      if (!process.env.RESEND_API_KEY || !process.env.MAIL_FROM || !process.env.MERCHANT_NOTIFY_EMAIL) {
+        res.status(503).json({ error: 'Configurez le service e-mail avant de relancer la confirmation.' }); return;
+      }
       const { notifyPaidCheckout } = await import('./management-mail');
       await notifyPaidCheckout(s);
       updated = await ownedOrder(id);
