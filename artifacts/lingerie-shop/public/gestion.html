@@ -208,7 +208,7 @@ async function loadOrders(){
 $('test-email').onclick=async()=>{try{await api('/api/gestion/test-email','POST',{});flash('E-mail de test demandé. Vérifiez votre boîte de réception.',true)}catch(e){flash(e.message)}};
 $('export').onclick=()=>{
  const cols=['date','reference','statut','montant_eur','client_email','mode_livraison','suivi','test'];
- const csv=[cols,...state.orders.map(o=>[new Date(o.created*1000).toISOString(),o.id,o.status,(o.amount/100).toFixed(2),o.email,o.delivery,o.trackingNumber,o.test])].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');
+ const csv=[cols,...state.orders.filter(o=>!o.test).map(o=>[new Date(o.created*1000).toISOString(),o.id,o.status,(o.amount/100).toFixed(2),o.email,o.delivery,o.trackingNumber,o.test])].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');
  const a=document.createElement('a');const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='lmd-commandes-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
 const taskSets={
