@@ -77,3 +77,25 @@ Ne jamais marquer une commande "expédiée" avant sa prise en charge réelle par
 ## Déploiement
 
 Le service Render `lamaisondesdessous` suit la branche `feat/boutique-bas`. Les changements sont d'abord travaillés sur une branche et proposés en PR. Aucune nouvelle infrastructure payante n'est requise pour afficher le tableau de bord ; le prestataire e-mail peut avoir une offre gratuite avec limites.
+
+
+## Laboratoire Stripe TEST (2026-10-21)
+
+**La boutique réelle n'est pas basculée en mode test.** Les deux circuits sont séparés, grâce à une deuxième clé secrète Stripe valide seulement pour les paiements fictifs.
+
+1. Ouvrir le tableau de bord Stripe, accéder à **Mode test / Sandbox**, choisir les clés API de test du même compte.
+2. Copier la **clé secrète de test** (qui commence par `sk_test_`), sans la publier ni la communiquer dans le chat.
+3. Dans l'environnement du **même service Render**, ajouter la variable `STRIPE_TEST_SECRET_KEY` contenant cette clé. **Ne pas modifier `STRIPE_SECRET_KEY` ni `STRIPE_WEBHOOK_SECRET`.** Enregistrer et attendre la fin du déploiement.
+4. Dans le Centre de pilotage `/gestion`, ouvrir l'onglet **Laboratoire Stripe TEST**. Le statut doit indiquer « Stripe Test configuré ».
+5. Cliquer **Lancer une commande fictive** ; le navigateur ouvre la boutique dans le **même onglet**, avec une barre orange TEST toujours visible.
+6. Choisir un article, parcourir le panier, décider de l'offre de bougie, choisir domicile ou Pickup (si disponible), puis payer sur Stripe TEST avec `4242 4242 4242 4242`, une date future et n'importe quel CVC à 3 chiffres.
+7. Lire la page de confirmation (référence Stripe `cs_test_…`), puis revenir au tableau de bord avec **Quitter le test**. La transaction apparaît avec la mention TEST et est exclue du total des ventes réelles.
+
+### Limites / sécurité
+
+- L'API de test est protégée par le **même accès dirigeant** et accepte **uniquement** une clé au format `sk_test_`. Une erreur de clé bloque le mode test ; il n'y a **aucun basculement automatique** vers le paiement réel.
+- Le parcours utilise le **vrai front-end de la boutique**, mais dans un contexte de session réservée à l'administrateur. Les commandes et paiements sont uniquement dans Stripe Test ; le webhook de production reste sur la clé réelle.
+- Les données de catalogue/prix et l'offre de bougie sont vérifiées via le feed fournisseur (lecture seule), mais **aucune commande BusyX n'est passée**.
+- Le suivi colis et la notification réelle sont exclus des commandes tests. Les boutons de livraison/fournisseur sont désactivés pour ces lignes.
+- En cas d'expiration de l'authentification administrateur, le paiement de test échoue de façon sûre au lieu de revenir à Stripe réel.
+- Stripe Test doit exister dans le même compte lié à la boutique. Il peut être nécessaire d'activer les paiements dans le compte/sandbox Stripe. Le mode test n'est **pas activé** tant que la nouvelle variable Render n'est pas fournie.
