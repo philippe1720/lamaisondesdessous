@@ -30,7 +30,10 @@ export async function stripeWebhook(req:Request,res:Response) {
       // Stripe is the durable order ledger. Repeated events only write the same flag;
       // they never trigger a second shipment or supplier purchase.
       await stripeRequest(`checkout/sessions/${id}`,new URLSearchParams({'metadata[payment_verified]':'true'}),`lmd-confirm-${id}`);
-      // Transactional e-mails are optional; Stripe remains the durable order ledger.
+    }
+    if(session.metadata?.store==='lmd' && session.payment_status==='paid') {
+      // Retries allow notification recovery even if payment_verified was already set.
+      // Stripe metadata notification flags suppress ordinary duplicate sends.
       await notifyPaidCheckout(session);
     }
     res.sendStatus(200);
