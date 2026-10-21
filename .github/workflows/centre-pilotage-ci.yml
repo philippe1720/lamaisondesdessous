@@ -30,3 +30,15 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       - name: Verification TypeScript et compilation
         run: pnpm run build
+      - name: Controle d'acces a l'espace de gestion (smoke test)
+        run: |
+          node --enable-source-maps artifacts/api-server/dist/index.mjs &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:10000/api/healthz >/dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:10000/gestion | grep -q 'Centre de pilotage'
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:10000/api/gestion/orders)
+          test "$STATUS" = "401"
