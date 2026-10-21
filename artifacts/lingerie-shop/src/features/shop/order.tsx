@@ -10,7 +10,7 @@ export function OrderConfirmation(){
  const [order,setOrder]=useState<Order|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false);
  const [saved]=useState<{id:string;access:string}[]>(()=>{try{return JSON.parse(localStorage.getItem('lmd-orders') || '[]')}catch{return []}});
  async function load(id=sessionId,key=access){setBusy(true);setError('');setOrder(null);try{
-  const response=await fetch('/api/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:id,access:key})});const data=await response.json();if(!response.ok)throw new Error(data.error || 'Vérification indisponible.');setOrder(data);setSessionId(id);setAccess(key);if(data.paid)completeOrder(id,data.items);
+  const response=await fetch(id.startsWith('cs_test_')?'/api/gestion/sandbox/order':'/api/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:id,access:key})});const data=await response.json();if(!response.ok)throw new Error(data.error || 'Vérification indisponible.');setOrder(data);setSessionId(id);setAccess(key);if(data.paid)completeOrder(id,data.items);
   if(data.paid)try{const previous=JSON.parse(localStorage.getItem('lmd-orders') || '[]');localStorage.setItem('lmd-orders',JSON.stringify([{id,access:key},...previous.filter((o:any)=>o.id!==id)].slice(0,10)));}catch{}
  }catch(e){setError(e instanceof Error?e.message:'Vérification indisponible.')}finally{setBusy(false)}}
  useEffect(()=>{if(sessionId && access)void load();},[]);

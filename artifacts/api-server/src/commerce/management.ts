@@ -1,6 +1,7 @@
 import { Router, type Request, type Response } from 'express';
 import { createHmac, createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { stripeRequest } from './orders';
+import { sandboxRouter, sandboxReady, stripeSandboxRequest } from './sandbox';
 
 export const managementRouter = Router();
 const COOKIE = 'lmd_management';
@@ -68,6 +69,8 @@ managementRouter.use('/gestion', (req, res, next) => {
   next();
 });
 
+managementRouter.use('/gestion', sandboxRouter);
+
 const orderStatus = (s: any) => s.metadata?.tracking_number ? 'shipped'
   : s.metadata?.supplier_ordered_at ? 'supplier_ordered' : 'to_process';
 const toOrder = (s: any) => ({
@@ -108,15 +111,27 @@ managementRouter.post('/gestion/test-email', async (_req, res) => {
 managementRouter.get('/gestion/orders', async (_req, res) => {
   try {
     // Consults Stripe directly: no false "orders" generated from a browser visit.
-    const result = await stripeRequest('checkout/sessions?limit=100');
-    const orders = (result.data || []).filter((s: any) => s.metadata?.store === 'lmd' && s.payment_status === 'paid').map(toOrder);
-    res.json({ orders, hasMore: Boolean(result.has_more), retrievedAt: new Date().toISOString() });
+    const live = await stripeRequest('checkout/sessions?limit=100');
+    const orders = (live.data || []).filter((s: any) => s.metadata?.store === 'lmd' && s.payment_status === 'paid').map(toOrder);
+    let testHasMore = false, sandboxUnavailable = false;
+    if (sandboxReady()) {
+      try {
+        const tests = await stripeSandboxRequest('checkout/sessions?limit=100');
+        orders.push(...(tests.data || []).filter((s: any) => s.metadata?.store === 'lmd-sandbox' &&
+          s.payment_status === 'paid' && s.livemode === false).map(toOrder));
+        testHasMore = Boolean(tests.has_more);
+      } catch { sandboxUnavailable = true; }
+    }
+    orders.sort((a: any, b: any) => b.created - a.created);
+    res.json({ orders, hasMore: Boolean(live.has_more || testHasMore), sandboxUnavailable,
+      retrievedAt: new Date().toISOString() });
   } catch { res.status(503).json({ error: 'Stripe indisponible. Impossible de consulter les commandes.' }); }
 });
 managementRouter.post('/gestion/orders/:id', async (req, res) => {
   try {
     const id = req.params.id;
     if (typeof id !== 'string') { res.sendStatus(400); return; }
+    if (id.startsWith('cs_test_')) { res.status(403).json({ error: 'Commande fictive : aucune commande BusyX, livraison ou notification possible.' }); return; }
     const s = await ownedOrder(id);
     const action = clean(req.body?.action, 40);
     let updated: any;
