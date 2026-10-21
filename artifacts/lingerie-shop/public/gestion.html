@@ -105,7 +105,7 @@ footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size
       <div class="module-item"><span>État du serveur</span><span id="health">Vérification…</span></div>
       <div class="module-item"><span>Notifications de commande</span><span id="tech-mail">Vérification…</span></div>
       <div class="module-item"><span>Gestion BusyX</span><span>Manuelle — sans achat automatique</span></div>
-    </div><div class="row-actions"><a class="button light" href="https://dashboard.render.com" target="_blank" rel="noreferrer">Render ↗</a><a class="button light" href="https://github.com/philippe1720/lamaisondesdessous" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button light" href="https://dashboard.stripe.com" target="_blank" rel="noreferrer">Stripe ↗</a></div><div class="notice">Sécurité : configurez ADMIN_PASSWORD (16 caractères minimum), ADMIN_SESSION_SECRET (32 caractères minimum) dans Render. Pour les e-mails, configurez RESEND_API_KEY, MAIL_FROM et MERCHANT_NOTIFY_EMAIL, après vérification du domaine de l’expéditeur.</div></div></section>
+    </div><div class="row-actions"><a class="button light" href="https://dashboard.render.com" target="_blank" rel="noreferrer">Render ↗</a><a class="button light" href="https://github.com/philippe1720/lamaisondesdessous" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button light" href="https://dashboard.stripe.com" target="_blank" rel="noreferrer">Stripe ↗</a></div><div class="row-actions"><button id="test-email" class="button">Tester une notification e-mail</button></div><div class="notice">Sécurité : configurez ADMIN_PASSWORD (16 caractères minimum), ADMIN_SESSION_SECRET (32 caractères minimum) dans Render. Pour les e-mails, configurez RESEND_API_KEY, MAIL_FROM et MERCHANT_NOTIFY_EMAIL, après vérification du domaine de l’expéditeur.</div></div></section>
     <footer class="page-foot">La Maison des Dessous · Centre de pilotage privé · Les commandes sont synchronisées avec Stripe ; les tâches internes de gestion sont locales à ce navigateur.</footer>
   </main>
 </div></div>
@@ -184,6 +184,7 @@ async function loadOrders(){
    else flash('Commandes actualisées depuis Stripe · '+new Date().toLocaleTimeString('fr-FR'),true);
  }catch(e){flash(e.message);}
 }
+$('test-email').onclick=async()=>{try{await api('/api/gestion/test-email','POST',{});flash('E-mail de test demandé. Vérifiez votre boîte de réception.',true)}catch(e){flash(e.message)}};
 $('export').onclick=()=>{
  const cols=['date','reference','statut','montant_eur','client_email','mode_livraison','suivi','test'];
  const csv=[cols,...state.orders.map(o=>[new Date(o.created*1000).toISOString(),o.id,o.status,(o.amount/100).toFixed(2),o.email,o.delivery,o.trackingNumber,o.test])].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');
