@@ -1,0 +1,27 @@
+name: Verification du centre de pilotage
+on:
+  pull_request:
+    branches:
+      - feat/boutique-bas
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Installation des dependances
+        run: pnpm install --no-frozen-lockfile
+      - name: Verification TypeScript et compilation
+        run: pnpm run build
