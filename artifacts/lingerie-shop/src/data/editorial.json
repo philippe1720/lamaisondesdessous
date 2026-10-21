@@ -63,7 +63,7 @@
       "path": "/bas-porte-jarretelles",
       "title": "Bas pour porte-jarretelles : résille noire",
       "description": "Bas pour porte-jarretelles en résille noire : bordure florale, jarretière lacée et différentes tailles. Modèles à attaches ; porte-jarretelles non fourni.",
-      "intro": "Vous recherchez des bas pour porte-jarretelles, parfois appelés « bas jarretelles » ? Contrairement aux autofixants, ils se fixent aux attaches d'un porte-jarretelles. Notre sélection actuelle réunit des bas résille noirs, avec différentes bordures : dentelle florale, détail lacé ou finition simple. Le porte-jarretelles est vendu séparément.",
+      "intro": "Vous recherchez des bas pour porte-jarretelles, parfois appelés « bas jarretelles » ? Contrairement aux autofixants, ils se fixent aux attaches d'un porte-jarretelles. Notre sélection actuelle réunit des bas résille noirs, avec différentes bordures : dentelle florale, détail lacé ou finition simple. Le porte-jarretelles n’est pas fourni avec les bas.",
       "sections": [
         {
           "title": "Comment tiennent les bas pour porte-jarretelles ?",
@@ -393,11 +393,23 @@
     "20985": {
       "sections": [
         {
-          "title": "La ligne au dos de la jambe",
+          "title": "Des bas noirs 20 deniers avec une couture arrière",
           "paragraphs": [
-            "Ce voile noir de 20 deniers associe une couture arrière à une jarretière en dentelle. Le trait vertical est le détail à regarder sur les vues de dos : il donne au modèle son caractère, même avec une tenue sobre.",
-            "Ces bas sont autofixants : le silicone de la jarretière assure le maintien sans porte-jarretelles. La composition indiquée est de 100 % polyamide. La présence d’une couture arrière ne constitue pas une indication de fabrication Fully Fashioned.",
-            "Les variantes vont de XS à XL. Vérifiez le guide avant de sélectionner votre taille ; la couture se place au dos en déroulant le bas, sans torsion."
+            "Le voile transparent laisse apparaître la peau, tandis que la couture dessine une ligne au dos de la jambe. La jarretière en dentelle termine cette paire noire. Les vues de dos permettent de repérer la couture avant de choisir ce modèle.",
+            "La composition indiquée est de 100 % polyamide. Le détail de couture ne signifie pas que ces bas sont fabriqués selon la technique Fully Fashioned."
+          ]
+        },
+        {
+          "title": "Un maintien autofixant, sans porte-jarretelles",
+          "paragraphs": [
+            "La bande de silicone à l’intérieur de la jarretière maintient le bas au contact de la cuisse. Posez-la à plat sur une peau propre et sèche, sans crème à cet endroit. La dentelle ne doit ni rouler ni comprimer."
+          ]
+        },
+        {
+          "title": "Choisir sa taille et aligner la couture",
+          "paragraphs": [
+            "Ce modèle existe du XS au XL. Les boutons de taille indiquent les variantes actuellement commandables ; consultez le guide de la marque avant votre choix.",
+            "Rassemblez le bas dans les mains, placez le pied puis déroulez-le progressivement en gardant la couture à l’arrière. Si elle tourne, redescendez légèrement le bas pour le repositionner, sans tirer sur la dentelle. Une paire est fournie ; les autres accessoires des photos ne sont pas inclus."
           ]
         }
       ],
@@ -413,6 +425,10 @@
         {
           "href": "/conseils/pourquoi-bas-autofixants-glissent",
           "label": "Comprendre le maintien des autofixants"
+        },
+        {
+          "href": "/produit/bas-resille-autofixants-noirs",
+          "label": "Préférer la maille : bas résille autofixants noirs"
         }
       ]
     },
@@ -497,11 +513,23 @@
     "20990": {
       "sections": [
         {
-          "title": "Une résille noire sans attaches",
+          "title": "Une résille noire à porter sans attaches",
           "paragraphs": [
-            "Ce modèle réunit le motif ajouré de la résille noire et une jarretière siliconée. Il permet de porter la résille sans prévoir de porte-jarretelles. La peau reste visible entre les mailles.",
-            "La matière est annoncée à 100 % polyamide. La résille n’est pas un voile : aucun nombre de deniers n’est attribué à cette référence en l’absence d’information du fournisseur.",
-            "Les tailles proposées vont de S à XL. Pour un maintien adapté, vérifiez la taille et placez la bande à plat sur une peau propre et sèche, sans crème sous le silicone."
+            "Ces bas résille autofixants noirs associent une maille ajourée à une jarretière siliconée. La peau reste visible entre les mailles, avec un rendu différent d’un voile transparent. Aucun porte-jarretelles n’est nécessaire."
+          ]
+        },
+        {
+          "title": "Quelle taille choisir pour ces bas résille ?",
+          "paragraphs": [
+            "Le modèle existe en S, M, L et XL. Seules les tailles disponibles peuvent être sélectionnées. Consultez les repères de la marque : une maille extensible ne remplace pas un choix de taille adapté.",
+            "La bande doit reposer à plat sur une peau propre et sèche. Si elle roule ou descend, vérifiez la taille, le positionnement et les consignes d’entretien plutôt que de tirer davantage sur le bas."
+          ]
+        },
+        {
+          "title": "Matière et contenu de la paire",
+          "paragraphs": [
+            "La composition annoncée est de 100 % polyamide. Le fournisseur ne précise pas de deniers pour cette résille ; nous ne lui attribuons donc pas une épaisseur de voile.",
+            "Vous recevez une paire de bas noirs. Les chaussures et autres pièces photographiées ne sont pas incluses. Pour un modèle à fixer à des attaches, consultez les bas résille pour porte-jarretelles."
           ]
         }
       ],
@@ -517,6 +545,10 @@
         {
           "href": "/conseils/pourquoi-bas-autofixants-glissent",
           "label": "Comprendre le maintien des autofixants"
+        },
+        {
+          "href": "/produit/bas-resille-noirs-a-dentelle-florale",
+          "label": "Préférer les attaches : résille noire à dentelle florale"
         }
       ]
     },
@@ -549,11 +581,23 @@
     "22177": {
       "sections": [
         {
-          "title": "La résille avec une bordure florale",
+          "title": "Des bas résille noirs pour porte-jarretelles",
           "paragraphs": [
-            "Ces bas noirs Daring Intimates associent une fine résille à une bordure en dentelle florale. Les pointes renforcées font partie des détails indiqués pour ce modèle.",
-            "Ils sont conçus pour un porte-jarretelles, qui n’est pas fourni. Leur composition de 90 % polyamide et 10 % élasthanne accompagne le caractère extensible annoncé ; elle ne suffit pas à définir une plage de tailles.",
-            "Une seule variante est proposée. Taille unique ne signifie pas toutes tailles : les mesures spécifiques de cuisse et de longueur restent à confirmer. Les deniers ne sont pas renseignés pour cette résille."
+            "Cette paire Daring Intimates combine une fine résille noire et une bordure en dentelle florale. Elle se fixe aux attaches d’un porte-jarretelles : il faut disposer de cet accessoire, qui n’est pas fourni. Ce modèle n’est pas autofixant."
+          ]
+        },
+        {
+          "title": "Dentelle florale et pointes renforcées",
+          "paragraphs": [
+            "La résille laisse la peau visible entre les mailles, tandis que la bordure florale marque le haut de la cuisse. Les pointes renforcées font partie des caractéristiques de cette référence.",
+            "La matière contient 90 % polyamide et 10 % élasthanne. Les renforts ne protègent pas de toutes les accroches : retirez les bijoux et déroulez doucement les bas. Aucun nombre de deniers n’est communiqué pour ce modèle."
+          ]
+        },
+        {
+          "title": "Une taille unique à vérifier avant commande",
+          "paragraphs": [
+            "Cette référence est proposée en taille unique. Les mesures de cuisse et de longueur propres à ces bas restent à confirmer ; nous ne présentons pas cette taille comme adaptée à toutes les morphologies. Consultez les informations disponibles dans le guide avant de commander.",
+            "Le paquet contient une paire de bas. Le porte-jarretelles, les chaussures et les autres vêtements éventuellement visibles sur les photos ne sont pas inclus."
           ]
         }
       ],
@@ -569,6 +613,10 @@
         {
           "href": "/conseils/bas-autofixants-ou-porte-jarretelles",
           "label": "Comprendre les bas à attaches"
+        },
+        {
+          "href": "/produit/bas-resille-autofixants-noirs",
+          "label": "Préférer le silicone : résille noire autofixante"
         }
       ]
     },
