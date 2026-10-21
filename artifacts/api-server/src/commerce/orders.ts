@@ -1,6 +1,7 @@
 import { Router, type Request, type Response } from 'express';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { stripeSecretKey } from './payment-config';
+import { notifyPaidCheckout } from './management-mail';
 const validId = (id:unknown):id is string => typeof id==='string' && /^cs_(test_|live_)?[a-zA-Z0-9_]{10,250}$/.test(id);
 const same=(a:string,b:string)=>a.length===b.length && timingSafeEqual(Buffer.from(a),Buffer.from(b));
 export async function stripeRequest(path:string, body?:URLSearchParams, idempotency?:string):Promise<any> {
@@ -29,6 +30,11 @@ export async function stripeWebhook(req:Request,res:Response) {
       // Stripe is the durable order ledger. Repeated events only write the same flag;
       // they never trigger a second shipment or supplier purchase.
       await stripeRequest(`checkout/sessions/${id}`,new URLSearchParams({'metadata[payment_verified]':'true'}),`lmd-confirm-${id}`);
+    }
+    if(session.metadata?.store==='lmd' && session.payment_status==='paid') {
+      // Retries allow notification recovery even if payment_verified was already set.
+      // Stripe metadata notification flags suppress ordinary duplicate sends.
+      await notifyPaidCheckout(session);
     }
     res.sendStatus(200);
   } catch {res.sendStatus(503);}
