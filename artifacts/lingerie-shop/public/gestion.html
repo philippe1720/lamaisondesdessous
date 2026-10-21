@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<title>Centre de pilotage — La Maison des Dessous</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#2c2830;background:#f8f6f3;line-height:1.5}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:#784d65}button:disabled{opacity:.5;cursor:not-allowed}
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(ellipse at 20% 0%,#f1e2e6,transparent 55%),#f8f6f3}
+.login-card{width:min(100%,430px);background:white;border:1px solid #eee4e8;box-shadow:0 24px 60px #3d29351a;border-radius:22px;padding:32px}
+.logo{font:700 24px Georgia,serif;letter-spacing:.08em;color:#633c50}.brand-small{font-size:10px;letter-spacing:.23em;text-transform:uppercase;color:#997c88}.login-card h1{font:700 31px Georgia,serif;margin:28px 0 6px}p.muted,.muted{color:#817986}.small{font-size:12px}.field{display:block;font-size:13px;font-weight:650;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:11px 13px;border:1px solid #ded6dc;border-radius:9px;background:#fff;color:#302c32;outline-color:#8c5a72}
+.button{border:0;border-radius:10px;padding:11px 17px;background:#74495e;color:white;font-weight:650;text-align:center;display:inline-block;text-decoration:none}
+.button:hover{background:#5b3449}.button.light{background:#f2eaf0;color:#663e54}.button.ghost{background:white;color:#684659;border:1px solid #decfd7}.button.small{padding:7px 10px;font-size:12px}
+#app{display:none;min-height:100vh}.shell{display:grid;grid-template-columns:244px minmax(0,1fr);min-height:100vh}
+aside.sidebar{background:#2e2530;color:#fff;padding:27px 17px;min-height:100vh}.sidebar .logo{font-size:17px;color:#fff}.sidebar .brand-small{color:#bf9ead}.sidebar nav{display:grid;gap:5px;margin-top:38px}
+.navitem{border:0;background:none;color:#cfbbc8;text-align:left;padding:11px 13px;border-radius:9px;font-size:14px;display:flex;align-items:center;gap:10px}.navitem:hover,.navitem.active{background:#514053;color:white}
+.foot{margin-top:40px;color:#ad9ead;font-size:12px;line-height:1.7}
+main{padding:31px clamp(17px,4vw,54px);max-width:1450px;width:100%;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:27px}.eyebrow{text-transform:uppercase;color:#9d6a83;letter-spacing:.15em;font-size:11px;font-weight:800}.page-title{font:700 clamp(25px,3vw,36px) Georgia,serif;margin:3px 0}.section-title{font:700 23px Georgia,serif;margin:28px 0 12px}
+.status{font-size:12px;border:1px solid #dacbd3;background:#fff8fb;color:#70475d;border-radius:99px;padding:8px 12px}.status.good{color:#2e6e4d;background:#edfaf1;border-color:#cfe7d7}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.card,.panel{border:1px solid #e9e2e6;border-radius:15px;background:white;padding:21px;box-shadow:0 5px 14px #29122307}.card .label{font-size:13px;color:#8d7e89}.card .value{font-size:29px;font-weight:800;margin:7px 0 0;font-variant-numeric:tabular-nums}.card .desc{font-size:12px;color:#9b8c96}
+.twocol{display:grid;grid-template-columns:1.5fr 1fr;gap:17px}.panel h3{margin:0 0 14px;font:700 19px Georgia,serif}.panel p{font-size:14px}.notice{border-radius:12px;background:#fff7ed;border:1px solid #f1daba;padding:15px;color:#845c2e;font-size:13px}.ok-notice{background:#f0f9f2;border-color:#d3ecd8;color:#296344}
+.module-list{display:grid;gap:10px}.module-item{padding:13px 0;border-bottom:1px solid #f0e9ed;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px}.module-item:last-child{border:0}.task{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #f4eff2;font-size:14px}.task input{width:17px;height:17px;flex-shrink:0;accent-color:#75455e;margin-top:3px}.task.done span{text-decoration:line-through;color:#988b95}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:670px}th{text-align:left;text-transform:uppercase;font-size:10px;letter-spacing:.1em;color:#94848d;font-weight:800;padding:14px 10px;border-bottom:1px solid #eee7ec}td{font-size:13px;padding:12px 10px;border-bottom:1px solid #f1edf0}tr:hover td{background:#fcf8fa}.tag{display:inline-block;background:#f7ede3;color:#935f2f;font-size:11px;padding:4px 9px;border-radius:50px}.tag.done{background:#e5f6eb;color:#246240}.tag.info{background:#e8eefb;color:#355b99}.row-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0}
+#order-details{display:none;margin-top:18px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.detail-grid label{display:block;font-size:12px;color:#7e737e;margin-bottom:4px}.detail-grid .v{font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.help{font-size:12px;color:#8d808c;margin-top:8px}.alert{padding:9px 12px;border-radius:8px;background:#fff3f3;color:#a33141;margin-top:9px;font-size:13px}.success{padding:9px 12px;border-radius:8px;background:#edf8ef;color:#2d6c43;margin-top:9px;font-size:13px}
+footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size:12px;border-radius:20px;background:#eee4ea;padding:5px 10px;color:#69455c}.cols-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+@media(max-width:1150px){.cards{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:1fr}}@media(max-width:850px){.shell{display:block}.sidebar{min-height:0!important;padding:14px!important}.sidebar nav{display:flex;overflow-x:auto;margin-top:12px;gap:4px}.sidebar nav button{white-space:nowrap}.foot{display:none}.twocol,.detail-grid{grid-template-columns:1fr}main{padding:22px 15px}.top{flex-wrap:wrap}}@media(max-width:480px){.cards{grid-template-columns:1fr 1fr;gap:9px}.card{padding:14px}.card .value{font-size:23px}}
+</style>
+</head>
+<body>
+<section id="login"><div class="login-card">
+  <div class="logo">LM° <span class="brand-small">La Maison des Dessous</span></div>
+  <h1>Votre maison.<br>Votre tableau de bord.</h1>
+  <p class="muted">Accès privé au centre de pilotage de votre boutique.</p>
+  <form id="login-form"><label for="password" class="field">Mot de passe administrateur</label><input id="password" type="password" autocomplete="current-password" required minlength="16"><button class="button" style="width:100%;margin-top:14px">Ouvrir le centre de pilotage</button></form>
+  <p id="login-status" class="help" aria-live="polite"></p>
+  <p class="small muted">Les identifiants sont configurés uniquement dans les variables sécurisées de Render.</p>
+</div></section>
+<div id="app"><div class="shell">
+  <aside class="sidebar"><div class="logo">LM° <span style="font-size:11px;font-weight:400;letter-spacing:0">Direction</span></div><div class="brand-small">La Maison des Dessous</div>
+    <nav id="nav">
+      <button class="navitem active" data-page="direction">⌂ &nbsp; Direction</button>
+      <button class="navitem" data-page="commandes">▣ &nbsp; Commandes & expéditions</button>
+      <button class="navitem" data-page="sav">♡ &nbsp; Service client</button>
+      <button class="navitem" data-page="finances">€ &nbsp; Comptabilité & finances</button>
+      <button class="navitem" data-page="commercial">◈ &nbsp; Direction commerciale</button>
+      <button class="navitem" data-page="communication">◎ &nbsp; Communication</button>
+      <button class="navitem" data-page="secretariat">▤ &nbsp; Secrétariat & RH</button>
+      <button class="navitem" data-page="technique">⚙ &nbsp; Technique</button>
+    </nav>
+    <div class="foot">Pilotage humain, outils assistés.<br>La vente reste validée dans Stripe.<br><a href="/" style="color:#fff">← Retour à la boutique</a></div>
+  </aside>
+  <main>
+    <div class="top"><div><div class="eyebrow">Espace privé · Entreprise</div><h1 class="page-title" id="title">Vue de direction</h1></div><div class="row-actions"><span id="mail-chip" class="status">Vérification…</span><button id="refresh" class="button light small">↻ Actualiser</button><button id="logout" class="button ghost small">Déconnexion</button></div></div>
+    <p id="flash" style="display:none" aria-live="polite"></p>
+    <section id="direction">
+      <div class="cards">
+        <div class="card"><div class="label">Commandes payées — 30 jours</div><div class="value" id="kpi-orders">—</div><div class="desc">Ventes réelles Stripe uniquement</div></div>
+        <div class="card"><div class="label">Montant brut — 30 jours</div><div class="value" id="kpi-gross">—</div><div class="desc">Avant frais, achats et charges</div></div>
+        <div class="card"><div class="label">À préparer</div><div class="value" id="kpi-prepare">—</div><div class="desc">Payées, sans suivi expédition</div></div>
+        <div class="card"><div class="label">En expédition</div><div class="value" id="kpi-shipped">—</div><div class="desc">Numéro de suivi enregistré</div></div>
+      </div>
+      <h2 class="section-title">À faire aujourd’hui</h2>
+      <div class="twocol">
+        <article class="panel"><h3>Flux des commandes</h3><div class="module-list" id="priority"></div><button class="button light" data-go="commandes">Ouvrir les commandes →</button></article>
+        <article class="panel"><h3>Votre cap</h3><p><strong>Objectif : 2 commandes par jour d’ici 6 mois.</strong></p><p>Concentrez les efforts sur la fiabilité du parcours, les clientes satisfaites et les produits qui se vendent. Les indicateurs affichés ici viennent de Stripe, pas d'estimations.</p><p class="help">L’outil ne passe pas automatiquement commande chez BusyX et ne remplace pas un cabinet comptable.</p></article>
+      </div>
+      <h2 class="section-title">Vos pôles de travail</h2>
+      <div class="cols-3"><div class="panel"><h3>Commerce</h3><p>Commandes, livraisons et suivi de la satisfaction.</p><button class="button light small" data-go="commercial">Voir le plan →</button></div><div class="panel"><h3>Finance</h3><p>Encaissements Stripe bruts et export pour le suivi comptable.</p><button class="button light small" data-go="finances">Voir les finances →</button></div><div class="panel"><h3>Communication</h3><p>Calendrier simple de publication, SEO et réseaux sociaux.</p><button class="button light small" data-go="communication">Voir les tâches →</button></div></div>
+    </section>
+    <section id="commandes" hidden>
+      <div class="panel"><h3>Commandes réellement payées</h3><p class="help">Stripe est la source des transactions. Les 100 sessions les plus récentes sont interrogées ; une pagination sera nécessaire si le volume augmente. L’expédition reste manuelle chez BusyX.</p>
+        <div class="table-wrap"><table><thead><tr><th>Payée le</th><th>Commande</th><th>Cliente</th><th>Montant</th><th>Statut</th><th>Action</th></tr></thead><tbody id="orders-body"><tr><td colspan="6">Chargement…</td></tr></tbody></table></div>
+      </div>
+      <article id="order-details" class="panel">
+        <h3 id="selected-label">Détail de la commande</h3>
+        <div class="detail-grid">
+          <div><div class="field">Cliente</div><div class="v" id="selected-customer"></div><div class="field">Adresse de livraison</div><div class="v" id="selected-address"></div><div class="field">Articles EAN : quantité</div><div class="v" id="selected-items"></div></div>
+          <div><div class="field">Logistique</div><div class="v" id="selected-delivery"></div><div class="field">Statut</div><div class="v" id="selected-status"></div><div class="field">Notifications</div><div class="v" id="selected-mail"></div></div>
+        </div>
+        <div class="row-actions"><button class="button light" id="supplier">✓ J’ai passé la commande chez BusyX</button><button class="button ghost" id="confirm-email">Envoyer / relancer confirmation</button></div>
+        <div class="detail-grid">
+          <div><label class="field" for="tracking-carrier">Transporteur</label><select id="tracking-carrier"><option value="colissimo">Colissimo</option><option value="chronopost">Chronopost</option></select></div>
+          <div><label class="field" for="tracking-number">Numéro de suivi (8 à 30 caractères)</label><input id="tracking-number" autocomplete="off" placeholder="Numéro communiqué par le transporteur"></div>
+        </div>
+        <div class="row-actions"><button class="button" id="save-tracking">Confirmer l'expédition</button><button class="button ghost" id="send-tracking">Envoyer / relancer l’e-mail d’expédition</button></div>
+        <label class="field" for="note">Note interne (enregistrée dans les métadonnées Stripe)</label><textarea rows="2" id="note" maxlength="200" placeholder="Exemple : commande BusyX saisie, livraison prévue jeudi"></textarea>
+        <div class="row-actions"><button class="button light" id="save-note">Enregistrer la note</button></div>
+        <p class="help">Ne renseignez un numéro de suivi qu'après une expédition réelle. Cela rendra le suivi visible à la cliente sur sa page de commande.</p>
+      </article>
+    </section>
+    <section id="sav" hidden><div class="panel"><h3>Service après-vente</h3><p>Une demande de cliente se traite d'abord à partir de sa référence Stripe, du paiement réel et de l'état de livraison.</p><div class="module-list"><div class="module-item"><span>Retrouver la cliente et le montant réglé</span><button data-go="commandes" class="button light small">Commandes →</button></div><div class="module-item"><span>Vérifier la date, le mode et le numéro de livraison</span><button data-go="commandes" class="button light small">Suivi →</button></div><div class="module-item"><span>Informer la cliente sur les retours ou les garanties</span><a href="/livraison-retours" target="_blank">Politique de retours ↗</a></div></div><h3 style="margin-top:25px">Réponses prêtes à adapter</h3><div id="sav-templates"></div></div></section>
+    <section id="finances" hidden>
+      <div class="cards"><div class="card"><div class="label">Encaissements bruts (30 j)</div><div class="value" id="finance-gross">—</div></div><div class="card"><div class="label">Transactions payées (30 j)</div><div class="value" id="finance-orders">—</div></div><div class="card"><div class="label">Règlements de test</div><div class="value" id="finance-test">—</div></div><div class="card"><div class="label">Frais et coût fournisseur</div><div class="value">À saisir</div></div></div>
+      <h2 class="section-title">Assistant comptable</h2>
+      <div class="panel"><div class="notice">Ce tableau montre les ventes brutes Stripe (sur les dernières sessions récupérées), pas le bénéfice, le solde bancaire ni le chiffre d’affaires à déclarer. Il ne calcule pas les frais Stripe, le coût réel BusyX, les remboursements, cotisations et impôts.</div><p>Téléchargez les transactions pour les rapprocher avec Stripe, les achats fournisseur, les remboursements et vos justificatifs. Aucune déclaration administrative n'est transmise automatiquement.</p><button id="export" class="button">Exporter les commandes au format CSV</button></div>
+      <div class="panel" style="margin-top:16px"><h3>Check-list mensuelle</h3><div id="finance-tasks"></div></div>
+    </section>
+    <section id="commercial" hidden><div class="panel"><h3>Directeur commercial — priorités</h3><p>Développer la visibilité, la confiance et la conversion avant d’élargir le catalogue.</p><div id="commercial-tasks"></div><p class="help">Les tâches cochées sont enregistrées seulement dans le navigateur utilisé. Elles ne déclenchent pas d’action sur le site.</p></div></section>
+    <section id="communication" hidden><div class="panel"><h3>Community manager — semaine de publication</h3><p>Une ligne éditoriale centrée sur la qualité des bas, les détails de dentelle, l’estime de soi et les conseils utiles, avec des photographies fidèles aux articles.</p><div id="communication-tasks"></div><div class="row-actions"><a href="https://www.instagram.com/la_maison_des_dessous/" target="_blank" rel="noreferrer" class="button light">Instagram ↗</a><a href="https://search.google.com/search-console" target="_blank" rel="noreferrer" class="button light">Search Console ↗</a></div></div></section>
+    <section id="secretariat" hidden><div class="panel"><h3>Secrétariat et RH — entreprise en solo</h3><p>Le rôle RH couvre ici le suivi de votre charge de travail, de vos prestataires et de vos démarches ; il n’y a aucun salarié fictif ni gestion automatique des paies.</p><div id="secretariat-tasks"></div><p class="help">Pour les échéances personnelles et l’agenda, vous pourrez continuer à utiliser ChatGPT et son calendrier connecté si vous le souhaitez.</p></div></section>
+    <section id="technique" hidden><div class="panel"><h3>Responsable technique</h3><p>Le site public continue de fonctionner indépendamment de cet espace. Les changements sont préparés sur GitHub et déployés par Render après validation.</p><div class="module-list">
+      <div class="module-item"><span>État du serveur</span><span id="health">Vérification…</span></div>
+      <div class="module-item"><span>Notifications de commande</span><span id="tech-mail">Vérification…</span></div>
+      <div class="module-item"><span>Gestion BusyX</span><span>Manuelle — sans achat automatique</span></div>
+    </div><div class="row-actions"><a class="button light" href="https://dashboard.render.com" target="_blank" rel="noreferrer">Render ↗</a><a class="button light" href="https://github.com/philippe1720/lamaisondesdessous" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button light" href="https://dashboard.stripe.com" target="_blank" rel="noreferrer">Stripe ↗</a></div><div class="notice">Sécurité : configurez ADMIN_PASSWORD (16 caractères minimum), ADMIN_SESSION_SECRET (32 caractères minimum) dans Render. Pour les e-mails, configurez RESEND_API_KEY, MAIL_FROM et MERCHANT_NOTIFY_EMAIL, après vérification du domaine de l’expéditeur.</div></div></section>
+    <footer class="page-foot">La Maison des Dessous · Centre de pilotage privé · Les commandes sont synchronisées avec Stripe ; les tâches internes de gestion sont locales à ce navigateur.</footer>
+  </main>
+</div></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), money=v=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format((v||0)/100);
+const state={orders:[],selected:null,mail:false,shown:'direction'};
+const el=(tag,txt,cls)=>{const n=document.createElement(tag);if(txt!==undefined)n.textContent=String(txt);if(cls)n.className=cls;return n};
+const dates=s=>new Date(s*1000).toLocaleDateString('fr-FR');
+const flash=(message,good=false)=>{const box=$('flash');box.textContent=message;box.className=good?'success':'alert';box.style.display='block';};
+async function api(url,method='GET',body){
+ const r=await fetch(url,{method,credentials:'same-origin',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,cache:'no-store'});
+ let data;try{data=await r.json()}catch{data={error:'Réponse du serveur incorrecte.'}}
+ if(!r.ok){if(r.status===401)loginView();throw Error(data.error||'Opération indisponible.')}return data;
+}
+function loginView(message=''){ $('app').style.display='none';$('login').style.display='flex';$('login-status').textContent=message; }
+function appView(){ $('login').style.display='none';$('app').style.display='block'; }
+$('login-form').addEventListener('submit',async ev=>{ev.preventDefault();$('login-status').textContent='Vérification…';try{await api('/api/gestion/login','POST',{password:$('password').value});$('password').value='';await initialize();}catch(e){$('login-status').textContent=e.message;}});
+$('logout').addEventListener('click',async()=>{try{await api('/api/gestion/logout','POST',{})}finally{loginView('Vous êtes déconnecté.');}});
+const titles={direction:'Vue de direction',commandes:'Commandes & expéditions',sav:'Service après-vente',finances:'Comptabilité & finances',commercial:'Direction commerciale',communication:'Community manager',secretariat:'Secrétariat & RH',technique:'Maintenance technique'};
+function page(name){if(!titles[name])return;state.shown=name;for(const key of Object.keys(titles))$(key).hidden=key!==name;for(const b of document.querySelectorAll('.navitem'))b.classList.toggle('active',b.dataset.page===name);$('title').textContent=titles[name];}
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-go], [data-page]');if(b)page(b.dataset.go||b.dataset.page)});
+$('refresh').addEventListener('click',()=>loadOrders());
+const realOrders=()=>state.orders.filter(o=>!o.test),recent=()=>realOrders().filter(o=>o.created>=Date.now()/1000-30*86400);
+function setMetrics(){
+ const orders=recent(),paid=orders.reduce((v,o)=>v+o.amount,0);
+ $('kpi-orders').textContent=orders.length;$('finance-orders').textContent=orders.length;
+ $('kpi-gross').textContent=money(paid);$('finance-gross').textContent=money(paid);
+ $('kpi-prepare').textContent=realOrders().filter(o=>o.status!=='shipped').length;
+ $('kpi-shipped').textContent=realOrders().filter(o=>o.status==='shipped').length;
+ $('finance-test').textContent=state.orders.filter(o=>o.test).length;
+ const p=$('priority');p.replaceChildren();
+ const todo=realOrders().filter(o=>o.status==='to_process').length;
+ const waiting=realOrders().filter(o=>o.status==='supplier_ordered').length;
+ for(const [title,num] of [['Commandes à transmettre au fournisseur',todo],['Commandes sans numéro de suivi',waiting],['Transactions de test (ne pas expédier)',state.orders.filter(o=>o.test).length]]){
+  const row=el('div',undefined,'module-item');row.append(el('span',title),el('strong',num));p.append(row);
+ }
+}
+function renderOrders(){
+ const body=$('orders-body');body.replaceChildren();
+ if(!state.orders.length){const tr=el('tr');const td=el('td','Aucune commande payée dans les 100 dernières sessions Stripe.');td.colSpan=6;tr.append(td);body.append(tr);return;}
+ for(const order of state.orders){
+  const tr=el('tr');tr.append(el('td',dates(order.created)),el('td',order.id.slice(-12)+(order.test?' · TEST':'')),el('td',order.name||order.email||'Client'),el('td',money(order.amount)));
+  const td=el('td');td.append(el('span',order.status==='shipped'?'Expédiée':order.status==='supplier_ordered'?'Chez fournisseur':'À préparer',order.status==='shipped'?'tag done':order.status==='supplier_ordered'?'tag info':'tag'));tr.append(td);
+  const action=el('td');const btn=el('button','Gérer','button light small');btn.onclick=()=>selectOrder(order.id);action.append(btn);tr.append(action);body.append(tr);
+ }
+}
+function selectOrder(id){
+ const order=state.orders.find(o=>o.id===id);if(!order)return;state.selected=id;page('commandes');$('order-details').style.display='block';
+ $('selected-label').textContent='Commande '+order.id.slice(-12)+(order.test?' · TEST':'');
+ $('selected-customer').textContent=[order.name,order.email,order.phone].filter(Boolean).join('\n')||'Coordonnées non disponibles';
+ const a=order.address||{};$('selected-address').textContent=order.pickup||[a.line1,a.line2,a.postal_code,a.city,a.country].filter(Boolean).join(', ')||'Adresse indisponible';
+ $('selected-items').textContent=order.articles.join('\n')||'Consulter le détail dans Stripe';
+ $('selected-delivery').textContent=(order.delivery==='pickup'?'Pickup':'Domicile')+' / '+(order.trackingNumber||'Sans suivi');
+ $('selected-status').textContent=order.status==='shipped'?'Expédition renseignée':order.status==='supplier_ordered'?'Commande transmise au fournisseur':'À commander chez BusyX';
+ $('selected-mail').textContent='Boutique : '+(order.merchantNotified?'envoyé':'non envoyé')+' · Confirmation cliente : '+(order.customerNotified?'envoyée':'non envoyée')+' · Expédition : '+(order.shippingNotified?'envoyée':'non envoyée');
+ $('tracking-number').value=order.trackingNumber;$('tracking-carrier').value=order.carrier;$('note').value=order.note;
+ $('supplier').disabled=order.status!=='to_process';$('save-tracking').disabled=order.test;
+ $('order-details').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function modify(action,fields={}){
+ if(!state.selected)return;try{
+  const data=await api('/api/gestion/orders/'+encodeURIComponent(state.selected),'POST',{action,...fields});
+  state.orders=state.orders.map(o=>o.id===state.selected?data.order:o);
+  renderOrders();setMetrics();selectOrder(state.selected);flash('Commande mise à jour dans Stripe.',true);
+ }catch(e){flash(e.message);}
+}
+$('supplier').onclick=()=>{if(confirm('Confirmer que vous avez réellement passé cette commande chez BusyX ?'))modify('supplier')};
+$('save-note').onclick=()=>modify('note',{note:$('note').value});
+$('save-tracking').onclick=()=>{const number=$('tracking-number').value.trim();if(confirm('Confirmer que le colis a été réellement expédié ? Ce suivi sera visible par la cliente.'))modify('tracking',{number,carrier:$('tracking-carrier').value})};
+$('confirm-email').onclick=()=>modify('notify_paid');
+$('send-tracking').onclick=()=>modify('notify_customer');
+async function loadOrders(){
+ try{const result=await api('/api/gestion/orders');state.orders=result.orders;renderOrders();setMetrics();
+   if(result.hasMore)flash('Attention : Stripe possède plus de 100 sessions. Les statistiques affichées ne sont pas exhaustives.');
+   else flash('Commandes actualisées depuis Stripe · '+new Date().toLocaleTimeString('fr-FR'),true);
+ }catch(e){flash(e.message);}
+}
+$('export').onclick=()=>{
+ const cols=['date','reference','statut','montant_eur','client_email','mode_livraison','suivi','test'];
+ const csv=[cols,...state.orders.map(o=>[new Date(o.created*1000).toISOString(),o.id,o.status,(o.amount/100).toFixed(2),o.email,o.delivery,o.trackingNumber,o.test])].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');
+ const a=document.createElement('a');const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='lmd-commandes-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+const taskSets={
+ finance:['Rapprocher les ventes Stripe avec les versements bancaires','Classer les factures d’achat BusyX et les justificatifs de transport','Suivre séparément prix de vente, coût fournisseur et frais de paiement','Vérifier les remboursements et avoirs','Faire valider les obligations fiscales et sociales par un professionnel'],
+ commercial:['Vérifier qu’une cliente peut acheter un article sur mobile','Mettre en avant les 3 catégories déjà optimisées pour Google','Contrôler la disponibilité fournisseur des modèles phares','Vérifier les photos, compositions, tailles et informations de livraison','Analyser les impressions et clics dans Search Console dans 3 à 4 semaines'],
+ communication:['Publier une photo fidèle d’une véritable paire de bas','Préparer un conseil utile : choisir entre autofixants et porte-jarretelles','Créer une courte vidéo mettant en valeur la dentelle et les détails','Répondre aux commentaires et messages de clientes','Comparer les performances des publications sans achat de publicité'],
+ secretariat:['Contrôler la réception des courriels clients sur une boîte fonctionnelle','Vérifier chaque jour les commandes payées et les demandes SAV','Préparer le planning des publications de la semaine','Archiver les justificatifs des achats et remboursements','Vérifier la conformité des informations légales, de l’activité et du service client'],
+};
+function loadTaskSet(id,items){const c=$(id);if(!c)return;for(let i=0;i<items.length;i++){
+ const key='lmd-plan-'+id+'-'+i;const line=el('label',undefined,'task');const chk=el('input');chk.type='checkbox';
+ chk.checked=localStorage.getItem(key)==='yes';const span=el('span',items[i]);line.classList.toggle('done',chk.checked);
+ chk.onchange=()=>{localStorage.setItem(key,chk.checked?'yes':'no');line.classList.toggle('done',chk.checked)};
+ line.append(chk,span);c.append(line);
+}}
+const templates=[
+ ['Commande confirmée','Bonjour, nous avons bien enregistré votre paiement. Nous préparons votre commande. Vous pourrez consulter son suivi à partir du lien privé fourni après le paiement. Merci, La Maison des Dessous.'],
+ ['Expédition','Bonjour, votre commande a été expédiée. Voici votre transporteur et numéro de suivi : [À COMPLÉTER UNIQUEMENT APRÈS EXPÉDITION]. Merci, La Maison des Dessous.'],
+ ['Demande de retour','Bonjour, nous avons reçu votre demande. Nous allons vérifier la commande et vous indiquer les modalités de retour correspondant à votre situation. Merci, La Maison des Dessous.']
+];
+for(const [title,text] of templates){const div=el('div',undefined,'module-item');div.append(el('span',title));const b=el('button','Copier','button light small');b.onclick=()=>navigator.clipboard.writeText(text).then(()=>flash('Modèle copié : '+title,true)).catch(()=>flash('Copie indisponible.'));div.append(b);$('sav-templates').append(div);}
+async function initialize(){
+ appView();page('direction');const info=await api('/api/gestion/session');state.mail=info.emailsConfigured;
+ $('mail-chip').textContent=state.mail?'✉ Notifications configurées':'✉ Emails à configurer';$('mail-chip').classList.toggle('good',state.mail);
+ $('tech-mail').textContent=state.mail?'Service Resend prêt (envoi à confirmer par test réel)':'Resend / expéditeur non configurés';
+ try{const r=await fetch('/api/healthz',{cache:'no-store'});$('health').textContent=r.ok?'Serveur accessible':'Erreur';}catch{$('health').textContent='Indisponible'}
+ await loadOrders();
+}
+async function start(){try{const info=await api('/api/gestion/session');if(info.setupNeeded)loginView('Pour activer l’accès privé : configurer ADMIN_PASSWORD et ADMIN_SESSION_SECRET dans les variables de Render.');else if(info.authenticated)await initialize();else loginView();}catch(e){loginView(e.message)}}
+for(const [k,v] of Object.entries(taskSets))loadTaskSet(k+'-tasks',v);
+start();
+</script>
+</body>
+</html>
