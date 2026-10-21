@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import './header.css';
 
 import { useShop } from '@/features/shop/cart';
+import { sandboxActive, exitSandbox } from '@/features/shop/sandbox';
 
 export function Header() {
   const { count } = useShop();
@@ -33,6 +34,11 @@ export function Header() {
   };
 
   return (
+    <>
+    {sandboxActive() && <div role="status" style={{background:'#92400e',color:'#fff',padding:'12px 18px',textAlign:'center',fontWeight:700,fontSize:'14px',position:'sticky',top:0,zIndex:60}}>
+      <span>MODE TEST STRIPE — Paiement fictif, aucune commande réelle ni livraison</span>
+      <button type="button" onClick={exitSandbox} style={{background:'#fff',color:'#713f12',marginLeft:'16px',padding:'4px 12px',borderRadius:'8px'}}>Quitter le test</button>
+    </div>}
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="shop-header-inner container mx-auto flex max-w-screen-2xl items-center justify-between gap-6 px-4 py-2 md:px-8">
         <Link href="/" className="shrink-0" aria-label="La Maison des Dessous — accueil">
@@ -84,5 +90,6 @@ export function Header() {
         </nav>
       )}
     </header>
+    </>
   );
 }
