@@ -12,6 +12,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      PORT: '10000'
+      BASE_PATH: '/'
+      SITE_URL: 'https://lamaisondesdessous.fr'
+      NODE_ENV: production
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
