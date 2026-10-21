@@ -5,6 +5,7 @@ import path from "path";
 import { existsSync, readFileSync } from 'node:fs';
 
 import { stripeWebhook, orderRouter } from "./commerce/orders";
+import { managementRouter } from "./commerce/management";
 
 const app: Express = express();
 
@@ -12,9 +13,16 @@ app.use(cors());
 app.post("/api/stripe/webhook", express.raw({type:"application/json",limit:"1mb"}), stripeWebhook);
 app.use(express.json());
 app.use("/api", orderRouter);
+app.use("/api", managementRouter);
 
 // 1. Routes API
 app.use("/api", router);
+
+// Dashboard application is served separately from the customer shopping routes.
+app.get('/gestion', (_req, res) => {
+  res.set({ 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow', 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'" });
+  res.sendFile(path.join(process.cwd(), 'artifacts/lingerie-shop/dist/public/gestion.html'));
+});
 
 // 2. Sert les fichiers statiques (le front-end)
 app.get('/*splat', (req, res, next) => {
