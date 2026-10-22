@@ -130,3 +130,28 @@ Chaque clic d'analyse nécessite une confirmation explicite dans l'interface, li
 Les trois routes `GET /api/gestion/agents/config`, `GET /api/gestion/agents/sourcing`, `POST /api/gestion/agents/analyse` sont sous la même connexion propriétaire que les commandes. Le `POST` conserve le contrôle d'origine existant. Aucun outil d'achat fournisseur, d'envoi d'e-mail, de modification de prix, de code ou de publication sociale n'est exposé à l'agent.
 
 Cette première version est **assistée**, pas un système d'agents autonomes capables d'agir en arrière-plan depuis le serveur. Les automatisations futures demanderont leurs propres connecteurs, règles de validation, stockage durable et éventuellement un budget API.
+
+
+## 7. Avatars conversationnels et missions contrôlées (V2)
+
+Dans `/gestion` > **Équipe IA & sourcing**, huit avatars illustratifs représentent les huit rôles, avec un prénom et une conversation individuelle : Élise (direction), Maya (sourcing), Clara (communication), Nora (SEO), Louis (commercial), Léa (SAV), Hugo (finances), Alex (technique).
+
+### Sans dépense API supplémentaire (configuration par défaut)
+- Chaque avatar propose un bouton **« Copier pour ChatGPT »** : cela prépare les consignes et l'historique pour le compte ChatGPT déjà payé par le fondateur. **Il ne répond pas dans l'application** tant que l'API optionnelle est inactive. Ne pas simuler une réponse d'IA.
+- L'historique des conversations est limité et conservé via `sessionStorage`, seulement dans l'onglet du navigateur ; ne pas saisir de données personnelles clients, clés, mots de passe ni données bancaires.
+- **« Exécuter le diagnostic »** effectue une vraie action non destructive **à la demande** :
+  - Maya : source BusyX vérifiée, références de nouveaux bas et leurs coûts/stock indicatifs ;
+  - Nora : analyse des fichiers HTML SEO et du sitemap sur Render, **pas les positions réelles Google** ;
+  - Alex : vérification technique légère des fichiers du site, du catalogue et de la disponibilité de la route API ;
+  - Louis/Hugo/Élise : synthèses déterministes sur les commandes Stripe déjà chargées dans le Centre de pilotage (dernières sessions récupérées, pas une comptabilité exhaustive).
+  - Clara et Léa : pas d'exécution indépendante avant intégrations de Metricool et des e-mails. Continuer de travailler avec ChatGPT connecté aux outils adaptés.
+- Ces tâches ne nécessitent **pas** de nouveau compte OpenAI et ne déclenchent **aucun achat, publicité, publication, changement de code, remboursement ou expédition**.
+- Les diagnostics ne constituent **pas un agent autonome universel** : ils sont des fonctions métier préétablies qui exécutent un contrôle fini une fois déclenchées. Ils ne travaillent pas en continu après fermeture du navigateur et ne mémorisent pas durablement des missions côté serveur.
+
+### Dialogue directement dans l'application (option future)
+L'API OpenAI séparée doit être activée explicitement dans les variables Render, selon la section 6. Après activation, chaque message envoyé à un avatar utilise la route authentifiée `POST /api/gestion/agents/chat`, l'API Responses avec `store: false`, une instruction de rôle, un historique borné, une sortie limitée et le quota journalier applicatif. Le dirigeant confirme l'envoi facturable avant chaque demande.
+
+**La clé OpenAI reste serveur uniquement**. L'API ne possède aucun outil de paiement, d'achat, de publication ou de mutation externe. Les dialogues directs sont du conseil, pas des commandes exécutées.
+
+### Autonomie durable future
+Pour exécuter plusieurs missions entre les visites et garder les résultats après redémarrage, prévoir une **base persistante**, une file de jobs/ordonnanceur et des connecteurs professionnels avec permissions minimales. Le filesystem Render sans disque est éphémère ; ne pas le prendre comme base de mission durable. Prévoir des plafonds de facturation au niveau du compte API. Aucune infrastructure payante nouvelle n'est mise en service par cette version.
