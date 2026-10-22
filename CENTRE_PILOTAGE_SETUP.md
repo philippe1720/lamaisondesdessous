@@ -99,3 +99,34 @@ Le service Render `lamaisondesdessous` suit la branche `feat/boutique-bas`. Les 
 - Le suivi colis et la notification réelle sont exclus des commandes tests. Les boutons de livraison/fournisseur sont désactivés pour ces lignes.
 - En cas d'expiration de l'authentification administrateur, le paiement de test échoue de façon sûre au lieu de revenir à Stripe réel.
 - Stripe Test doit exister dans le même compte lié à la boutique. Il peut être nécessaire d'activer les paiements dans le compte/sandbox Stripe. Le mode test n'est **pas activé** tant que la nouvelle variable Render n'est pas fournie.
+
+
+## 6. Équipe IA & sourcing — première version
+
+Nouvel onglet « Équipe IA & sourcing » dans le Centre de pilotage privé. Il ne crée **aucune vente, publication, expédition, achat ou transfert de données clients**.
+
+### Mode sans frais supplémentaires (actif par défaut)
+- 8 rôles : direction générale, sourcing, communication, SEO, commercial, SAV, finances et technique.
+- Écrivez une mission puis cliquez sur « Copier la mission pour ChatGPT » pour utiliser l'abonnement ChatGPT déjà existant.
+- Le bouton « Conserver dans mon plan » mémorise jusqu'à 15 missions dans **le navigateur actuel seulement**, sans synchronisation entre appareils ni persistance sur serveur.
+- Le bouton « Chercher des produits BusyX » utilise le **flux fournisseur privé déjà configuré** : il repère jusqu'à 30 références absentes de la boutique dont le libellé paraît correspondre à des bas, indique le stock déclaré, l'achat HT et un prix TTC théorique selon la formule commerciale existante.
+- **Aucune garantie** de disponibilité, conformité, qualité, droits photos, TVA ou rentabilité nette : chaque piste doit être validée avant publication et/ou achat. Certains modèles peuvent être écartés par un filtre de libellé imparfait.
+- Le sourcing lit les données fournisseur directement côté serveur et met la sélection en cache 30 minutes. Si le flux est indisponible, il l'annonce explicitement.
+
+### Future activation de l'API OpenAI (facultative, tarif API séparé)
+Ne rien configurer tant que l'entreprise n'a pas choisi un budget. ChatGPT Plus ne comprend pas l'utilisation de l'API dans Render.
+
+Pour activer ultérieurement, mettre dans les **secrets Render** du service existant (jamais dans le code, GitHub, une capture publique ou la conversation) :
+- `OPENAI_API_KEY` : clé API personnelle/projet OpenAI secrète ;
+- `AGENTS_AI_ENABLED=true` : **interrupteur volontaire**, reste désactivé par défaut ;
+- `AGENTS_MODEL=gpt-4.1-mini` : modèle configurable selon son accès et ses tarifs à cette date ;
+- `AGENTS_DAILY_LIMIT=10` : quota de requêtes **par instance et par redémarrage**, maximum 30 dans cette version.
+
+Chaque clic d'analyse nécessite une confirmation explicite dans l'interface, limite l'entrée à 1 300 caractères et la sortie à 900 tokens, et ne peut activer aucun outil externe. Les réponses ne modifient pas la boutique. La clé reste uniquement côté serveur. Le `store: false` de l'API est activé.
+
+**ATTENTION :** Le quota applicatif, remis à zéro si Render redémarre, n'est **pas un plafond financier garanti**. Définir les limites/budgets au niveau du compte API OpenAI avant activation ; surveiller la consommation sur le tableau de bord officiel. L'application ne peut pas garantir des frais nuls lorsque l'API est activée.
+
+### Sécurité
+Les trois routes `GET /api/gestion/agents/config`, `GET /api/gestion/agents/sourcing`, `POST /api/gestion/agents/analyse` sont sous la même connexion propriétaire que les commandes. Le `POST` conserve le contrôle d'origine existant. Aucun outil d'achat fournisseur, d'envoi d'e-mail, de modification de prix, de code ou de publication sociale n'est exposé à l'agent.
+
+Cette première version est **assistée**, pas un système d'agents autonomes capables d'agir en arrière-plan depuis le serveur. Les automatisations futures demanderont leurs propres connecteurs, règles de validation, stockage durable et éventuellement un budget API.
