@@ -52,3 +52,7 @@ jobs:
           test "$STATUS" = "401"
           STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' --data '{"role":"sourcing","goal":"Chercher des bas femmes"}' http://127.0.0.1:10000/api/gestion/agents/analyse)
           test "$STATUS" = "401"
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:10000/api/gestion/agents/diagnostic?kind=seo)
+          test "$STATUS" = "401"
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' --data '{"role":"seo","messages":[{"role":"user","content":"Comment ameliorer les bas resille ?"}]}' http://127.0.0.1:10000/api/gestion/agents/chat)
+          test "$STATUS" = "401"
