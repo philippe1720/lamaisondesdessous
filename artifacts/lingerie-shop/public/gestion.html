@@ -48,6 +48,7 @@ footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size
       <button class="navitem" data-page="finances">€ &nbsp; Comptabilité & finances</button>
       <button class="navitem" data-page="commercial">◈ &nbsp; Direction commerciale</button>
       <button class="navitem" data-page="communication">◎ &nbsp; Communication</button>
+      <button class="navitem" data-page="equipe">✦ &nbsp; Équipe IA & sourcing</button>
       <button class="navitem" data-page="secretariat">▤ &nbsp; Secrétariat & RH</button>
       <button class="navitem" data-page="technique">⚙ &nbsp; Technique</button>
     </nav>
@@ -121,6 +122,42 @@ footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size
       <div class="module-item"><span>Notifications de commande</span><span id="tech-mail">Vérification…</span></div>
       <div class="module-item"><span>Gestion BusyX</span><span>Manuelle — sans achat automatique</span></div>
     </div><div class="row-actions"><a class="button light" href="https://dashboard.render.com" target="_blank" rel="noreferrer">Render ↗</a><a class="button light" href="https://github.com/philippe1720/lamaisondesdessous" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button light" href="https://dashboard.stripe.com" target="_blank" rel="noreferrer">Stripe ↗</a></div><div class="row-actions"><button id="test-email" class="button">Tester une notification e-mail</button></div><div class="notice">Sécurité : configurez ADMIN_PASSWORD (16 caractères minimum), ADMIN_SESSION_SECRET (32 caractères minimum) dans Render. Pour les e-mails, configurez RESEND_API_KEY, MAIL_FROM et MERCHANT_NOTIFY_EMAIL, après vérification du domaine de l’expéditeur.</div></div></section>
+    <section id="equipe" hidden>
+      <div class="panel"><p class="eyebrow">Votre entreprise · Un seul dirigeant</p>
+        <h3>Équipe IA — 8 pôles de travail</h3>
+        <p>Direction générale, sourcing, communication, SEO, commercial, SAV, finances et technique. Cette première version organise les missions, exploite le flux du fournisseur BusyX pour la recherche de produits et prépare les analyses. <strong>Aucune publicité, commande fournisseur, modification de prix ou e-mail n'est envoyé automatiquement.</strong></p>
+        <div class="row-actions"><span class="status" id="agent-mode">Vérification du mode…</span><span class="status" id="agent-limit"></span></div>
+        <p class="help">Le mode gratuit prépare des missions à copier dans ton ChatGPT actuel. L'API OpenAI indépendante pourra être activée plus tard, à ton choix, avec quota. Les missions enregistrées restent uniquement sur ce navigateur pour le moment.</p>
+      </div>
+      <div class="twocol" style="margin-top:17px">
+        <article class="panel">
+          <h3>Donner une mission à un agent</h3>
+          <label class="field" for="agent-role">Collaborateur</label><select id="agent-role">
+            <option value="direction">Direction générale</option><option value="sourcing">Sourcing produits</option>
+            <option value="communication">Community manager</option><option value="seo">Responsable SEO</option>
+            <option value="commercial">Direction commerciale</option><option value="sav">Service client</option>
+            <option value="finances">Finances et comptabilité</option><option value="technique">Responsable technique</option>
+          </select>
+          <label class="field" for="agent-goal">Mission à réaliser</label>
+          <textarea id="agent-goal" rows="4" maxlength="1300" placeholder="Exemple : trouve trois nouvelles paires de bas autofixants, compare leur prix HT et prépare une sélection pour validation."></textarea>
+          <div class="row-actions"><button id="agent-copy" class="button">Copier la mission pour ChatGPT</button><button id="agent-run" class="button light" disabled>Analyse IA via API (option future)</button></div>
+          <div class="row-actions"><button id="agent-save" class="button ghost small">Conserver dans mon plan</button><button id="agent-clear" class="button ghost small">Effacer le résultat</button></div>
+          <p class="help">Copier n'envoie aucun message et ne génère aucune facture. La génération IA directe nécessitera une clé API séparée configurée volontairement dans Render.</p>
+        </article>
+        <article class="panel">
+          <h3>Réponse ou consignes de l'agent</h3>
+          <div id="agent-output" aria-live="polite" class="notice">Choisis un agent, décris son travail et clique sur « Copier la mission pour ChatGPT ». Les propositions restent soumises à ta validation.</div>
+          <h3 style="margin-top:26px">Missions conservées sur cet appareil</h3><div id="agent-missions" class="module-list"></div>
+        </article>
+      </div>
+      <div class="panel" style="margin-top:17px">
+        <p class="eyebrow">Sourcing vérifiable · BusyX Pro</p><h3>Recherche de nouvelles paires de bas chez le fournisseur</h3>
+        <p>L'agent compare le catalogue actuel à la liste de prix et de stocks envoyée par le flux BusyX configuré sur ton site. Il ne retient que les références inconnues du catalogue répondant à des critères textuels de « bas ». Les suggestions sont <strong>à vérifier manuellement</strong> : un intitulé fournisseur n'est pas une validation produit.</p>
+        <div class="row-actions"><button class="button" id="sourcing-load">Chercher des produits BusyX →</button><button class="button light" id="sourcing-copy" disabled>Copier la présélection</button><span class="status" id="sourcing-status">Aucune recherche lancée</span></div>
+        <p class="help">Coût fournisseur HT, stock indiqué et prix public TTC indicatif calculé à partir de la formule existante. Les frais Stripe, charges et aléas logistiques restent à valider. Aucune commande ni ajout au catalogue.</p>
+        <div class="table-wrap"><table><thead><tr><th>Modèle fournisseur</th><th>Stock</th><th>Achat HT</th><th>Vente TTC indicative</th><th>Décision</th></tr></thead><tbody id="sourcing-body"><tr><td colspan="5">Clique sur « Chercher des produits » pour lancer une recherche sécurisée.</td></tr></tbody></table></div>
+      </div>
+    </section>
     <footer class="page-foot">La Maison des Dessous · Centre de pilotage privé · Les commandes sont synchronisées avec Stripe ; les tâches internes de gestion sont locales à ce navigateur.</footer>
   </main>
 </div></div>
@@ -140,7 +177,7 @@ function loginView(message=''){ $('app').style.display='none';$('login').style.d
 function appView(){ $('login').style.display='none';$('app').style.display='block'; }
 $('login-form').addEventListener('submit',async ev=>{ev.preventDefault();$('login-status').textContent='Vérification…';try{await api('/api/gestion/login','POST',{password:$('password').value});$('password').value='';await initialize();}catch(e){$('login-status').textContent=e.message;}});
 $('logout').addEventListener('click',async()=>{try{await api('/api/gestion/logout','POST',{})}finally{loginView('Vous êtes déconnecté.');}});
-const titles={direction:'Vue de direction',commandes:'Commandes & expéditions',sandbox:'Laboratoire Stripe TEST',sav:'Service après-vente',finances:'Comptabilité & finances',commercial:'Direction commerciale',communication:'Community manager',secretariat:'Secrétariat & RH',technique:'Maintenance technique'};
+const titles={direction:'Vue de direction',commandes:'Commandes & expéditions',sandbox:'Laboratoire Stripe TEST',sav:'Service après-vente',finances:'Comptabilité & finances',commercial:'Direction commerciale',communication:'Community manager',secretariat:'Secrétariat & RH',technique:'Maintenance technique',equipe:'Équipe IA & sourcing'};
 function page(name){if(!titles[name])return;state.shown=name;for(const key of Object.keys(titles))$(key).hidden=key!==name;for(const b of document.querySelectorAll('.navitem'))b.classList.toggle('active',b.dataset.page===name);$('title').textContent=titles[name];}
 document.addEventListener('click',ev=>{const b=ev.target.closest('[data-go], [data-page]');if(b)page(b.dataset.go||b.dataset.page)});
 $('refresh').addEventListener('click',()=>loadOrders());
@@ -242,7 +279,112 @@ async function initialize(){
    $('start-sandbox').disabled=!ready;
  }catch { $('sandbox-status').textContent='Mode test indisponible'; }
  await loadOrders();
+ await loadAgents();
 }
+
+const agentTitles={
+ direction:'Direction générale',sourcing:'Sourcing produits',communication:'Community manager',
+ seo:'Responsable SEO',commercial:'Direction commerciale',sav:'Service client',
+ finances:'Finance et comptabilité',technique:'Responsable technique'
+};
+const agentInstructions={
+ direction:'Organiser l’équipe numérique, ordonner les priorités selon le budget et les risques.',
+ sourcing:'Comparer des bas féminins chez les fournisseurs : prix d’achat HT, frais de livraison, stock, tailles, qualité, marge, délais, droits visuels. Ne proposer aucun achat sans validation.',
+ communication:'Préparer une ligne éditoriale, posts Instagram, TikTok et publicité originale pour la boutique, sans images de produits inventées et sans publier.',
+ seo:'Améliorer les positions Google de la boutique, avec titres naturels, contenu utile, liens internes et mesures Search Console vérifiables.',
+ commercial:'Améliorer les ventes et les conversions sans créer de promotions ni modifier les prix sans accord.',
+ sav:'Préparer des réponses SAV professionnelles sans révéler d’informations privées ni prétendre qu’une commande a été expédiée.',
+ finances:'Distinguer encaissements, coûts HT/TTC, port, commissions de paiement, taxes et bénéfices. Aucune déclaration ni paiement.',
+ technique:'Préparer des recommandations fiables pour GitHub, Render et Stripe sans modifier le site ni les secrets directement.'
+};
+let sourcingData=null,agentEnabled=false;
+const missionStorageKey='lmd-agent-missions-v1';
+function missions(){try{const v=JSON.parse(localStorage.getItem(missionStorageKey)||'[]');return Array.isArray(v)?v.slice(0,15):[]}catch{return []}}
+function updateMissions(){
+ const host=$('agent-missions');host.replaceChildren();const rows=missions();
+ if(!rows.length){host.append(el('p','Pas encore de mission enregistrée.','help'));return;}
+ for(const row of rows){const div=el('div',undefined,'module-item');const info=el('div');
+ info.append(el('strong',agentTitles[row.role]||row.role),el('p',row.goal.slice(0,180),'help'));
+ const action=el('button','Reprendre','button light small');
+ action.onclick=()=>{$('agent-role').value=row.role;$('agent-goal').value=row.goal;};
+ div.append(info,action);host.append(div);}
+}
+function missionText(){
+ const role=$('agent-role').value,goal=$('agent-goal').value.trim();
+ if(!agentTitles[role]||goal.length<12){flash('Écris une mission précise d’au moins 12 caractères.');return '';}
+ const sample=role==='sourcing' && sourcingData?
+  '\nPRÉSÉLECTION vérifiée auprès du flux BusyX (à revérifier avant décision) :\n'+sourcingData.candidates.slice(0,12).map(c=>
+   c.name+' | EAN '+c.ean+' | Stock '+c.stock+' | Achat '+c.buyPriceHT+' € HT | Vente indicative '+c.suggestedPriceTTC+' € TTC').join('\n'):'';
+ return 'Tu travailles pour La Maison des Dessous (lamaisondesdessous.fr), boutique française spécialisée UNIQUEMENT dans les bas pour femme.\\n'+
+ 'RÔLE : '+agentTitles[role]+'\\nDIRECTIVES : '+agentInstructions[role]+
+ '\\nMISSION : '+goal+
+ '\\nCONTRAINTES : Budget minimal. Réponse factuelle et opérationnelle. Distingue les données vérifiées des estimations. Aucun paiement, achat fournisseur, publication, e-mail à une cliente, ni modification de production sans accord du dirigeant.'+
+ sample+'\\nRéponds en français avec des actions concrètes classées par priorité et les points à vérifier.';
+}
+$('agent-copy').onclick=async()=>{
+ const text=missionText();if(!text)return;
+ $('agent-output').textContent=text;
+ try{await navigator.clipboard.writeText(text);flash('Mission copiée. Tu peux la coller dans notre conversation ChatGPT.',true);}
+ catch{flash('La mission est affichée dans le bloc à droite. Sélectionne-la pour la copier.');}
+};
+$('agent-save').onclick=()=>{const role=$('agent-role').value,goal=$('agent-goal').value.trim();if(!agentTitles[role]||goal.length<12){flash('Écris d’abord une mission à conserver.');return;}
+ try{const old=missions();localStorage.setItem(missionStorageKey,JSON.stringify([{role,goal,at:new Date().toISOString()},...old].slice(0,15)));updateMissions();flash('Mission conservée sur cet appareil.',true)}
+ catch{flash('Impossible d’enregistrer la mission sur cet appareil.');}
+};
+$('agent-clear').onclick=()=>{$('agent-output').textContent='Aucun résultat affiché.'};
+$('agent-run').onclick=async()=>{
+ const role=$('agent-role').value,goal=$('agent-goal').value.trim();
+ if(!agentEnabled){flash('Le mode API est désactivé. Utilise le mode ChatGPT inclus dans ton abonnement.');return;}
+ if(goal.length<12){flash('Écris d’abord une mission précise.');return;}
+ if(!confirm('Lancer une analyse via ton API OpenAI indépendante ? Cet appel peut entraîner des frais selon ton compte API. Aucune publication ni achat ne sera effectué.'))return;
+ const b=$('agent-run');b.disabled=true;$('agent-output').textContent='Analyse IA en cours…';
+ try{const d=await api('/api/gestion/agents/analyse','POST',{role,goal});
+   $('agent-output').textContent=d.answer+'\\n\\nCette proposition attend ta validation ; aucune action externe effectuée.';
+   $('agent-limit').textContent='Analyses disponibles : '+d.remainingToday;flash('Proposition IA reçue sans action externe.',true);
+ }catch(e){$('agent-output').textContent=e.message;flash(e.message)}
+ finally{b.disabled=!agentEnabled;}
+};
+$('sourcing-load').onclick=async()=>{
+ const button=$('sourcing-load');button.disabled=true;$('sourcing-status').textContent='Recherche BusyX en cours…';
+ try{
+  const d=await api('/api/gestion/agents/sourcing');sourcingData=d;
+  const host=$('sourcing-body');host.replaceChildren();
+  if(!d.candidates.length){const tr=el('tr'),td=el('td','Aucun nouveau modèle répondant aux critères automatiques. Élargir la sélection exige une vérification manuelle du fournisseur.');td.colSpan=5;tr.append(td);host.append(tr);}
+  for(const c of d.candidates){
+   const tr=el('tr'),name=el('td');
+   name.append(el('strong',c.name),el('div','EAN '+c.ean+' · Réf. fournisseur '+c.supplierId,'help'));
+   tr.append(name,el('td',c.stock),el('td',c.buyPriceHT.toFixed(2)+' €'),el('td',c.suggestedPriceTTC.toFixed(2)+' €'));
+   const action=el('td'),b=el('button','Préparer une étude','button light small');
+   b.onclick=()=>{page('equipe');$('agent-role').value='sourcing';$('agent-goal').value=
+    'Étudie la faisabilité commerciale de '+c.name+' (EAN '+c.ean+', BusyX réf. '+c.supplierId+
+    ', achat '+c.buyPriceHT+' € HT, stock indiqué '+c.stock+
+    ', prix TTC indicatif '+c.suggestedPriceTTC+' €). Vérifie taille, composition, photos, qualité, marge, prix concurrent et risques avant de proposer son référencement.';
+    $('agent-goal').focus();flash('Fiche transférée vers une mission sourcing. Rien n’a été acheté.',true)};
+   action.append(b);tr.append(action);host.append(tr);
+  }
+  $('sourcing-copy').disabled=!d.candidates.length;
+  $('sourcing-status').textContent=d.candidates.length+' pistes / '+d.scanned+' références parcourues';
+  flash('Recherche fournisseur terminée. Les pistes doivent être validées manuellement.',true);
+ }catch(e){sourcingData=null;$('sourcing-status').textContent='Flux indisponible';flash(e.message)}
+ finally{button.disabled=false;}
+};
+$('sourcing-copy').onclick=async()=>{
+ if(!sourcingData)return;
+ const t='Présélection BusyX (à revérifier manuellement) — '+sourcingData.checkedAt+'\\n'+sourcingData.candidates.map(c=>
+ c.name+' | EAN '+c.ean+' | réf '+c.supplierId+' | Stock '+c.stock+' | Coût HT '+c.buyPriceHT+' € | Prix TTC indicatif '+c.suggestedPriceTTC+' €').join('\n');
+ try{await navigator.clipboard.writeText(t);flash('Présélection copiée.',true)}catch{$('agent-output').textContent=t;}
+};
+async function loadAgents(){
+ try{const info=await api('/api/gestion/agents/config');
+ agentEnabled=Boolean(info.aiEnabled);
+ $('agent-mode').textContent=agentEnabled?'IA API disponible (analyses facturées séparément)':'Mode gratuit — aucune API IA facturée';
+ $('agent-mode').classList.toggle('good',!agentEnabled);
+ $('agent-limit').textContent=agentEnabled?'Reste '+info.remainingToday+' analyses aujourd’hui':'ChatGPT actuel + sourcing BusyX';
+ $('agent-run').disabled=!agentEnabled;
+ }catch{$('agent-mode').textContent='Agents indisponibles';$('agent-run').disabled=true;}
+ updateMissions();
+}
+
 async function start(){try{const info=await api('/api/gestion/session');if(info.setupNeeded)loginView('Pour activer l’accès privé : configurer ADMIN_PASSWORD et ADMIN_SESSION_SECRET dans les variables de Render.');else if(info.authenticated)await initialize();else loginView();}catch(e){loginView(e.message)}}
 for(const [k,v] of Object.entries(taskSets))loadTaskSet(k+'-tasks',v);
 start();
