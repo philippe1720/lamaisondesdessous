@@ -27,6 +27,25 @@ main{padding:31px clamp(17px,4vw,54px);max-width:1450px;width:100%;margin:0 auto
 .help{font-size:12px;color:#8d808c;margin-top:8px}.alert{padding:9px 12px;border-radius:8px;background:#fff3f3;color:#a33141;margin-top:9px;font-size:13px}.success{padding:9px 12px;border-radius:8px;background:#edf8ef;color:#2d6c43;margin-top:9px;font-size:13px}
 footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size:12px;border-radius:20px;background:#eee4ea;padding:5px 10px;color:#69455c}.cols-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
 @media(max-width:1150px){.cards{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:1fr}}@media(max-width:850px){.shell{display:block}.sidebar{min-height:0!important;padding:14px!important}.sidebar nav{display:flex;overflow-x:auto;margin-top:12px;gap:4px}.sidebar nav button{white-space:nowrap}.foot{display:none}.twocol,.detail-grid{grid-template-columns:1fr}main{padding:22px 15px}.top{flex-wrap:wrap}}@media(max-width:480px){.cards{grid-template-columns:1fr 1fr;gap:9px}.card{padding:14px}.card .value{font-size:23px}}
+
+/* Espace avatar : les visages sont des personnages illustratifs, les rôles sont des IA. */
+.avatar-main{display:grid;gap:16px;margin:0 0 23px}
+.avatar-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.avatar-tile{display:flex;align-items:center;gap:9px;text-align:left;border:1px solid #e8dce4;background:#fcfbfa;border-radius:13px;padding:11px;min-width:0;color:#40323d}
+.avatar-tile:hover,.avatar-tile.chosen{border-color:#9a6480;background:#f7eff4;box-shadow:0 0 0 2px #eedde7}
+.avatar-face{flex-shrink:0;width:49px;height:49px;display:grid;place-items:center;border-radius:50%;font-size:25px;border:1px solid #ffffffd0;box-shadow:0 3px 6px #2c283013}
+.avatar-label{display:grid;gap:2px;min-width:0}.avatar-label strong{font-size:14px;color:#52384a}.avatar-label small{font-size:11px;color:#817280;line-height:1.4}
+.avatar-columns{display:grid;grid-template-columns:1.15fr 1fr;gap:17px}
+.avatar-chat-header{display:flex;align-items:center;gap:13px}
+.avatar-chat-header .avatar-face{width:62px;height:62px;font-size:31px}
+.avatar-chat-header h3{margin:0}.avatar-chat-header p{margin:3px 0 0}
+.avatar-messages{border:1px solid #e9e1e8;background:#faf8fa;border-radius:12px;min-height:220px;max-height:380px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:11px}
+.avatar-bubble{max-width:93%;border:1px solid #ece2e9;border-radius:13px;padding:10px 13px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;background:white;align-self:flex-start}
+.avatar-bubble.user{align-self:flex-end;background:#f3e5ee;border-color:#e4cddd}
+.avatar-bubble.report{background:#eef7f0;border-color:#d4e9d9}
+.avatar-report{font:12px/1.6 ui-monospace,Consolas,monospace;background:#f7f4f7;white-space:pre-wrap;word-break:break-word;border:1px solid #eee3e8;border-radius:10px;min-height:160px;max-height:390px;overflow:auto;padding:13px}
+@media(max-width:1100px){.avatar-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.avatar-columns{grid-template-columns:1fr}}
+@media(max-width:560px){.avatar-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.avatar-tile{flex-direction:column;text-align:center;justify-content:center}.avatar-label{text-align:center}.avatar-face{width:52px;height:52px}}
 </style>
 </head>
 <body>
@@ -123,6 +142,7 @@ footer.page-foot{font-size:12px;color:#938492;margin:40px 0 10px}.pill{font-size
       <div class="module-item"><span>Gestion BusyX</span><span>Manuelle — sans achat automatique</span></div>
     </div><div class="row-actions"><a class="button light" href="https://dashboard.render.com" target="_blank" rel="noreferrer">Render ↗</a><a class="button light" href="https://github.com/philippe1720/lamaisondesdessous" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button light" href="https://dashboard.stripe.com" target="_blank" rel="noreferrer">Stripe ↗</a></div><div class="row-actions"><button id="test-email" class="button">Tester une notification e-mail</button></div><div class="notice">Sécurité : configurez ADMIN_PASSWORD (16 caractères minimum), ADMIN_SESSION_SECRET (32 caractères minimum) dans Render. Pour les e-mails, configurez RESEND_API_KEY, MAIL_FROM et MERCHANT_NOTIFY_EMAIL, après vérification du domaine de l’expéditeur.</div></div></section>
     <section id="equipe" hidden>
+      <div id="avatar-hub"></div>
       <div class="panel"><p class="eyebrow">Votre entreprise · Un seul dirigeant</p>
         <h3>Équipe IA — 8 pôles de travail</h3>
         <p>Direction générale, sourcing, communication, SEO, commercial, SAV, finances et technique. Cette première version organise les missions, exploite le flux du fournisseur BusyX pour la recherche de produits et prépare les analyses. <strong>Aucune publicité, commande fournisseur, modification de prix ou e-mail n'est envoyé automatiquement.</strong></p>
@@ -389,5 +409,6 @@ async function start(){try{const info=await api('/api/gestion/session');if(info.
 for(const [k,v] of Object.entries(taskSets))loadTaskSet(k+'-tasks',v);
 start();
 </script>
+<script src="/agents-avatars.js" defer></script>
 </body>
 </html>
