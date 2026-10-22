@@ -30,6 +30,8 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       - name: Verification TypeScript et compilation
         run: pnpm run build
+      - name: Verification du référencement HTML et sitemap
+        run: node artifacts/lingerie-shop/scripts/verify-seo.mjs
       - name: Controle d'acces a l'espace de gestion (smoke test)
         run: |
           node --enable-source-maps artifacts/api-server/dist/index.mjs &
