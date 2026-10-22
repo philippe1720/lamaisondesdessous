@@ -164,7 +164,7 @@
  reset.onclick=()=>{if(confirm('Effacer la conversation de cet avatar sur cet onglet ?')){
   save(current,[]);renderDialogue();flash('Conversation effacée.',true);
  }};
- async function mission(roleId){
+ async function executeAgentDiagnostic(roleId){
   if(roleId==='sourcing'){
    const d=await api('/api/gestion/agents/sourcing');
    const top=d.candidates.slice(0,8);
@@ -195,7 +195,7 @@
  run.onclick=async()=>{
   if(running||!allowedAuto.has(current))return;
   const roleId=current;run.disabled=true;status.textContent='Mission en cours…';
-  try{const result=await mission(roleId);
+  try{const result=await executeAgentDiagnostic(roleId);
     add(roleId,'report',result);
     if(current===roleId){report.textContent=result;status.textContent='Diagnostic terminé ✓';}
     flash('Diagnostic terminé par '+(faces.find(x=>x.id===roleId)?.name||'l’agent')+'. Aucune action engageante réalisée.',true);
