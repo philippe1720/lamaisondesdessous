@@ -41,7 +41,7 @@ async function computeSourcing():Promise<SourceResult> {
   for(const row of rows as SourceRow[]) {
     const name=safe(row.Libel,145),id=safe(row['ID du produit'],20),ean=safe(row.EAN13,16);
     const stock=n(row.Stock),buy=n(row['Prix unitaire HT']);
-    if(!isBas(name)||!supplierId(id)||used.has(id)||seen.has(id)||!/[0-9]{13}/.test(ean) ||
+    if(!isBas(name)||!supplierId(id)||used.has(id)||seen.has(id)||!/^\d{13}$/.test(ean) ||
       !Number.isInteger(stock)||stock<1||!Number.isFinite(buy)||buy<=0||buy>1000)continue;
     const cost=Math.round(buy*100);
     if(!Number.isSafeInteger(cost) || cost<=0)continue;
@@ -89,7 +89,7 @@ agentsRouter.get('/agents/sourcing',async(_req,res)=>{
 agentsRouter.post('/agents/analyse',async(req,res)=>{
   const role=safe(req.body?.role,30) as Role;
   const goal=safe(req.body?.goal,1300);
-  if(!(role in ROLES)||goal.length<12||goal.length>1300){res.status(400).json({error:'Choisissez un agent et indiquez une mission claire (12 à 1 300 caractères).'});return;}
+  if(!Object.prototype.hasOwnProperty.call(ROLES,role)||goal.length<12||goal.length>1300){res.status(400).json({error:'Choisissez un agent et indiquez une mission claire (12 à 1 300 caractères).'});return;}
   if(!aiEnabled()){res.status(409).json({error:"L'API IA est désactivée. Utilisez « Copier la mission pour ChatGPT » sans frais supplémentaires."});return;}
   if(remaining()<1){res.status(429).json({error:"Quota journalier atteint. Réessayez demain, sans frais supplémentaires."});return;}
   if(busy){res.status(429).json({error:"Une analyse est déjà en cours. Réessayez une fois terminée."});return;}
