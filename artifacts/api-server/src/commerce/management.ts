@@ -2,6 +2,7 @@ import { Router, type Request, type Response } from 'express';
 import { createHmac, createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { stripeRequest } from './orders';
 import { sandboxRouter, sandboxReady, stripeSandboxRequest } from './sandbox';
+import { agentsRouter } from './agents';
 
 export const managementRouter = Router();
 const COOKIE = 'lmd_management';
@@ -70,6 +71,7 @@ managementRouter.use('/gestion', (req, res, next) => {
 });
 
 managementRouter.use('/gestion', sandboxRouter);
+managementRouter.use('/gestion', agentsRouter);
 
 const orderStatus = (s: any) => s.metadata?.tracking_number ? 'shipped'
   : s.metadata?.supplier_ordered_at ? 'supplier_ordered' : 'to_process';
