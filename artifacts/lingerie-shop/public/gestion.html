@@ -315,11 +315,11 @@ function missionText(){
  const sample=role==='sourcing' && sourcingData?
   '\nPRÉSÉLECTION vérifiée auprès du flux BusyX (à revérifier avant décision) :\n'+sourcingData.candidates.slice(0,12).map(c=>
    c.name+' | EAN '+c.ean+' | Stock '+c.stock+' | Achat '+c.buyPriceHT+' € HT | Vente indicative '+c.suggestedPriceTTC+' € TTC').join('\n'):'';
- return 'Tu travailles pour La Maison des Dessous (lamaisondesdessous.fr), boutique française spécialisée UNIQUEMENT dans les bas pour femme.\\n'+
- 'RÔLE : '+agentTitles[role]+'\\nDIRECTIVES : '+agentInstructions[role]+
- '\\nMISSION : '+goal+
- '\\nCONTRAINTES : Budget minimal. Réponse factuelle et opérationnelle. Distingue les données vérifiées des estimations. Aucun paiement, achat fournisseur, publication, e-mail à une cliente, ni modification de production sans accord du dirigeant.'+
- sample+'\\nRéponds en français avec des actions concrètes classées par priorité et les points à vérifier.';
+ return 'Tu travailles pour La Maison des Dessous (lamaisondesdessous.fr), boutique française spécialisée UNIQUEMENT dans les bas pour femme.\n'+
+ 'RÔLE : '+agentTitles[role]+'\nDIRECTIVES : '+agentInstructions[role]+
+ '\nMISSION : '+goal+
+ '\nCONTRAINTES : Budget minimal. Réponse factuelle et opérationnelle. Distingue les données vérifiées des estimations. Aucun paiement, achat fournisseur, publication, e-mail à une cliente, ni modification de production sans accord du dirigeant.'+
+ sample+'\nRéponds en français avec des actions concrètes classées par priorité et les points à vérifier.';
 }
 $('agent-copy').onclick=async()=>{
  const text=missionText();if(!text)return;
