@@ -36,7 +36,7 @@ export function dueFromFrench(text){
 export function routeAgent(text){
  const t=text.toLowerCase();
  if(/instagram|facebook|reel|publication|story|réseau|post |contenu social/.test(t))return 'clara';
- if(/google|seo|référencement|indexation|mots.clés|balise|trafic organique/.test(t))return 'seo';
+ if(/google|seo|l[eé]o|référencement|indexation|mots.clés|balise|trafic organique/.test(t))return 'seo';
  if(/stock|fournisseur|produit|catalogue|nouveaux bas|tailles/.test(t))return 'maya';
  if(/comptab|bilan|marge|chiffre|stripe|trésorerie|recette|facture/.test(t))return 'finance';
  if(/cliente|sav|retour|livraison|réclamation|commande/.test(t))return 'sav';
