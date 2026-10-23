@@ -36,7 +36,7 @@ for (const p of ['/bas-autofixants','/bas-porte-jarretelles','/bas-resille',
  const html=await read('seo/'+encodeURIComponent(p)+'.html');
  assert.ok(html.includes('property="og:title"'),'Open Graph sans titre : '+p);
  assert.ok(html.includes('property="og:image"'),'Open Graph sans image : '+p);
- const scripts=[...html.matchAll(/<script data-seo-prerender="true" type="application\\/ld\\+json">([\\s\\S]*?)<\\/script>/g)].map(x=>JSON.parse(x[1]));
+ const scripts=[...html.matchAll(/<script data-seo-prerender="true" type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(x=>JSON.parse(x[1]));
  const crumbs=scripts.find(x=>x['@type']==='BreadcrumbList');
  assert.ok(crumbs,'Fil d’Ariane structuré absent : '+p);
  assert.ok(crumbs.itemListElement.length>=3,'Fil d’Ariane trop court : '+p);
