@@ -227,7 +227,8 @@ function textWithoutAccents(value){
 function requestedJobs(message){
  const t=textWithoutAccents(message);
  // An information request never launches an external action by accident.
- if(/^\s*(est ce que|comment|pourquoi|quelles? (?:sont|seraient)|peux tu m.expliquer|qui est|que fait)/.test(t))return [];
+ const question=t.replace(/^\s*(?:sandrine|s.il te plait|stp)\s*[,!:;\-]?\s*/,'');
+ if(/^\s*(est ce que|comment|pourquoi|quelles? (?:sont|seraient)|peux tu(?: m.expliquer)?|qui est|que fait|qu.est ce que)/.test(question))return [];
  if(/\bne\s+(?:(?:le|la|les)\s+)?(?:lance|execute|realise|fait)\s+pas\b|\bsans\s+(?:lancer|executer|realiser)\b/.test(t))return [];
  const imperative=/\b(fais|faire|lance|lancer|execute|executer|realise|realiser|effectue|effectuer|demande|confie|charge|prepare|preparer|redige|rediger|ecris|ecrire|audit|audite|analyse|analyser|produis|produire|travaille|cree|creer)\b/.test(t);
  if(!imperative)return [];
@@ -246,7 +247,7 @@ function requestedJobs(message){
 }
 async function processDirectCommand(message){
  const t=textWithoutAccents(message);
- const publishing=/\b(publie|publier|envoie|envoyer)\b/.test(t)&&!/\bne\s+(?:(?:le|la|les)\s+)?(?:publie|publier|envoie|envoyer)\s+pas\b|\bsans\s+(?:publier|envoyer)\b/.test(t);
+ const publishing=/\b(publie|publier|poste|poster|envoie|envoyer)\b/.test(t)&&!/\bne\s+(?:(?:le|la|les)\s+)?(?:publie|publier|poste|poster|envoie|envoyer)\s+pas\b|\bsans\s+(?:(?:le|la|les)\s+)?(?:publier|poster|envoyer)\b/.test(t);
  const otherSensitive=/\b(rembourse|rembourser|payer|achete|acheter|supprime|supprimer|deploie|deployer)\b/.test(t);
  if(publishing||otherSensitive){
   const approval=addApproval('action_externe','Action externe à autoriser et à connecter : '+truncate(message,180));
