@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/lib/seo';
+import { GuideLinks } from '@/features/shop/editorial';
 
 export const ARTICLES = [
   {
@@ -107,8 +108,8 @@ export default function Blog() {
   return (
     <>
       <SEO
-        title="Blog Lingerie — Conseils, Tendances & Guide Morphologie"
-        description="Le Journal Intime de La Maison des Dessous : conseils pour laver votre lingerie délicate, choisir selon votre morphologie, tendances et rituels beauté féminins."
+        title="Conseils sur les bas pour femme et leur entretien"
+        description="Comment choisir, porter et entretenir vos bas : nos guides sur les autofixants, les porte-jarretelles, la résille et les deniers."
         keywords="blog lingerie, conseils lingerie, comment laver lingerie, morphologie lingerie, tendances dessous féminins, entretien soutien-gorge dentelle"
         canonical="/blog"
       />
@@ -116,12 +117,14 @@ export default function Blog() {
 
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-primary font-serif uppercase tracking-[0.2em] text-sm mb-4 block">Le Journal Intime</span>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6">Votre Source Féminine</h1>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6">Conseils pour choisir et porter vos bas</h1>
           <p className="text-muted-foreground text-lg font-light">
-            Conseils d'entretien, guide morphologie, tendances et rituels beauté — tout ce qu'une femme doit savoir sur la lingerie.
+            Autofixants ou porte-jarretelles, voile ou résille : retrouvez nos repères pour choisir vos bas et en prendre soin.
           </p>
         </div>
 
+        <section className="mb-12"><h2 className="font-serif text-2xl mb-4">Les guides des bas</h2><GuideLinks /></section>
+        <h2 className="font-serif text-2xl mb-6">Nos autres articles sur la lingerie</h2>
         <div className="flex flex-wrap justify-center gap-3 mb-16">
           {CATEGORIES.map(cat => (
             <button
@@ -179,26 +182,7 @@ export default function Blog() {
           </div>
         )}
 
-        <div className="mt-24 bg-card border border-primary/20 p-12 text-center max-w-2xl mx-auto">
-          <h2 className="font-serif text-2xl font-bold mb-4">Restez inspirée</h2>
-          <p className="text-muted-foreground text-sm font-light mb-6">
-            Recevez nos conseils exclusifs sur la lingerie, la beauté et la féminité directement dans votre boîte mail.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Votre adresse email"
-              className="flex-1 px-4 py-3 border border-border bg-background text-sm focus:outline-none focus:border-primary transition-colors"
-              data-testid="input-newsletter-email"
-            />
-            <button
-              className="px-6 py-3 bg-primary text-primary-foreground text-xs tracking-widest uppercase font-medium hover:bg-primary/90 transition-colors"
-              data-testid="btn-newsletter-subscribe"
-            >
-              S'abonner
-            </button>
-          </div>
-        </div>
+
       </div>
     </>
   );
