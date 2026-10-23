@@ -228,7 +228,7 @@ function requestedJobs(message){
  const t=textWithoutAccents(message);
  // An information request never launches an external action by accident.
  if(/^\s*(est ce que|comment|pourquoi|quelles? (?:sont|seraient)|peux tu m.expliquer|qui est|que fait)/.test(t))return [];
- if(/\b(ne\s+\w{0,18}\s*pas|n.execute pas|sans lancer|sans executer)\b/.test(t))return [];
+ if(/\bne(?:\s+\w+){0,6}\s+pas\b|\bsans\s+(?:lancer|executer|publier)\b/.test(t))return [];
  const imperative=/\b(fais|faire|lance|lancer|execute|executer|realise|realiser|effectue|effectuer|demande|confie|charge|prepare|preparer|redige|rediger|ecris|ecrire|audit|audite|analyse|analyser|produis|produire|travaille|cree|creer)\b/.test(t);
  if(!imperative)return [];
  const wantSeo=/(leo|seo|referencement|audit (?:du |de |des )?(?:site|boutique|pages?)|audit technique)/.test(t)
