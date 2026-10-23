@@ -254,6 +254,11 @@ async function processDirectCommand(message){
   return {reply:'Je te demande une validation pour cette action externe. Rien n’a été publié, envoyé ou facturé. Le connecteur d’exécution reste à brancher.',actions:[approval.id],mode:'action_restreinte',executed:[]};
  }
  const jobs=requestedJobs(message);
+ if(!jobs.length && /\b(execute|executer|lance|lancer|traite|traiter)\b.*\b(missions|taches|travaux)\b/.test(t)){
+  const run=await executeSafeTasks();
+  const waiting=state.tasks.filter(task=>task.status!=='done').length;
+  return {reply:run.done.length+' mission(s) exécutée(s) avec rapport ; '+run.failed.length+' en échec ; '+waiting+' mission(s) encore ouvertes. '+run.done.map(x=>'✓ '+x.summary).join(' ; ')+(run.failed.length?' Blocages : '+run.failed.map(x=>x.error).join(' ; '):''),actions:[],mode:'execution_missions',executed:run.done};
+ }
  if(!jobs.length){
   if(/\b(que fais|qu.as tu fait|quel travail|missions terminees|rapport d.activite|etat des missions)\b/.test(t)){
    const completed=state.tasks.filter(x=>x.status==='done'&&x.resultNoteId);
@@ -354,7 +359,7 @@ const server=http.createServer(async(req,res)=>{
    if(req.method==='GET'&&p==='/api/export')return json(res,200,state,{'Content-Disposition':'attachment; filename="sandrine-export.json"'});
    if(req.method==='POST'&&p==='/api/assistant'){
     const b=await body(req);if(!truncate(b.message))return json(res,400,{error:'Message vide'});
-    const result=(await processDirectCommand(b.message)) || (await assistant(b.message));if(result.mode==='modele')ensureExplicitTask(b.message,result);const work=result.mode==='execution_reelle'||result.mode==='action_restreinte'?{done:[],failed:[]}:await executeSafeTasks();
+    const result=(await processDirectCommand(b.message)) || (await assistant(b.message));if(result.mode==='modele')ensureExplicitTask(b.message,result);const work={done:[],failed:[]}; // Le dialogue ne lance pas de missions en arrière-plan sans directive explicite.
      if(work.done.length)result.reply+='\n\n✅ Travail exécuté et rapport enregistré : '+work.done.map(x=>x.summary).join(' ; ')+'. Consulte l’onglet Rapports.';
      if(work.failed.length)result.reply+='\n\n⚠️ Mission(s) non terminée(s) : '+work.failed.map(x=>x.agent+' : '+x.error).join(' ; ')+'.';
      result.executed||=work.done;state.conversations||=[];state.conversations.push({id:uid(),role:'user',content:truncate(b.message,2000),at:now()},{id:uid(),role:'assistant',content:truncate(result.reply,2500),at:now()});state.conversations=state.conversations.slice(-500);recordEvent(state,'conversation',`Message reçu : ${truncate(b.message,120)}`);await persist();return json(res,200,result);
