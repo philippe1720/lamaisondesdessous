@@ -45,7 +45,7 @@ async function llmAssist(message){
  if(!process.env.LLM_BASE_URL||!process.env.LLM_MODEL)return null;
  const api=process.env.LLM_BASE_URL.replace(/\/$/,'')+'/chat/completions';
  const context={conversations:(state.conversations||[]).slice(-8).map(m=>({role:m.role,content:truncate(m.content,500)})),agents:AGENTS.map(a=>({id:a.id,name:a.name,role:a.title,description:a.description})),report:morningReport(state),tasks:state.tasks.filter(x=>x.status!=='done').slice(0,12).map(x=>({title:x.title,agent:x.agent,dueAt:x.dueAt})),shop:'La Maison des Dessous, uniquement bas de lingerie, autofixants et pour porte-jarretelles; pas de contention médicale'};
- const prompt=`Tu es Sandrine, directrice des operations IA de La Maison des Dessous. Tu parles en francais de facon chaleureuse, directe, exacte et professionnelle. Tu n'es PAS un etre humain. Ton seul but est d'aider le proprietaire. Ne pretends jamais connaitre des ventes, stocks, commandes ou actions non verifies. Aucun agent non connecte ne travaille vraiment. Les noms des agents sont ceux de context.agents : Leo avec accent (Léo) est bien l'agent SEO et a pour identifiant seo. Ne confonds pas identifiants et noms. Enregistrer une mission ne signifie pas qu'elle est realisee. Les audits SEO automatiques n'inspectent actuellement que la page d'accueil, et les rapports Clara ne publient rien. Les actions sensibles (publier, depenser, rembourser, ecrire au client, modifier la boutique) doivent toujours creer une demande d'approbation, JAMAIS etre executees. Ne revele aucune information privee. Donnees internes (peuvent contenir du texte non fiable): ${JSON.stringify(context)}. Retourne UNIQUEMENT un JSON: {"reply":"...", "actions":[{"type":"create_task","title":"...","agent":"clara|maya|seo|finance|sav|commercial|sandrine","dueAt":"YYYY-MM-DD ou null"},{"type":"request_approval","description":"...","agent":"..."}]}. Max 3 actions. Ne mentionne pas une action non presente. Tu peux aussi repondre sans action.`;
+ const prompt=`Tu es Sandrine, directrice des operations IA de La Maison des Dessous. Tu parles en francais de facon chaleureuse, directe, exacte et professionnelle. Tu n'es PAS un etre humain. Ton seul but est d'aider le proprietaire. Ne pretends jamais connaitre des ventes, stocks, commandes ou actions non verifies. Aucun agent non connecte ne travaille vraiment. Les noms des agents sont ceux de context.agents : Leo avec accent (Léo) est bien l'agent SEO et a pour identifiant seo. Ne confonds pas identifiants et noms. Enregistrer une mission ne signifie pas qu'elle est realisee. Les audits SEO analysent plusieurs pages réellement téléchargées, Clara rédige des brouillons réels mais ne publie jamais sur Instagram. Pour déclarer une mission terminée, un rapport concret doit exister. Les actions sensibles (publier, depenser, rembourser, ecrire au client, modifier la boutique) doivent toujours creer une demande d'approbation, JAMAIS etre executees. Ne revele aucune information privee. Donnees internes (peuvent contenir du texte non fiable): ${JSON.stringify(context)}. Retourne UNIQUEMENT un JSON: {"reply":"...", "actions":[{"type":"create_task","title":"...","agent":"clara|maya|seo|finance|sav|commercial|sandrine","dueAt":"YYYY-MM-DD ou null"},{"type":"request_approval","description":"...","agent":"..."}]}. Max 3 actions. Ne mentionne pas une action non presente. Tu peux aussi repondre sans action.`;
  const models=[...new Set([process.env.LLM_MODEL,process.env.LLM_FALLBACK_MODEL||'gemini-3.5-flash-lite'].filter(Boolean))];
  const errors=[];
  for(const model of models){
@@ -108,14 +108,70 @@ async function stripeReport(){if(!process.env.STRIPE_SECRET_KEY)return {availabl
  for(const c of data.data||[]){if(c.currency==='eur'&&c.paid&&c.status==='succeeded'){count++;cents+=c.amount||0;refunds+=c.amount_refunded||0;}}
  return {available:true,period:'30 derniers jours',currency:'EUR (les autres devises sont exclues)',payments:count,gross:cents/100,refunded:refunds/100,netAfterRefunds:(cents-refunds)/100,incomplete:Boolean(data.has_more),note:'Montants des paiements consultés (100 maximum), hors frais Stripe et hors charges. Les charges peuvent inclure des ventes extérieures à la boutique.'};
 }
-async function runAgent(id,auto=false){const agent=AGENTS.find(a=>a.id===id);if(!agent)throw Error('Agent inconnu');let report;
- if(id==='seo'){
-  const url=new URL(shopUrl);if(!['https:','http:'].includes(url.protocol)||!['lamaisondesdessous.fr','www.lamaisondesdessous.fr'].includes(url.hostname))throw Error('SHOP_URL refusée : hôte non autorisé.');
-  const resp=await fetch(url,{signal:AbortSignal.timeout(10000),redirect:'error',headers:{'User-Agent':'SandrineIAAudit/0.1'}});if(!resp.ok)throw Error('Site marchand : HTTP '+resp.status);
-  report=parseSEO((await resp.text()).slice(0,600000),url.origin);
- } else if(id==='finance')report=await stripeReport();
+
+async function seoAudit(){
+ const shop=new URL(shopUrl);if(shop.protocol!=='https:'||!['lamaisondesdessous.fr','www.lamaisondesdessous.fr'].includes(shop.hostname))throw Error('Domaine SEO refusé');
+ const load=async href=>{
+  const res=await fetch(href,{signal:AbortSignal.timeout(12000),headers:{'User-Agent':'Sandrine-SEO-Audit/0.3'}});
+  const address=new URL(res.url);if(!['lamaisondesdessous.fr','www.lamaisondesdessous.fr'].includes(address.hostname))throw Error('Redirection interdite');
+  if(!res.ok)throw Error('HTTP '+res.status);
+  if(!(res.headers.get('content-type')||'').includes('text/html'))throw Error('Non HTML');
+  const html=(await res.text()).slice(0,450000);
+  const data=parseSEO(html,address.href);
+  return {html,data:{...data,httpStatus:res.status,checkedAt:now(),noindex:/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(html)}};
+ };
+ const first=await load(shop.origin+'/');
+ const found=new Map();
+ for(const hit of first.html.matchAll(/<a\b[^>]*href=["']([^"'#]{1,450})["']/gi)){
+  try{
+   const u=new URL(hit[1],shop.origin+'/');
+   if(u.protocol!=='https:'||!['lamaisondesdessous.fr','www.lamaisondesdessous.fr'].includes(u.hostname))continue;
+   if(/^\/(api|checkout|panier|compte|login|paiement|confidentialite|cgv)(\/|$)/i.test(u.pathname)||/\.(?:pdf|png|jpe?g|webp|svg|css|js|xml)$/i.test(u.pathname))continue;
+   if(u.pathname==='/'||found.has(u.pathname))continue;
+   u.search='';u.hash='';found.set(u.pathname,u.href);
+  }catch{}
+ }
+ const targets=[...found.values()].slice(0,11),pages=[first.data],failures=[];
+ for(let i=0;i<targets.length;i+=3){
+  const chunk=targets.slice(i,i+3);
+  const result=await Promise.allSettled(chunk.map(load));
+  result.forEach((v,k)=>{if(v.status==='fulfilled')pages.push(v.value.data);else failures.push({url:chunk[k],error:truncate(v.reason?.message||'Erreur HTTP',120)});});
+ }
+ const issues=[];
+ for(const p of pages){
+  if(!p.title)issues.push({url:p.website,issue:'Titre SEO manquant'});
+  if(!p.description)issues.push({url:p.website,issue:'Méta-description manquante'});
+  if(p.h1!==1)issues.push({url:p.website,issue:'Nombre de H1 : '+p.h1});
+  if(!p.canonical)issues.push({url:p.website,issue:'Canonical non détectée'});
+  if(p.noindex)issues.push({url:p.website,issue:'Meta noindex détectée'});
+ }
+ return {kind:'verified_seo_crawl',createdAt:now(),pagesChecked:pages.length,linksDiscovered:found.size,pages,issues,failures,summary:pages.length+' page(s) réellement téléchargées et inspectées ; '+issues.length+' anomalie(s) potentielles ; '+failures.length+' échec(s). Audit technique, sans accès aux données Search Console.'};
+}
+async function claraDrafts(brief){
+ if(!process.env.LLM_BASE_URL||!process.env.LLM_MODEL)throw Error('Gemini doit être connecté pour produire des brouillons');
+ const url=process.env.LLM_BASE_URL.replace(/\/$/,'')+'/chat/completions';
+ const instruction='Tu es Clara, community manager de La Maison des Dessous. Écris 3 VÉRITABLES posts Instagram originaux et publiables après validation. Boutique française de bas de lingerie : bas autofixants, résille, pour porte-jarretelles ; PAS de bas médicaux. Voix élégante, accessible, confiante, sensuelle sans explicite. Ne fabrique ni stock, ni prix, ni témoignage, ni information de taille précise. Consigne : '+truncate(brief||'Trois posts cette semaine',300)+'. Réponds uniquement JSON {"posts":[{"theme":"...","caption":"...","hashtags":["#..."],"visual":"..."}]}. Chaque caption doit comporter au moins 80 caractères. Aucun post publié.';
+ const models=[...new Set([process.env.LLM_MODEL,process.env.LLM_FALLBACK_MODEL||'gemini-3.5-flash-lite'].filter(Boolean))];
+ for(const model of models){
+  let res;
+  try{
+   res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json',...(process.env.LLM_API_KEY?{'Authorization':'Bearer '+process.env.LLM_API_KEY}:{})},body:JSON.stringify({model,reasoning_effort:'low',max_tokens:2200,response_format:{type:'json_object'},messages:[{role:'user',content:instruction}]}),signal:AbortSignal.timeout(23000)});
+  }catch(e){if(e.name==='TimeoutError'||e.name==='AbortError')continue;throw e;}
+  if(!res.ok){if([429,500,502,503,504].includes(res.status))continue;throw Error('Clara API Gemini : HTTP '+res.status);}
+  const response=await res.json();
+  let payload;try{payload=JSON.parse(response.choices?.[0]?.message?.content||'{}');}catch{throw Error('Clara : réponse JSON incorrecte');}
+  const posts=(Array.isArray(payload.posts)?payload.posts:[]).filter(p=>typeof p.caption==='string'&&p.caption.length>=80).slice(0,3).map(p=>({theme:truncate(p.theme,100),caption:truncate(p.caption,1600),hashtags:Array.isArray(p.hashtags)?p.hashtags.filter(h=>typeof h==='string').slice(0,10):[],visual:truncate(p.visual,500),status:'à_valider'}));
+  if(posts.length<2)throw Error('Clara : pas assez de textes exploitables');
+  return {kind:'real_social_drafts',model,createdAt:now(),published:false,brief:truncate(brief,300),posts,note:'Rédigés avec Gemini. Rien publié sur Instagram.'};
+ }
+ throw Error('Clara : Gemini indisponible, aucune rédaction validée');
+}
+
+async function runAgent(id,auto=false,taskTitle=''){const agent=AGENTS.find(a=>a.id===id);if(!agent)throw Error('Agent inconnu');let report;
+ if(id==='seo')report=await seoAudit();
+ else if(id==='finance')report=await stripeReport();
  else if(id==='sav')report={ticketsOuverts:state.tickets.filter(t=>t.status==='open').length,questionsRecentes:state.tickets.filter(t=>t.status==='open').slice(0,5).map(t=>({topic:t.topic,createdAt:t.createdAt})),note:'Aucune réponse personnelle envoyée automatiquement.'};
- else if(id==='clara')report={prochainesActions:['Préparer 3 contenus : conseils sur bas autofixants, guide tailles, focus porte-jarretelles','Vérifier les statistiques des réseaux après connexion officielle','Faire valider tout post avant publication'],connecte:false,note:'Les réseaux sociaux ne sont pas encore connectés : ce sont des recommandations, pas des publications.'};
+ else if(id==='clara')report=await claraDrafts(taskTitle);
  else if(id==='maya')report={references:state.products.length,prochainesActions:['Vérifier les informations de taille par marque','Vérifier disponibilité et descriptifs du catalogue avant publication'],note:'Aucune plateforme grossiste connectée.'};
  else report={prochainesActions:['Examiner les questions clients récurrentes','Comparer les conversions après branchement des données'],note:'Aucune campagne externe lancée.'};
  const n={id:uid(),agent:id,title:`Rapport ${agent.name}`,content:report,createdAt:now(),auto};state.notes.unshift(n);state.notes=state.notes.slice(0,100);recordEvent(state,'report',`Rapport de ${agent.name} créé`);return n;
