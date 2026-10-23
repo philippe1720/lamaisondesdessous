@@ -131,6 +131,9 @@ async function seoAudit(){
    u.search='';u.hash='';found.set(u.pathname,u.href);
   }catch{}
  }
+ // Chemins publiquement connus et vérifiés, également testés quand le HTML client ne contient pas de liens navigables.
+ const known=['/boutique','/bas-autofixants','/bas-resille','/guide-des-bas','/produit/bas-resille-autofixants-beiges-ohyeah'];
+ for(const p of known)if(!found.has(p))found.set(p,shop.origin+p);
  const targets=[...found.values()].slice(0,11),pages=[first.data],failures=[];
  for(let i=0;i<targets.length;i+=3){
   const chunk=targets.slice(i,i+3);
@@ -352,10 +355,10 @@ const server=http.createServer(async(req,res)=>{
    if(req.method==='GET'&&p==='/api/export')return json(res,200,state,{'Content-Disposition':'attachment; filename="sandrine-export.json"'});
    if(req.method==='POST'&&p==='/api/assistant'){
     const b=await body(req);if(!truncate(b.message))return json(res,400,{error:'Message vide'});
-    const result=(await processDirectCommand(b.message)) || (await assistant(b.message));if(result.mode==='modele')ensureExplicitTask(b.message,result);state.conversations ||= [];state.conversations.push({id:uid(),role:'user',content:truncate(b.message,2000),at:now()},{id:uid(),role:'assistant',content:truncate(result.reply,2500),at:now()});state.conversations=state.conversations.slice(-500);recordEvent(state,'conversation',`Message reçu : ${truncate(b.message,120)}`);const work=result.mode==='execution_reelle'||result.mode==='action_restreinte'?{done:[],failed:[]}:await executeSafeTasks();
+    const result=(await processDirectCommand(b.message)) || (await assistant(b.message));if(result.mode==='modele')ensureExplicitTask(b.message,result);const work=result.mode==='execution_reelle'||result.mode==='action_restreinte'?{done:[],failed:[]}:await executeSafeTasks();
      if(work.done.length)result.reply+='\n\n✅ Travail exécuté et rapport enregistré : '+work.done.map(x=>x.summary).join(' ; ')+'. Consulte l’onglet Rapports.';
      if(work.failed.length)result.reply+='\n\n⚠️ Mission(s) non terminée(s) : '+work.failed.map(x=>x.agent+' : '+x.error).join(' ; ')+'.';
-     result.executed=work.done;await persist();return json(res,200,result);
+     result.executed||=work.done;state.conversations||=[];state.conversations.push({id:uid(),role:'user',content:truncate(b.message,2000),at:now()},{id:uid(),role:'assistant',content:truncate(result.reply,2500),at:now()});state.conversations=state.conversations.slice(-500);recordEvent(state,'conversation',`Message reçu : ${truncate(b.message,120)}`);await persist();return json(res,200,result);
    }
    if(req.method==='POST'&&p==='/api/tasks'){
     const b=await body(req);if(!truncate(b.title))return json(res,400,{error:'Titre requis'});
