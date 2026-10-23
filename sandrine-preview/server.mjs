@@ -177,18 +177,45 @@ async function runAgent(id,auto=false,taskTitle=''){const agent=AGENTS.find(a=>a
  const n={id:uid(),agent:id,title:`Rapport ${agent.name}`,content:report,createdAt:now(),auto};state.notes.unshift(n);state.notes=state.notes.slice(0,100);recordEvent(state,'report',`Rapport de ${agent.name} créé`);return n;
 }
 async function executeSafeTasks(){
- // Ne termine QUE des demandes de rapport effectivement exécutées.
- // Publier, écrire à une cliente, modifier des prix ou payer ne sont jamais automatisés.
- const runnable=state.tasks.filter(t=>t.status==='todo' && /\b(rapport|audit|analy[sz]e|bilan|point)\b/i.test(t.title)).slice(0,8);
- for(const t of runnable){
-   const canRun=t.agent==='seo'||t.agent==='sav'||(t.agent==='finance' && Boolean(process.env.STRIPE_SECRET_KEY));
-   if(!canRun)continue;
-   try{
-     t.status='doing';const note=await runAgent(t.agent,true);
-     t.status='done';t.completedAt=now();t.resultNoteId=note.id;
-     recordEvent(state,'task',`Mission exécutée par ${t.agent} : ${t.title}`);
-   }catch(e){t.status='todo';recordEvent(state,'warning',`Exécution reportée : ${t.title} (${truncate(e.message,120)})`);}
+ const done=[],failed=[];
+ const selected=state.tasks.filter(t=>t.status==='todo' && (
+  t.agent==='seo' ||
+  (t.agent==='clara' && Boolean(process.env.LLM_MODEL) && !/\b(publie|publier|envoie|poster maintenant)\b/i.test(t.title)) ||
+  (t.agent==='sav' && /\b(rapport|audit|analyse|bilan|point)\b/i.test(t.title)) ||
+  (t.agent==='finance' && Boolean(process.env.STRIPE_SECRET_KEY) && /\b(rapport|audit|analyse|bilan|point)\b/i.test(t.title))
+ )).slice(0,4);
+ for(const t of selected){
+  try{
+   t.status='doing'; const note=await runAgent(t.agent,true,t.title);
+   if(t.agent==='seo' && (!note.content.pagesChecked||!Array.isArray(note.content.pages)))throw Error('Audit SEO incomplet');
+   if(t.agent==='clara' && (!Array.isArray(note.content.posts)||!note.content.posts.length))throw Error('Brouillons absents');
+   if(t.agent==='finance'&&note.content.available!==true)throw Error('Stripe non connecté');
+   t.status='done';t.completedAt=now();t.resultNoteId=note.id;
+   const summary=t.agent==='seo'?'Audit réellement effectué sur '+note.content.pagesChecked+' page(s), '+note.content.issues.length+' point(s) à vérifier':
+    t.agent==='clara'?note.content.posts.length+' vrais brouillons rédigés, à valider avant publication':
+    t.agent==='sav'?'État de '+note.content.ticketsOuverts+' dossier(s) client(s) ouverts':
+    'Rapport financier récupéré depuis Stripe';
+   done.push({taskId:t.id,reportId:note.id,agent:t.agent,summary});
+   recordEvent(state,'task','Travail exécuté par '+t.agent+' : '+t.title);
+  }catch(e){
+   t.status='todo';t.lastError=truncate(e?.message||'Erreur de l’agent',150);
+   failed.push({taskId:t.id,agent:t.agent,error:t.lastError});
+   recordEvent(state,'warning','Mission non exécutée : '+t.title+' ('+t.lastError+')');
+  }
  }
+ return {done,failed};
+}
+function ensureExplicitTask(message,result){
+ if(result.mode!=='modele')return null;
+ if(!/\b(confie|demande|charge|lance|effectue|fais|réalise|rédige|prépare|analyse|vérifie|audit)\b/i.test(message))return null;
+ const agent=/\b(léo|leo|seo|référencement)\b/i.test(message)?'seo':/\b(clara|instagram|réseaux sociaux)\b/i.test(message)?'clara':null;
+ if(!agent)return null;
+ const hasMission=(result.actions||[]).some(id=>state.tasks.some(t=>t.id===id&&t.agent===agent));
+ if(hasMission)return null;
+ if(/ne (?:fais|lance|réalise) pas|sans (?:lancer|exécuter)/i.test(message))return null;
+ const task=makeTask(state,{title:truncate(message,180),agent,source:'directive explicite'});
+ result.actions||=[];result.actions.push(task.id);
+ return task.id;
 }
 async function tick(){await executeSafeTasks();const day=getParisDate();const recent=state.events.filter(e=>e.type==='daily'&&e.details?.day===day).length;
  if(!recent){
@@ -246,7 +273,10 @@ const server=http.createServer(async(req,res)=>{
    if(req.method==='GET'&&p==='/api/export')return json(res,200,state,{'Content-Disposition':'attachment; filename="sandrine-export.json"'});
    if(req.method==='POST'&&p==='/api/assistant'){
     const b=await body(req);if(!truncate(b.message))return json(res,400,{error:'Message vide'});
-    const result=await assistant(b.message);state.conversations ||= [];state.conversations.push({id:uid(),role:'user',content:truncate(b.message,2000),at:now()},{id:uid(),role:'assistant',content:truncate(result.reply,2500),at:now()});state.conversations=state.conversations.slice(-500);recordEvent(state,'conversation',`Message reçu : ${truncate(b.message,120)}`);await executeSafeTasks();await persist();return json(res,200,result);
+    const result=await assistant(b.message);ensureExplicitTask(b.message,result);state.conversations ||= [];state.conversations.push({id:uid(),role:'user',content:truncate(b.message,2000),at:now()},{id:uid(),role:'assistant',content:truncate(result.reply,2500),at:now()});state.conversations=state.conversations.slice(-500);recordEvent(state,'conversation',`Message reçu : ${truncate(b.message,120)}`);const work=await executeSafeTasks();
+     if(work.done.length)result.reply+='\n\n✅ Travail exécuté et rapport enregistré : '+work.done.map(x=>x.summary).join(' ; ')+'. Consulte l’onglet Rapports.';
+     if(work.failed.length)result.reply+='\n\n⚠️ Mission(s) non terminée(s) : '+work.failed.map(x=>x.agent+' : '+x.error).join(' ; ')+'.';
+     result.executed=work.done;await persist();return json(res,200,result);
    }
    if(req.method==='POST'&&p==='/api/tasks'){
     const b=await body(req);if(!truncate(b.title))return json(res,400,{error:'Titre requis'});
