@@ -179,8 +179,8 @@ async function runAgent(id,auto=false,taskTitle=''){const agent=AGENTS.find(a=>a
 async function executeSafeTasks(){
  const done=[],failed=[];
  const selected=state.tasks.filter(t=>t.status==='todo' && (
-  (t.agent==='seo' && /\b(audit|analyse|analyser|diagnostic|rapport|vérifi|contrôle)\b/i.test(t.title)) ||
-  (t.agent==='clara' && Boolean(process.env.LLM_MODEL) && /\b(rédig|écris|prépare|contenu|post|publication|reel|story|calendrier|planning|texte)\b/i.test(t.title) && !/\b(publie|publier|envoie|poster maintenant|trente|30|mois)\b/i.test(t.title)) ||
+  (t.agent==='seo' && /(audit|analys|diagnostic|rapport|vérifi|contrôl)/i.test(t.title)) ||
+  (t.agent==='clara' && Boolean(process.env.LLM_MODEL) && /(rédig|écri|prépar|contenu|post|publication|reel|story|calendrier|planning|texte)/i.test(t.title) && !/\b(publie|publier|envoie|poster maintenant|trente|30|mois)\b/i.test(t.title)) ||
   (t.agent==='sav' && /\b(rapport|audit|analyse|bilan|point)\b/i.test(t.title)) ||
   (t.agent==='finance' && Boolean(process.env.STRIPE_SECRET_KEY) && /\b(rapport|audit|analyse|bilan|point)\b/i.test(t.title))
  )).slice(0,1);
