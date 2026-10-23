@@ -228,7 +228,7 @@ function requestedJobs(message){
  const t=textWithoutAccents(message);
  // An information request never launches an external action by accident.
  if(/^\s*(est ce que|comment|pourquoi|quelles? (?:sont|seraient)|peux tu m.expliquer|qui est|que fait)/.test(t))return [];
- if(/\bne(?:\s+\w+){0,6}\s+pas\b|\bsans\s+(?:lancer|executer|publier)\b/.test(t))return [];
+ if(/\bne\s+(?:(?:le|la|les)\s+)?(?:lance|execute|realise|fait)\s+pas\b|\bsans\s+(?:lancer|executer|realiser)\b/.test(t))return [];
  const imperative=/\b(fais|faire|lance|lancer|execute|executer|realise|realiser|effectue|effectuer|demande|confie|charge|prepare|preparer|redige|rediger|ecris|ecrire|audit|audite|analyse|analyser|produis|produire|travaille|cree|creer)\b/.test(t);
  if(!imperative)return [];
  const wantSeo=/(leo|seo|referencement|audit (?:du |de |des )?(?:site|boutique|pages?)|audit technique)/.test(t)
@@ -246,11 +246,9 @@ function requestedJobs(message){
 }
 async function processDirectCommand(message){
  const t=textWithoutAccents(message);
- if(/\b(publie|publier|envoie|envoyer|rembourse|rembourser|payer|achete|acheter|supprime|supprimer|deploie|deployer)\b/.test(t)){
-  if(/(sur instagram|sur facebook|un post|une publication|postes?\b)/.test(t) && /\b(prepar|redig|ecri|brouillon)\b/.test(t)){
-   // Drafts are safe; publishing is not, handled by the following condition.
-   if(/\b(publie|publier|envoie|envoyer)\b/.test(t)){}
-  }
+ const publishing=/\b(publie|publier|envoie|envoyer)\b/.test(t)&&!/\bne\s+(?:(?:le|la|les)\s+)?(?:publie|publier|envoie|envoyer)\s+pas\b|\bsans\s+(?:publier|envoyer)\b/.test(t);
+ const otherSensitive=/\b(rembourse|rembourser|payer|achete|acheter|supprime|supprimer|deploie|deployer)\b/.test(t);
+ if(publishing||otherSensitive){
   const approval=addApproval('action_externe','Action externe à autoriser et à connecter : '+truncate(message,180));
   return {reply:'Je te demande une validation pour cette action externe. Rien n’a été publié, envoyé ou facturé. Le connecteur d’exécution reste à brancher.',actions:[approval.id],mode:'action_restreinte',executed:[]};
  }
