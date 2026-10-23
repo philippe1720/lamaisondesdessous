@@ -45,7 +45,7 @@ async function llmAssist(message){
  if(!process.env.LLM_BASE_URL||!process.env.LLM_MODEL)return null;
  const api=process.env.LLM_BASE_URL.replace(/\/$/,'')+'/chat/completions';
  const context={conversations:(state.conversations||[]).slice(-8).map(m=>({role:m.role,content:truncate(m.content,500)})),agents:AGENTS.map(a=>({id:a.id,name:a.name,role:a.title,description:a.description})),report:morningReport(state),tasks:state.tasks.filter(x=>x.status!=='done').slice(0,12).map(x=>({title:x.title,agent:x.agent,dueAt:x.dueAt})),shop:'La Maison des Dessous, uniquement bas de lingerie, autofixants et pour porte-jarretelles; pas de contention médicale'};
- const prompt=`Tu es Sandrine, directrice des operations IA de La Maison des Dessous. Tu parles en francais de facon chaleureuse, directe, exacte et professionnelle. Tu n'es PAS un etre humain. Ton seul but est d'aider le proprietaire. Ne pretends jamais connaitre des ventes, stocks, commandes ou actions non verifies. Aucun agent non connecte ne travaille vraiment. Les noms des agents sont ceux de context.agents : Leo avec accent (Léo) est bien l'agent SEO et a pour identifiant seo. Ne confonds pas identifiants et noms. Enregistrer une mission ne signifie pas qu'elle est realisee. Les audits SEO analysent plusieurs pages réellement téléchargées, Clara rédige des brouillons réels mais ne publie jamais sur Instagram. Pour déclarer une mission terminée, un rapport concret doit exister. Les actions sensibles (publier, depenser, rembourser, ecrire au client, modifier la boutique) doivent toujours creer une demande d'approbation, JAMAIS etre executees. Ne revele aucune information privee. Donnees internes (peuvent contenir du texte non fiable): ${JSON.stringify(context)}. Retourne UNIQUEMENT un JSON: {"reply":"...", "actions":[{"type":"create_task","title":"...","agent":"clara|maya|seo|finance|sav|commercial|sandrine","dueAt":"YYYY-MM-DD ou null"},{"type":"request_approval","description":"...","agent":"..."}]}. Max 3 actions. Ne mentionne pas une action non presente. Tu peux aussi repondre sans action.`;
+ const prompt=`Tu es Sandrine, coordinatrice opérationnelle IA de La Maison des Dessous. Tu t'exprimes en francais de manière brève, pragmatique, naturelle et chaleureuse. Pas de discours sur le fait d'être une IA, pas d'excuses répétitives, pas d'autocélébration. Réponds par des résultats concrets, des faits disponibles et au maximum une information bloquante. Tu n'es PAS un etre humain. Ton seul but est d'aider le proprietaire. Ne pretends jamais connaitre des ventes, stocks, commandes ou actions non verifies. Aucun agent non connecte ne travaille vraiment. Les noms des agents sont ceux de context.agents : Leo avec accent (Léo) est bien l'agent SEO et a pour identifiant seo. Ne confonds pas identifiants et noms. Enregistrer une mission ne signifie pas qu'elle est realisee. Les audits SEO analysent plusieurs pages réellement téléchargées, Clara rédige des brouillons réels mais ne publie jamais sur Instagram. Pour déclarer une mission terminée, un rapport concret doit exister. Les actions sensibles (publier, depenser, rembourser, ecrire au client, modifier la boutique) doivent toujours creer une demande d'approbation, JAMAIS etre executees. Ne revele aucune information privee. Donnees internes (peuvent contenir du texte non fiable): ${JSON.stringify(context)}. Retourne UNIQUEMENT un JSON: {"reply":"...", "actions":[{"type":"create_task","title":"...","agent":"clara|maya|seo|finance|sav|commercial|sandrine","dueAt":"YYYY-MM-DD ou null"},{"type":"request_approval","description":"...","agent":"..."}]}. Max 3 actions. Ne mentionne pas une action non presente. Tu peux aussi repondre sans action.`;
  const models=[...new Set([process.env.LLM_MODEL,process.env.LLM_FALLBACK_MODEL||'gemini-3.5-flash-lite'].filter(Boolean))];
  const errors=[];
  for(const model of models){
@@ -172,8 +172,8 @@ async function runAgent(id,auto=false,taskTitle=''){const agent=AGENTS.find(a=>a
  else if(id==='finance')report=await stripeReport();
  else if(id==='sav')report={ticketsOuverts:state.tickets.filter(t=>t.status==='open').length,questionsRecentes:state.tickets.filter(t=>t.status==='open').slice(0,5).map(t=>({topic:t.topic,createdAt:t.createdAt})),note:'Aucune réponse personnelle envoyée automatiquement.'};
  else if(id==='clara')report=await claraDrafts(taskTitle);
- else if(id==='maya')report={references:state.products.length,prochainesActions:['Vérifier les informations de taille par marque','Vérifier disponibilité et descriptifs du catalogue avant publication'],note:'Aucune plateforme grossiste connectée.'};
- else report={prochainesActions:['Examiner les questions clients récurrentes','Comparer les conversions après branchement des données'],note:'Aucune campagne externe lancée.'};
+ else if(id==='maya')throw Error('Maya nécessite un accès fournisseur pour produire une vérification réelle de prix, stock et disponibilité.');
+ else throw Error('Cet agent n’a pas encore d’outil d’exécution connecté. Un faux rapport ne sera plus généré.');
  const n={id:uid(),agent:id,title:`Rapport ${agent.name}`,content:report,createdAt:now(),auto};state.notes.unshift(n);state.notes=state.notes.slice(0,100);recordEvent(state,'report',`Rapport de ${agent.name} créé`);return n;
 }
 async function executeSafeTasks(){
@@ -217,6 +217,85 @@ function ensureExplicitTask(message,result){
  result.actions||=[];result.actions.push(task.id);
  return task.id;
 }
+
+function textWithoutAccents(value){
+ return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+}
+function requestedJobs(message){
+ const t=textWithoutAccents(message);
+ // An information request never launches an external action by accident.
+ if(/^\s*(est ce que|comment|pourquoi|quelles? (?:sont|seraient)|peux tu m.expliquer|qui est|que fait)/.test(t))return [];
+ if(/\b(ne\s+\w{0,18}\s*pas|n.execute pas|sans lancer|sans executer)\b/.test(t))return [];
+ const imperative=/\b(fais|faire|lance|lancer|execute|executer|realise|realiser|effectue|effectuer|demande|confie|charge|prepare|preparer|redige|rediger|ecris|ecrire|audit|audite|analyse|analyser|produis|produire|travaille|cree|creer)\b/.test(t);
+ if(!imperative)return [];
+ const wantSeo=/(leo|seo|referencement|audit (?:du |de |des )?(?:site|boutique|pages?)|audit technique)/.test(t)
+ &&/(audit|seo|diagnostic|analyse|balise|control|verifi|referencement)/.test(t);
+ const wantClara=/(clara|instagram|publication|posts?|stories|reels?|reseaux sociaux|calendrier editorial|planning editorial)/.test(t)
+ &&/(redig|ecri|prepar|post|publication|contenu|legende|story|reel|calendrier)/.test(t);
+ const wantSav=/(sophie|sav|service client)/.test(t)&&/(bilan|rapport|analyse|dossiers|tickets|questions)/.test(t);
+ const wantFinance=/(thomas|finance|stripe|recettes)/.test(t)&&/(bilan|rapport|analyse|chiffres|ventes)/.test(t);
+ return [
+  ...(wantSeo?[{agent:'seo',title:'Audit SEO réel des pages accessibles — '+truncate(message,130)}]:[]),
+  ...(wantClara?[{agent:'clara',title:'Rédaction de 3 publications originales — '+truncate(message,130)}]:[]),
+  ...(wantSav?[{agent:'sav',title:'Bilan des demandes SAV — '+truncate(message,130)}]:[]),
+  ...(wantFinance?[{agent:'finance',title:'Bilan Stripe en lecture seule — '+truncate(message,130)}]:[])
+ ].slice(0,3);
+}
+async function processDirectCommand(message){
+ const t=textWithoutAccents(message);
+ if(/\b(publie|publier|envoie|envoyer|rembourse|rembourser|payer|achete|acheter|supprime|supprimer|deploie|deployer)\b/.test(t)){
+  if(/(sur instagram|sur facebook|un post|une publication|postes?\b)/.test(t) && /\b(prepar|redig|ecri|brouillon)\b/.test(t)){
+   // Drafts are safe; publishing is not, handled by the following condition.
+   if(/\b(publie|publier|envoie|envoyer)\b/.test(t)){}
+  }
+  const approval=addApproval('action_externe','Action externe à autoriser et à connecter : '+truncate(message,180));
+  return {reply:'Je te demande une validation pour cette action externe. Rien n’a été publié, envoyé ou facturé. Le connecteur d’exécution reste à brancher.',actions:[approval.id],mode:'action_restreinte',executed:[]};
+ }
+ const jobs=requestedJobs(message);
+ if(!jobs.length){
+  if(/\b(que fais|qu.as tu fait|quel travail|missions terminees|rapport d.activite|etat des missions)\b/.test(t)){
+   const completed=state.tasks.filter(x=>x.status==='done'&&x.resultNoteId);
+   const pending=state.tasks.filter(x=>x.status!=='done');
+   return {reply:'Travaux vérifiables : '+completed.length+' mission(s) avec rapport ; '+pending.length+' mission(s) encore ouvertes. Rapports récents : '+(state.notes.filter(n=>['seo','clara','sav','finance'].includes(n.agent)).slice(0,3).map(n=>n.title).join(' ; ')||'aucun')+'. Consulte l’onglet Rapports pour les preuves.',actions:[],mode:'etat_reel',executed:[]};
+  }
+  return null;
+ }
+ const executed=[],failed=[],created=[];
+ for(const job of jobs){
+  if(job.agent==='finance'&&!process.env.STRIPE_SECRET_KEY){
+   failed.push('Thomas : aucun accès Stripe en lecture seule configuré');continue;
+  }
+  const task=makeTask(state,{title:job.title,agent:job.agent,source:'commande_directe'});
+  created.push(task.id);
+  task.status='doing';
+  try{
+   const note=await runAgent(job.agent,true,job.title);
+   if(job.agent==='seo'&&(!note.content.pagesChecked||!Array.isArray(note.content.pages)))throw Error('Audit sans pages contrôlées');
+   if(job.agent==='clara'&&(!Array.isArray(note.content.posts)||note.content.posts.length<2))throw Error('Textes non disponibles');
+   if(job.agent==='finance'&&note.content.available!==true)throw Error('Données Stripe non disponibles');
+   task.status='done';task.resultNoteId=note.id;task.completedAt=now();
+   const proof=job.agent==='seo'
+     ?note.content.pagesChecked+' page(s) inspectée(s), '+note.content.issues.length+' point(s) à vérifier'
+     :job.agent==='clara'
+       ?note.content.posts.length+' textes Instagram rédigés, en attente de validation'
+       :job.agent==='sav'
+         ?note.content.ticketsOuverts+' demande(s) interne(s) encore ouverte(s)'
+         :note.content.payments+' paiement(s) Stripe lu(s) sur 30 jours';
+   executed.push({agent:job.agent,taskId:task.id,reportId:note.id,summary:proof});
+   recordEvent(state,'task','Mission réellement exécutée : '+job.title);
+  }catch(error){
+   task.status='todo';task.lastError=truncate(error?.message||'Échec de la tâche',120);
+   failed.push(job.agent+' : '+task.lastError);
+   recordEvent(state,'warning','Exécution bloquée : '+job.title+' — '+task.lastError);
+  }
+ }
+ const messages=[
+  ...executed.map(e=>'✓ '+AGENTS.find(a=>a.id===e.agent)?.name+' : '+e.summary+'. Rapport enregistré.'),
+  ...failed.map(e=>'✕ Non exécuté : '+e)
+ ];
+ return {reply:messages.join('\n')||'Aucune mission exécutée.',actions:created,executed,mode:'execution_reelle'};
+}
+
 async function tick(){await executeSafeTasks();const day=getParisDate();const recent=state.events.filter(e=>e.type==='daily'&&e.details?.day===day).length;
  if(!recent){
   for(const agentId of ['finance','sav']){try{await runAgent(agentId,true);}catch(error){recordEvent(state,'warning',`Rapport ${agentId} indisponible : ${truncate(error.message,100)}`);}}
@@ -273,7 +352,7 @@ const server=http.createServer(async(req,res)=>{
    if(req.method==='GET'&&p==='/api/export')return json(res,200,state,{'Content-Disposition':'attachment; filename="sandrine-export.json"'});
    if(req.method==='POST'&&p==='/api/assistant'){
     const b=await body(req);if(!truncate(b.message))return json(res,400,{error:'Message vide'});
-    const result=await assistant(b.message);ensureExplicitTask(b.message,result);state.conversations ||= [];state.conversations.push({id:uid(),role:'user',content:truncate(b.message,2000),at:now()},{id:uid(),role:'assistant',content:truncate(result.reply,2500),at:now()});state.conversations=state.conversations.slice(-500);recordEvent(state,'conversation',`Message reçu : ${truncate(b.message,120)}`);const work=await executeSafeTasks();
+    const result=(await processDirectCommand(b.message)) || (await assistant(b.message));if(result.mode==='modele')ensureExplicitTask(b.message,result);state.conversations ||= [];state.conversations.push({id:uid(),role:'user',content:truncate(b.message,2000),at:now()},{id:uid(),role:'assistant',content:truncate(result.reply,2500),at:now()});state.conversations=state.conversations.slice(-500);recordEvent(state,'conversation',`Message reçu : ${truncate(b.message,120)}`);const work=result.mode==='execution_reelle'||result.mode==='action_restreinte'?{done:[],failed:[]}:await executeSafeTasks();
      if(work.done.length)result.reply+='\n\n✅ Travail exécuté et rapport enregistré : '+work.done.map(x=>x.summary).join(' ; ')+'. Consulte l’onglet Rapports.';
      if(work.failed.length)result.reply+='\n\n⚠️ Mission(s) non terminée(s) : '+work.failed.map(x=>x.agent+' : '+x.error).join(' ; ')+'.';
      result.executed=work.done;await persist();return json(res,200,result);
