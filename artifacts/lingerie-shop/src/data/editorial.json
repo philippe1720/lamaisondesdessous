@@ -71,6 +71,10 @@
         {
           "href": "/conseils/comment-porter-bas-resille",
           "label": "Comment porter et choisir ses bas résille"
+        },
+        {
+          "href": "/conseils/porter-bas-avec-robe-ou-jupe",
+          "label": "Porter des bas avec une robe ou une jupe : nos idées et précautions"
         }
       ]
     },
@@ -134,6 +138,10 @@
         {
           "href": "/produit/bas-resille-autofixants-noirs",
           "label": "Comparer avec des bas résille autofixants noirs"
+        },
+        {
+          "href": "/conseils/porter-bas-avec-robe-ou-jupe",
+          "label": "Porter des bas avec une robe ou une jupe : nos idées et précautions"
         }
       ]
     },
@@ -211,6 +219,10 @@
         {
           "href": "/produit/bas-resille-noirs-a-jarretiere-lacee",
           "label": "Bas résille noirs pour porte-jarretelles à jarretière lacée"
+        },
+        {
+          "href": "/conseils/porter-bas-avec-robe-ou-jupe",
+          "label": "Porter des bas avec une robe ou une jupe : nos idées et précautions"
         }
       ]
     }
@@ -497,6 +509,75 @@
         {
           "href": "/conseils/pourquoi-bas-autofixants-glissent",
           "label": "Comprendre pourquoi des bas autofixants glissent"
+        }
+      ]
+    },
+    {
+      "path": "/conseils/porter-bas-avec-robe-ou-jupe",
+      "title": "Comment porter des bas avec une robe ou une jupe ?",
+      "description": "Robe au bureau, jupe longue ou tenue de soirée : choisir des bas autofixants ou pour porte-jarretelles, la bonne hauteur et un maintien confortable.",
+      "intro": "Vous avez envie de porter des bas avec une robe ou une jupe, mais vous vous demandez lesquels choisir ? Il n’existe pas de tenue obligatoire ni de silhouette idéale. Le bon modèle est celui dont vous aimez le rendu et dont vous pouvez vérifier le maintien, la taille et les finitions avant de le porter.",
+      "sections": [
+        {
+          "title": "Avec une robe : commencer par le type de maintien",
+          "paragraphs": [
+            "Pour une robe de journée ou une tenue habillée, les bas autofixants se portent sans accessoire supplémentaire grâce à la bande de silicone sous la jarretière. Si vous préférez les attaches et le style du porte-jarretelles, choisissez des bas prévus pour cet usage : leur bordure décorative ne suffit pas, à elle seule, à les rendre autofixants.",
+            "Avant de choisir, regardez si la hauteur de la robe ou de la jupe laisse apparaître la jarretière lorsque vous marchez ou vous asseyez. Montrer une bordure en dentelle peut être un choix de style ; si vous préférez la discrétion, vérifiez la tenue devant un miroir en mouvement, et pas seulement debout."
+          ]
+        },
+        {
+          "title": "Au bureau ou au quotidien : jouer la discrétion",
+          "paragraphs": [
+            "Avec une jupe midi ou une robe droite, un voile noir ou beige crée un rendu plus sobre qu’une résille ajourée. Une couture à l’arrière apporte un détail supplémentaire ; à vous de décider si elle correspond à l’ambiance de votre journée. Le résultat dépend aussi de l’éclairage et de la couleur du tissu.",
+            "Pour une journée active, accordez une attention particulière à la taille et à la sensation au niveau de la cuisse. Une bande siliconée doit être posée à plat sur une peau propre et sèche, sans crème à cet endroit. Si vos bas roulent ou glissent, il ne suffit pas de les remonter sans cesse : revérifiez la taille et l’entretien."
+          ]
+        },
+        {
+          "title": "Pour une soirée : dentelle, résille ou couture arrière ?",
+          "paragraphs": [
+            "Sous une robe unie, une couture arrière peut devenir le détail qui signe la tenue. La résille noire apporte davantage de contraste ; la résille beige se remarque différemment selon la carnation et la lumière. Les modèles à porter avec porte-jarretelles demandent un accessoire adapté, vendu séparément lorsque la fiche l’indique.",
+            "Nul besoin d’attendre une occasion exceptionnelle. Certaines préfèrent un voile très simple pour elles-mêmes ; d’autres aiment une jarretière plus travaillée. L’essentiel est de choisir une finition qui vous plaît, sans vous sentir obligée d’en faire davantage."
+          ]
+        },
+        {
+          "title": "Quelle longueur de robe ou de jupe avec des bas ?",
+          "paragraphs": [
+            "Une jupe midi ou longue recouvre généralement davantage la cuisse qu’une mini-jupe, mais la coupe et les mouvements changent le résultat. Faites un essai en marchant et en vous asseyant. Le confort compte autant que la photo de la tenue.",
+            "Avec une robe courte, une jarretière peut apparaître lorsque vous bougez. Si ce n’est pas souhaité, testez un autre modèle, une longueur différente ou une tenue qui vous laisse plus à l’aise. Il n’existe pas de règle valable pour toutes."
+          ]
+        },
+        {
+          "title": "Le dernier contrôle avant de commander",
+          "paragraphs": [
+            "Vérifiez quatre points : les tailles et leurs mesures chez la marque, le système de maintien, la composition et les détails de la fiche. « Taille unique » ne signifie pas que les bas vont à toutes les morphologies. Lorsque des mesures fabricant manquent, nous le précisons plutôt que de donner une correspondance inventée.",
+            "Vous hésitez encore ? Comparez les bas autofixants et ceux pour porte-jarretelles, consultez le guide des tailles, puis regardez les photos du produit sous plusieurs angles. Nous pouvons vous aider à identifier les indications disponibles pour une référence donnée."
+          ]
+        }
+      ],
+      "links": [
+        {
+          "href": "/bas-autofixants",
+          "label": "Choisir des bas autofixants pour femme"
+        },
+        {
+          "href": "/bas-porte-jarretelles",
+          "label": "Voir les bas pour porte-jarretelles"
+        },
+        {
+          "href": "/bas-resille",
+          "label": "Comparer les bas résille noirs et beiges"
+        },
+        {
+          "href": "/produit/bas-autofixants-couture-noirs-20-deniers",
+          "label": "Bas noirs à couture arrière"
+        },
+        {
+          "href": "/conseils/pourquoi-bas-autofixants-glissent",
+          "label": "Pourquoi des bas autofixants glissent ?"
+        },
+        {
+          "href": "/guide-des-tailles",
+          "label": "Guide des tailles et mesures"
         }
       ]
     }

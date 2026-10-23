@@ -49,7 +49,35 @@ for(const [url,title,description,body] of pages){
     brand:{'@type':'Brand',name:product.brand},sku:product.id,
     offers:offer
   }).replace(/</g,'\\u003c')+'</script>':'';
-  const head=`${productSchema}<meta data-seo-prerender="true" name="robots" content="index, follow"><title data-seo-prerender="true">${esc(title)} | La Maison des Dessous</title><meta data-seo-prerender="true" name="description" content="${esc(description)}"><link data-seo-prerender="true" rel="canonical" href="https://lamaisondesdessous.fr${url}">`;
+  // Structured breadcrumbs for collections, guides and product pages.
+  const crumb=url.startsWith('/conseils/')
+    ? [{name:'Accueil',url:'/'},{name:'Guide des bas',url:'/guide-des-bas'},{name:title,url}]
+    : url.startsWith('/produit/')
+    ? [{name:'Accueil',url:'/'},{name:'Tous nos bas',url:'/boutique'},
+       {name:product?.category==='autofixants'?'Bas autofixants':'Bas pour porte-jarretelles',
+        url:product?.category==='autofixants'?'/bas-autofixants':'/bas-porte-jarretelles'},
+       {name:title,url}]
+    : ['/bas-resille','/bas-autofixants','/bas-porte-jarretelles'].includes(url)
+    ? [{name:'Accueil',url:'/'},{name:'Tous nos bas',url:'/boutique'},{name:title,url}]
+    : [];
+  const breadcrumbSchema=crumb.length
+    ? '<script data-seo-prerender="true" type="application/ld+json">'+
+      JSON.stringify({'@context':'https://schema.org','@type':'BreadcrumbList',
+        itemListElement:crumb.map((c,i)=>({'@type':'ListItem',position:i+1,
+          name:c.name,item:'https://lamaisondesdessous.fr'+c.url}))})
+        .replace(/</g,'\\u003c')+'</script>'
+    : '';
+  const socialImage=product
+    ? new URL(product.images[0],'https://lamaisondesdessous.fr').href
+    : 'https://lamaisondesdessous.fr/opengraph.jpg';
+  const socialMeta='<meta data-seo-prerender="true" property="og:type" content="'+
+    (url.startsWith('/conseils/')?'article':product?'product':'website')+'">'+
+    '<meta data-seo-prerender="true" property="og:title" content="'+esc(title)+' | La Maison des Dessous">'+
+    '<meta data-seo-prerender="true" property="og:description" content="'+esc(description)+'">'+
+    '<meta data-seo-prerender="true" property="og:url" content="https://lamaisondesdessous.fr'+url+'">'+
+    '<meta data-seo-prerender="true" property="og:image" content="'+esc(socialImage)+'">'+
+    '<meta data-seo-prerender="true" name="twitter:card" content="summary_large_image">';
+  const head=`${productSchema}${breadcrumbSchema}${socialMeta}<meta data-seo-prerender="true" name="robots" content="index, follow"><title data-seo-prerender="true">${esc(title)} | La Maison des Dessous</title><meta data-seo-prerender="true" name="description" content="${esc(description)}"><link data-seo-prerender="true" rel="canonical" href="https://lamaisondesdessous.fr${url}">`;
   const html=template.replace(/<title>[\s\S]*?<\/title>/i,'').replace(/<meta\s+name="description"[^>]*>/gi,'').replace('</head>',head+'</head>').replace('<div id="root"></div>',`<div id="root">${navigation}<main><h1>${esc(title)}</h1><p>${esc(description)}</p>${body}</main></div>`);
   await writeFile(path.join(out,'seo',encodeURIComponent(url)+'.html'),html);
   if(url==='/') await writeFile(path.join(out,'index.html'),html);
