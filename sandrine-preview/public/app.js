@@ -7,7 +7,7 @@ const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const msg=(text,isUser=false)=>{const el=document.createElement('div');el.className='message '+(isUser?'user':'assistant');if(!isUser){let avatar=document.createElement('img');avatar.src='/assets/sandrine-avatar.webp';avatar.alt='';el.appendChild(avatar);}let bubble=document.createElement('div');bubble.textContent=text;el.appendChild(bubble);$('#messages').appendChild(el);$('#messages').scrollTop=$('#messages').scrollHeight;};
 function toast(t){const el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,4200);}
 async function api(p,options={}){const res=await fetch(p,{headers:{'Content-Type':'application/json'},credentials:'same-origin',...options});let j=await res.json().catch(()=>({error:'Réponse invalide'}));if(res.status===401&&p!=='/api/login'){showLogin();throw Error('Session expirée');}if(!res.ok)throw Error(j.error||'Erreur '+res.status);return j;}
-async function refresh(){data=await api('/api/bootstrap');$('#app').hidden=false;$('#login').hidden=true;renderAll();}
+async function refresh(){data=await api('/api/bootstrap');$('#app').hidden=false;$('#login').hidden=true;renderAll();if(currentPage==='agent-chat')renderAgentChat();}
 function showLogin(){$('#app').hidden=true;$('#login').hidden=false;}
 function navigate(page,{updateUrl=true}={}){
  currentPage=page;
