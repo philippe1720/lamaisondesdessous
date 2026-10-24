@@ -105,7 +105,7 @@ window.addEventListener('popstate',()=>{
  const m=location.pathname.match(/^\/agents\/(clara|maya|seo|finance|sav|commercial)$/);
  if(m&&data)openAgentChat(m[1],{updateUrl:false});else navigate('agents',{updateUrl:false});
 });
-$('#login-form').addEventListener('submit',async(e)=>{e.preventDefault();try{await api('/api/login',{method:'POST',body:JSON.stringify({password:$('#password').value})});$('#password').value='';$('#login-error').textContent='';await refresh();const route=location.pathname.match(/^\/agents\/(clara|maya|seo|finance|sav|commercial)$/);if(route)openAgentChat(route[1],{updateUrl:false});else navigate('dashboard');}catch(e){$('#login-error').textContent=e.message;}});
+$('#login-form').addEventListener('submit',async(e)=>{e.preventDefault();try{await api('/api/login',{method:'POST',body:JSON.stringify({password:$('#password').value})});$('#password').value='';$('#login-error').textContent='';await refresh();const route=location.pathname.match(/^\/agents\/(clara|maya|seo|finance|sav|commercial)$/);if(route)openAgentChat(route[1],{updateUrl:false});else navigate('agents');}catch(e){$('#login-error').textContent=e.message;}});
 $('#logout').addEventListener('click',async()=>{try{await api('/api/logout',{method:'POST'});}catch{}showLogin();});
 $('#refresh').addEventListener('click',async()=>{try{await refresh();toast('Données actualisées.');}catch(e){toast(e.message);}});
 $('#menu-toggle').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
@@ -125,4 +125,4 @@ document.body.addEventListener('click',async e=>{const t=e.target.closest('[data
  if(t.dataset.ticketDelete){if(!confirm('Supprimer définitivement cette demande cliente ?'))return;await api('/api/tickets/'+t.dataset.ticketDelete,{method:'DELETE'});toast('Demande supprimée.');}
  if(t.dataset.approval){await api('/api/approvals/'+t.dataset.approval,{method:'PATCH',body:JSON.stringify({status:t.dataset.decision})});toast('Décision enregistrée (aucune action externe exécutée).');}
  await refresh();}catch(err){toast(err.message);}finally{t.disabled=false;}});
-(async()=>{try{await refresh();const route=location.pathname.match(/^\/agents\/(clara|maya|seo|finance|sav|commercial)$/);if(route)openAgentChat(route[1],{updateUrl:false});else navigate('dashboard');}catch{showLogin();}})();
+(async()=>{try{await refresh();const route=location.pathname.match(/^\/agents\/(clara|maya|seo|finance|sav|commercial)$/);if(route)openAgentChat(route[1],{updateUrl:false});else navigate('agents');}catch{showLogin();}})();
