@@ -37,10 +37,103 @@ async function body(req){let buf='';for await(const c of req){buf+=c.toString();
 function rateLimit(req,bucket,max=40,windowMs=60000){const key=`${bucket}:${req.socket.remoteAddress||'unknown'}`;const time=Date.now();const item=rate.get(key)||{start:time,count:0};if(time-item.start>windowMs){item.start=time;item.count=0;}item.count++;rate.set(key,item);return item.count<=max;}
 function externalAllowed(req){if(!['POST','PATCH','DELETE','PUT'].includes(req.method))return true;const o=req.headers.origin;if(!o)return true;return o===origin||o===new URL(origin).origin;}
 async function persist(){state.revision=(state.revision||0)+1;await saveStore(state);}
-function userView(){return {agents:AGENTS,stats:{tasksOpen:state.tasks.filter(t=>t.status!=='done').length,clientsOpen:state.tickets.filter(t=>t.status==='open').length,approvals:state.approvals.filter(t=>t.status==='pending').length,overdue:morningReport(state).overdue},tasks:state.tasks.slice(0,200),tickets:state.tickets.slice(0,100),approvals:state.approvals.slice(0,100),conversations:(state.conversations||[]).slice(-100),recommendations:recommendations(state),notes:state.notes.slice(0,80),products:state.products.slice(0,100),events:state.events.slice(0,100),report:morningReport(state),integrations:{llm:Boolean(process.env.LLM_BASE_URL&&process.env.LLM_MODEL),stripe:Boolean(process.env.STRIPE_SECRET_KEY),postgres:usingPostgres(),email:Boolean(process.env.RESEND_API_KEY&&process.env.NOTIFY_EMAIL&&process.env.NOTIFY_FROM_EMAIL),shopUrl},settings:state.settings,demo:DEV,preview:PREVIEW};}
+function userView(){return {agents:AGENTS,stats:{tasksOpen:state.tasks.filter(t=>t.status!=='done').length,clientsOpen:state.tickets.filter(t=>t.status==='open').length,approvals:state.approvals.filter(t=>t.status==='pending').length,overdue:morningReport(state).overdue},tasks:state.tasks.slice(0,200),tickets:state.tickets.slice(0,100),approvals:state.approvals.slice(0,100),conversations:(state.conversations||[]).slice(-100),recommendations:recommendations(state),notes:state.notes.slice(0,80),products:state.products.slice(0,100),events:state.events.slice(0,100),report:morningReport(state),agentChats:state.agentChats||{},ai:providerStatus(),integrations:{llm:Boolean(process.env.OPENAI_API_KEY||process.env.LLM_BASE_URL&&process.env.LLM_MODEL),stripe:Boolean(process.env.STRIPE_SECRET_KEY),postgres:usingPostgres(),email:Boolean(process.env.RESEND_API_KEY&&process.env.NOTIFY_EMAIL&&process.env.NOTIFY_FROM_EMAIL),shopUrl},settings:state.settings,demo:DEV,preview:PREVIEW};}
 function addApproval(type,description,agent='sandrine'){const a={id:uid(),type,description,agent,status:'pending',createdAt:now(),decidedAt:null};state.approvals.unshift(a);recordEvent(state,'approval',`Validation requise : ${truncate(description,100)}`);return a;}
 async function notify(kind,message){if(!process.env.RESEND_API_KEY||!process.env.NOTIFY_EMAIL||!process.env.NOTIFY_FROM_EMAIL)return false;
  try{const reply=await fetch('https://api.resend.com/emails',{method:'POST',headers:{'Authorization':'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({from:process.env.NOTIFY_FROM_EMAIL,to:[process.env.NOTIFY_EMAIL],subject:`Sandrine · ${kind}`,text:message+'\n\nConnectez-vous à votre espace Sandrine : '+origin}),signal:AbortSignal.timeout(8000)});return reply.ok;}catch{return false;}}
+
+const AGENT_BRIEFS={
+ clara:"Tu es Clara, directrice réseaux sociaux de La Maison des Dessous. Tu sais écrire, corriger et améliorer de véritables légendes Instagram et TikTok, scripts courts, hashtags, calendriers et propositions de créatifs. Ton éditorial : sensualité élégante, féminité, assurance, confort, séduction douce, sans vulgarité. Priorité aux bas autofixants et bas pour porte-jarretelles. Tu fournis des livrables complets, pas des conseils vagues. Aucun prix ou témoignage inventé, aucune publication sans validation. Si un compte social n'est pas connecté, tu rédiges tout de même les contenus.",
+ maya:"Tu es Maya, responsable achats et catalogue de La Maison des Dessous. Tu travailles sur fiches produits, comparatifs fournisseurs fondés sur les données reçues, marges, guide de tailles, critères qualité, composition, EAN et cohérence des variantes. Tu ne prétends pas avoir vu des stocks ni tarifs fournisseur sans accès ou pièce fournie. Tu peux produire dès maintenant des fiches à valider et plans de sourcing précis. Pas de contention médicale.",
+ seo:"Tu es Léo, expert SEO e-commerce de La Maison des Dessous. Tu écris title, meta descriptions, structure H1/H2, contenus catégories, FAQ, maillage interne, rapports prioritaires et consignes techniques vérifiables. Tu sépares clairement observation réellement auditée et recommandations. Tu peux faire une analyse technique multi-pages via ton bouton audit. Recherche de requêtes, trafic Google et Search Console non connectés doivent être distingués de toute donnée vérifiée.",
+ finance:"Tu es Thomas, responsable finances et gestion pour La Maison des Dessous. Tu aides à construire les tableaux de coûts, marges, TVA, cashflow et prévisions, et à identifier les chiffres manquants. Tu ne fabriques jamais de ventes ni résultats Stripe. Tu n'effectues aucun paiement, remboursement ni déclaration fiscale. Si Stripe n'est pas connecté, tu analyses seulement les données fournies et l'activité de l'application.",
+ sav:"Tu es Sophie, responsable SAV de La Maison des Dessous. Tu prépares des réponses clients élégantes et utiles, politiques de réponse, procédures de suivi, livraison et retours, avec une communication empathique et précise. Pas de promesse de délais ou de remboursements inconnus. Aucun message réel envoyé à une cliente sans autorisation. Ne demande ni données bancaires ni informations sensibles.",
+ commercial:"Tu es Antoine, directeur commercial de La Maison des Dessous. Tu crées des offres et argumentaires, tests de conversion, pages de vente, parcours client, programmes fidélité et partenariats. Tu raisonnes sur marges sans inventer les données et ne modifies pas les prix ni n'envoie de messages externes. Fournis des livrables utilisables, des expériences priorisées et des indicateurs mesurables."
+};
+function providerStatus(){
+ return {provider:process.env.OPENAI_API_KEY?'OpenAI':process.env.LLM_BASE_URL&&process.env.LLM_MODEL?'Gemini':'non connecté',model:process.env.OPENAI_API_KEY?(process.env.OPENAI_MODEL||'gpt-6-luna'):process.env.LLM_MODEL||null,openaiConfigured:Boolean(process.env.OPENAI_API_KEY),geminiConfigured:Boolean(process.env.LLM_BASE_URL&&process.env.LLM_MODEL)};
+}
+async function modelText(messages,{jsonMode=false,maxTokens=1900}={}){
+ const status=providerStatus();
+ if(status.provider==='non connecté')throw Error('Aucun moteur IA configuré');
+ const api=status.provider==='OpenAI'?'https://api.openai.com/v1/chat/completions':process.env.LLM_BASE_URL.replace(/\/$/,'')+'/chat/completions';
+ const key=status.provider==='OpenAI'?process.env.OPENAI_API_KEY:process.env.LLM_API_KEY;
+ const models=status.provider==='OpenAI'?[status.model]:[...new Set([process.env.LLM_MODEL,process.env.LLM_FALLBACK_MODEL||'gemini-3.5-flash-lite'])];
+ const failure=[];
+ for(const model of models){
+  for(let attempt=0;attempt<2;attempt++){
+   let response;
+   try{
+    response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json',...(key?{Authorization:'Bearer '+key}:{})},body:JSON.stringify({
+      model,reasoning_effort:'low',max_completion_tokens:maxTokens,
+      ...(jsonMode?{response_format:{type:'json_object'}}:{}),
+      messages:messages.map(m=>({role:m.role,content:truncate(m.content,12000)}))
+    }),signal:AbortSignal.timeout(37000)});
+   }catch(error){
+    if(error?.name==='TimeoutError'||error?.name==='AbortError'){
+     failure.push(model+': délai dépassé');
+     continue;
+    }
+    throw Error('Service IA inaccessible : '+truncate(error?.message||'réseau',90));
+   }
+   if(!response.ok){
+    if([429,500,502,503,504].includes(response.status)){failure.push(model+': HTTP '+response.status);continue;}
+    const reason=response.status===401||response.status===403?'Clé API refusée':response.status===404?'Modèle inexistant ou non autorisé':response.status===400?'Paramètres API refusés':'Erreur du modèle';
+    throw Error(reason+' (HTTP '+response.status+' / '+model+')');
+   }
+   const result=await response.json();
+   const content=result.choices?.[0]?.message?.content;
+   if(typeof content!=='string'||!content.trim())throw Error('Réponse IA vide : vérifier le modèle ou la limite de génération');
+   return {text:content,provider:status.provider,model};
+  }
+ }
+ throw Error('Service indisponible après plusieurs tentatives : '+failure.join(' ; ').slice(0,180));
+}
+function recentAgentMessages(agentId){
+ const history=state.agentChats?.[agentId]||[];
+ return history.slice(-16).filter(m=>(m.role==='user'||m.role==='assistant')&&typeof m.content==='string').map(m=>({role:m.role,content:truncate(m.content,3800)}));
+}
+async function directAgentChat(id,message){
+ if(!AGENT_BRIEFS[id])throw Error('Spécialiste inconnu');
+ const agent=AGENTS.find(a=>a.id===id);
+ const raw=truncate(message,2400);
+ if(!raw)throw Error('Message vide');
+ const normalized=textWithoutAccents(raw);
+ const isQuestion=/^\s*(comment|pourquoi|que|quel|quels|est.ce que|peux.tu m.expliquer|explique)/.test(normalized);
+ const command=/(audit|audite|analyse|verifie|controle|rapport|chiffre|redig|ecri|prepare|cre[e])/i.test(normalized);
+ const explicit=command&&!isQuestion;
+ let result=null,report=null;
+ if(explicit&&id==='seo'&&/(audit|audite|verifie|controle).*(site|pages|seo|boutique|referencement)|audit seo|analyse seo/.test(normalized)){
+  report=await runAgent('seo',true,raw);
+  result='Audit réalisé. '+report.content.summary+' Résultats dans Rapports ; je peux maintenant t’aider à corriger chaque page.';
+ }else if(explicit&&id==='clara'&&/(redig|ecri|prepare|cre[e]).*(post|publication|legende|reel|story|instagram|contenu)/.test(normalized)){
+  report=await runAgent('clara',true,raw);
+  const posts=report.content.posts||[];
+  result='J’ai rédigé '+posts.length+' publications complètes et les ai enregistrées dans Rapports. Voici la première :\n\n'+(posts[0]?.caption||'')+'\n\nAucune publication envoyée.';
+ }else if(explicit&&id==='finance'&&/(rapport|analyse|chiffre|bilan).*(stripe|vente|paiement|recette)|stripe/.test(normalized)&&process.env.STRIPE_SECRET_KEY){
+  report=await runAgent('finance',true,raw);
+  if(report.content.available)result='Rapport Stripe récupéré et enregistré : '+report.content.payments+' paiement(s), '+report.content.gross+' € de montant brut sur les 30 derniers jours (hors frais).';
+ }else if(explicit&&id==='sav'&&/(rapport|analyse|bilan|ticket|demande)/.test(normalized)&&/(ticket|sav|dossier|demande)/.test(normalized)){
+  report=await runAgent('sav',true,raw);
+  result='Analyse des demandes internes enregistrée : '+report.content.ticketsOuverts+' dossier(s) ouverts.';
+ }
+ if(!result){
+  const recent=recentAgentMessages(id);
+  const common='Tu travailles pour La Maison des Dessous (lamaisondesdessous.fr), boutique française de bas de lingerie. Tu parles directement au dirigeant et restes concentré sur ton domaine. Réponds en français, de façon professionnelle, naturelle, concise et utile. Garde une conversation suivie en tenant compte des messages précédents. N’évoque pas à chaque réponse tes limites ou ton identité IA. Propose des solutions et rédige réellement le livrable demandé. Ne prétends jamais avoir publié, acheté, écrit au client, parcouru un site ou consulté des chiffres sans outil réellement exécuté. Si une action externe est nécessaire, prépare une version à valider plutôt que de feindre de l’avoir effectuée. Ne transmets aucune donnée personnelle d’un client.';
+  const knowledge=id==='finance'?'Tableau local : '+JSON.stringify(morningReport(state)):(id==='seo'?JSON.stringify(state.notes.filter(n=>n.agent==='seo').slice(0,2).map(n=>({date:n.createdAt,result:n.content?.summary}))):'');
+  const messages=[{role:'system',content:common+'\n'+AGENT_BRIEFS[id]+'\nContexte interne contrôlé : '+truncate(knowledge,900)},...recent,{role:'user',content:raw}];
+  const response=await modelText(messages,{maxTokens:1900});
+  result=response.text;
+ }
+ state.agentChats||={};
+ state.agentChats[id]||=[];
+ state.agentChats[id].push({id:uid(),role:'user',content:raw,at:now()},{id:uid(),role:'assistant',content:truncate(result,9000),at:now(),reportId:report?.id||null});
+ state.agentChats[id]=state.agentChats[id].slice(-120);
+ recordEvent(state,'agent_chat',agent.name+' : échange privé');
+ await persist();
+ return {agent:id,reply:result,reportId:report?.id||null,model:providerStatus().model,provider:providerStatus().provider};
+}
+
 async function llmAssist(message){
  if(!process.env.LLM_BASE_URL||!process.env.LLM_MODEL)return null;
  const api=process.env.LLM_BASE_URL.replace(/\/$/,'')+'/chat/completions';
@@ -355,7 +448,14 @@ const server=http.createServer(async(req,res)=>{
   if(p.startsWith('/api/')){
    if(!isAuth(req))return json(res,401,{error:'Authentification nécessaire'});
    if(!externalAllowed(req))return json(res,403,{error:'Origine non autorisée'});
-   if(req.method==='GET'&&p==='/api/bootstrap')return json(res,200,userView());
+   if(req.method==='POST'&&/^\/api\/agents\/(clara|maya|seo|finance|sav|commercial)\/chat$/.test(p)){
+     const id=p.split('/')[3];
+     if(!rateLimit(req,'agent-chat',30,60000))return json(res,429,{error:'Trop de messages pour le moment.'});
+     const b=await body(req);
+     if(!truncate(b.message))return json(res,400,{error:'Message vide'});
+     return json(res,200,await directAgentChat(id,b.message));
+    }
+    if(req.method==='GET'&&p==='/api/bootstrap')return json(res,200,userView());
    if(req.method==='GET'&&p==='/api/export')return json(res,200,state,{'Content-Disposition':'attachment; filename="sandrine-export.json"'});
    if(req.method==='POST'&&p==='/api/assistant'){
     const b=await body(req);if(!truncate(b.message))return json(res,400,{error:'Message vide'});
@@ -402,7 +502,8 @@ const server=http.createServer(async(req,res)=>{
    }
    return json(res,404,{error:'Route inconnue'});
   }
-  if(req.method==='GET')return await serveStatic(res,p);
+  if(req.method==='GET'&&/^\/agents\/(clara|maya|seo|finance|sav|commercial)$/.test(p))return await serveStatic(res,'/index.html');
+   if(req.method==='GET')return await serveStatic(res,p);
   return json(res,405,{error:'Méthode non autorisée'});
  }catch(e){console.error('Request error:',e?.message);return json(res,e?.message==='Requête trop volumineuse'?413:500,{error:'Impossible de traiter la demande. Consultez les journaux serveur.'});}
 });
