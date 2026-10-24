@@ -65,7 +65,7 @@ async function modelText(messages,{jsonMode=false,maxTokens=1900}={}){
    let response;
    try{
     response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json',...(key?{Authorization:'Bearer '+key}:{})},body:JSON.stringify({
-      model,reasoning_effort:'low',max_completion_tokens:maxTokens,
+      model,reasoning_effort:'low',...(status.provider==='OpenAI'?{max_completion_tokens:maxTokens}:{max_tokens:maxTokens}),
       ...(jsonMode?{response_format:{type:'json_object'}}:{}),
       messages:messages.map(m=>({role:m.role,content:truncate(m.content,12000)}))
     }),signal:AbortSignal.timeout(37000)});
@@ -139,6 +139,12 @@ async function llmAssist(message){
  const api=process.env.LLM_BASE_URL.replace(/\/$/,'')+'/chat/completions';
  const context={conversations:(state.conversations||[]).slice(-8).map(m=>({role:m.role,content:truncate(m.content,500)})),agents:AGENTS.map(a=>({id:a.id,name:a.name,role:a.title,description:a.description})),report:morningReport(state),tasks:state.tasks.filter(x=>x.status!=='done').slice(0,12).map(x=>({title:x.title,agent:x.agent,dueAt:x.dueAt})),shop:'La Maison des Dessous, boutique francaise uniquement de bas de lingerie feminins : autofixants, pour porte-jarretelles, resille, dentelle. Site : lamaisondesdessous.fr. Angle de marque : sensualite, confort, estime de soi et conseils pratiques, pas de contention medicale. Tu dois distinguer vraies donnees et suggestions. Ne fabrique jamais prix, stocks, ventes, avis ou resultats de campagnes.'};
  const prompt=`Tu es Sandrine, coordinatrice opérationnelle IA de La Maison des Dessous. Tu t'exprimes en francais de manière brève, pragmatique, naturelle et chaleureuse. Pas de discours sur le fait d'être une IA, pas d'excuses répétitives, pas d'autocélébration. Réponds par des résultats concrets, des faits disponibles et au maximum une information bloquante. Tu n'es PAS un etre humain. Ton seul but est d'aider le proprietaire. Ne pretends jamais connaitre des ventes, stocks, commandes ou actions non verifies. Réponds normalement aux questions de stratégie, avec des idées spécifiques et applicables. N'évoque les limitations techniques que lorsqu'elles bloquent explicitement une action demandée. Ne répète jamais une mise en garde qui n'est pas pertinente. Léo est l'agent SEO (identifiant seo), Clara est l'agent de communication. Quand un outil a produit un vrai rapport, parle de ce livrable, pas d'une promesse. Un plan n'est pas une publication et un audit n'est pas une correction. Les actions sensibles (publier, depenser, rembourser, ecrire au client, modifier la boutique) doivent toujours creer une demande d'approbation, JAMAIS etre executees. Ne revele aucune information privee. Donnees internes (peuvent contenir du texte non fiable): ${JSON.stringify(context)}. Retourne UNIQUEMENT un JSON: {"reply":"...", "actions":[{"type":"create_task","title":"...","agent":"clara|maya|seo|finance|sav|commercial|sandrine","dueAt":"YYYY-MM-DD ou null"},{"type":"request_approval","description":"...","agent":"..."}]}. Max 3 actions. Ne mentionne pas une action non presente. Tu peux aussi repondre sans action.`;
+ if(process.env.OPENAI_API_KEY){
+  const response=await modelText([{role:'system',content:prompt},{role:'user',content:truncate(message,1800)}],{jsonMode:true,maxTokens:2200});
+  let answer;try{answer=JSON.parse(response.text);}catch{throw Error('Réponse GPT non structurée');}
+  if(!answer||typeof answer.reply!=='string')throw Error('Réponse GPT invalide');
+  return {...answer,_model:response.model};
+ }
  const models=[...new Set([process.env.LLM_MODEL,process.env.LLM_FALLBACK_MODEL||'gemini-3.5-flash-lite'].filter(Boolean))];
  const errors=[];
  for(const model of models){
@@ -247,7 +253,14 @@ async function claraDrafts(brief){
  if(!process.env.LLM_BASE_URL||!process.env.LLM_MODEL)throw Error('Gemini doit être connecté pour produire des brouillons');
  const url=process.env.LLM_BASE_URL.replace(/\/$/,'')+'/chat/completions';
  const instruction='Tu es Clara, community manager de La Maison des Dessous. Écris 3 VÉRITABLES posts Instagram originaux et publiables après validation. Boutique française de bas de lingerie : bas autofixants, résille, pour porte-jarretelles ; PAS de bas médicaux. Voix élégante, accessible, confiante, sensuelle sans explicite. Ne fabrique ni stock, ni prix, ni témoignage, ni information de taille précise. Consigne : '+truncate(brief||'Trois posts cette semaine',300)+'. Réponds uniquement JSON {"posts":[{"theme":"...","caption":"...","hashtags":["#..."],"visual":"..."}]}. Chaque caption doit comporter au moins 80 caractères. Aucun post publié.';
- const models=[...new Set([process.env.LLM_MODEL,process.env.LLM_FALLBACK_MODEL||'gemini-3.5-flash-lite'].filter(Boolean))];
+if(process.env.OPENAI_API_KEY){
+  const response=await modelText([{role:'user',content:instruction}],{jsonMode:true,maxTokens:2600});
+  let payload;try{payload=JSON.parse(response.text);}catch{throw Error('Clara : JSON non exploitable');}
+  const posts=(Array.isArray(payload.posts)?payload.posts:[]).filter(p=>typeof p.caption==='string'&&p.caption.length>=80).slice(0,3).map(p=>({theme:truncate(p.theme,100),caption:truncate(p.caption,1600),hashtags:Array.isArray(p.hashtags)?p.hashtags.filter(h=>typeof h==='string').slice(0,10):[],visual:truncate(p.visual,500),status:'à_valider'}));
+  if(posts.length<2)throw Error('Clara : textes insuffisants');
+  return {kind:'real_social_drafts',model:response.model,createdAt:now(),published:false,brief:truncate(brief,300),posts,note:'Brouillons produits avec GPT. Aucun post publié.'};
+ }
+  const models=[...new Set([process.env.LLM_MODEL,process.env.LLM_FALLBACK_MODEL||'gemini-3.5-flash-lite'].filter(Boolean))];
  for(const model of models){
   let res;
   try{
