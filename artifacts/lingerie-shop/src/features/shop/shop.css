@@ -38,3 +38,5 @@
 .stocking-candle-info .stocking-button{margin:5px 0}
 .stocking-candle-footnote{font-size:13px}
 @media(max-width:650px){.stocking-candle-product{grid-template-columns:1fr;gap:15px}.stocking-candle-photo{min-height:260px}.stocking-candle-art{height:280px}.stocking-candle-art-flame{top:45px}.stocking-candle-info .stocking-choice{flex-direction:column}}
+
+.stocking-manifesto{max-width:850px;margin:0 auto;padding:48px 24px;text-align:center}.stocking-manifesto h2{font:clamp(1.8rem,4vw,2.8rem)/1.2 Georgia,serif;margin:16px 0}.stocking-manifesto>p:not(.stocking-eyebrow){line-height:1.8;margin:20px auto;max-width:650px}.stocking-manifesto a{text-decoration:underline;text-underline-offset:4px;color:hsl(var(--primary))}

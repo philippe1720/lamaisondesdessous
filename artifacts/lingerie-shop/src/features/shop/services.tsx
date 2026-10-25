@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/lib/seo';
-export function DeliveryNote(){return <aside className="stocking-service-note"><strong>Livraison standard offerte</strong><p>À domicile ou en point Pickup, en France métropolitaine. Délai indicatif : 3 à 5 jours ouvrés à compter de la commande, sous réserve de disponibilité.</p><p>Chronopost : express payant sur demande. Délai de 24 h après prise en charge à confirmer avant achat.</p><Link href="/livraison-retours">Délais, retours et remboursements →</Link></aside>}
+export function DeliveryNote(){return <aside className="stocking-service-note"><strong>Livraison standard offerte</strong><p>À domicile, en France métropolitaine. Délai indicatif : 3 à 5 jours ouvrés à compter de la commande, sous réserve de disponibilité.</p><p>Chronopost : express payant sur demande. Délai de 24 h après prise en charge à confirmer avant achat.</p><Link href="/livraison-retours">Délais, retours et remboursements →</Link></aside>}
 const cottelli=[['XS','59–64','84–91'],['S','65–73','92–98'],['M','74–81','99–104'],['L','82–90','105–112'],['XL','91–102','113–121']];
 export function SizeHelp({brand,reference}:{brand?:string;reference?:string}) {
  const [height,setHeight]=useState(''),[thigh,setThigh]=useState(''),[leg,setLeg]=useState('');

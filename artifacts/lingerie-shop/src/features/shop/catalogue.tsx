@@ -9,7 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
   const price = Math.min(...product.variants.map(v => v.priceCents));
   return <article className="stocking-card"><Link href={`/produit/${product.slug}`}>
     <div className="stocking-picture"><img src={product.images[0]} alt={product.name} loading="lazy" width="600" height="800" /></div>
-    <p className="stocking-eyebrow">{product.brand}</p><h2>{product.name}</h2><p>{money(price)}</p><small>Livraison standard offerte à domicile et en Pickup</small>
+    <p className="stocking-eyebrow">{product.brand}</p><h2>{product.name}</h2><p>{money(price)}</p><small>Livraison standard offerte à domicile</small>
   </Link><Link className="stocking-button" href={`/produit/${product.slug}`}>Choisir ma taille →</Link></article>;
 }
 export function Catalogue() {
@@ -70,7 +70,7 @@ export function ProductPage() {
     <nav aria-label="Fil d’Ariane" className="stocking-note"><Link href="/">Accueil</Link> · <Link href="/boutique">Bas pour femme</Link> · <Link href={product.category==='autofixants'?'/bas-autofixants':'/bas-porte-jarretelles'}>{product.category==='autofixants'?'Bas autofixants':'Bas pour porte-jarretelles'}</Link></nav>
     <div className="stocking-product">
     <section><div className="stocking-picture"><a href={product.images[photo] || product.images[0]} target="_blank" rel="noreferrer" aria-label="Agrandir la photo du produit"><img src={product.images[photo] || product.images[0]} alt={`${product.name} — vue ${photo+1}`}/></a></div><p>Cliquez sur la photo pour l’agrandir.</p><div className="stocking-thumbs">{product.images.map((src,i)=><button key={src} aria-label={`Photo ${i+1}`} onClick={()=>setPhoto(i)}><img src={src} alt=""/></button>)}</div></section>
-    <section><p className="stocking-eyebrow">{product.brand} · {product.category==='autofixants'?'AUTOFIXANTS':'POUR PORTE-JARRETELLES'}</p><h1>{product.name}</h1><p className="stocking-price">{money(price)}</p><p>Livraison standard offerte à domicile et en Pickup en France métropolitaine</p><p className="stocking-intro">{product.description}</p>
+    <section><p className="stocking-eyebrow">{product.brand} · {product.category==='autofixants'?'AUTOFIXANTS':'POUR PORTE-JARRETELLES'}</p><h1>{product.name}</h1><p className="stocking-price">{money(price)}</p><p>Livraison standard offerte à domicile en France métropolitaine</p><p className="stocking-intro">{product.description}</p>
       <fieldset><legend>Choisissez votre taille</legend><div className="stocking-sizes">{product.variants.map(v=><button key={v.ean} disabled={v.stock<1} aria-pressed={ean===v.ean} onClick={()=>{setEan(v.ean);setAdded(false);}}>{v.size==='TU'?'Taille unique':v.size || 'Taille unique'}{v.color ? ` · ${v.color}` : ''}{v.stock<1?' — indisponible':''}</button>)}</div></fieldset>
       <p className="stocking-size-help">{variant ? `Taille choisie : ${variant.size || 'Taille unique'}` : 'Sélectionnez une taille pour commander.'}</p><a href="#guide-taille">Un doute sur la taille ?</a>
       <button className="stocking-button" disabled={!variant || variant.stock<1} onClick={()=>{if(variant){add(variant.ean);setAdded(true);}}}>Ajouter au panier</button>
