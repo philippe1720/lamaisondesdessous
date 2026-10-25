@@ -3,25 +3,17 @@ import { money, type Line } from './cart';
 
 const CANDLE_EAN = '3479228260621';
 const DISPLAY_PRICE = 490; // Montant voulu pour l'upsell. Le serveur reste seul maître du prix réellement facturé.
-const OFFER_DURATION_MS = 120000;
 type OfferResponse = {
   offer: {ean:string;name:string;description:string;image:string;priceCents:number} | null;
   expiresAt?:number; serverNow?:number; accepted?:boolean;
 };
 export function CandleOffer({lines,onChoose}:{lines:Line[];onChoose:(value:boolean)=>void}) {
-  // Affichage immédiat de la page et du chrono : aucune attente de réseau pour voir l'offre.
-  const [previewDeadline,setPreviewDeadline]=useState(()=>Date.now()+OFFER_DURATION_MS);
-  const [remaining,setRemaining]=useState(120);
   const [data,setData]=useState<OfferResponse|null>(null);
   const [error,setError]=useState('');
   const [busy,setBusy]=useState(false);
   const accepting=useRef<AbortController|null>(null);
   const cartKey=JSON.stringify(lines);
 
-  useEffect(()=>{
-    const timer=window.setInterval(()=>setRemaining(Math.max(0,Math.ceil((previewDeadline-Date.now())/1000))),250);
-    return ()=>window.clearInterval(timer);
-  },[previewDeadline]);
   useEffect(()=>()=>accepting.current?.abort(),[]);
   useEffect(()=>{
     const controller=new AbortController();
@@ -34,18 +26,14 @@ export function CandleOffer({lines,onChoose}:{lines:Line[];onChoose:(value:boole
       .then(value=>{
         if(controller.signal.aborted)return;
         setData(value);
-        if(typeof value.expiresAt==='number' && typeof value.serverNow==='number'){
-          // Le serveur possède la vraie limite : un rechargement ne redémarre pas l'offre.
-          setPreviewDeadline(Date.now()+Math.max(0,value.expiresAt-value.serverNow));
-        }
-      }).catch(()=>{if(!controller.signal.aborted)setData({offer:null});})
+      }).catch(()=>{setData({offer:null});setError('Impossible de charger la bougie. Actualisez la page pour réessayer.');})
       .finally(()=>window.clearTimeout(timeout));
     return ()=>{controller.abort();window.clearTimeout(timeout);};
   },[cartKey]);
 
   function skip(){accepting.current?.abort();onChoose(false);}
   async function accept(){
-    if(remaining<=0 || busy)return;
+    if(busy)return;
     if(data?.offer===null){
       setError('La bougie n’est actuellement pas disponible chez notre fournisseur. Vous pouvez continuer avec vos bas.');
       return;
@@ -65,10 +53,9 @@ export function CandleOffer({lines,onChoose}:{lines:Line[];onChoose:(value:boole
       }
       if(!controller.signal.aborted)onChoose(true);
     } catch(e){
-      if(!controller.signal.aborted)setError(e instanceof Error?e.message:'La bougie ne peut pas être ajoutée. Vous pouvez poursuivre sans elle.');
+      setError(controller.signal.aborted?'La demande a pris trop de temps. Réessayez.':e instanceof Error?e.message:'La bougie ne peut pas être ajoutée. Réessayez.');
     } finally {window.clearTimeout(timeout);setBusy(false);}
   }
-  const expired=remaining<=0 && !data?.accepted;
   const unavailable=data?.offer===null;
   return <section className="stocking-offer stocking-candle-offer" aria-label="Offre complémentaire facultative : mini bougie de massage vanille">
     <div className="stocking-candle-product">
@@ -83,14 +70,9 @@ export function CandleOffer({lines,onChoose}:{lines:Line[];onChoose:(value:boole
         <p className="stocking-candle-footnote">Présentée dans une boîte en forme de cœur. Pour l’utilisation, suivez les indications du fabricant sur l’emballage.</p>
         <p className="stocking-candle-price">{money(DISPLAY_PRICE)}</p>
         <p className="stocking-candle-footnote">Une seule bougie par commande. Aucun supplément de livraison standard.</p>
-        <p className="stocking-candle-timer-label">Votre offre pendant encore :</p>
-        <div className="stocking-offer-clock" role="timer" aria-live="off" aria-label="Temps restant pour ajouter la bougie">
-          {Math.floor(remaining/60).toString().padStart(2,'0')}:{(remaining%60).toString().padStart(2,'0')}
-        </div>
-        {expired && <p role="status">Le délai est terminé. Votre commande de bas reste disponible.</p>}
-        {unavailable && <p role="status">Cette bougie n’est pas disponible actuellement. Vous pouvez poursuivre avec vos bas.</p>}
+        {unavailable && <p role="status">Le chargement de la bougie a échoué. Actualisez la page pour réessayer.</p>}
         <div className="stocking-choice stocking-offer-actions">
-          <button type="button" className="stocking-button stocking-offer-yes" disabled={busy || expired || unavailable} onClick={()=>void accept()}>
+          <button type="button" className="stocking-button stocking-offer-yes" disabled={busy || unavailable} onClick={()=>void accept()}>
             {busy?'Ajout de la bougie…':`Oui, j'ajoute la bougie — ${money(DISPLAY_PRICE)}`}
           </button>
           <button type="button" className="stocking-button secondary stocking-offer-no" onClick={skip}>Non merci, continuer ma commande</button>

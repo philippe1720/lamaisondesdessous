@@ -1,8 +1,7 @@
 import { Router, type Request, type Response } from 'express';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { validateLines } from './core';
-import { snapshot, supplierRows } from './catalog';
-import { upsellProduct } from './options';
+import { snapshot } from './catalog';
 
 const COOKIE = 'lmd-candle-offer';
 const DAY = 24 * 60 * 60 * 1000;
@@ -24,24 +23,16 @@ function writeOffer(res:Response,state:OfferState) {
   const payload=Buffer.from(JSON.stringify(state)).toString('base64url');
   res.cookie(COOKIE,payload+'.'+signature(payload),{httpOnly:true,secure:process.env.SITE_URL?.startsWith('https://'),sameSite:'strict',path:'/api',maxAge:Math.max(0,state.until-Date.now())});
 }
-// Temporary, merchant-verified availability. This is not a live supplier stock feed.
-// The merchant must update the count after each order and recheck before renewing.
-export function manualCandle(now=Date.now()) {
-  if(process.env.UPSELL_MANUAL_ENABLED!=='true') return undefined;
-  const stock=Number(process.env.UPSELL_MANUAL_STOCK);
-  const verifiedAt=Date.parse(process.env.UPSELL_MANUAL_VERIFIED_AT || '');
-  if(!Number.isSafeInteger(stock) || stock<1 || !Number.isFinite(verifiedAt) ||
-      verifiedAt>now || now-verifiedAt>=DAY) return null;
+// Merchant-managed sourcing: one candle per order, independently of the supplier feed.
+// `stock: 1` is the per-order allowance, not a claim about supplier inventory.
+export function manualCandle() {
   return {ean:'3479228260621',name:'Mini bougie de massage vanille — Plaisir Secret 35 ml',
     description:'Bougie de massage à la vanille, texture douce et soyeuse. Plaisir Secret, 35 ml, fabriquée en France.',
-    image:new URL('/images/upsell/bougie-massage-vanille-plaisir-secret.webp',process.env.SITE_URL).href,
-    priceCents:490,stock,supplierId:'13737'};
+    image:new URL('/images/upsell/bougie-massage-vanille-plaisir-secret.webp',process.env.SITE_URL || 'https://lamaisondesdessous.fr').href,
+    priceCents:490,stock:1,supplierId:'13737',availabilitySource:'merchant-managed'};
 }
-export async function currentUpsell(rows?:Record<string,string>[]) {
-  const manual=manualCandle();
-  if(manual!==undefined) return manual;
-  const separate=process.env.BUSYX_UPSELL_FEED_URL;
-  return upsellProduct(separate?await supplierRows(separate):rows || await supplierRows());
+export async function currentUpsell(_rows?:Record<string,string>[]) {
+  return manualCandle();
 }
 export function acceptedOffer(req:Request,ean:string,price:number) {
   const state=readOffer(req);
@@ -62,11 +53,11 @@ offerRouter.post('/commerce/offer',async(req,res)=>{
     if(!offer){res.json({offer:null});return;}
     const now=Date.now();
     let state=readOffer(req,now);
-    // A reload never restarts an existing offer. The signed cookie lives for 24 hours.
+    // Signed consent remains valid for 24 hours; the offer itself has no countdown.
     if(!state) state={ean:offer.ean,price:offer.priceCents,deadline:now+120000,until:now+DAY,accepted:false};
     if(req.body.accept===true){
-      if(state.ean!==offer.ean || state.price!==offer.priceCents || (!state.accepted && now>=state.deadline)){
-        res.status(409).json({error:'Cette offre a expiré. Vous pouvez continuer votre commande sans la bougie.'});return;
+      if(state.ean!==offer.ean || state.price!==offer.priceCents){
+        res.status(409).json({error:'L’offre a changé. Actualisez la page avant de l’ajouter.'});return;
       }
       state={...state,accepted:true};
     }

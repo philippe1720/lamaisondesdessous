@@ -17,7 +17,7 @@ commerceRouter.get('/commerce/config', async (_req, res) => {
   res.set('Cache-Control','no-store');
   const {paymentMode}=paymentConfiguration();
   let upsell = null;
-  try { if(process.env.BUSYX_FEED_URL) upsell=await currentUpsell(); } catch { /* Optional offer is omitted when not verifiable. */ }
+  try { upsell=await currentUpsell(); } catch { /* Optional offer is omitted when not verifiable. */ }
   const points=relayPoints();
   res.json({ checkoutEnabled: enabled(), paymentMode, pickupEnabled: pickupAvailable(), points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
 });
