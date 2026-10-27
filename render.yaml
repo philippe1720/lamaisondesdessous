@@ -1,0 +1,40 @@
+# Branche dédiée : aucun changement du service e-commerce.
+# Ce Blueprint crée maison-ia. Bascule Sandrine seulement après recette.
+services:
+  - type: web
+    name: maison-ia
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: maison-ia-v1
+    dockerfilePath: ./maison-ia/Dockerfile
+    dockerContext: ./maison-ia
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: WEBHOOK_SECRET
+        generateValue: true
+      - key: LLM_PROVIDER
+        value: openai
+      - key: LLM_MODEL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: MAX_JOBS_PER_DAY
+        value: "10"
+      - key: DAILY_BRIEFING_ENABLED
+        value: "false"
+      - key: NOTIFY_OWNER
+        value: "false"
+      - key: INSTAGRAM_PUBLISH_ENABLED
+        value: "false"
+      - key: GITHUB_SEO_ENABLED
+        value: "false"
+      - key: OTEL_SDK_DISABLED
+        value: "true"
