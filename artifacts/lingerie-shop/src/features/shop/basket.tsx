@@ -1,0 +1,62 @@
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'wouter';
+import { CandleOffer } from './candle-offer';
+import { DeliveryNote } from './services';
+import { SEO } from '@/lib/seo';
+import { findVariant, money, useShop } from './cart';
+import { sandboxActive } from './sandbox';
+
+type PickupPoint = {id:string;name:string;address:string;postcode:string;city:string;hours?:string[];distance?:number};
+type CheckoutConfig = { paymentMode?: 'live' | 'test' | null; checkoutEnabled: boolean; pickupEnabled: boolean; points: PickupPoint[]; welcomeCode: string | null; upsell: { ean:string; name:string; description:string; image:string; priceCents:number } | null };
+export function Basket() {
+  const { products, lines, setQuantity, total } = useShop();
+  const [selected,setSelected]=useState(()=>{try{return sessionStorage.getItem('lmd-upsell')==='yes'}catch{return false}});
+  const [offer,setOffer]=useState<CheckoutConfig['upsell']>(null);
+  const [offerError,setOfferError]=useState(false);
+  useEffect(()=>{if(!selected)return;const controller=new AbortController();
+    fetch('/api/commerce/config',{signal:controller.signal,cache:'no-store'}).then(r=>{if(!r.ok)throw new Error();return r.json()}).then(c=>{if(!c.upsell)throw new Error();setOffer(c.upsell)}).catch(()=>{if(!controller.signal.aborted)setOfferError(true)});
+    return ()=>controller.abort();},[selected]);
+  function removeCandle(){setSelected(false);try{sessionStorage.setItem('lmd-upsell','no')}catch{}}
+
+  return <main className="stocking-page"><SEO title="Votre panier"><meta name="robots" content="noindex,follow"/></SEO><h1>Votre panier</h1>{!lines.length ? <p>Votre panier est vide. <Link href="/boutique">Découvrir les bas →</Link></p> : <><div className="stocking-basket">{lines.map(line=>{
+    const item=findVariant(products,line.ean);
+    if(!item) return <div key={line.ean}>Référence indisponible <button onClick={()=>setQuantity(line.ean,0)}>Retirer</button></div>;
+    return <article key={line.ean}><img src={item.product.images[0]} alt=""/><div><Link href={`/produit/${item.product.slug}`}>{item.product.name}</Link><p>{item.variant.size} · {item.variant.color}</p><label>Quantité <input aria-label={`Quantité pour ${item.product.name}, ${item.variant.size}`} type="number" min="0" max={Math.min(10,item.variant.stock)} value={line.quantity} onChange={e=>setQuantity(line.ean,Number(e.target.value))}/></label><button onClick={()=>setQuantity(line.ean,0)}>Retirer</button>{line.quantity>item.variant.stock && <p role="alert">La disponibilité a changé. Ajustez la quantité.</p>}</div><strong>{money(item.variant.priceCents*line.quantity)}</strong></article>;
+  })}{selected && <article><img src="/images/upsell/bougie-massage-vanille-plaisir-secret.webp" alt="Bougie de massage vanille"/><div><strong>{offer?.name || 'Mini bougie de massage vanille — 35 ml'}</strong><p>Quantité : 1</p><button onClick={removeCandle}>Retirer la bougie</button></div><strong>{offer?money(offer.priceCents):'Vérification du prix…'}</strong></article>}</div><section className="stocking-summary"><h2>Sous-total : {selected && !offer?'Vérification…':money(total+(selected && offer?offer.priceCents:0))}</h2>{offerError && <p role="alert">Le prix de la bougie n’a pas pu être vérifié. Actualisez la page ou retirez-la pour continuer.</p>}<p>Livraison standard offerte à domicile</p><p>Les disponibilités et les prix seront vérifiés avant paiement.</p><Link className="stocking-button" href={selected?"/commande/livraison":"/commande/attention"}>Continuer ma commande →</Link></section></>}</main>;
+}
+export function Checkout() {
+ const {products,lines,total,loading,refreshCatalog}=useShop();const [location,navigate]=useLocation();
+ const [offerExpired,setOfferExpired]=useState(false);
+ const [config,setConfig]=useState<CheckoutConfig|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false);
+ const [delivery,setDelivery]=useState('home'),[pickup,setPickup]=useState(''),[postcode,setPostcode]=useState(''),[city,setCity]=useState('');
+ const [points,setPoints]=useState<PickupPoint[]>([]),[relayBusy,setRelayBusy]=useState(false),[relayMessage,setRelayMessage]=useState('');
+ const [upsell,setUpsell]=useState(()=>{try{return sessionStorage.getItem('lmd-upsell')==='yes'}catch{return false}});
+ const chooseOffer=(value:boolean)=>{setOfferExpired(false);setUpsell(value);try{sessionStorage.setItem('lmd-upsell',value?'yes':'no')}catch{}navigate('/commande/livraison')};
+ async function loadConfig(){setError('');setConfig(null);try{const r=await fetch(sandboxActive()?'/api/gestion/sandbox/config':'/api/commerce/config',{cache:'no-store',signal:AbortSignal.timeout(30000)});if(!r.ok)throw new Error();setConfig(await r.json());}catch{setError('Impossible de charger les options de commande. Réessayez dans quelques instants.')}}
+ useEffect(()=>{if(location!=='/commande/attention')void loadConfig();},[location]);
+ useEffect(()=>{if(config && !config.pickupEnabled)setDelivery('home');},[config]);
+ async function search(){setRelayBusy(true);setRelayMessage('');setPickup('');setPoints([]);try{const r=await fetch('/api/pickup-points?'+new URLSearchParams({postcode,city}));const data=await r.json();if(!r.ok)throw new Error(data.error);setPoints(data.points);if(!data.points.length)setRelayMessage('Aucun relais disponible à cette adresse. Essayez un code postal voisin ou la livraison à domicile offerte.');}catch(e){setRelayMessage(e instanceof Error?e.message:'Recherche indisponible.')}finally{setRelayBusy(false)}}
+ const invalidLines=lines.some(l=>{const v=findVariant(products,l.ean)?.variant;return !v || v.stock<l.quantity;});
+ const extra=upsell && config?.upsell?config.upsell.priceCents:0;
+ async function pay(){
+  if(busy || loading || invalidLines || offerExpired)return;
+  setBusy(true);setError('');
+  try{
+   const r=await fetch(sandboxActive()?'/api/gestion/sandbox/checkout':'/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},signal:AbortSignal.timeout(45000),body:JSON.stringify({lines,delivery,pickup,pickupPostcode:postcode,pickupCity:city,upsell:upsell?config?.upsell?.ean:undefined,expectedTotal:total+extra})});
+   const data=await r.json();
+   if(!r.ok){
+    if(data.code==='price_changed' || data.code==='stock_changed')await refreshCatalog();
+    if(data.code==='pickup_unavailable'){setDelivery('home');await loadConfig();}
+    if(data.code==='offer_expired')setOfferExpired(true);
+    throw new Error(data.error || 'Paiement indisponible.');
+   }
+   if(typeof data.url!=='string' || !data.url.startsWith('https://checkout.stripe.com/'))throw new Error('Lien de paiement indisponible. Réessayez.');
+   if(data.sessionId)try{sessionStorage.setItem('lmd-pending-checkout',JSON.stringify({id:data.sessionId,lines}));}catch{}
+   window.location.assign(data.url);
+  }catch(e){setError(e instanceof DOMException && e.name==='TimeoutError'?'La connexion au paiement a pris trop de temps. Votre panier est conservé. Réessayez.':e instanceof Error?e.message:'Paiement indisponible.');setBusy(false)}
+ }
+
+ if(!lines.length)return <main className="stocking-page"><h1>Votre panier est vide</h1><Link href="/boutique">Découvrir les bas</Link></main>;
+ const isOffer=location==='/commande/attention';
+ return <main className="stocking-page stocking-reading"><SEO title={isOffer?'Une petite attention':'Finaliser ma commande'}><meta name="robots" content="noindex,follow"/></SEO><p className="stocking-eyebrow">PANIER · LIVRAISON · PAIEMENT</p>{isOffer?<><h1>Une petite attention en plus ?</h1><CandleOffer lines={lines} onChoose={chooseOffer}/></>:<><h1>Livraison & récapitulatif</h1>{config?.paymentMode==='test' && <aside className="stocking-service-note" role="status"><strong>Boutique en mode test</strong><p>Ce parcours sert à vérifier la commande. Aucun paiement réel ni envoi ne sera effectué.</p></aside>}<fieldset className="stocking-delivery"><legend>France métropolitaine — livraison standard offerte</legend><label><input type="radio" name="delivery" checked={delivery==='home'} onChange={()=>setDelivery('home')}/>À domicile — offert</label>{config?.pickupEnabled && <label><input type="radio" name="delivery" checked={delivery==='pickup'} onChange={()=>setDelivery('pickup')}/>En point Pickup — offert</label>}</fieldset>{delivery==='pickup' && <section><h2>Trouver mon relais</h2>{!config?<p role="status">Chargement des options de livraison…</p>:!config.pickupEnabled?<p role="status">Le service de recherche Pickup n’est pas encore disponible. Pour poursuivre votre commande, choisissez la livraison à domicile, également offerte.</p>:null}{config?.pickupEnabled && <form className="stocking-relay-search" onSubmit={e=>{e.preventDefault();void search();}}><label>Code postal<input required inputMode="numeric" pattern="[0-9]{5}" maxLength={5} value={postcode} onChange={e=>{setPostcode(e.target.value);setPickup('');setPoints([])}}/></label><label>Ville<input required maxLength={100} value={city} onChange={e=>{setCity(e.target.value);setPickup('');setPoints([])}}/></label><button className="stocking-button" disabled={relayBusy}>{relayBusy?'Recherche…':'Rechercher les relais'}</button></form>}<p role="status">{relayMessage}</p><div className="stocking-relays">{points.map(p=><label key={p.id} className={pickup===p.id?'selected':''}><input type="radio" name="pickup" checked={pickup===p.id} onChange={()=>setPickup(p.id)}/><strong>{p.name}</strong><p>{p.address}, {p.postcode} {p.city}</p>{p.distance!==undefined && <small>À environ {p.distance} m du lieu recherché</small>}{p.hours && <details><summary>Horaires</summary>{p.hours.map(h=><p key={h}>{h}</p>)}</details>}</label>)}</div></section>}<h2>Vos articles</h2><ul className="stocking-order-lines">{lines.map(l=>{const item=findVariant(products,l.ean);return <li key={l.ean}><strong>{item?.product.name || 'Article indisponible'}</strong><span>{item?.variant.size} · {item?.variant.color} · Quantité : {l.quantity}</span><span>{money((item?.variant.priceCents || 0)*l.quantity)}</span></li>})}{upsell && config?.upsell && <li><strong>{config.upsell.name}</strong><span>{money(extra)}</span><button onClick={()=>{setUpsell(false);setOfferExpired(false);try{sessionStorage.setItem('lmd-upsell','no')}catch{}}}>Retirer la bougie</button></li>}</ul><Link href="/panier">Modifier les articles et quantités</Link><p role="status">Livraison choisie : <strong>{delivery==='home'?'Colissimo à domicile — offerte':'Colissimo Pickup — offerte'}</strong>{delivery==='pickup' && (pickup?` · ${points.find(p=>p.id===pickup)?.name || 'Relais sélectionné'}`:' · Aucun relais sélectionné')}</p><h2>Total avant remise : {config?money(total+extra):'Calcul du total…'}</h2>{invalidLines && <p role="alert">Une taille ou une quantité n’est plus disponible. <Link href="/panier">Ajuster mon panier</Link></p>}{offerExpired && <p role="alert"><Link href="/commande/attention">Confirmer à nouveau la bougie</Link>, ou retirez-la de votre récapitulatif pour continuer.</p>}{config?.welcomeCode && <p>Première commande : saisissez <strong>{config.welcomeCode}</strong> au paiement, sous réserve d’éligibilité.</p>}<DeliveryNote/><p>Votre adresse et vos coordonnées seront demandées sur Stripe. Vérifiez le montant final et toute remise avant de payer.</p><p>En passant commande, vous acceptez nos <Link href="/cgv">conditions générales de vente</Link>.</p><button className="stocking-button" disabled={busy || loading || invalidLines || offerExpired || !config?.checkoutEnabled || (delivery==='pickup' && (!config.pickupEnabled || !pickup))} aria-describedby="checkout-status" onClick={pay}>{busy?'Vérification du panier…':loading?'Vérification des disponibilités…':!config?'Chargement du paiement…':!config.checkoutEnabled?'Paiement temporairement indisponible':'Passer au paiement sécurisé'}</button><p id="checkout-status" role="status">{!config?(error?'Les options de paiement n’ont pas pu être chargées.':'Chargement des options de paiement…'):!config.checkoutEnabled?'Le paiement est temporairement indisponible. Votre panier est conservé ; vous pouvez actualiser les options dans quelques instants.':delivery==='pickup' && !pickup?'Sélectionnez un relais disponible, ou choisissez la livraison à domicile offerte.':'Paiement sécurisé par Stripe.'}</p>{!busy && <button type="button" className="stocking-button secondary" onClick={()=>void loadConfig()}>Actualiser les options de commande</button>}</>}<p role="alert">{error}</p><Link href="/panier">← Revenir au panier</Link></main>;
+}
