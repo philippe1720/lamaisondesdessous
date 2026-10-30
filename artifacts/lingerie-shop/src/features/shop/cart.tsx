@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react';
 import snapshot from '@/data/catalog.json';
 
 export type Product = typeof snapshot.products[number];
@@ -14,7 +14,7 @@ export function findVariant(products: Product[], ean: string) {
 }
 type ShopState = {
   products: Product[]; lines: Line[]; setQuantity: (ean: string, quantity: number) => void;
-  completeOrder: (id:string, items:{ean:string;quantity:number}[]) => void; add: (ean: string) => void; total: number; count: number; loading: boolean;
+  completeOrder: (id:string, items:{ean:string;quantity:number}[]) => void; add: (ean: string) => void; total: number; count: number; loading: boolean; refreshCatalog: () => Promise<boolean>;
 };
 const ShopContext = createContext<ShopState | null>(null);
 export function ShopProvider({ children }: { children: ReactNode }) {
@@ -28,13 +28,17 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     } catch { return []; }
   });
   useEffect(() => { try { localStorage.setItem('lmd-cart-v1', JSON.stringify(lines)); } catch { /* Private mode */ } }, [lines]);
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch('/api/catalog', { signal: controller.signal }).then(r => r.ok ? r.json() : Promise.reject())
-      .then(data => { if (Array.isArray(data.products)) setProducts(data.products); })
-      .catch(() => {}).finally(() => setLoading(false));
-    return () => controller.abort();
-  }, []);
+  const refreshCatalog = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response=await fetch('/api/catalog',{cache:'no-store',signal:AbortSignal.timeout(25000)});
+      if(!response.ok)throw new Error();
+      const data=await response.json();
+      if(!Array.isArray(data.products))throw new Error();
+      setProducts(data.products);return true;
+    }catch{return false;}finally{setLoading(false);}
+  },[]);
+  useEffect(()=>{void refreshCatalog();},[refreshCatalog]);
   const setQuantity = (ean: string, quantity: number) => {
     const item = findVariant(products, ean);
     const qty = item ? Math.max(0, Math.min(10, item.variant.stock, Math.floor(quantity))) : 0;
@@ -59,7 +63,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     }catch{/* Keep the basket if storage is unavailable; never clear unrelated items. */}
   };
   const total = lines.reduce((sum, l) => sum + (findVariant(products, l.ean)?.variant.priceCents || 0) * l.quantity, 0);
-  return <ShopContext.Provider value={{ products, lines, setQuantity, add, completeOrder, total, count: lines.reduce((s,l) => s+l.quantity,0), loading }}>{children}</ShopContext.Provider>;
+  return <ShopContext.Provider value={{ products, lines, setQuantity, add, completeOrder, total, count: lines.reduce((s,l) => s+l.quantity,0), loading, refreshCatalog }}>{children}</ShopContext.Provider>;
 }
 export function useShop() {
   const state = useContext(ShopContext);

@@ -1,7 +1,7 @@
 import { Router, type Request, type Response } from 'express';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { stripeSecretKey } from './payment-config';
-import { notifyPaidCheckout } from './management-mail';
+import { notifyPaidCheckout, mailReady } from './management-mail';
 const validId = (id:unknown):id is string => typeof id==='string' && /^cs_(test_|live_)?[a-zA-Z0-9_]{10,250}$/.test(id);
 const same=(a:string,b:string)=>a.length===b.length && timingSafeEqual(Buffer.from(a),Buffer.from(b));
 export async function stripeRequest(path:string, body?:URLSearchParams, idempotency?:string):Promise<any> {
@@ -55,6 +55,6 @@ orderRouter.post('/order',async(req,res)=>{
     const carrier=s.payment_intent?.metadata?.tracking_carrier || s.metadata?.tracking_carrier || 'colissimo';
     const tracking=paid && !charge?.refunded && /^[a-zA-Z0-9]{8,30}$/.test(trackingNumber) && ['colissimo','chronopost'].includes(carrier) ? {number:trackingNumber,carrier,url:carrier==='chronopost'?`https://www.chronopost.fr/fr/chrono_suivi_search?listeNumerosLT=${trackingNumber}`:`https://www.laposte.fr/outils/suivre-vos-envois?code=${trackingNumber}`}:null;
     const shipping=s.collected_information?.shipping_details || s.shipping_details || s.customer_details;
-    res.json({id:s.id,paid,test:!s.livemode,status:charge?.refunded?'refunded':paid?(tracking?'shipped':'paid'):s.status==='expired'?'expired':'pending',amount:s.amount_total,currency:s.currency,refunded,delivery:s.metadata.delivery,pickup:s.metadata.pickup_address || null,shipping,tracking,items:items.data.map((i:any)=>({name:i.description,quantity:i.quantity,total:i.amount_total,ean:i.price?.product?.metadata?.ean || ''}))});
+    res.json({id:s.id,paid,emailConfirmation:s.metadata?.customer_notified_at?'sent':mailReady()?'pending':'unavailable',test:!s.livemode,status:charge?.refunded?'refunded':paid?(tracking?'shipped':'paid'):s.status==='expired'?'expired':'pending',amount:s.amount_total,currency:s.currency,refunded,delivery:s.metadata.delivery,pickup:s.metadata.pickup_address || null,shipping,tracking,items:items.data.map((i:any)=>({name:i.description,quantity:i.quantity,total:i.amount_total,ean:i.price?.product?.metadata?.ean || ''}))});
   } catch {res.status(503).json({error:'La vérification est momentanément indisponible. Réessayez sans repasser commande.'});}
 });
