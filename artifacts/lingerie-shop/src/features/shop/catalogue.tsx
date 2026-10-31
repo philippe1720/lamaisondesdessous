@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { editorial, EditorialSections } from './editorial';
 import { DeliveryNote, SizeHelp } from './services';
 import { SEO } from '@/lib/seo';
+import { commerceItem, trackAddToCart } from '@/lib/commerce-analytics';
 import { useShop, money, type Product } from './cart';
 
 export function ProductCard({ product }: { product: Product }) {
@@ -22,7 +23,7 @@ export function Catalogue() {
   const filtered = products.filter(p => resille ? p.details.Aspect==='Résille ajourée' : !category || p.category === category);
   const colors = [...new Set(filtered.flatMap(p => p.variants.map(v => v.color)).filter(Boolean))];
   const title = page?.title || 'Bas pour femme : voile, dentelle et résille';
-  return <><SEO title={title} canonical={location} description={page?.description || "Découvrez nos bas de lingerie pour femme : modèles autofixants noirs ou beiges, résille et bas pour porte-jarretelles. Tailles et finitions détaillées."} />
+  return <><SEO title={title} canonical={location === '/produit' ? '/boutique' : location} description={page?.description || "Découvrez nos bas de lingerie pour femme : modèles autofixants noirs ou beiges, résille et bas pour porte-jarretelles. Tailles et finitions détaillées."} />
     <main className="stocking-page">
       <nav aria-label="Fil d’Ariane" className="stocking-note"><Link href="/">Accueil</Link> · {page ? <><Link href="/boutique">Tous nos bas</Link> · {page.title}</> : 'Tous nos bas'}</nav>
       <p className="stocking-eyebrow">LA MAISON DES DESSOUS · LE SENS DU DÉTAIL</p><h1>{title}</h1>
@@ -73,8 +74,8 @@ export function ProductPage() {
     <section><p className="stocking-eyebrow">{product.brand} · {product.category==='autofixants'?'AUTOFIXANTS':'POUR PORTE-JARRETELLES'}</p><h1>{product.name}</h1><p className="stocking-price">{money(price)}</p><p>Livraison standard offerte à domicile en France métropolitaine</p><p className="stocking-intro">{product.description}</p>
       <fieldset><legend>Choisissez votre taille</legend><div className="stocking-sizes">{product.variants.map(v=><button key={v.ean} disabled={v.stock<1} aria-pressed={ean===v.ean} onClick={()=>{setEan(v.ean);setAdded(false);}}>{v.size==='TU'?'Taille unique':v.size || 'Taille unique'}{v.color ? ` · ${v.color}` : ''}{v.stock<1?' — indisponible':''}</button>)}</div></fieldset>
       <p className="stocking-size-help">{variant ? `Taille choisie : ${variant.size || 'Taille unique'}` : 'Sélectionnez une taille pour commander.'}</p><a href="#guide-taille">Un doute sur la taille ?</a>
-      <button className="stocking-button" disabled={!variant || variant.stock<1} onClick={()=>{if(variant){add(variant.ean);setAdded(true);}}}>Ajouter au panier</button>
-      <button className="stocking-button secondary" disabled={!variant || variant.stock<1} onClick={()=>{if(variant){add(variant.ean);navigate('/commande/attention');}}}>Commander maintenant</button>
+      <button className="stocking-button" disabled={!variant || variant.stock<1} onClick={()=>{if(variant && add(variant.ean)){trackAddToCart(commerceItem(variant.ean,product.name,variant.priceCents,1));setAdded(true);}}}>Ajouter au panier</button>
+      <button className="stocking-button secondary" disabled={!variant || variant.stock<1} onClick={()=>{if(variant){if(add(variant.ean))trackAddToCart(commerceItem(variant.ean,product.name,variant.priceCents,1));navigate('/commande/attention');}}}>Commander maintenant</button>
       <p role="status">{added && <>Ajouté à votre panier. <Link href="/panier">Voir mon panier →</Link></>}</p>
       <div className="stocking-details">{copy && <EditorialSections sections={copy.sections} links={copy.links}/>}<h2>Les détails</h2><dl className="stocking-specs">{Object.entries(product.details).map(([key,value])=><div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl><h2>La matière</h2><p>{product.composition}</p><h2>Le maintien</h2><p>{product.category==='autofixants'?'Jarretière avec silicone. À porter sur une peau propre et sèche, sans crème sous la bande.':'À fixer à un porte-jarretelles, non fourni.'}</p><h2>Prendre soin de vos bas</h2><p>Enfilez-les délicatement, sans tirer sur la dentelle. Pour le lavage, suivez les indications de l’étiquette du fabricant.</p><DeliveryNote/><div id="guide-taille"><SizeHelp brand={product.brand} reference={product.name}/></div></div>
     </section></div>
