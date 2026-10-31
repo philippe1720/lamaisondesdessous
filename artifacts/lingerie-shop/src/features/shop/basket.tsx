@@ -5,6 +5,7 @@ import { DeliveryNote } from './services';
 import { SEO } from '@/lib/seo';
 import { findVariant, money, useShop } from './cart';
 import { sandboxActive } from './sandbox';
+import { commerceItem, trackBeginCheckout } from '@/lib/commerce-analytics';
 
 type PickupPoint = {id:string;name:string;address:string;postcode:string;city:string;hours?:string[];distance?:number};
 type CheckoutConfig = { paymentMode?: 'live' | 'test' | null; checkoutEnabled: boolean; pickupEnabled: boolean; points: PickupPoint[]; welcomeCode: string | null; upsell: { ean:string; name:string; description:string; image:string; priceCents:number } | null };
@@ -25,7 +26,7 @@ export function Basket() {
   })}{selected && <article><img src="/images/upsell/bougie-massage-vanille-plaisir-secret.webp" alt="Bougie de massage vanille"/><div><strong>{offer?.name || 'Mini bougie de massage vanille — 35 ml'}</strong><p>Quantité : 1</p><button onClick={removeCandle}>Retirer la bougie</button></div><strong>{offer?money(offer.priceCents):'Vérification du prix…'}</strong></article>}</div><section className="stocking-summary"><h2>Sous-total : {selected && !offer?'Vérification…':money(total+(selected && offer?offer.priceCents:0))}</h2>{offerError && <p role="alert">Le prix de la bougie n’a pas pu être vérifié. Actualisez la page ou retirez-la pour continuer.</p>}<p>Livraison standard offerte à domicile</p><p>Les disponibilités et les prix seront vérifiés avant paiement.</p><Link className="stocking-button" href={selected?"/commande/livraison":"/commande/attention"}>Continuer ma commande →</Link></section></>}</main>;
 }
 export function Checkout() {
- const {products,lines,total}=useShop();const [location,navigate]=useLocation();
+ const {products,lines,total,loading}=useShop();const [location,navigate]=useLocation();
  const [config,setConfig]=useState<CheckoutConfig|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false);
  const [delivery,setDelivery]=useState('home'),[pickup,setPickup]=useState(''),[postcode,setPostcode]=useState(''),[city,setCity]=useState('');
  const [points,setPoints]=useState<PickupPoint[]>([]),[relayBusy,setRelayBusy]=useState(false),[relayMessage,setRelayMessage]=useState('');
@@ -33,6 +34,14 @@ export function Checkout() {
  const chooseOffer=(value:boolean)=>{setUpsell(value);try{sessionStorage.setItem('lmd-upsell',value?'yes':'no')}catch{}navigate('/commande/livraison')};
  async function loadConfig(){setError('');setConfig(null);try{const r=await fetch(sandboxActive()?'/api/gestion/sandbox/config':'/api/commerce/config',{cache:'no-store',signal:AbortSignal.timeout(30000)});if(!r.ok)throw new Error();setConfig(await r.json());}catch{setError('Impossible de charger les options de commande. Réessayez dans quelques instants.')}}
  useEffect(()=>{if(location!=='/commande/attention')void loadConfig();},[location]);
+ useEffect(()=>{
+   if(loading || !lines.length || !location.startsWith('/commande/'))return;
+   const items=lines.map(l=>{
+     const item=findVariant(products,l.ean);
+     return item?commerceItem(l.ean,item.product.name,item.variant.priceCents,l.quantity):null;
+   }).filter((i):i is NonNullable<typeof i>=>i!==null);
+   if(items.length===lines.length)trackBeginCheckout(items,total);
+ },[loading,location,lines,products,total]);
  useEffect(()=>{if(config && !config.pickupEnabled)setDelivery('home');},[config]);
  async function search(){setRelayBusy(true);setRelayMessage('');setPickup('');setPoints([]);try{const r=await fetch('/api/pickup-points?'+new URLSearchParams({postcode,city}));const data=await r.json();if(!r.ok)throw new Error(data.error);setPoints(data.points);if(!data.points.length)setRelayMessage('Aucun relais disponible à cette adresse. Essayez un code postal voisin ou la livraison à domicile offerte.');}catch(e){setRelayMessage(e instanceof Error?e.message:'Recherche indisponible.')}finally{setRelayBusy(false)}}
  const extra=upsell && config?.upsell?config.upsell.priceCents:0;
