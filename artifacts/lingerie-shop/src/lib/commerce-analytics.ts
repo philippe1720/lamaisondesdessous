@@ -82,6 +82,8 @@ export function trackPurchase(order: ConfirmedOrder): boolean {
       items,
     })) return false;
     localStorage.setItem(key, '1');
+    // A later order for the same items must be a fresh checkout.
+    try { sessionStorage.removeItem('lmd-ga4-begin-checkout-v1'); } catch { /* No storage */ }
     return true;
   } catch { return false; }
 }
