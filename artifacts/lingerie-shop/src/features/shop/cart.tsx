@@ -14,7 +14,7 @@ export function findVariant(products: Product[], ean: string) {
 }
 type ShopState = {
   products: Product[]; lines: Line[]; setQuantity: (ean: string, quantity: number) => void;
-  completeOrder: (id:string, items:{ean:string;quantity:number}[]) => void; add: (ean: string) => void; total: number; count: number; loading: boolean;
+  completeOrder: (id:string, items:{ean:string;quantity:number}[]) => void; add: (ean: string) => boolean; total: number; count: number; loading: boolean;
 };
 const ShopContext = createContext<ShopState | null>(null);
 export function ShopProvider({ children }: { children: ReactNode }) {
@@ -40,12 +40,18 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     const qty = item ? Math.max(0, Math.min(10, item.variant.stock, Math.floor(quantity))) : 0;
     setLines(previous => [...previous.filter(l => l.ean !== ean), ...(qty ? [{ ean, quantity: qty }] : [])]);
   };
-  const add = (ean: string) => setLines(previous => {
+  const add = (ean: string): boolean => {
     const item = findVariant(products, ean);
-    if (!item || item.variant.stock < 1) return previous;
-    const quantity = Math.min(10, item.variant.stock, (previous.find(l => l.ean === ean)?.quantity || 0) + 1);
-    return [...previous.filter(l => l.ean !== ean), { ean, quantity }];
-  });
+    if (!item || item.variant.stock < 1) return false;
+    const maximum = Math.min(10, item.variant.stock);
+    if ((lines.find(l => l.ean === ean)?.quantity || 0) >= maximum) return false;
+    setLines(previous => {
+      const current = previous.find(l => l.ean === ean)?.quantity || 0;
+      const quantity = Math.min(maximum, current + 1);
+      return [...previous.filter(l => l.ean !== ean), { ean, quantity }];
+    });
+    return true;
+  };
   const completeOrder=(id:string,items:{ean:string;quantity:number}[])=>{
     try {
       const pending=JSON.parse(sessionStorage.getItem('lmd-pending-checkout') || 'null');
