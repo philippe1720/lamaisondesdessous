@@ -49,8 +49,12 @@ export function trackBeginCheckout(items: CommerceItem[], totalCents: number): b
   const key = 'lmd-ga4-begin-checkout-v1';
   try {
     if (sessionStorage.getItem(key) === signature) return false;
-    if (!send('begin_checkout', { currency: 'EUR', value: totalCents / 100, items })) return false;
+    // Reserve the event key before sending to prevent duplicates if storage fails.
     sessionStorage.setItem(key, signature);
+    if (!send('begin_checkout', { currency: 'EUR', value: totalCents / 100, items })) {
+      sessionStorage.removeItem(key);
+      return false;
+    }
     return true;
   } catch { return false; }
 }
@@ -75,13 +79,18 @@ export function trackPurchase(order: ConfirmedOrder): boolean {
       .filter(i => i.quantity > 0 && Number.isFinite(i.total))
       .map(i => commerceItem(i.ean, i.name, i.total / i.quantity, i.quantity));
     if (!items.length) return false;
+    // Reserve the Stripe session ID before emission to avoid double purchases.
+    localStorage.setItem(key, 'pending');
     if (!send('purchase', {
       transaction_id: order.id,
       currency: 'EUR',
       value: order.amount / 100,
       items,
-    })) return false;
-    localStorage.setItem(key, '1');
+    })) {
+      localStorage.removeItem(key);
+      return false;
+    }
+    localStorage.setItem(key, 'sent');
     // A later order for the same items must be a fresh checkout.
     try { sessionStorage.removeItem('lmd-ga4-begin-checkout-v1'); } catch { /* No storage */ }
     return true;
