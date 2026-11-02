@@ -9,6 +9,20 @@ import { managementRouter } from "./commerce/management";
 
 const app: Express = express();
 
+// A staging instance must never create real Stripe sessions or be indexed.
+// Disabled by default. Production is unaffected unless LMD_STAGING=true.
+if (process.env.LMD_STAGING === 'true') {
+  app.use((req, res, next) => {
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    res.setHeader('Cache-Control', 'no-store');
+    if (req.path === '/api/checkout' || req.path === '/api/stripe/webhook') {
+      res.status(403).json({ error: 'Paiements réels désactivés en préproduction.' });
+      return;
+    }
+    next();
+  });
+}
+
 app.use(cors());
 app.post("/api/stripe/webhook", express.raw({type:"application/json",limit:"1mb"}), stripeWebhook);
 app.use(express.json());
