@@ -18,15 +18,20 @@
     }
     </script>
   </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G5GLFDMZR9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-G5GLFDMZR9');
-</script>
+  <!-- Production-only analytics: never pollute GA4 from staging or preview domains. -->
+  <script>
+    if (window.location.hostname === 'lamaisondesdessous.fr' ||
+        window.location.hostname === 'www.lamaisondesdessous.fr') {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-G5GLFDMZR9');
+      const ga = document.createElement('script');
+      ga.async = true;
+      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-G5GLFDMZR9';
+      document.head.appendChild(ga);
+    }
+  </script>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
