@@ -25,8 +25,16 @@ function send(name: CommerceEvent, params: Record<string, unknown>): boolean {
   if (sandboxActive()) return false;
   const gtag = (window as GtagWindow).gtag;
   if (typeof gtag !== 'function') return false;
-  try { gtag('event', name, params); return true; }
-  catch { return false; }
+  try {
+    // Only the origin + pathname is sent. Checkout URLs can contain Stripe session IDs.
+    const location = window.location;
+    const safeUrl = location ? location.origin + location.pathname : undefined;
+    gtag('event', name, {
+      ...params,
+      ...(safeUrl ? { page_location: safeUrl, page_referrer: '' } : {}),
+    });
+    return true;
+  } catch { return false; }
 }
 
 export function commerceItem(ean: string, name: string, priceCents: number, quantity: number): CommerceItem {
