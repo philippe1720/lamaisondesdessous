@@ -25,7 +25,11 @@
       window.dataLayer = window.dataLayer || [];
       window.gtag = function () { window.dataLayer.push(arguments); };
       window.gtag('js', new Date());
-      window.gtag('config', 'G-G5GLFDMZR9');
+      // Never send private checkout links or Stripe session IDs to GA4.
+      const privatePath = /^\\/(?:panier(?:\\/|$)|commande(?:\\/|$)|suivi-commande(?:\\/|$))/.test(window.location.pathname);
+      window.gtag('config', 'G-G5GLFDMZR9', privatePath
+        ? { send_page_view: false, page_location: window.location.origin + window.location.pathname, page_referrer: '' }
+        : {});
       const ga = document.createElement('script');
       ga.async = true;
       ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-G5GLFDMZR9';
