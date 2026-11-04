@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useRef, type ReactNode } from 'react';
 import snapshot from '@/data/catalog.json';
+import { commerceItem, trackAddToCart } from '@/lib/commerce-analytics';
 
 export type Product = typeof snapshot.products[number];
 export type Line = { ean: string; quantity: number };
@@ -14,7 +15,7 @@ export function findVariant(products: Product[], ean: string) {
 }
 type ShopState = {
   products: Product[]; lines: Line[]; setQuantity: (ean: string, quantity: number) => void;
-  completeOrder: (id:string, items:{ean:string;quantity:number}[]) => void; add: (ean: string) => boolean; total: number; count: number; loading: boolean;
+  completeOrder: (id:string, items:{ean:string;quantity:number}[]) => void; add: (ean: string) => boolean; total: number; count: number; loading: boolean; refreshCatalog: () => Promise<boolean>;
 };
 const ShopContext = createContext<ShopState | null>(null);
 export function ShopProvider({ children }: { children: ReactNode }) {
@@ -28,13 +29,35 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     } catch { return []; }
   });
   useEffect(() => { try { localStorage.setItem('lmd-cart-v1', JSON.stringify(lines)); } catch { /* Private mode */ } }, [lines]);
+  // Only a committed increase from an Add button may generate add_to_cart.
+  // This avoids emitting analytics for rejected or duplicate state updates.
+  const queuedAdds = useRef<string[]>([]);
+  const observedLines = useRef(lines);
   useEffect(() => {
-    const controller = new AbortController();
-    fetch('/api/catalog', { signal: controller.signal }).then(r => r.ok ? r.json() : Promise.reject())
-      .then(data => { if (Array.isArray(data.products)) setProducts(data.products); })
-      .catch(() => {}).finally(() => setLoading(false));
-    return () => controller.abort();
-  }, []);
+    const previous = new Map(observedLines.current.map(l => [l.ean, l.quantity]));
+    const increases = new Map(lines.map(l => [l.ean, Math.max(0, l.quantity - (previous.get(l.ean) || 0))]));
+    for (const ean of queuedAdds.current) {
+      const quantity = increases.get(ean) || 0;
+      if (quantity <= 0) continue;
+      const found = findVariant(products, ean);
+      if (found) trackAddToCart(commerceItem(ean, found.product.name, found.variant.priceCents, 1));
+      increases.set(ean, quantity - 1);
+    }
+    queuedAdds.current = [];
+    observedLines.current = lines;
+  }, [lines, products]);
+
+  const refreshCatalog = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response=await fetch('/api/catalog',{cache:'no-store',signal:AbortSignal.timeout(25000)});
+      if(!response.ok)throw new Error();
+      const data=await response.json();
+      if(!Array.isArray(data.products))throw new Error();
+      setProducts(data.products);return true;
+    }catch{return false;}finally{setLoading(false);}
+  },[]);
+  useEffect(()=>{void refreshCatalog();},[refreshCatalog]);
   const setQuantity = (ean: string, quantity: number) => {
     const item = findVariant(products, ean);
     const qty = item ? Math.max(0, Math.min(10, item.variant.stock, Math.floor(quantity))) : 0;
@@ -45,9 +68,10 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     if (!item || item.variant.stock < 1) return false;
     const maximum = Math.min(10, item.variant.stock);
     if ((lines.find(l => l.ean === ean)?.quantity || 0) >= maximum) return false;
+    queuedAdds.current.push(ean);
+    // Keep the production functional updater to avoid stale-cart overwrites.
     setLines(previous => {
-      const current = previous.find(l => l.ean === ean)?.quantity || 0;
-      const quantity = Math.min(maximum, current + 1);
+      const quantity = Math.min(maximum, (previous.find(l => l.ean === ean)?.quantity || 0) + 1);
       return [...previous.filter(l => l.ean !== ean), { ean, quantity }];
     });
     return true;
@@ -65,7 +89,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     }catch{/* Keep the basket if storage is unavailable; never clear unrelated items. */}
   };
   const total = lines.reduce((sum, l) => sum + (findVariant(products, l.ean)?.variant.priceCents || 0) * l.quantity, 0);
-  return <ShopContext.Provider value={{ products, lines, setQuantity, add, completeOrder, total, count: lines.reduce((s,l) => s+l.quantity,0), loading }}>{children}</ShopContext.Provider>;
+  return <ShopContext.Provider value={{ products, lines, setQuantity, add, completeOrder, total, count: lines.reduce((s,l) => s+l.quantity,0), loading, refreshCatalog }}>{children}</ShopContext.Provider>;
 }
 export function useShop() {
   const state = useContext(ShopContext);
