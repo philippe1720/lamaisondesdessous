@@ -18,7 +18,7 @@ commerceRouter.get('/commerce/config', async (_req, res) => {
   const {paymentMode}=paymentConfiguration();
   let upsell = null;
   try { upsell=await currentUpsell(); } catch { /* Optional offer is omitted when not verifiable. */ }
-  const points=relayPoints();
+  const points=pickupAvailable()?relayPoints():[];
   res.json({ checkoutEnabled: enabled(), paymentMode, pickupEnabled: pickupAvailable(), points, welcomeCode: process.env.STRIPE_WELCOME_CODE || null, upsell });
 });
 commerceRouter.get('/pickup-points',async(req,res)=>{
@@ -45,6 +45,7 @@ commerceRouter.post('/checkout', async (req, res) => {
   catch { res.status(400).json({error:'Panier invalide.'}); return; }
   const delivery=req.body.delivery;
   let point;
+  if(delivery==='pickup' && !pickupAvailable()) {res.status(409).json({code:'pickup_unavailable',error:'La livraison en relais n’est pas proposée pour le moment. Choisissez la livraison à domicile offerte.'});return;}
   if(delivery==='pickup') {
     try{point=(await searchRelays(String(req.body.pickupPostcode || ''),String(req.body.pickupCity || ''))).find(p=>p.id===req.body.pickup);}catch{res.status(503).json({error:'Impossible de vérifier ce relais. Relancez la recherche ou choisissez la livraison à domicile.'});return;}
   }
@@ -56,17 +57,17 @@ commerceRouter.post('/checkout', async (req, res) => {
     for(const line of lines) {
       const product=products.find(p=>p.variants.some(v=>v.ean===line.ean));
       const variant=product?.variants.find(v=>v.ean===line.ean);
-      if(!product || !variant || variant.stock<line.quantity) {res.status(409).json({error:'Une taille n’est plus disponible dans la quantité demandée. Revenez au panier et actualisez la page.'});return;}
+      if(!product || !variant || variant.stock<line.quantity) {res.status(409).json({code:'stock_changed',error:'Une taille n’est plus disponible dans la quantité demandée. Revenez au panier et actualisez la page.'});return;}
       chosen.push({product,variant,quantity:line.quantity});
     }
     if(req.body.upsell) {
       const offer=await currentUpsell(rows);
-      if(!offer || offer.ean!==req.body.upsell || !acceptedOffer(req,offer.ean,offer.priceCents) || lines.some(l=>l.ean===offer.ean)) {res.status(409).json({error:'L’offre complémentaire n’est plus disponible. Continuez sans cet article.'});return;}
+      if(!offer || offer.ean!==req.body.upsell || !acceptedOffer(req,offer.ean,offer.priceCents) || lines.some(l=>l.ean===offer.ean)) {res.status(409).json({code:'offer_expired',error:'Veuillez confirmer à nouveau l’ajout de la bougie, ou la retirer pour continuer.'});return;}
       chosen.push({product:{id:offer.supplierId,slug:'',name:offer.name,description:offer.description,composition:'',category:'complement',brand:'',images:[offer.image],variants:[]},variant:{ean:offer.ean,size:'',color:'',stock:offer.stock,priceCents:offer.priceCents},quantity:1});
     }
     const shipping=0;
     const total=chosen.reduce((s,l)=>s+l.variant.priceCents*l.quantity,0)+shipping;
-    if(req.body.expectedTotal!==total) {res.status(409).json({error:'Un prix a changé. Revenez au panier et actualisez la page avant de continuer.'});return;}
+    if(req.body.expectedTotal!==total) {res.status(409).json({code:'price_changed',error:'Un prix a changé. Vérifiez le total actualisé avant de continuer.'});return;}
     const access=randomBytes(32).toString('hex');
     const params=new URLSearchParams({mode:'payment',success_url:`${origin}/commande/confirmation?session_id={CHECKOUT_SESSION_ID}#access=${access}`,cancel_url:`${origin}/panier`,locale:'fr',customer_creation:'always','shipping_address_collection[allowed_countries][0]':'FR','phone_number_collection[enabled]':'true','metadata[delivery]':'colissimo_home','payment_intent_data[metadata][delivery]':'colissimo_home','shipping_options[0][shipping_rate_data][type]':'fixed_amount','shipping_options[0][shipping_rate_data][fixed_amount][amount]':'0','shipping_options[0][shipping_rate_data][fixed_amount][currency]':'eur','shipping_options[0][shipping_rate_data][display_name]':'Colissimo domicile offert'});
     params.set('shipping_options[0][shipping_rate_data][fixed_amount][amount]',String(shipping));
@@ -87,7 +88,7 @@ commerceRouter.post('/checkout', async (req, res) => {
       params.set(`${prefix}[quantity]`,String(quantity));
       params.set(`${prefix}[price_data][currency]`,'eur');
       params.set(`${prefix}[price_data][unit_amount]`,String(variant.priceCents));
-      params.set(`${prefix}[price_data][product_data][name]`,`${product.name} — ${variant.size} ${variant.color}`);
+      params.set(`${prefix}[price_data][product_data][name]`,[product.name,[variant.size,variant.color].filter(Boolean).join(' ')].filter(Boolean).join(' — '));
       params.set(`${prefix}[price_data][product_data][metadata][ean]`,variant.ean);
       params.set(`${prefix}[price_data][product_data][metadata][supplier_id]`,product.id);
       params.set(`metadata[item_${i}]`,`${variant.ean}:${quantity}`);

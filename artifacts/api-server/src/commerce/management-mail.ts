@@ -6,20 +6,22 @@ const mailConfig = () => ({
   from: process.env.MAIL_FROM || '',
   owner: process.env.MERCHANT_NOTIFY_EMAIL || '',
 });
+export const mailReady = () => {const c=mailConfig();return Boolean(c.key && validEmail(c.from));};
 const updateMarker = (id: string, field: string) =>
   stripeRequest('checkout/sessions/' + id,
     new URLSearchParams({ ['metadata[' + field + ']']: new Date().toISOString() }));
-async function send(to: string, subject: string, text: string) {
+async function send(to: string, subject: string, text: string, idempotency?: string) {
   const config = mailConfig();
   if (!config.key || !validEmail(config.from) || !validEmail(to)) return false;
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: 'Bearer ' + config.key, 'Content-Type': 'application/json' },
+    headers: { Authorization: 'Bearer ' + config.key, 'Content-Type': 'application/json', ...(idempotency?{'Idempotency-Key':idempotency}:{}) },
     body: JSON.stringify({ from: config.from, to: [to], subject, text }),
     signal: AbortSignal.timeout(12000),
     redirect: 'error'
   });
-  return response.ok;
+  if(!response.ok)throw new Error('Service email indisponible');
+  return true;
 }
 const customerLink = (s: any) => {
   const site = process.env.SITE_URL || 'https://lamaisondesdessous.fr';
@@ -34,11 +36,14 @@ export async function notifyPaidCheckout(s: any) {
   if (s?.metadata?.store !== 'lmd' || s.payment_status !== 'paid' || !s.livemode) return;
   const config = mailConfig();
   if (!config.key || !validEmail(config.from)) return;
-  const items = Object.entries(s.metadata || {}).filter(([k]) => /^item_\d+$/.test(k)).map(([, value]) => String(value)).join(', ');
+  const lineItems = await stripeRequest('checkout/sessions/' + s.id + '/line_items?limit=100');
+  const items=(lineItems.data || []).map((i:any)=>`${i.description} × ${i.quantity} — ${((i.amount_total || 0)/100).toFixed(2).replace('.',',')} €`).join('\n');
+  const shipping=s.collected_information?.shipping_details || s.shipping_details || s.customer_details;
+  const address=s.metadata?.pickup_address || [shipping?.name,shipping?.address?.line1,shipping?.address?.line2,[shipping?.address?.postal_code,shipping?.address?.city].filter(Boolean).join(' '),shipping?.address?.country].filter(Boolean).join('\n');
   const amount = ((s.amount_total || 0) / 100).toFixed(2).replace('.', ',');
   if (validEmail(config.owner) && !s.metadata?.merchant_notified_at) {
     if (await send(config.owner, 'La Maison des Dessous — nouvelle commande ' + orderRef(s),
-      'Une commande PAYÉE vient d’être enregistrée.\nRéférence Stripe : ' + s.id + '\nMontant : ' + amount + ' €\nArticles (EAN:quantité) : ' + items + '\nOuvrez votre Centre de pilotage pour préparer et expédier la commande.')) {
+      'Une commande PAYÉE vient d’être enregistrée.\nRéférence Stripe : ' + s.id + '\nMontant : ' + amount + ' €\nArticles :\n' + items + '\nLivraison :\n' + address + '\nOuvrez votre Centre de pilotage pour préparer et expédier la commande.', 'lmd-paid-merchant-' + s.id)) {
       await updateMarker(s.id, 'merchant_notified_at');
     }
   }
@@ -47,9 +52,9 @@ export async function notifyPaidCheckout(s: any) {
     const link = customerLink(s);
     if (await send(customer, 'La Maison des Dessous — votre commande est confirmée',
       'Bonjour,\n\nVotre paiement a été confirmé. Nous préparons votre commande.\nRéférence : ' + s.id +
-      '\nMontant : ' + amount + ' €\n\n' +
+      '\nMontant : ' + amount + ' €\n\nArticles :\n' + items + '\n\nLivraison :\n' + address + '\n\n' +
       (link ? 'Votre confirmation et suivi privé :\n' + link + '\n\n' : '') +
-      'Vous recevrez des informations sur l’expédition lorsque votre colis sera pris en charge.\n\nLa Maison des Dessous')) {
+      'Vous recevrez des informations sur l’expédition lorsque votre colis sera pris en charge.\n\nLa Maison des Dessous', 'lmd-paid-customer-' + s.id)) {
       await updateMarker(s.id, 'customer_notified_at');
     }
   }
@@ -70,7 +75,7 @@ export async function notifyCustomerShipping(s: any) {
     'Bonjour,\n\nVotre commande ' + orderRef(s) + ' est en chemin.\nTransporteur : ' +
     (carrier === 'colissimo' ? 'Colissimo' : 'Chronopost') + '\nNuméro de suivi : ' +
     number + '\nSuivre votre colis : ' + url + (link ? '\nVotre espace de suivi privé : ' + link : '') +
-    '\n\nMerci pour votre confiance.\nLa Maison des Dessous');
+    '\n\nMerci pour votre confiance.\nLa Maison des Dessous', 'lmd-shipped-' + s.id + '-' + carrier + '-' + number);
   if (ok) await updateMarker(s.id, 'shipping_notified_at');
   return ok;
 }

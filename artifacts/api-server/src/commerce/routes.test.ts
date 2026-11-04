@@ -10,7 +10,7 @@ test('Checkout validates supplier stock, price, delivery and builds a single Str
  const base=await snapshot(), product=base.products[0], variant=product.variants[0];
  const nativeFetch=globalThis.fetch; let stock=3; let captured:URLSearchParams|undefined; let stripeCalls=0; let stripeStatus=200; let authorization='';
  const old={...process.env};
- Object.assign(process.env,{CHECKOUT_ENABLED:'true',STRIPE_SECRET_KEY:'sk_test_fixture',BUSYX_FEED_URL:'https://www.busyx.com/csv_generator.php?token=fixture',SITE_URL:'https://shop.example',PICKUP_POINTS_JSON:JSON.stringify([{id:'relay-1',name:'Relais',address:'1 rue du Test',postcode:'75001',city:'Paris'}])});
+ Object.assign(process.env,{PICKUP_ENABLED:'true',CHECKOUT_ENABLED:'true',STRIPE_SECRET_KEY:'sk_test_fixture',BUSYX_FEED_URL:'https://www.busyx.com/csv_generator.php?token=fixture',SITE_URL:'https://shop.example',PICKUP_POINTS_JSON:JSON.stringify([{id:'relay-1',name:'Relais',address:'1 rue du Test',postcode:'75001',city:'Paris'}])});
  globalThis.fetch=async (input:any,init:any)=>{
   const url=String(input);
   if(url.startsWith('https://www.busyx.com/')) return new Response(`ID du produit;EAN13;Prix unitaire HT;Stock\n${product.id};${variant.ean};8,90;${stock}\n`,{status:200});
@@ -48,6 +48,10 @@ test('Checkout validates supplier stock, price, delivery and builds a single Str
   assert.equal((await send({...valid,delivery:'pickup',pickupPostcode:'75001',pickupCity:'Paris',pickup:'relay-1',expectedTotal:priceCents(890)})).status,200);
   assert.equal(captured?.get('shipping_options[0][shipping_rate_data][fixed_amount][amount]'),'0');
   assert.equal(captured?.get('metadata[pickup_id]'),'relay-1');
+  process.env.PICKUP_ENABLED='false';
+  const noPickup=await (await nativeFetch(origin+'/api/commerce/config')).json() as any;assert.equal(noPickup.pickupEnabled,false);assert.deepEqual(noPickup.points,[]);
+  assert.equal((await send({...valid,delivery:'pickup',pickupPostcode:'75001',pickupCity:'Paris',pickup:'relay-1'})).status,409);
+  assert.equal((await send(valid)).status,200);
   process.env.CHECKOUT_ENABLED='false';assert.equal((await send(valid)).status,503);
  }finally{globalThis.fetch=nativeFetch;for(const key of Object.keys(process.env)) if(!(key in old)) delete process.env[key];Object.assign(process.env,old);server.close();}
 });

@@ -1,7 +1,8 @@
 import { relayPoints, type Relay } from './options';
 export type PickupPoint = Relay & { hours?: string[]; distance?: number };
-export const pickupAvailable = () => Boolean(process.env.COLISSIMO_API_KEY || relayPoints().length);
+export const pickupAvailable = () => process.env.PICKUP_ENABLED === 'true' && Boolean(process.env.COLISSIMO_API_KEY || relayPoints().length);
 export async function searchRelays(postcode: string, city: string): Promise<PickupPoint[]> {
+  if (!pickupAvailable()) throw new Error('Livraison Pickup désactivée');
   if (!/^\d{5}$/.test(postcode) || /^(97|98)/.test(postcode) || typeof city !== 'string' || city.length > 100) throw new Error('Adresse invalide');
   if (!process.env.COLISSIMO_API_KEY) return relayPoints().filter(p => p.postcode === postcode);
   const d = new Date(); d.setUTCDate(d.getUTCDate()+1);
