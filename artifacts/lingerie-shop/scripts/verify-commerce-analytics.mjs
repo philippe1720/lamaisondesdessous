@@ -109,4 +109,56 @@ check('failed purchase emission may be retried after gtag becomes available', ()
   assert.equal(s.api.trackPurchase(live), true);
   assert.equal(s.events.length, 1);
 });
+
+check('private checkout URLs are removed from GA4 events', () => {
+  const s = session();
+  s.window.location = {
+    origin: 'https://lamaisondesdessous.fr',
+    pathname: '/commande/confirmation',
+    search: '?session_id=PRIVATE_STRIPE_SESSION',
+    hash: '#access=PRIVATE_ACCESS',
+  };
+  assert.equal(s.api.trackPurchase(live), true);
+  assert.equal(s.events[0].params.page_location, 'https://lamaisondesdessous.fr/commande/confirmation');
+  assert.equal(s.events[0].params.page_referrer, '');
+  assert.equal(JSON.stringify(s.events).includes('PRIVATE_STRIPE_SESSION'), false);
+  assert.equal(JSON.stringify(s.events).includes('PRIVATE_ACCESS'), false);
+});
+check('GA4 initializes only on the real store and masks confirmation page URLs', () => {
+  const html = readFileSync(join(folder, '../index.html'), 'utf8');
+  const marker = html.indexOf('<!-- Production-only analytics');
+  assert(marker >= 0, 'Expected GA4 bootstrap comment');
+  const start = html.indexOf('<script>', marker) + '<script>'.length;
+  const end = html.indexOf('</script>', start);
+  assert(start >= '<script>'.length && end > start);
+  const code = html.slice(start, end);
+  const scripts = [];
+  const window = {
+    location: {
+      hostname: 'lamaisondesdessous.fr',
+      origin: 'https://lamaisondesdessous.fr',
+      pathname: '/commande/confirmation',
+      search: '?session_id=PRIVATE_STRIPE_SESSION',
+      hash: '#access=PRIVATE_ACCESS',
+    },
+  };
+  const document = {
+    createElement: () => ({}),
+    head: { appendChild: s => scripts.push(s) },
+  };
+  runInNewContext(code, { window, document, Date });
+  const config = window.dataLayer.map(x => Array.from(x)).find(x => x[0] === 'config');
+  assert(config, 'Missing gtag config');
+  assert.equal(config[2].send_page_view, false);
+  assert.equal(config[2].page_location, 'https://lamaisondesdessous.fr/commande/confirmation');
+  assert.equal(config[2].page_referrer, '');
+  assert.equal(scripts.length, 1);
+  assert.equal(scripts[0].async, true);
+  assert.equal(JSON.stringify(config).includes('PRIVATE_STRIPE_SESSION'), false);
+  const preview = { location: { hostname: 'lmd-seo-recette.onrender.com', pathname: '/' } };
+  runInNewContext(code, { window: preview, document, Date });
+  assert.equal(preview.gtag, undefined, 'Staging must not load the real GA4 tag');
+  assert.equal(scripts.length, 1, 'Staging must not add scripts');
+});
+
 process.stdout.write('Commerce GA4: ' + checks + ' checks passed (mock only).\n');
