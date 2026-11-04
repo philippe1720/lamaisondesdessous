@@ -44,7 +44,7 @@ app.get('/*splat', (req, res, next) => {
   if(req.path.startsWith('/commande/') || req.path==='/suivi-commande' || req.path==='/panier') {
     const file=path.join(process.cwd(),'artifacts/lingerie-shop/dist/public/index.html');
     if(!existsSync(file))return next();
-    const html=readFileSync(file,'utf8').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,tag=>/googletagmanager|gtag\(/.test(tag)?'':tag).replace(/<meta\b[^>]*name="robots"[^>]*>/gi,'').replace(/<link\b[^>]*rel="canonical"[^>]*>/gi,'').replace('</head>','<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"></head>');
+    const html=readFileSync(file,'utf8').replace(/<meta\b[^>]*name="robots"[^>]*>/gi,'').replace(/<link\b[^>]*rel="canonical"[^>]*>/gi,'').replace('</head>','<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"></head>');
     res.set({'Cache-Control':'no-store','Referrer-Policy':'no-referrer','X-Robots-Tag':'noindex, nofollow'}).type('html').send(html);return;
   }
   if(req.path==='/produit') return res.redirect(301,'/boutique');
