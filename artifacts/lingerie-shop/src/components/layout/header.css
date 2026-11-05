@@ -1,0 +1,9 @@
+.shop-header-logo { width: 80px; height: 80px; object-fit: contain; display: block; }
+.shop-desktop-nav { display: none; }
+.shop-menu-toggle { display: inline-flex; }
+/* Tablets and phones keep the compact menu; laptop navigation stays visible. */
+@media (min-width: 1025px) {
+  .shop-header-logo { width: 5cm; height: 5cm; }
+  .shop-desktop-nav { display: flex; flex-wrap: wrap; }
+  .shop-menu-toggle, .shop-mobile-nav { display: none; }
+}

@@ -1,0 +1,58 @@
+name: Verification du centre de pilotage
+on:
+  pull_request:
+    branches:
+      - feat/boutique-bas
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PORT: '10000'
+      BASE_PATH: '/'
+      SITE_URL: 'https://lamaisondesdessous.fr'
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Installation des dependances
+        run: pnpm install --no-frozen-lockfile
+      - name: Verification TypeScript et compilation
+        run: pnpm run build
+      - name: Verification du référencement HTML et sitemap
+        run: node artifacts/lingerie-shop/scripts/verify-seo.mjs
+      - name: Verification des agents IA et de leur interface
+        run: node artifacts/lingerie-shop/scripts/verify-team.mjs
+      - name: Controle d'acces a l'espace de gestion (smoke test)
+        run: |
+          node --enable-source-maps artifacts/api-server/dist/index.mjs &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:10000/api/healthz >/dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:10000/gestion | grep -q 'Centre de pilotage'
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:10000/api/gestion/orders)
+          test "$STATUS" = "401"
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:10000/api/gestion/agents/config)
+          test "$STATUS" = "401"
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:10000/api/gestion/agents/sourcing)
+          test "$STATUS" = "401"
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' --data '{"role":"sourcing","goal":"Chercher des bas femmes"}' http://127.0.0.1:10000/api/gestion/agents/analyse)
+          test "$STATUS" = "401"
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:10000/api/gestion/agents/diagnostic?kind=seo)
+          test "$STATUS" = "401"
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' --data '{"role":"seo","messages":[{"role":"user","content":"Comment ameliorer les bas resille ?"}]}' http://127.0.0.1:10000/api/gestion/agents/chat)
+          test "$STATUS" = "401"
