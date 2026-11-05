@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-08T15:26:00Z",
+  "updatedAt": "2026-11-05",
   "products": [
     {
       "id": "20985",
@@ -449,6 +449,88 @@
         "Aspect": "Résille ajourée",
         "Deniers": "Non précisés par le fournisseur",
         "Maintien": "Autofixants avec silicone",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
+      }
+    },
+    {
+      "id": "22811",
+      "slug": "bas-dentelle-noire-desire-christine",
+      "name": "Bas autofixants noirs Desire — dentelle florale",
+      "description": "Les bas Desire de Christine allient un voile noir fin et transparent à une large jarretière en dentelle florale. Une finition élégante à porter sous une robe ou une jupe, au quotidien comme pour une occasion particulière. Livraison standard offerte en France métropolitaine.",
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "category": "autofixants",
+      "brand": "Christine",
+      "images": [
+        "/images/bas/22811-1.jpg",
+        "/images/bas/22811-2.jpg",
+        "/images/bas/22811-3.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "8719934035478",
+          "size": "S/M",
+          "color": "Noir",
+          "stock": 3,
+          "priceCents": 2290
+        },
+        {
+          "ean": "8719934035485",
+          "size": "L/XL",
+          "color": "Noir",
+          "stock": 3,
+          "priceCents": 2290
+        }
+      ],
+      "details": {
+        "Aspect": "Voile noir fin et transparent",
+        "Deniers": "Non précisés par le fournisseur",
+        "Maintien": "Bas autofixants à jarretière en dentelle florale",
+        "Jarretière": "Large dentelle florale noire",
+        "Contenu": "Une paire de bas ; culotte et autres accessoires photographiés non inclus"
+      }
+    },
+    {
+      "id": "12451",
+      "slug": "bas-autofixants-noir-rouge-passion-st004",
+      "name": "Bas autofixants Passion ST004 — noir et rouge",
+      "description": "Une transparence noire délicate rehaussée d'une large jarretière en dentelle florale rouge : les bas Passion ST004 jouent avec le contraste et accompagnent toutes vos envies de féminité. Voile 17 deniers, maintien par silicone repositionnable. Livraison standard offerte en France métropolitaine.",
+      "composition": "87 % polyamide, 13 % élasthanne",
+      "category": "autofixants",
+      "brand": "Passion",
+      "images": [
+        "/images/bas/12451-1.jpg",
+        "/images/bas/12451-2.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "5908305940241",
+          "size": "1/2",
+          "color": "Noir et rouge",
+          "stock": 0,
+          "priceCents": 1990
+        },
+        {
+          "ean": "5908305940289",
+          "size": "3/4",
+          "color": "Noir et rouge",
+          "stock": 0,
+          "priceCents": 1990
+        },
+        {
+          "ean": "5908305940326",
+          "size": "5",
+          "color": "Noir et rouge",
+          "stock": 0,
+          "priceCents": 1990
+        }
+      ],
+      "details": {
+        "Aspect": "Voile noir transparent, dentelle rouge",
+        "Deniers": "17 deniers",
+        "Maintien": "Bandes de silicone repositionnables",
+        "Correspondance taille 1/2": "Hauteur 60 à 75 cm ; poids 45 à 55 kg",
+        "Correspondance taille 3/4": "Hauteur 70 à 90 cm ; poids 50 à 65 kg",
+        "Correspondance taille 5": "Hauteur supérieure à 80 cm ; poids supérieur à 60 kg",
         "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
       }
     }

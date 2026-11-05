@@ -27,7 +27,9 @@ export async function liveCatalog() {
     if (!row || row['ID du produit'] !== p.id) return {...v, stock: 0};
     const stock = Number(row.Stock), amount = Math.round(Number(row['Prix unitaire HT'].replace(',', '.')) * 100);
     if (!Number.isInteger(stock) || stock < 0 || !Number.isSafeInteger(amount) || amount <= 0) throw new Error('Invalid supplier data');
-    return {...v, stock, priceCents: priceCents(amount)};
+    // Prix de vente validés par le dirigeant, livraison standard incluse : ne pas les recalculer depuis le prix fournisseur.
+    const retailPrice = p.id === '22811' ? 2290 : p.id === '12451' ? 1990 : priceCents(amount);
+    return {...v, stock, priceCents: retailPrice};
   })}));
   return { products, updatedAt: new Date().toISOString(), rows };
 }
