@@ -64,7 +64,7 @@ export function ProductPage() {
       itemCondition:'https://schema.org/NewCondition'
     }
   };
-  return <><SEO title={product.name} description={product.description} canonical={`/produit/${product.slug}`} image={product.images[0]} type="product">
+  return <><SEO title={product.name} description={product.seoDescription || product.description.slice(0, 155)} canonical={`/produit/${product.slug}`} image={product.images[0]} type="product">
     <script type="application/ld+json">{JSON.stringify(productSchema).replace(/</g,'\\u003c')}</script>
   </SEO><main className="stocking-page">
     <nav aria-label="Fil d’Ariane" className="stocking-note"><Link href="/">Accueil</Link> · <Link href="/boutique">Bas pour femme</Link> · <Link href={product.category==='autofixants'?'/bas-autofixants':'/bas-porte-jarretelles'}>{product.category==='autofixants'?'Bas autofixants':'Bas pour porte-jarretelles'}</Link></nav>
