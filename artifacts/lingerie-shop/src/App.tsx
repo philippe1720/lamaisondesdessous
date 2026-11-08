@@ -7,6 +7,7 @@ import { Layout } from "@/components/layout/layout";
 
 import Home, { Guide } from "@/features/shop/home";
 import { Catalogue, ProductPage } from "@/features/shop/catalogue";
+import { MatterhornCollection, MatterhornPreviewProduct } from "@/features/shop/matterhorn-preview";
 import { AdvicePage } from '@/features/shop/editorial';
 import { Basket, Checkout } from "@/features/shop/basket";
 import { OrderConfirmation } from "@/features/shop/order";
@@ -29,6 +30,9 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/boutique" component={Catalogue} />
         <Route path="/bas-resille" component={Catalogue} />
+        <Route path="/collants-femme" component={MatterhornCollection} />
+        <Route path="/chaussettes-femme" component={MatterhornCollection} />
+        <Route path="/selection-matterhorn/:slug">{params => <MatterhornPreviewProduct key={params.slug} />}</Route>
         <Route path="/conseils/:slug" component={AdvicePage} />
         <Route path="/bas-autofixants" component={Catalogue} />
         <Route path="/bas-porte-jarretelles" component={Catalogue} />
