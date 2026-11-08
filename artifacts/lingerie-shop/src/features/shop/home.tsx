@@ -5,7 +5,7 @@ import { useShop } from './cart';
 import { GuideLinks } from './editorial';
 import { ProductCard } from './catalogue';
 
-/** Visuels de vrais modèles : produits présents dans le catalogue et photos originales Matterhorn. */
+/** Visuels authentiques des modèles de nos sélections, sans retouche. */
 export default function StockingHome() {
   const { products } = useShop();
   const look = (id: string, fallback: string) => products.find(p => p.id === id)?.images[0] || fallback;
@@ -64,12 +64,12 @@ export default function StockingHome() {
           <div className="lmd-universe-copy"><p className="stocking-eyebrow">MAILLE AJOURÉE</p><h3>Bas résille</h3><p>Des lignes graphiques et différents types de maintien, à vérifier sur chaque fiche.</p><strong>Voir les modèles →</strong></div>
         </Link>
         <Link className="lmd-universe-tile" href="/collants-femme">
-          <div className="lmd-universe-image"><img src={collantsPhoto} alt="Collants noirs Gatta Celia riches en coton, photographie originale du fournisseur Matterhorn" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
-          <div className="lmd-universe-copy"><p className="stocking-eyebrow">POUR LES JOURNÉES ACTIVES</p><h3>Collants femme</h3><p>Opaques, coton et fantaisie : un aperçu de nos futures références.</p><strong>Découvrir la sélection en préparation →</strong></div>
+          <div className="lmd-universe-image"><img src={collantsPhoto} alt="Éléonore, collants opaques noirs riches en coton, notre future sélection féminine" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">POUR LES JOURNÉES ACTIVES</p><h3>Collants femme</h3><p>Éléonore, Apolline, Ophélie : des collants pour les moments que vous choisissez.</p><strong>Découvrir la sélection en préparation →</strong></div>
         </Link>
         <Link className="lmd-universe-tile" href="/chaussettes-femme">
-          <div className="lmd-universe-image"><img src={socksPhoto} alt="Chaussettes Step in Style noires à motif ourson, photographie originale du fournisseur Matterhorn" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
-          <div className="lmd-universe-copy"><p className="stocking-eyebrow">CONFORT ET FANTAISIE</p><h3>Chaussettes femme</h3><p>Coton, modèles longs et motifs : pour les détails du quotidien.</p><strong>Découvrir la sélection en préparation →</strong></div>
+          <div className="lmd-universe-image"><img src={socksPhoto} alt="Nina, chaussettes noires en coton à motif ourson, notre future sélection féminine" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">CONFORT ET FANTAISIE</p><h3>Chaussettes femme</h3><p>Nina, Louise, Zélie : les petits détails qui donnent du caractère à vos journées.</p><strong>Découvrir la sélection en préparation →</strong></div>
         </Link>
       </div>
       <p className="stocking-note">Vous hésitez sur le maintien ? <Link href="/guide-des-bas">Comprendre la différence entre autofixants et porte-jarretelles →</Link></p>
