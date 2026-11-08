@@ -153,3 +153,53 @@
 /* Aperçus à lire : garder les cartes visuelles aérées, histoires intégrales sur les fiches. */
 .stocking-card .lmd-preview-excerpt {font-size:.9rem;line-height:1.55;color:hsl(var(--muted-foreground));display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;margin:10px 0;}
 .lmd-product-story .stocking-intro {margin:0 0 18px;max-width:68ch;line-height:1.85;}
+
+
+/* Guide des tailles collants et chaussettes — ergonomie mobile, sans conversion fictive. */
+.lmd-size-guide{max-width:980px;}
+.lmd-size-guide>section{margin:32px 0 46px;}
+.lmd-size-guide h2,.lmd-guide-selector h2{font:clamp(1.4rem,2.5vw,1.8rem)/1.25 Georgia,serif;margin:22px 0 14px;}
+.lmd-size-guide p{line-height:1.8;}
+.lmd-size-guide-nav{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0;}
+.lmd-size-guide-nav a{border:1px solid hsl(var(--border));background:hsl(var(--card));padding:11px 14px;display:inline-flex;align-items:center;min-height:46px;text-decoration:underline;text-underline-offset:4px;}
+.lmd-size-guide-nav a:hover,.lmd-size-guide-nav a:focus-visible{border-color:hsl(var(--primary));}
+.lmd-guide-selector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0;}
+.lmd-guide-selector article{border:1px solid hsl(var(--border));padding:20px;background:hsl(var(--card));min-width:0;}
+.lmd-guide-selector h2{margin-top:0;}
+.lmd-guide-selector p{line-height:1.65;}
+.lmd-guide-selector a{color:hsl(var(--primary));text-decoration:underline;text-underline-offset:4px;font-weight:600;}
+.lmd-sizing-steps{margin:20px 0;padding-left:28px;display:grid;gap:16px;line-height:1.75;}
+.lmd-sizing-steps li{padding-left:5px;}
+.lmd-size-terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0;}
+.lmd-size-terms>div{display:flex;align-items:center;gap:14px;background:hsl(var(--card));border:1px solid hsl(var(--border));padding:16px 18px;min-width:0;}
+.lmd-size-terms strong{font-family:Georgia,serif;font-size:1.2rem;min-width:75px;color:hsl(var(--primary));}
+.lmd-size-terms span{line-height:1.55;}
+.lmd-size-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0;}
+.lmd-size-item{border:1px solid hsl(var(--border));border-radius:3px;padding:19px;background:hsl(var(--card));}
+.lmd-size-item h3{font:1.22rem/1.4 Georgia,serif;margin:0 0 10px;}
+.lmd-size-item p{margin:9px 0 10px;}
+.lmd-size-item a,.lmd-sizing-return a{color:hsl(var(--primary));text-decoration:underline;text-underline-offset:4px;}
+.lmd-sizing-contact{background:hsl(var(--card));border:1px solid hsl(var(--border));padding:24px;margin:42px 0;}
+.lmd-sizing-contact .stocking-button{margin:16px 0;}
+.lmd-sizing-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px;}
+.lmd-sizing-fields label{display:flex;flex-direction:column;gap:8px;line-height:1.5;font-weight:600;font-size:.9rem;}
+.lmd-sizing-fields input{width:100%;background:hsl(var(--background));border:1px solid hsl(var(--border));padding:13px;border-radius:3px;min-height:46px;}
+.lmd-sizing-fields input:focus-visible{outline:2px solid hsl(var(--primary));outline-offset:2px;}
+.lmd-guide-cta{display:flex;align-items:center;justify-content:space-between;gap:18px;background:hsl(var(--card));border:1px solid hsl(var(--border));padding:18px 22px;margin:16px 0 24px;}
+.lmd-guide-cta strong{font-size:1.02rem;}
+.lmd-guide-cta p{margin:8px 0 0;line-height:1.6;}
+.lmd-guide-cta .stocking-button{margin:0;flex-shrink:0;text-align:center;}
+.lmd-home-guide-links{display:flex;flex-wrap:wrap;gap:13px;margin:14px 0 0;}
+@media(max-width:800px){
+  .lmd-guide-selector{grid-template-columns:1fr;}
+  .lmd-sizing-fields{grid-template-columns:1fr;}
+  .lmd-guide-cta{flex-direction:column;align-items:flex-start;}
+  .lmd-guide-cta .stocking-button{width:100%;}
+}
+@media(max-width:600px){
+  .lmd-size-list,.lmd-size-terms{grid-template-columns:1fr;}
+  .lmd-size-guide-nav{display:grid;grid-template-columns:1fr;}
+  .lmd-size-guide-nav a{justify-content:center;text-align:center;}
+  .lmd-sizing-contact{padding:17px;}
+  .lmd-size-guide>section{margin:28px 0 36px;}
+}
