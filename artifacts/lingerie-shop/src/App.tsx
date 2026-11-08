@@ -32,7 +32,8 @@ function Router() {
         <Route path="/bas-resille" component={Catalogue} />
         <Route path="/collants-femme" component={MatterhornCollection} />
         <Route path="/chaussettes-femme" component={MatterhornCollection} />
-        <Route path="/selection-matterhorn/:slug">{params => <MatterhornPreviewProduct key={params.slug} />}</Route>
+        <Route path="/collants-femme/:slug">{params => <MatterhornPreviewProduct key={params.slug} />}</Route>
+        <Route path="/chaussettes-femme/:slug">{params => <MatterhornPreviewProduct key={params.slug} />}</Route>
         <Route path="/conseils/:slug" component={AdvicePage} />
         <Route path="/bas-autofixants" component={Catalogue} />
         <Route path="/bas-porte-jarretelles" component={Catalogue} />
