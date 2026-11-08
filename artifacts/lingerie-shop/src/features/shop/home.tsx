@@ -104,35 +104,6 @@ export default function StockingHome() {
   </main></>;
 }
 
-export function ChooseStockingsLanding() {
-  const { products } = useShop();
-  const photo = (id: string, fallback: string) => products.find(p => p.id === id)?.images[0] || fallback;
-  return <><SEO title="Autofixants ou porte-jarretelles : trouvez vos bas" description="Choisir ses bas : autofixants sans attaches ou bas pour porte-jarretelles. Deux collections expliquées, avec modèles, tailles et livraison standard comprise." noindex>
-    <meta name="robots" content="noindex,follow" />
-  </SEO><main className="stocking-page lmd-landing" aria-labelledby="lmd-landing-title">
-    <nav className="stocking-note" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link> · Choisir mes bas</nav>
-    <p className="stocking-eyebrow">UN STYLE POUR SOI · LA MAISON DES DESSOUS</p>
-    <h1 id="lmd-landing-title">Autofixants ou porte-jarretelles ? Choisissez votre façon de porter vos bas.</h1>
-    <p className="stocking-intro">Vous aimez la lingerie qui vous ressemble. Deux maintiens, deux sensations de style : il n'y a pas de bon choix universel, seulement le vôtre.</p>
-    <div className="lmd-choice-grid">
-      <Link href="/bas-autofixants" className="lmd-choice-tile">
-        <img src={photo('20985','/images/bas/20985-1.jpg')} loading="eager" alt="Bas autofixants noirs à couture et jarretière siliconée" width="640" height="760"/>
-        <div><p className="stocking-eyebrow">SANS PORTE-JARRETELLES</p><h2>Les autofixants</h2><p>Une jarretière siliconée maintient les bas sur la cuisse. Vous les portez sans attaches supplémentaires.</p><strong>Découvrir les modèles autofixants →</strong></div>
-      </Link>
-      <Link href="/bas-porte-jarretelles" className="lmd-choice-tile">
-        <img src={photo('20988','/images/bas/20988-1.jpg')} loading="eager" alt="Bas résille noirs à jarretière lacée, nécessitant des porte-jarretelles" width="640" height="760"/>
-        <div><p className="stocking-eyebrow">AVEC ATTACHES</p><h2>Pour porte-jarretelles</h2><p>Ces bas sont conçus pour être fixés à un porte-jarretelles. Celui-ci est à choisir séparément.</p><strong>Découvrir les modèles à attaches →</strong></div>
-      </Link>
-    </div>
-    <div className="lmd-landing-help">
-      <p>Vous préférez la résille ? <Link href="/bas-resille">Comparer les modèles résille.</Link></p>
-      <p>Vous hésitez sur une taille ? <Link href="/guide-des-tailles">Consulter le guide de tailles.</Link></p>
-      <p>Livraison standard comprise dans le prix des bas, en France métropolitaine. <Link href="/livraison-retours">Voir les délais et les retours.</Link></p>
-      <p>Envie de découvrir l'ensemble de la Maison ? <Link href="/">Retourner à l'accueil.</Link></p>
-    </div>
-  </main></>;
-}
-
 export function Guide() {
   return <main className="stocking-page stocking-reading"><SEO title="Comment choisir ses bas pour femme" canonical="/guide-des-bas" description="Autofixants ou porte-jarretelles, taille et deniers : nos repères pour choisir vos bas."/><p className="stocking-eyebrow">LES CONSEILS DE LA MAISON</p><h1>Bien choisir ses bas.</h1><GuideLinks/><h2>Autofixants ou porte-jarretelles ?</h2><p>Les autofixants tiennent grâce à une bande de silicone à l’intérieur de la jarretière. Les bas non autofixants se fixent aux attaches d’un porte-jarretelles. Vérifiez toujours le maintien indiqué sur la fiche : la dentelle seule ne permet pas de le deviner.</p><Link href="/bas-autofixants">Découvrir les autofixants →</Link><h2>Choisir la taille</h2><Link href="/guide-des-tailles">Consulter les tableaux et prendre mes mesures →</Link><p>Les tailles changent selon la marque. Une taille unique ne convient pas à toutes les morphologies. Si vous hésitez, contactez-nous avec la référence, votre taille en centimètres et vos mesures : nous vérifierons le tableau du fabricant avant votre achat.</p><h2>Comprendre les deniers</h2><p>Le denier mesure la masse du fil. Pour un voile, une valeur faible correspond généralement à un rendu plus fin et transparent. Le rendu dépend aussi du tissage et de la couleur. La résille se distingue par sa maille ajourée.</p><h2>Les enfiler avec soin</h2><p>Retirez vos bijoux, rassemblez délicatement le bas, placez la pointe puis déroulez sur la jambe. Évitez de tirer uniquement sur la jarretière. Suivez l’étiquette pour l’entretien.</p><Link href="/bas-porte-jarretelles">Découvrir les bas pour porte-jarretelles →</Link><h2>Vous aimez la résille ?</h2><p>Les bas résille peuvent être autofixants, avec une bande siliconée, ou nécessiter des attaches. Découvrez les modèles noirs et beiges de notre sélection.</p><Link href="/bas-resille">Comparer les bas résille pour femme →</Link><p><Link href="/conseils/comment-porter-bas-resille">Lire nos conseils pour porter des bas résille →</Link></p></main>;
 }
