@@ -26,10 +26,12 @@ const pages=[
   ['/', 'Bas pour femme, collants et chaussettes',
     'La Maison des Dessous accompagne votre féminité : bas autofixants, résille et porte-jarretelles en boutique ; collants et chaussettes à découvrir bientôt. Livraison standard incluse dans les prix des bas.',
     '<p>Un style pour chaque moment. Toujours vous. Nos bas de lingerie pour vos rendez-vous, vos journées et les moments que vous choisissez.</p>'+
-    '<h2>Trois univers. Une seule femme : vous.</h2><ul>'+
-    '<li><a href="/boutique">Les bas — collection en boutique</a>, autofixants, résille et bas pour porte-jarretelles.</li>'+
-    '<li><a href="/collants-femme">Les collants — collection en préparation, non commandable</a>, coton et fantaisie.</li>'+
-    '<li><a href="/chaussettes-femme">Les chaussettes — collection en préparation, non commandable</a>, coton et motifs.</li></ul>'+
+    '<h2>Choisissez votre catégorie.</h2><ul>'+
+    '<li><a href="/bas-autofixants">Bas autofixants — en boutique</a>, avec jarretière siliconée, sans attaches.</li>'+
+    '<li><a href="/bas-porte-jarretelles">Bas pour porte-jarretelles — en boutique</a>, à fixer avec des attaches.</li>'+
+    '<li><a href="/bas-resille">Bas résille — en boutique</a>, maille ajourée, maintien détaillé par modèle.</li>'+
+    '<li><a href="/collants-femme">Collants pour femme — sélection en préparation, non commandable</a>.</li>'+
+    '<li><a href="/chaussettes-femme">Chaussettes pour femme — sélection en préparation, non commandable</a>.</li></ul>'+
     '<h2>Autofixants ou porte-jarretelles ?</h2>'+
     '<p><a href="/choisir-ses-bas">Choisir ses bas : comparer les deux types de maintien</a>.</p>'+
     '<p><a href="/bas-autofixants">Les bas autofixants, sans attaches</a> · <a href="/bas-porte-jarretelles">Les bas pour porte-jarretelles, avec attaches</a> · <a href="/bas-resille">Les bas résille femme</a>.</p>'+
