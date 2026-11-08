@@ -21,7 +21,7 @@ export function Header() {
     { href: '/bas-autofixants', label: 'Autofixants' },
     { href: '/bas-porte-jarretelles', label: 'Pour porte-jarretelles' },
     { href: '/bas-resille', label: 'Résille' },
-    { href: '/guide-des-bas', label: 'Guide' },
+    { href: '/guide-des-tailles', label: 'Tailles' },
     { href: '/panier', label: `Panier (${count})` },
     { href: '/qui-sommes-nous', label: 'À propos' },
   ];

@@ -40,3 +40,166 @@
 @media(max-width:650px){.stocking-candle-product{grid-template-columns:1fr;gap:15px}.stocking-candle-photo{min-height:260px}.stocking-candle-art{height:280px}.stocking-candle-art-flame{top:45px}.stocking-candle-info .stocking-choice{flex-direction:column}}
 
 .stocking-manifesto{max-width:850px;margin:0 auto;padding:48px 24px;text-align:center}.stocking-manifesto h2{font:clamp(1.8rem,4vw,2.8rem)/1.2 Georgia,serif;margin:16px 0}.stocking-manifesto>p:not(.stocking-eyebrow){line-height:1.8;margin:20px auto;max-width:650px}.stocking-manifesto a{text-decoration:underline;text-underline-offset:4px;color:hsl(var(--primary))}
+
+
+/* 08/11/2026 — accueil Clara × Léo : trois univers et choix commercial lisible sur mobile. */
+.lmd-home-hero {min-height:560px;}
+.lmd-home-hero>div {padding-top:54px;padding-bottom:54px;}
+.lmd-home-hero h1 {font-size:clamp(2.45rem,4.5vw,4.6rem);max-width:13ch;}
+.lmd-home-hero>div>p:not(.stocking-eyebrow) {max-width:62ch;}
+.lmd-home-actions {display:flex;gap:12px;align-items:stretch;flex-wrap:wrap;margin:18px 0 12px;}
+.lmd-home-actions .stocking-button {margin:0;min-height:52px;}
+.lmd-home-hero img {height:560px;object-fit:cover;object-position:center 25%;}
+.lmd-home-universes {padding-bottom:32px;}
+.lmd-universe-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;}
+.lmd-universe-tile {display:flex;flex-direction:column;min-width:0;border:1px solid hsl(var(--border));background:hsl(var(--card));text-decoration:none;transition:transform .15s ease,border-color .15s ease;}
+.lmd-universe-tile:hover,.lmd-choice-tile:hover {transform:translateY(-2px);border-color:hsl(var(--primary));}
+.lmd-universe-tile:focus-visible,.lmd-choice-tile:focus-visible {outline:3px solid hsl(var(--primary));outline-offset:3px;}
+.lmd-universe-image {position:relative;aspect-ratio:3/4;background:#ece4df;overflow:hidden;}
+.lmd-universe-image img {width:100%;height:100%;object-fit:cover;display:block;}
+.lmd-universe-status {position:absolute;bottom:14px;left:14px;padding:8px 12px;background:#fffdf3;color:#4f2832;font-size:12px;font-weight:700;border:1px solid #d7c9c5;}
+.lmd-status-soon {background:#fff8f0;}
+.lmd-universe-copy {padding:22px;flex:1;}
+.lmd-universe-copy .stocking-eyebrow {margin:0 0 8px;}
+.lmd-universe-copy h3 {font:clamp(1.5rem,2vw,2rem)/1.2 Georgia,serif;margin:6px 0 12px;}
+.lmd-universe-copy p:not(.stocking-eyebrow) {min-height:3em;line-height:1.65;margin:0 0 14px;color:hsl(var(--muted-foreground));}
+.lmd-universe-copy strong,.lmd-choice-tile strong {color:hsl(var(--primary));text-decoration:underline;text-underline-offset:4px;}
+.lmd-choose-section {padding-top:40px;}
+.lmd-choice-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
+.lmd-choice-tile {min-width:0;display:grid;grid-template-columns:minmax(130px,40%) minmax(0,1fr);align-items:stretch;border:1px solid hsl(var(--border));background:hsl(var(--card));transition:transform .15s ease,border-color .15s ease;text-decoration:none;}
+.lmd-choice-tile>img {width:100%;height:100%;min-height:260px;object-fit:cover;object-position:center 23%;background:#e9dfdc;}
+.lmd-choice-tile>div {padding:25px 22px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px;}
+.lmd-choice-tile h3,.lmd-choice-tile h2 {font:clamp(1.45rem,2vw,2rem)/1.25 Georgia,serif;margin:0;}
+.lmd-choice-tile p {line-height:1.65;color:hsl(var(--muted-foreground));margin:0;}
+.lmd-home-reassurance {background:hsl(var(--card));max-width:none;}
+.lmd-home-reassurance>.stocking-section-title,.lmd-home-reassurance>.lmd-trust-grid {max-width:1224px;margin-left:auto;margin-right:auto;}
+.lmd-trust-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;}
+.lmd-trust-grid>div {padding:26px;border:1px solid hsl(var(--border));background:hsl(var(--background));}
+.lmd-trust-grid h3 {font:1.45rem Georgia,serif;margin:0 0 15px;}
+.lmd-trust-grid p {line-height:1.7;color:hsl(var(--muted-foreground));margin-bottom:15px;}
+.lmd-trust-grid a,.lmd-landing-help a {text-decoration:underline;color:hsl(var(--primary));text-underline-offset:4px;}
+.lmd-landing>h1 {max-width:920px;}
+.lmd-landing>.stocking-intro {max-width:820px;}
+.lmd-landing .lmd-choice-tile>img {min-height:360px;}
+.lmd-landing-help {max-width:850px;margin:42px auto;padding:28px;border:1px solid hsl(var(--border));background:hsl(var(--card));}
+.lmd-landing-help p {line-height:1.8;margin:10px 0;}
+@media(max-width:1050px) {
+  .lmd-universe-grid {gap:14px;}
+  .lmd-universe-copy {padding:16px;}
+  .lmd-choice-tile {grid-template-columns:1fr;}
+  .lmd-choice-tile>img {height:270px;min-height:0;}
+}
+@media(max-width:720px) {
+  .lmd-universe-grid {grid-template-columns:1fr;}
+  .lmd-universe-tile {display:grid;grid-template-columns:43% minmax(0,1fr);}
+  .lmd-universe-image {aspect-ratio:3/4;}
+  .lmd-universe-copy {padding:18px;}
+  .lmd-universe-copy h3 {font-size:1.5rem;}
+  .lmd-universe-status {bottom:6px;left:6px;font-size:10px;padding:5px;}
+  .lmd-choice-grid {grid-template-columns:1fr;gap:18px;}
+  .lmd-choice-tile {grid-template-columns:42% minmax(0,1fr);}
+  .lmd-choice-tile>img {height:100%;min-height:230px;}
+  .lmd-choice-tile>div {padding:16px;gap:10px;}
+  .lmd-choice-tile h3,.lmd-choice-tile h2 {font-size:1.35rem;}
+  .lmd-choice-tile p {font-size:14px;}
+  .lmd-trust-grid {grid-template-columns:1fr;gap:14px;}
+  .lmd-home-hero h1 {max-width:none;}
+}
+@media(max-width:440px) {
+  .lmd-home-actions {display:flex;flex-direction:column;}
+  .lmd-home-actions .stocking-button {width:100%;}
+  .lmd-universe-tile {grid-template-columns:39% minmax(0,1fr);}
+  .lmd-universe-copy {padding:12px;}
+  .lmd-universe-copy .stocking-eyebrow {font-size:9px!important;}
+  .lmd-universe-copy h3 {font-size:1.3rem;}
+  .lmd-universe-copy p:not(.stocking-eyebrow) {font-size:12px;line-height:1.5;min-height:0;margin:0 0 7px;}
+  .lmd-universe-copy strong {font-size:12px;}
+  .lmd-choice-tile {grid-template-columns:38% minmax(0,1fr);}
+  .lmd-choice-tile>img {min-height:230px;}
+  .lmd-choice-tile>div {padding:12px;}
+  .lmd-choice-tile h3,.lmd-choice-tile h2 {font-size:1.18rem;}
+  .lmd-choice-tile p,.lmd-choice-tile strong {font-size:12px;}
+}
+
+
+/* PRIORITÉ COMMERCIALE CLARA — choix de bas visible dès l'accueil mobile. */
+.lmd-hero-prompt {font-weight:700;font-size:1rem;margin:22px 0 12px;}
+.lmd-hero-shortcuts {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 18px;}
+.lmd-hero-shortcuts a {background:#841c32;border:2px solid #841c32;color:#fff;min-height:54px;padding:12px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;font-weight:700;line-height:1.4;transition:filter .15s ease;}
+.lmd-hero-shortcuts a:hover {filter:brightness(1.13);}
+.lmd-hero-shortcuts a:focus-visible {outline:3px solid hsl(var(--foreground));outline-offset:3px;}
+.lmd-explore-link {display:inline-block;color:hsl(var(--primary));font-weight:600;text-decoration:underline;text-underline-offset:4px;margin-bottom:18px;}
+.lmd-home-hero small {max-width:60ch;line-height:1.55;}
+.lmd-home-universes .lmd-universe-grid {grid-template-columns:repeat(3,minmax(0,1fr));}
+.lmd-home-universes .lmd-universe-tile:nth-child(4) {grid-column:1;}
+.lmd-home-universes .lmd-universe-tile:nth-child(5) {grid-column:2;}
+@media (max-width:1000px) {
+  .lmd-hero-shortcuts {grid-template-columns:1fr;}
+  .lmd-hero-shortcuts a {min-height:44px;font-size:14px;}
+}
+@media (max-width:720px) {
+  .lmd-home-universes .lmd-universe-grid {grid-template-columns:1fr;}
+  .lmd-home-universes .lmd-universe-tile:nth-child(4),
+  .lmd-home-universes .lmd-universe-tile:nth-child(5) {grid-column:auto;}
+  .lmd-hero-shortcuts {grid-template-columns:1fr 1fr;gap:8px;}
+  .lmd-hero-shortcuts a {min-height:48px;}
+  .lmd-hero-shortcuts a:nth-child(2) {grid-column:span 2;grid-row:2;}
+  .lmd-hero-shortcuts a:nth-child(3) {grid-column:2;grid-row:1;}
+  .lmd-home-hero>div {padding:28px 22px;}
+  .lmd-home-hero h1 {font-size:clamp(2.15rem,9vw,3.2rem);margin:14px 0;}
+  .lmd-home-hero>div>p:not(.stocking-eyebrow) {line-height:1.55;}
+}
+
+/* Aperçus à lire : garder les cartes visuelles aérées, histoires intégrales sur les fiches. */
+.stocking-card .lmd-preview-excerpt {font-size:.9rem;line-height:1.55;color:hsl(var(--muted-foreground));display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;margin:10px 0;}
+.lmd-product-story .stocking-intro {margin:0 0 18px;max-width:68ch;line-height:1.85;}
+
+
+/* Guide des tailles collants et chaussettes — ergonomie mobile, sans conversion fictive. */
+.lmd-size-guide{max-width:980px;}
+.lmd-size-guide>section{margin:32px 0 46px;}
+.lmd-size-guide h2,.lmd-guide-selector h2{font:clamp(1.4rem,2.5vw,1.8rem)/1.25 Georgia,serif;margin:22px 0 14px;}
+.lmd-size-guide p{line-height:1.8;}
+.lmd-size-guide-nav{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0;}
+.lmd-size-guide-nav a{border:1px solid hsl(var(--border));background:hsl(var(--card));padding:11px 14px;display:inline-flex;align-items:center;min-height:46px;text-decoration:underline;text-underline-offset:4px;}
+.lmd-size-guide-nav a:hover,.lmd-size-guide-nav a:focus-visible{border-color:hsl(var(--primary));}
+.lmd-guide-selector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0;}
+.lmd-guide-selector article{border:1px solid hsl(var(--border));padding:20px;background:hsl(var(--card));min-width:0;}
+.lmd-guide-selector h2{margin-top:0;}
+.lmd-guide-selector p{line-height:1.65;}
+.lmd-guide-selector a{color:hsl(var(--primary));text-decoration:underline;text-underline-offset:4px;font-weight:600;}
+.lmd-sizing-steps{margin:20px 0;padding-left:28px;display:grid;gap:16px;line-height:1.75;}
+.lmd-sizing-steps li{padding-left:5px;}
+.lmd-size-terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0;}
+.lmd-size-terms>div{display:flex;align-items:center;gap:14px;background:hsl(var(--card));border:1px solid hsl(var(--border));padding:16px 18px;min-width:0;}
+.lmd-size-terms strong{font-family:Georgia,serif;font-size:1.2rem;min-width:75px;color:hsl(var(--primary));}
+.lmd-size-terms span{line-height:1.55;}
+.lmd-size-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0;}
+.lmd-size-item{border:1px solid hsl(var(--border));border-radius:3px;padding:19px;background:hsl(var(--card));}
+.lmd-size-item h3{font:1.22rem/1.4 Georgia,serif;margin:0 0 10px;}
+.lmd-size-item p{margin:9px 0 10px;}
+.lmd-size-item a,.lmd-sizing-return a{color:hsl(var(--primary));text-decoration:underline;text-underline-offset:4px;}
+.lmd-sizing-contact{background:hsl(var(--card));border:1px solid hsl(var(--border));padding:24px;margin:42px 0;}
+.lmd-sizing-contact .stocking-button{margin:16px 0;}
+.lmd-sizing-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px;}
+.lmd-sizing-fields label{display:flex;flex-direction:column;gap:8px;line-height:1.5;font-weight:600;font-size:.9rem;}
+.lmd-sizing-fields input{width:100%;background:hsl(var(--background));border:1px solid hsl(var(--border));padding:13px;border-radius:3px;min-height:46px;}
+.lmd-sizing-fields input:focus-visible{outline:2px solid hsl(var(--primary));outline-offset:2px;}
+.lmd-guide-cta{display:flex;align-items:center;justify-content:space-between;gap:18px;background:hsl(var(--card));border:1px solid hsl(var(--border));padding:18px 22px;margin:16px 0 24px;}
+.lmd-guide-cta strong{font-size:1.02rem;}
+.lmd-guide-cta p{margin:8px 0 0;line-height:1.6;}
+.lmd-guide-cta .stocking-button{margin:0;flex-shrink:0;text-align:center;}
+.lmd-home-guide-links{display:flex;flex-wrap:wrap;gap:13px;margin:14px 0 0;}
+@media(max-width:800px){
+  .lmd-guide-selector{grid-template-columns:1fr;}
+  .lmd-sizing-fields{grid-template-columns:1fr;}
+  .lmd-guide-cta{flex-direction:column;align-items:flex-start;}
+  .lmd-guide-cta .stocking-button{width:100%;}
+}
+@media(max-width:600px){
+  .lmd-size-list,.lmd-size-terms{grid-template-columns:1fr;}
+  .lmd-size-guide-nav{display:grid;grid-template-columns:1fr;}
+  .lmd-size-guide-nav a{justify-content:center;text-align:center;}
+  .lmd-sizing-contact{padding:17px;}
+  .lmd-size-guide>section{margin:28px 0 36px;}
+}
