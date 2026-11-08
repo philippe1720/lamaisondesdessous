@@ -120,3 +120,32 @@
   .lmd-choice-tile h3,.lmd-choice-tile h2 {font-size:1.18rem;}
   .lmd-choice-tile p,.lmd-choice-tile strong {font-size:12px;}
 }
+
+
+/* PRIORITÉ COMMERCIALE CLARA — choix de bas visible dès l'accueil mobile. */
+.lmd-hero-prompt {font-weight:700;font-size:1rem;margin:22px 0 12px;}
+.lmd-hero-shortcuts {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 18px;}
+.lmd-hero-shortcuts a {background:#841c32;border:2px solid #841c32;color:#fff;min-height:54px;padding:12px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;font-weight:700;line-height:1.4;transition:filter .15s ease;}
+.lmd-hero-shortcuts a:hover {filter:brightness(1.13);}
+.lmd-hero-shortcuts a:focus-visible {outline:3px solid hsl(var(--foreground));outline-offset:3px;}
+.lmd-explore-link {display:inline-block;color:hsl(var(--primary));font-weight:600;text-decoration:underline;text-underline-offset:4px;margin-bottom:18px;}
+.lmd-home-hero small {max-width:60ch;line-height:1.55;}
+.lmd-home-universes .lmd-universe-grid {grid-template-columns:repeat(3,minmax(0,1fr));}
+.lmd-home-universes .lmd-universe-tile:nth-child(4) {grid-column:1;}
+.lmd-home-universes .lmd-universe-tile:nth-child(5) {grid-column:2;}
+@media (max-width:1000px) {
+  .lmd-hero-shortcuts {grid-template-columns:1fr;}
+  .lmd-hero-shortcuts a {min-height:44px;font-size:14px;}
+}
+@media (max-width:720px) {
+  .lmd-home-universes .lmd-universe-grid {grid-template-columns:1fr;}
+  .lmd-home-universes .lmd-universe-tile:nth-child(4),
+  .lmd-home-universes .lmd-universe-tile:nth-child(5) {grid-column:auto;}
+  .lmd-hero-shortcuts {grid-template-columns:1fr 1fr;gap:8px;}
+  .lmd-hero-shortcuts a {min-height:48px;}
+  .lmd-hero-shortcuts a:nth-child(2) {grid-column:span 2;grid-row:2;}
+  .lmd-hero-shortcuts a:nth-child(3) {grid-column:2;grid-row:1;}
+  .lmd-home-hero>div {padding:28px 22px;}
+  .lmd-home-hero h1 {font-size:clamp(2.15rem,9vw,3.2rem);margin:14px 0;}
+  .lmd-home-hero>div>p:not(.stocking-eyebrow) {line-height:1.55;}
+}
