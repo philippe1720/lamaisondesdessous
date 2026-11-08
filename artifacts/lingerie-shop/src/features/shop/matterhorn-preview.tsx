@@ -112,7 +112,7 @@ export function MatterhornPreviewProduct() {
       <h1>{p.name}</h1>
       <div className="stocking-product">
         <section>
-          <div className="stocking-picture"><a href={p.images[photoIndex] || p.images[0]} target="_blank" rel="noreferrer" aria-label="Agrandir la photographie du modèle dans un nouvel onglet"><img src={p.images[photoIndex] || p.images[0]} width="600" height="800" alt={p.name + ', vue ' + (photoIndex + 1)}/></a></div>
+          <div className="stocking-picture"><img src={p.images[photoIndex] || p.images[0]} width="600" height="800" alt={p.name + ', vue ' + (photoIndex + 1)}/></div>
           {p.images.length > 1 && <div className="stocking-thumbs">{p.images.map((src, i) => <button type="button" key={src} onClick={() => setPhotoIndex(i)} aria-label={'Afficher la vue ' + (i + 1)} aria-pressed={photoIndex === i}><img src={src} alt="" loading="lazy"/></button>)}</div>}
           <p className="stocking-note">Découvrez les détails de ce modèle à travers ses différentes vues.</p>
         </section>
