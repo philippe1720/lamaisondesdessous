@@ -1,0 +1,671 @@
+{
+  "source": "Matterhorn — products_sizesFR.xml transmis par le dirigeant, sélection Maya 08/11/2026",
+  "status": "aperçu uniquement — prix, stock et commande non disponibles",
+  "products": [
+    {
+      "id": "220114",
+      "name": "Éléonore — Collants opaques noirs en coton 86 %",
+      "slug": "eleonore-collants-opaques-noirs-en-coton-86-220114",
+      "brand": "Gatta",
+      "category": "collants",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1099810.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1099811.jpg"
+      ],
+      "composition": "86 % coton, 12 % polyamide, 2 % élasthanne",
+      "description": "Il est huit heures et la journée promet d'être bien remplie. Vous choisissez une robe en maille, des bottines, puis ce noir profond qui accompagne toutes les nuances de votre garde-robe. Éléonore est le collant que l'on imagine glisser dans ces matins où l'on veut être élégante sans compliquer sa tenue.\n\nCes collants opaques noirs pour femme contiennent 86 % de coton. Leur matière à dominante coton et leur coloris classique les rendent faciles à associer avec une jupe droite, une robe pull ou un manteau clair. Une pièce du quotidien, pensée pour celles qui aiment les vêtements qui ont du caractère sans en faire trop.\n\nAu bureau, en promenade ou pour un café improvisé, Éléonore suit votre style : libre, sobre, personnel. Pour choisir votre paire, consultez les tailles proposées sur cette fiche plutôt que de supposer qu'une taille convient à toutes.",
+      "seoDescription": "Éléonore, collants opaques noirs pour femme avec 86 % de coton. Une allure élégante pour robe en maille, jupe de bureau et journées d'automne.",
+      "supplier": "matterhorn",
+      "supplierProductId": "220114",
+      "variants": [
+        {
+          "size": "EU 2-S",
+          "supplierOptionId": "M1251510",
+          "supplierCode": "000975000290",
+          "ean13": null,
+          "declaredStockAtSource": 11
+        },
+        {
+          "size": "EU 3-M",
+          "supplierOptionId": "M1251511",
+          "supplierCode": "000975000390",
+          "ean13": null,
+          "declaredStockAtSource": 7
+        },
+        {
+          "size": "EU 4-L",
+          "supplierOptionId": "M1251512",
+          "supplierCode": "000975000490",
+          "ean13": null,
+          "declaredStockAtSource": 1
+        },
+        {
+          "size": "EU 5-XL",
+          "supplierOptionId": "M1251513",
+          "supplierCode": "000975000590",
+          "ean13": null,
+          "declaredStockAtSource": 12
+        }
+      ],
+      "seoTarget": "collants opaques noirs coton 86% femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "220112",
+      "name": "Apolline — Collants beiges en coton 86 %",
+      "slug": "apolline-collants-beiges-en-coton-86-220112",
+      "brand": "Gatta",
+      "category": "collants",
+      "color": "beige",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1099806.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1099807.jpg"
+      ],
+      "composition": "86 % coton, 12 % polyamide, 2 % élasthanne",
+      "description": "Un rayon de soleil traverse la fenêtre, même si l'air est déjà frais. Vous avez envie d'une robe écrue et d'un manteau camel plutôt que de votre habituel ensemble noir. Apolline se choisit pour ces journées où les tons doux suffisent à composer une allure.\n\nCes collants beiges pour femme contiennent 86 % de coton et permettent d'associer les matières sans rompre l'harmonie des couleurs. Avec une robe en maille claire, une jupe chocolat ou des chaussures brunes, leur nuance beige fait le lien entre les pièces de votre vestiaire.\n\nRien d'extravagant, seulement le plaisir de trouver la bonne couleur au bon moment. Apolline rappelle que le confort et l'élégance peuvent faire partie des mêmes envies. Les tailles réellement proposées figurent sur la fiche de ce modèle.",
+      "seoDescription": "Apolline, collants beiges pour femme riches en coton (86 %). À associer à une robe claire, une jupe camel ou une tenue d'automne.",
+      "supplier": "matterhorn",
+      "supplierProductId": "220112",
+      "variants": [
+        {
+          "size": "EU 3-M",
+          "supplierOptionId": "M1251505",
+          "supplierCode": "0009750003253",
+          "ean13": null,
+          "declaredStockAtSource": 7
+        },
+        {
+          "size": "EU 4-L",
+          "supplierOptionId": "M1251506",
+          "supplierCode": "0009750004253",
+          "ean13": null,
+          "declaredStockAtSource": 5
+        }
+      ],
+      "seoTarget": "collants beiges coton 86% femme robe automne",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "195686",
+      "name": "Victoire — Collants noirs à dentelle à la taille",
+      "slug": "victoire-collants-noirs-a-dentelle-a-la-taille-195686",
+      "brand": "Gatta",
+      "category": "collants",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1025696.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1025697.jpg"
+      ],
+      "composition": "88 % polyamide, 11 % élasthanne, 1 % coton",
+      "description": "Vous refermez votre veste avant de partir. Personne ne remarquera peut-être le détail que vous avez choisi ce matin, et c'est justement tout son charme. Victoire se distingue par une finition en dentelle placée à la taille, comme un petit secret de style que l'on garde pour soi.\n\nCes collants noirs avec dentelle à la taille associent une maille à dominante polyamide et de l'élasthanne. Leur coloris noir accompagne une jupe crayon, une robe unie ou une tenue de soirée discrète. La dentelle apporte une touche raffinée là où l'on ne l'attend pas forcément.\n\nDu premier rendez-vous de travail à un dîner décidé au dernier moment, vous restez la même femme, avec vos goûts et vos choix. Victoire n'en fait jamais trop : le détail parle pour vous. Consultez les tailles proposées avant votre sélection.",
+      "seoDescription": "Victoire, collants noirs pour femme avec finition dentelle à la taille et maille extensible. Pour jupe de bureau et tenue habillée.",
+      "supplier": "matterhorn",
+      "supplierProductId": "195686",
+      "variants": [
+        {
+          "size": "EU 3-M",
+          "supplierOptionId": "M1133174",
+          "supplierCode": "00091r020390",
+          "ean13": null,
+          "declaredStockAtSource": 21
+        },
+        {
+          "size": "EU 4-L",
+          "supplierOptionId": "M1133175",
+          "supplierCode": "00091r020490",
+          "ean13": null,
+          "declaredStockAtSource": 20
+        },
+        {
+          "size": "EU 5-XL",
+          "supplierOptionId": "M1133176",
+          "supplierCode": "00091r020590",
+          "ean13": null,
+          "declaredStockAtSource": 11
+        }
+      ],
+      "seoTarget": "collants noirs femme dentelle taille maille 3D",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "195688",
+      "name": "Célestine — Collants beiges à finition dentelle",
+      "slug": "celestine-collants-beiges-a-finition-dentelle-195688",
+      "brand": "Gatta",
+      "category": "collants",
+      "color": "beige",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1025699.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1025700.jpg"
+      ],
+      "composition": "88 % polyamide, 11 % élasthanne, 1 % coton",
+      "description": "Le dimanche s'étire doucement. Vous avez choisi une jupe aux couleurs de la saison et des chaussures que vous aimez depuis longtemps. Célestine s'invite dans cette silhouette avec une nuance beige discrète et une finition en dentelle à la taille.\n\nCes collants beiges pour femme à détail dentelle se composent principalement de polyamide, complété par de l'élasthanne et une petite part de coton. Leur teinte se prête aux associations avec l'écru, le brun ou des couleurs poudrées. Le charme tient ici à une finition qui n'a pas besoin d'être montrée pour être appréciée.\n\nPortés pour une journée ordinaire ou une occasion plus personnelle, ils accompagnent l'envie d'une élégance légère. Avec Célestine, choisissez d'abord ce qui vous plaît, puis construisez le reste de la tenue autour.",
+      "seoDescription": "Célestine, collants beiges pour femme avec dentelle à la taille. Une finition délicate pour robe claire, jupe et style quotidien.",
+      "supplier": "matterhorn",
+      "supplierProductId": "195688",
+      "variants": [
+        {
+          "size": "EU 3-M",
+          "supplierOptionId": "M1133180",
+          "supplierCode": "00091r020322",
+          "ean13": null,
+          "declaredStockAtSource": 12
+        },
+        {
+          "size": "EU 4-L",
+          "supplierOptionId": "M1133181",
+          "supplierCode": "00091r020422",
+          "ean13": null,
+          "declaredStockAtSource": 12
+        },
+        {
+          "size": "EU 5-XL",
+          "supplierOptionId": "M1133182",
+          "supplierCode": "00091r020522",
+          "ean13": null,
+          "declaredStockAtSource": 6
+        }
+      ],
+      "seoTarget": "collants beiges dentelle taille femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "188103",
+      "name": "Ophélie — Collants gris à chevrons 60 deniers",
+      "slug": "ophelie-collants-gris-a-chevrons-60-deniers-188103",
+      "brand": "Fiore",
+      "category": "collants",
+      "color": "gris",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1002894.jpg"
+      ],
+      "composition": "53 % polyamide, 35 % polyester, 12 % élasthanne",
+      "description": "Les feuilles tombent, la ville change de lumière et vous ressortez votre robe pull préférée. Vous avez envie d'un motif, mais pas d'un imprimé qui prend toute la place. Ophélie dessine des chevrons gris sur vos jambes et laisse le reste de la silhouette respirer.\n\nCes collants gris à chevrons de 60 deniers pour femme apportent une dimension graphique à une jupe noire, une robe unie ou un ensemble aux couleurs d'automne. Le motif en chevrons donne du rythme à une tenue sans imposer une nouvelle garde-robe. Les 60 deniers décrivent le fil, pas une garantie de protection thermique.\n\nVous choisissez une paire de bottines, un manteau et ce petit supplément d'allure qui ne ressemble qu'à vous. Ophélie se porte au bureau, en ville ou lorsque la journée appelle une envie de changement.",
+      "seoDescription": "Ophélie, collants gris à chevrons 60 deniers pour femme. Un motif graphique à porter avec robe unie, jupe ou bottines.",
+      "supplier": "matterhorn",
+      "supplierProductId": "188103",
+      "variants": [
+        {
+          "size": "EU 2-S",
+          "supplierOptionId": "M1097292",
+          "supplierCode": "5901874319746",
+          "ean13": "5901874319746",
+          "declaredStockAtSource": 2
+        },
+        {
+          "size": "EU 3-M",
+          "supplierOptionId": "M1097293",
+          "supplierCode": "5901874319753",
+          "ean13": "5901874319753",
+          "declaredStockAtSource": 1
+        }
+      ],
+      "seoTarget": "collants gris chevrons 60 deniers femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "148319",
+      "name": "Margot — Collants noirs couvrants en maille 3D",
+      "slug": "margot-collants-noirs-couvrants-en-maille-3d-148319",
+      "brand": "Annes",
+      "category": "collants",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/889529.jpg"
+      ],
+      "composition": "86 % polyamide, 11 % élasthanne, 3 % coton",
+      "description": "Vous ouvrez votre armoire et retenez cette robe simple que vous aimez tant. Aucun motif supplémentaire n'est nécessaire. Margot vous propose une ligne noire couvrante, à la fois sobre et facile à composer avec les vêtements que vous possédez déjà.\n\nCes collants noirs très couvrants pour femme sont réalisés en maille 3D extensible. Avec des chaussures plates, des bottines ou une jupe droite, ils accompagnent une silhouette nette et sans surcharge. Leur composition contient principalement du polyamide et de l'élasthanne, avec une petite part de coton.\n\nCertains vêtements laissent la place à la personne qui les porte. Margot appartient à cette famille-là : discrète, polyvalente et fidèle à vos habitudes. Le plaisir d'être bien habillée n'a pas besoin d'une grande occasion.",
+      "seoDescription": "Margot, collants noirs couvrants en maille 3D pour femme. Une ligne unie à associer avec robe sobre, jupe et tenue de ville.",
+      "supplier": "matterhorn",
+      "supplierProductId": "148319",
+      "variants": [
+        {
+          "size": "EU 2-S",
+          "supplierOptionId": "M904515",
+          "supplierCode": "5902067801536",
+          "ean13": "5902067801536",
+          "declaredStockAtSource": 17
+        }
+      ],
+      "seoTarget": "collants noirs couvrants maille 3D femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "148322",
+      "name": "Juliette — Collants noirs à pois dégradés",
+      "slug": "juliette-collants-noirs-a-pois-degrades-148322",
+      "brand": "Annes",
+      "category": "collants",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/889532.jpg"
+      ],
+      "composition": "89 % polyamide, 10 % élasthanne, 1 % coton",
+      "description": "Votre journée commence à une réunion et se termine autour d'un verre avec des amies. Vous n'avez pas envie de changer de tenue. Juliette ajoute un mouvement discret à votre silhouette : sur le noir, les pois se révèlent progressivement et donnent une allure graphique à une jupe unie.\n\nCes collants noirs à pois dégradés pour femme sont une manière subtile de porter un motif fantaisie. Ils se marient à un chemisier clair, à une robe simple ou à une tenue de ville dont vous souhaitez souligner les détails. Leur composition associe polyamide et élasthanne, avec une petite proportion de coton.\n\nLa vraie élégance, parfois, consiste à garder sa spontanéité. Juliette accompagne ces journées qui ne se terminent pas exactement comme prévu, et c'est très bien ainsi.",
+      "seoDescription": "Juliette, collants noirs à pois dégradés pour femme. Motif fantaisie graphique à porter avec robe unie, jupe ou tenue de soirée.",
+      "supplier": "matterhorn",
+      "supplierProductId": "148322",
+      "variants": [
+        {
+          "size": "EU 2-S",
+          "supplierOptionId": "M904523",
+          "supplierCode": "5902067806920",
+          "ean13": "5902067806920",
+          "declaredStockAtSource": 40
+        }
+      ],
+      "seoTarget": "collants noirs pois dégradés femme fantaisie",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "148323",
+      "name": "Léonie — Collants noirs à petits pois",
+      "slug": "leonie-collants-noirs-a-petits-pois-148323",
+      "brand": "Annes",
+      "category": "collants",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/889533.jpg"
+      ],
+      "composition": "89 % polyamide, 10 % élasthanne, 1 % coton",
+      "description": "Un rendez-vous à la librairie, un café dans votre quartier et cette envie de porter quelque chose d'un peu différent. Léonie se glisse dans la tenue presque sans bruit. Ses petits pois rythment le noir d'une touche de fantaisie qui reste légère.\n\nCes collants noirs à petits pois pour femme accompagnent facilement une robe unie, une jupe trapèze ou un ensemble classique. Le motif régulier attire le regard sur le détail, sans prendre le dessus sur votre personnalité. La maille mêle principalement polyamide et élasthanne.\n\nLéonie ne cherche pas à impressionner ; elle laisse simplement votre humeur du jour se raconter dans votre tenue. À la ville comme au bureau, une paire de collants fantaisie peut suffire à se sentir différente, tout en restant soi-même.",
+      "seoDescription": "Léonie, collants noirs à petits pois pour femme. Une fantaisie délicate pour jupe droite, robe unie et style féminin quotidien.",
+      "supplier": "matterhorn",
+      "supplierProductId": "148323",
+      "variants": [
+        {
+          "size": "EU 2-S",
+          "supplierOptionId": "M904526",
+          "supplierCode": "5902067806890",
+          "ean13": "5902067806890",
+          "declaredStockAtSource": 8
+        }
+      ],
+      "seoTarget": "collants noirs petits pois femme robe jupe",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "218783",
+      "name": "Isadora — Collants noirs à motifs géométriques",
+      "slug": "isadora-collants-noirs-a-motifs-geometriques-218783",
+      "brand": "Gatta",
+      "category": "collants",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1095670.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1095671.jpg"
+      ],
+      "composition": "92 % polyamide, 8 % élasthanne",
+      "description": "Vous avez prévu une tenue toute simple, mais un détail vous donne envie de la réinventer. Isadora dessine une mosaïque géométrique sur le noir : des lignes, un rythme et une façon personnelle de signer votre allure.\n\nCes collants noirs à motifs géométriques pour femme trouvent leur place sous une robe sans imprimé, avec une jupe droite ou un manteau long. Le dessin apporte une présence visuelle sans qu'il soit nécessaire d'ajouter beaucoup d'accessoires. Composés de polyamide et d'élasthanne, ils appartiennent à l'univers des collants fantaisie.\n\nUne exposition, une réunion créative ou un dîner entre proches : choisissez l'occasion qui vous ressemble. Isadora ne raconte pas une femme idéale ; elle accompagne la femme qui décide de son propre style.",
+      "seoDescription": "Isadora, collants noirs à motif géométrique façon mosaïque pour femme. Un imprimé affirmé à associer à une robe sobre.",
+      "supplier": "matterhorn",
+      "supplierProductId": "218783",
+      "variants": [
+        {
+          "size": "EU 2-S",
+          "supplierOptionId": "M1245683",
+          "supplierCode": "00035y020290",
+          "ean13": null,
+          "declaredStockAtSource": 3
+        },
+        {
+          "size": "EU 3-M",
+          "supplierOptionId": "M1245684",
+          "supplierCode": "00035y020390",
+          "ean13": null,
+          "declaredStockAtSource": 16
+        },
+        {
+          "size": "EU 4-L",
+          "supplierOptionId": "M1245685",
+          "supplierCode": "00035y020490",
+          "ean13": null,
+          "declaredStockAtSource": 2
+        }
+      ],
+      "seoTarget": "collants noirs motif géométrique femme mosaïque",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "220110",
+      "name": "Alma — Collants beiges animaliers 20 deniers",
+      "slug": "alma-collants-beiges-animaliers-20-deniers-220110",
+      "brand": "Gatta",
+      "category": "collants",
+      "color": "beige",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1099802.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1099803.jpg"
+      ],
+      "composition": "89 % polyamide, 11 % élasthanne",
+      "description": "Vous aviez prévu une tenue sage. Puis, juste avant de sortir, vous choisissez un imprimé qui change tout. Alma joue la carte de l'animalier sur une teinte beige, avec une présence délicate qui se découvre au fil de la journée.\n\nCes collants beiges à motif animalier 20 deniers pour femme offrent une idée de contraste avec une robe unie, une jupe noire ou des chaussures aux lignes simples. Les 20 deniers renseignent sur la finesse du fil ; l'effet final dépend aussi de la maille et de la couleur. Le modèle est composé de polyamide et d'élasthanne.\n\nQu'il s'agisse d'un déjeuner entre amies ou d'une sortie improvisée, Alma laisse une petite place à l'audace. Et l'audace, ici, reste entièrement la vôtre.",
+      "seoDescription": "Alma, collants beiges à motif animalier 20 deniers pour femme. Une fantaisie légère avec jupe sobre ou robe monochrome.",
+      "supplier": "matterhorn",
+      "supplierProductId": "220110",
+      "variants": [
+        {
+          "size": "EU 2-S",
+          "supplierOptionId": "M1251498",
+          "supplierCode": "00029t050201a",
+          "ean13": null,
+          "declaredStockAtSource": 12
+        },
+        {
+          "size": "EU 3-M",
+          "supplierOptionId": "M1251499",
+          "supplierCode": "00029t050301a",
+          "ean13": null,
+          "declaredStockAtSource": 10
+        },
+        {
+          "size": "EU 4-L",
+          "supplierOptionId": "M1251500",
+          "supplierCode": "00029t050401a",
+          "ean13": null,
+          "declaredStockAtSource": 10
+        }
+      ],
+      "seoTarget": "collants beiges animalier 20 deniers femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "226594",
+      "name": "Louise — Chaussettes hautes beiges 95 % coton",
+      "slug": "louise-chaussettes-hautes-beiges-95-coton-226594",
+      "brand": "Gabriella",
+      "category": "chaussettes",
+      "color": "beige",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1121094.jpg"
+      ],
+      "composition": "95 % coton, 5 % élasthanne",
+      "description": "Vous partez tôt, avec mille choses en tête et aucune envie de réfléchir longtemps à vos accessoires. Louise fait partie de ces pièces simples que l'on aime retrouver dans son tiroir. Leur beige naturel accompagne les tenues claires, les pantalons de ville et les moments plus décontractés.\n\nCes chaussettes hautes beiges pour femme contiennent 95 % de coton et 5 % d'élasthanne. Leur style discret donne la priorité à la matière et à la simplicité. Elles complètent une garde-robe où chaque détail a sa place, même lorsque personne ne le remarque.\n\nUn quotidien choisi, un rythme qui vous appartient : Louise accompagne les journées ordinaires avec cette petite satisfaction de porter exactement ce que l'on aime. Vérifiez la pointure proposée sur la fiche.",
+      "seoDescription": "Louise, chaussettes hautes beiges pour femme en coton 95 %. Un essentiel doux à associer avec pantalon de ville ou tenue décontractée.",
+      "supplier": "matterhorn",
+      "supplierProductId": "226594",
+      "variants": [
+        {
+          "size": "EU 39/42",
+          "supplierOptionId": "M1273361",
+          "supplierCode": "5906733363137",
+          "ean13": "5906733363137",
+          "declaredStockAtSource": 7
+        }
+      ],
+      "seoTarget": "chaussettes hautes beiges 95 coton femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "191180",
+      "name": "Nina — Chaussettes noires à motif ourson",
+      "slug": "nina-chaussettes-noires-a-motif-ourson-191180",
+      "brand": "Step in style",
+      "category": "chaussettes",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1012425.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1012426.jpg"
+      ],
+      "composition": "85 % coton, 10 % polyamide, 5 % élasthanne",
+      "description": "Vous rentrez après une longue journée. Les chaussures restent près de la porte, le téléphone se fait oublier quelques instants et vous retrouvez le plaisir des choses simples. Nina apporte une petite note malicieuse à ce moment : un motif ourson sur des chaussettes noires faciles à porter.\n\nCes chaussettes noires à motif ourson pour femme sont composées à 85 % de coton, avec du polyamide et de l'élasthanne. Leur couleur classique se marie à un pantalon décontracté, une tenue de maison ou un style urbain sans complication. Elles plaisent à celles qui aiment garder une part de fantaisie jusque dans les détails.\n\nNina se porte pour soi, comme un clin d'œil discret. Parce que la féminité peut aussi être légère, spontanée et un peu joueuse.",
+      "seoDescription": "Nina, chaussettes noires pour femme à motif ourson, 85 % coton. Une note tendre pour les journées fraîches et les instants à soi.",
+      "supplier": "matterhorn",
+      "supplierProductId": "191180",
+      "variants": [
+        {
+          "size": "EU 35/38",
+          "supplierOptionId": "M1110926",
+          "supplierCode": "5905677040548",
+          "ean13": "5905677040548",
+          "declaredStockAtSource": 34
+        },
+        {
+          "size": "EU 38/41",
+          "supplierOptionId": "M1110927",
+          "supplierCode": "5905677040555",
+          "ean13": "5905677040555",
+          "declaredStockAtSource": 40
+        }
+      ],
+      "seoTarget": "chaussettes noires ourson coton 85 femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "191178",
+      "name": "Iris — Chaussettes grises à motif ourson",
+      "slug": "iris-chaussettes-grises-a-motif-ourson-191178",
+      "brand": "Step in style",
+      "category": "chaussettes",
+      "color": "gris",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1012421.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1012422.jpg"
+      ],
+      "composition": "85 % coton, 10 % polyamide, 5 % élasthanne",
+      "description": "Le ciel est gris, mais vous avez prévu de prendre votre temps. Un pull confortable, un pantalon souple et une petite touche d'humour suffisent à composer la journée. Iris joue avec un motif ourson sur un fond gris qui se marie facilement à vos tenues.\n\nCes chaussettes grises à motif ourson pour femme contiennent 85 % de coton. Elles accompagnent les looks décontractés, les après-midi à la maison ou les courses du week-end. La matière reste fidèle à la composition annoncée : coton majoritaire, polyamide et élasthanne, sans promesse de propriété thermique particulière.\n\nIris n'a pas besoin d'une grande occasion. Elle rappelle simplement qu'une paire de chaussettes fantaisie peut apporter un sourire au milieu d'une journée ordinaire.",
+      "seoDescription": "Iris, chaussettes grises pour femme à motif ourson, composées à 85 % de coton. Pour une tenue décontractée pleine de douceur.",
+      "supplier": "matterhorn",
+      "supplierProductId": "191178",
+      "variants": [
+        {
+          "size": "EU 35/38",
+          "supplierOptionId": "M1110922",
+          "supplierCode": "5905677040586",
+          "ean13": "5905677040586",
+          "declaredStockAtSource": 19
+        },
+        {
+          "size": "EU 38/41",
+          "supplierOptionId": "M1110923",
+          "supplierCode": "5905677040593",
+          "ean13": "5905677040593",
+          "declaredStockAtSource": 16
+        }
+      ],
+      "seoTarget": "chaussettes grises motif ourson 85 coton femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "191452",
+      "name": "Romane — Socquettes noires à motif ourson",
+      "slug": "romane-socquettes-noires-a-motif-ourson-191452",
+      "brand": "Step in style",
+      "category": "chaussettes",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1013264.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1013265.jpg"
+      ],
+      "composition": "85 % coton, 10 % polyamide, 5 % élasthanne",
+      "description": "Un petit dessin apparaît au bord de vos chaussures, presque par surprise. Romane aime ces détails qui se remarquent seulement lorsque l'on y prête attention. Avec leur motif ourson, ces socquettes noires apportent une fantaisie discrète à une tenue du quotidien.\n\nCes socquettes noires pour femme à motif ourson sont composées à 85 % de coton. Plus courtes que les chaussettes longues de notre sélection, elles se portent volontiers sous un pantalon avec des chaussures basses. Leur coloris noir permet de rester sobre, tandis que le motif fait le reste.\n\nVous pouvez les choisir pour un samedi tranquille ou les offrir pour faire sourire quelqu'un. Romane ne change pas la journée, mais sait y glisser une note de légèreté.",
+      "seoDescription": "Romane, socquettes noires pour femme à motif ourson, 85 % coton. Un détail amusant à porter sous un pantalon et des chaussures basses.",
+      "supplier": "matterhorn",
+      "supplierProductId": "191452",
+      "variants": [
+        {
+          "size": "EU 35/38",
+          "supplierOptionId": "M1112148",
+          "supplierCode": "5905677041002",
+          "ean13": "5905677041002",
+          "declaredStockAtSource": 15
+        },
+        {
+          "size": "EU 38/41",
+          "supplierOptionId": "M1112149",
+          "supplierCode": "5905677041019",
+          "ean13": "5905677041019",
+          "declaredStockAtSource": 18
+        }
+      ],
+      "seoTarget": "socquettes noires femme coton motif ourson",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "190401",
+      "name": "Noémie — Chaussettes rouges pailletées de Noël",
+      "slug": "noemie-chaussettes-rouges-pailletees-de-noel-190401",
+      "brand": "Step in style",
+      "category": "chaussettes",
+      "color": "rouge",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1009881.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1009882.jpg"
+      ],
+      "composition": "85 % coton, 10 % polyamide, 5 % élasthanne",
+      "description": "Décembre approche et les invitations commencent à remplir l'agenda. On prépare une table, on retrouve ses proches et l'on glisse quelques détails de fête dans ses tenues. Noémie joue ce rôle avec son rouge et ses paillettes, sans vous imposer une robe de soirée.\n\nCes chaussettes rouges de Noël à paillettes pour femme sont composées à 85 % de coton, avec du polyamide et de l'élasthanne. Elles se portent sous un pantalon sombre, avec une tenue de détente ou comme petite attention à offrir pendant les fêtes.\n\nIl y a des cadeaux dont le prix ne dit rien du plaisir. Noémie rappelle le charme des traditions que l'on réinvente à sa façon, avec un brin de fantaisie et beaucoup de bonne humeur.",
+      "seoDescription": "Noémie, chaussettes de Noël rouges à paillettes pour femme, 85 % coton. Un détail festif pour décembre et les petits cadeaux.",
+      "supplier": "matterhorn",
+      "supplierProductId": "190401",
+      "variants": [
+        {
+          "size": "EU 35/38",
+          "supplierOptionId": "M1107982",
+          "supplierCode": "5905677024340",
+          "ean13": "5905677024340",
+          "declaredStockAtSource": 6
+        }
+      ],
+      "seoTarget": "chaussettes rouges noël paillettes coton femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "226598",
+      "name": "Zélie — Chaussettes beiges à motif léopard",
+      "slug": "zelie-chaussettes-beiges-a-motif-leopard-226598",
+      "brand": "Gabriella",
+      "category": "chaussettes",
+      "color": "beige",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1121098.jpg"
+      ],
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "description": "Vous avez choisi un pantalon sobre et des chaussures classiques. Il manque seulement ce petit détail qui n'appartient qu'à vous. Zélie emprunte au léopard son dessin reconnaissable et l'adoucit dans une teinte beige facile à associer.\n\nCes chaussettes beiges à motif léopard pour femme jouent avec une maille d'aspect fin et une composition en polyamide et élasthanne. Sous un pantalon court, avec des chaussures basses ou des mocassins, le motif se dévoile par touches. Leur fantaisie ne demande pas de changer toute la tenue.\n\nUn rendez-vous, une balade ou une journée au bureau : Zélie sait se montrer lorsque vous le décidez. Une petite liberté de style, tout simplement.",
+      "seoDescription": "Zélie, chaussettes fantaisie beiges à motif léopard pour femme. Un détail graphique à porter avec mocassins ou tenue de ville.",
+      "supplier": "matterhorn",
+      "supplierProductId": "226598",
+      "variants": [
+        {
+          "size": "EU universelle",
+          "supplierOptionId": "M1273367",
+          "supplierCode": "5906733364165",
+          "ean13": "5906733364165",
+          "declaredStockAtSource": 2
+        }
+      ],
+      "seoTarget": "chaussettes femme beiges leopard voile fantaisie",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "226599",
+      "name": "Adèle — Chaussettes fines beiges à pois",
+      "slug": "adele-chaussettes-fines-beiges-a-pois-226599",
+      "brand": "Gabriella",
+      "category": "chaussettes",
+      "color": "beige",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1121099.jpg"
+      ],
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "description": "Un matin de semaine, vous nouez les lacets de vos chaussures puis remarquez le détail qui change votre tenue. Adèle dessine de petits pois sur une base beige et transforme un accessoire pratique en choix de style.\n\nCes chaussettes fines beiges à pois pour femme présentent un effet de voile fantaisie. Elles sont composées de polyamide et d'élasthanne et se prêtent aux associations avec des mocassins, des chaussures basses ou un pantalon légèrement raccourci. Le motif reste délicat, sans perdre sa personnalité.\n\nUne tenue de bureau, un déjeuner ou un rendez-vous sans occasion particulière : Adèle préfère les histoires simples. Celles où l'on s'habille avant tout pour se plaire, jusque dans les détails.",
+      "seoDescription": "Adèle, chaussettes fines beiges à pois pour femme, effet voile fantaisie. Une touche graphique à porter avec chaussures basses.",
+      "supplier": "matterhorn",
+      "supplierProductId": "226599",
+      "variants": [
+        {
+          "size": "EU universelle",
+          "supplierOptionId": "M1273368",
+          "supplierCode": "5906733364158",
+          "ean13": "5906733364158",
+          "declaredStockAtSource": 6
+        }
+      ],
+      "seoTarget": "chaussettes beiges à pois voile fin femme",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "226186",
+      "name": "Héloïse — Chaussettes longues blanches",
+      "slug": "heloise-chaussettes-longues-blanches-226186",
+      "brand": "Fiore",
+      "category": "chaussettes",
+      "color": "blanc",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1119818.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1119819.jpg"
+      ],
+      "composition": "92 % polyamide, 8 % élasthanne",
+      "description": "Vous aimez les tenues nettes et les couleurs qui laissent respirer la silhouette. Héloïse apporte une note de blanc à votre vestiaire : une pièce simple, à associer aux chaussures et aux vêtements que vous portez le plus souvent.\n\nCes chaussettes longues blanches pour femme sont composées de polyamide et d'élasthanne. Leur teinte claire s'accorde à une tenue décontractée, à un pantalon beige ou à des chaussures aux lignes épurées. Le terme « longues » désigne ici le modèle du catalogue : il ne garantit pas une hauteur jusqu'au genou.\n\nCertains accessoires savent se faire discrets tout en gardant leur place. Héloïse appartient à cette famille d'essentiels que l'on choisit pour leur simplicité, chaque fois que l'on en a envie.",
+      "seoDescription": "Héloïse, chaussettes longues blanches pour femme en polyamide et élasthanne. Un essentiel clair pour tenues de ville et style quotidien.",
+      "supplier": "matterhorn",
+      "supplierProductId": "226186",
+      "variants": [
+        {
+          "size": "EU universelle",
+          "supplierOptionId": "M1271750",
+          "supplierCode": "5901874336958",
+          "ean13": "5901874336958",
+          "declaredStockAtSource": 17
+        }
+      ],
+      "seoTarget": "chaussettes longues blanches femme polyamide",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "226261",
+      "name": "Camille — Chaussettes longues beiges",
+      "slug": "camille-chaussettes-longues-beiges-226261",
+      "brand": "Gabriella",
+      "category": "chaussettes",
+      "color": "beige",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1120034.jpg"
+      ],
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "description": "Un manteau clair, un pantalon bien coupé et l'envie de prolonger cette harmonie jusqu'au bout de votre tenue. Camille se glisse dans les silhouettes aux tons doux avec une nuance beige facile à associer.\n\nCes chaussettes longues beiges pour femme sont composées de polyamide et d'élasthanne. Elles complètent un look de ville, un pantalon écru ou une tenue de promenade, sans réclamer l'attention. Leur longueur est celle indiquée dans le catalogue ; nous ne la présentons pas comme un mi-bas au genou sans mesure confirmée.\n\nVous avez vos habitudes, vos couleurs et vos envies du jour. Camille les accompagne sans chercher à les transformer. Le confort d'un choix simple et l'élégance d'un détail à sa place.",
+      "seoDescription": "Camille, chaussettes longues beiges pour femme, en polyamide et élasthanne. Une teinte facile à associer aux tenues de ville.",
+      "supplier": "matterhorn",
+      "supplierProductId": "226261",
+      "variants": [
+        {
+          "size": "EU universelle",
+          "supplierOptionId": "M1271897",
+          "supplierCode": "5906733311336",
+          "ean13": "5906733311336",
+          "declaredStockAtSource": 5
+        }
+      ],
+      "seoTarget": "chaussettes longues beiges femme tenue ville",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    },
+    {
+      "id": "226262",
+      "name": "Jeanne — Chaussettes longues noires",
+      "slug": "jeanne-chaussettes-longues-noires-226262",
+      "brand": "Gabriella",
+      "category": "chaussettes",
+      "color": "noir",
+      "images": [
+        "https://lingeriematterhorn.fr/pics_source/1120035.jpg",
+        "https://lingeriematterhorn.fr/pics_source/1120036.jpg"
+      ],
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "description": "Vous avez rendez-vous en ville et pas une minute à perdre. Un pantalon sombre, une paire de chaussures favorites et la certitude d'avoir choisi une tenue qui vous ressemble. Jeanne apporte ce noir intemporel qui simplifie les associations.\n\nCes chaussettes longues noires pour femme sont composées de polyamide et d'élasthanne. Leur ligne sobre convient aux tenues de bureau, aux sorties décontractées ou aux silhouettes monochromes. La longueur annoncée est celle du modèle, sans prétendre atteindre systématiquement le genou.\n\nJeanne se fait discrète, mais c'est aussi sa force. Une pièce classique n'enlève rien à la personnalité de celle qui la porte ; elle lui laisse au contraire toute la place.",
+      "seoDescription": "Jeanne, chaussettes longues noires pour femme, en polyamide et élasthanne. Un classique discret pour pantalon, ville et quotidien.",
+      "supplier": "matterhorn",
+      "supplierProductId": "226262",
+      "variants": [
+        {
+          "size": "EU universelle",
+          "supplierOptionId": "M1271898",
+          "supplierCode": "5906733311329",
+          "ean13": "5906733311329",
+          "declaredStockAtSource": 8
+        }
+      ],
+      "seoTarget": "chaussettes longues noires femme quotidien",
+      "storyTitle": "Un détail pour votre vie de tous les jours"
+    }
+  ],
+  "stockSourceNote": "Quantités indicatives issues du XML Matterhorn transmis le 07/11/2026 ; aucune synchronisation temps réel et aucune promesse de disponibilité"
+}
