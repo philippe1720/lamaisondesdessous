@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-08T15:26:00Z",
+  "updatedAt": "2026-11-05",
   "products": [
     {
       "id": "20985",
@@ -454,6 +454,89 @@
         "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
       },
       "seoDescription": "Bas résille beiges autofixants Ohyeah pour femme, jarretière dentelle et maintien silicone. Taille unique ou grande taille."
+    },
+    {
+      "id": "22811",
+      "slug": "bas-dentelle-noire-desire-christine",
+      "name": "Desire de Christine — Bas autofixants noirs à dentelle florale",
+      "description": "Il est 20 heures. Vous avez choisi votre robe, glissé vos bijoux préférés et pris quelques instants pour vous regarder dans le miroir. Ce soir, vous ne cherchez pas à jouer un rôle : vous voulez simplement vous sentir belle, à votre façon. Les bas autofixants noirs Desire de Christine associent un voile fin et transparent à une large jarretière en dentelle florale noire. Sous une robe pour un rendez-vous, une jupe pour une journée au bureau ou une tenue choisie pour le seul plaisir de vous habiller, ils apportent une élégance discrète et féminine. Ces bas noirs en dentelle florale pour femme se portent sans porte-jarretelles grâce à leur conception autofixante. Un détail de lingerie que l'on choisit pour soi, avant tout.",
+      "composition": "85 % polyamide, 15 % élasthanne",
+      "category": "autofixants",
+      "brand": "Christine",
+      "images": [
+        "/images/bas/22811-1.jpg",
+        "/images/bas/22811-2.jpg",
+        "/images/bas/22811-3.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "8719934035478",
+          "size": "S/M",
+          "color": "Noir",
+          "stock": 3,
+          "priceCents": 2290
+        },
+        {
+          "ean": "8719934035485",
+          "size": "L/XL",
+          "color": "Noir",
+          "stock": 3,
+          "priceCents": 2290
+        }
+      ],
+      "details": {
+        "Aspect": "Voile noir fin et transparent",
+        "Maintien": "Bas autofixants à jarretière en dentelle florale",
+        "Jarretière": "Large dentelle florale noire",
+        "Contenu": "Une paire de bas ; culotte et autres accessoires photographiés non inclus"
+      },
+      "seoDescription": "Bas autofixants noirs Desire de Christine, voile transparent et large dentelle florale. Lingerie féminine pour robe et jupe."
+    },
+    {
+      "id": "12451",
+      "slug": "bas-autofixants-noir-rouge-passion-st004",
+      "name": "Éclat de Passion — Bas autofixants noirs et dentelle rouge 17 deniers",
+      "description": "Il y a des jours où vous aimez la discrétion. Et d'autres où un détail rouge change tout. Ce soir, vous choisissez une robe noire, mais c'est sous la robe que vous décidez d'ajouter une touche inattendue. Les bas autofixants noirs et rouges Éclat de Passion révèlent un voile transparent de 17 deniers et une large jarretière en dentelle rouge. Leurs bandes de silicone repositionnables assurent le maintien sans porte-jarretelles. Pour un rendez-vous amoureux, une soirée entre amis ou simplement le plaisir de vous sentir féminine, ces bas de lingerie noirs à dentelle rouge jouent le contraste avec élégance. Un choix qui n'appartient qu'à vous.",
+      "composition": "87 % polyamide, 13 % élasthanne",
+      "category": "autofixants",
+      "brand": "Passion",
+      "images": [
+        "/images/bas/12451-1.jpg",
+        "/images/bas/12451-2.jpg"
+      ],
+      "variants": [
+        {
+          "ean": "5908305940241",
+          "size": "1/2",
+          "color": "Noir et rouge",
+          "stock": 0,
+          "priceCents": 1990
+        },
+        {
+          "ean": "5908305940289",
+          "size": "3/4",
+          "color": "Noir et rouge",
+          "stock": 0,
+          "priceCents": 1990
+        },
+        {
+          "ean": "5908305940326",
+          "size": "5",
+          "color": "Noir et rouge",
+          "stock": 0,
+          "priceCents": 1990
+        }
+      ],
+      "details": {
+        "Aspect": "Voile noir transparent, dentelle rouge",
+        "Deniers": "17 deniers",
+        "Maintien": "Bandes de silicone repositionnables",
+        "Correspondance taille 1/2": "Hauteur 60 à 75 cm ; poids 45 à 55 kg",
+        "Correspondance taille 3/4": "Hauteur 70 à 90 cm ; poids 50 à 65 kg",
+        "Correspondance taille 5": "Hauteur supérieure à 80 cm ; poids supérieur à 60 kg",
+        "Contenu": "Une paire de bas ; autres accessoires photographiés non inclus"
+      },
+      "seoDescription": "Bas autofixants noirs et rouges Passion, voile 17 deniers, large dentelle rouge et silicone repositionnable. Tailles 1/2, 3/4 et 5."
     }
   ]
 }
