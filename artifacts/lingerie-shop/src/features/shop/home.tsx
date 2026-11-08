@@ -15,7 +15,13 @@ export default function StockingHome() {
   const resillePhoto = look('20990', '/images/bas/20990-1.jpg');
   const collantsPhoto = matterhorn.products.find(p => p.id === '220114')?.images[0] || '';
   const socksPhoto = matterhorn.products.find(p => p.id === '191180')?.images[0] || '';
-  const selection = products.filter(p => p.variants.some(v => v.stock > 0)).slice(0, 3);
+  // Mettre en avant les deux nouveautés, puis un modèle à porte-jarretelles
+  // plutôt que trois coloris voisins. Une fiche n'apparaît que si sa taille est disponible.
+  const featuredIds = ['22811', '12451', '20988', '22289', '20985'];
+  const selection = featuredIds
+    .map(id => products.find(p => p.id === id && p.variants.some(v => v.stock > 0)))
+    .filter((p): p is (typeof products)[number] => Boolean(p))
+    .slice(0, 3);
 
   return <><SEO
     title="Bas pour femme, collants et chaussettes"
