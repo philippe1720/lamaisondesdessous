@@ -65,7 +65,7 @@ const previewPages=[
   }),
   ...upcoming.map(p=>[upcomingPath(p),p.name,p.seoDescription,
     `<img src="${esc(p.images[0])}" alt="${esc(p.name)}" width="300" height="400"><h2>Une histoire à porter</h2>`+
-    p.description.split('\\n\\n').map(par=>`<p>${esc(par)}</p>`).join('')+
+    p.description.split('\n\n').map(par=>`<p>${esc(par)}</p>`).join('')+
     `<h2>Les détails de ce modèle</h2><p>Composition : ${esc(p.composition)}. Coloris : ${esc(p.color)}.</p>`+
     `<p>Tailles de cette sélection : ${p.variants.map(v=>esc(v.size)).join(', ')}.</p>`+
     `<p>Ce modèle est en préparation et n'est pas disponible à la commande.</p>`+
