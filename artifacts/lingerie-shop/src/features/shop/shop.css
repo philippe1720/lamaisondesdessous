@@ -149,3 +149,7 @@
   .lmd-home-hero h1 {font-size:clamp(2.15rem,9vw,3.2rem);margin:14px 0;}
   .lmd-home-hero>div>p:not(.stocking-eyebrow) {line-height:1.55;}
 }
+
+/* Aperçus à lire : garder les cartes visuelles aérées, histoires intégrales sur les fiches. */
+.stocking-card .lmd-preview-excerpt {font-size:.9rem;line-height:1.55;color:hsl(var(--muted-foreground));display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;margin:10px 0;}
+.lmd-product-story .stocking-intro {margin:0 0 18px;max-width:68ch;line-height:1.85;}
