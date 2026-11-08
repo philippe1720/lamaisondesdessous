@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { HelmetProvider } from 'react-helmet-async';
 import { Layout } from "@/components/layout/layout";
 
-import Home, { Guide } from "@/features/shop/home";
+import Home, { Guide, ChooseStockingsLanding } from "@/features/shop/home";
 import { Catalogue, ProductPage } from "@/features/shop/catalogue";
 import { MatterhornCollection, MatterhornPreviewProduct } from "@/features/shop/matterhorn-preview";
 import { AdvicePage } from '@/features/shop/editorial';
@@ -28,6 +28,7 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/choisir-ses-bas" component={ChooseStockingsLanding} />
         <Route path="/boutique" component={Catalogue} />
         <Route path="/bas-resille" component={Catalogue} />
         <Route path="/collants-femme" component={MatterhornCollection} />
