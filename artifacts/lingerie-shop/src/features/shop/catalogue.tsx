@@ -27,7 +27,7 @@ export function Catalogue() {
       <nav aria-label="Fil d’Ariane" className="stocking-note"><Link href="/">Accueil</Link> · {page ? <><Link href="/boutique">Tous nos bas</Link> · {page.title}</> : 'Tous nos bas'}</nav>
       <p className="stocking-eyebrow">LA MAISON DES DESSOUS · LE SENS DU DÉTAIL</p><h1>{title}</h1>
       <p className="stocking-intro">{page?.intro || 'Découvrez nos bas de lingerie pour femme : bas autofixants en dentelle, voile 20 deniers et bas résille à porter avec ou sans porte-jarretelles.'}</p>
-      <nav className="stocking-filters" aria-label="Collections"><Link href="/boutique">Tous les bas</Link><Link href="/bas-autofixants">Autofixants</Link><Link href="/bas-porte-jarretelles">Pour porte-jarretelles</Link><Link href="/bas-resille">Résille</Link></nav>
+      <nav className="stocking-filters" aria-label="Collections"><Link href="/boutique">Tous les bas</Link><Link href="/bas-autofixants">Autofixants</Link><Link href="/bas-porte-jarretelles">Pour porte-jarretelles</Link><Link href="/bas-resille">Résille</Link><Link href="/collants-femme">Collants (aperçu)</Link><Link href="/chaussettes-femme">Chaussettes (aperçu)</Link></nav>
       <label className="stocking-select">Couleur <select value={color} onChange={e=>setColor(e.target.value)}><option value="">Toutes</option>{colors.map(c=><option key={c}>{c}</option>)}</select></label>
       <div className="stocking-grid">{filtered.filter(p=>!color || p.variants.some(v=>v.color===color)).map(p=><ProductCard key={p.id} product={p}/>)}</div>
       {page && <EditorialSections sections={page.sections} links={page.links}/>}
