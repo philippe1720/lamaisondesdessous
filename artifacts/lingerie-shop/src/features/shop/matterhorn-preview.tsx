@@ -53,6 +53,12 @@ export function MatterhornCollection() {
       <p className="stocking-eyebrow">LA MAISON DES DESSOUS · POUR VOS JAMBES, À VOTRE FAÇON</p>
       <h1>{copy.title}</h1>
       <p className="stocking-intro">{copy.intro}</p>
+      <aside className="lmd-guide-cta" aria-label="Conseil pour choisir votre taille">
+        <div><strong>Choisir la bonne taille avant tout.</strong><p>{kind === 'collants'
+          ? 'Stature, tour de hanches et lecture des tailles S à XL : toutes les étapes pour vous repérer.'
+          : 'Mesurez vos pieds et apprenez à lire les pointures 35/38, 38/41 ou la taille universelle.'}</p></div>
+        <Link className="stocking-button secondary" href={kind === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Voir le guide pratique →</Link>
+      </aside>
       <p className="stocking-note" role="status">Notre sélection se prépare : ces modèles ne sont pas encore proposés à la vente. Nous vous présenterons les prix, tailles disponibles et conditions de livraison lors de leur ouverture à la commande.</p>
       <nav className="stocking-filters" aria-label="Nos collections">
         <Link href="/bas-autofixants">Bas autofixants</Link>
@@ -91,7 +97,7 @@ export function MatterhornCollection() {
           <Link className="stocking-button secondary" href={productUrl(p)}>Découvrir son histoire →</Link>
         </article>)}
       </div>
-      <p className="stocking-note">Vous hésitez sur les tailles ou les styles ? <Link href="/guide-des-tailles">Consultez nos conseils de tailles</Link> et <Link href="/guide-des-bas">notre guide des bas</Link>.</p>
+      <p className="stocking-note">Besoin d'aide ? <Link href={kind === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Lire le guide des tailles adapté à cette collection →</Link></p>
     </main>
   </>;
 }
@@ -123,10 +129,11 @@ export function MatterhornPreviewProduct() {
           <dl className="stocking-specs">
             <div><dt>Matière</dt><dd>{p.composition}</dd></div>
             <div><dt>Coloris</dt><dd>{p.color}</dd></div>
-            <div><dt>Tailles proposées dans cette sélection</dt><dd>{p.variants.map(v => v.size).join(' · ')}</dd></div>
+            <div><dt>Tailles indiquées pour le modèle (non garanties en stock)</dt><dd>{p.variants.map(v => v.size.replace(/^EU /, '')).join(' · ')}</dd></div>
           </dl>
+          <aside className="lmd-guide-cta" aria-label="Guide des tailles pour ce modèle"><div><strong>Quelle taille choisir pour {p.name.split(' — ')[0]} ?</strong><p>Les étiquettes ci-dessus ne sont pas une correspondance de mensurations. Notre guide vous aide à mesurer et à demander confirmation si nécessaire.</p></div><Link className="stocking-button secondary" href={p.category === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Comprendre les tailles de ce modèle →</Link></aside>
           <p className="stocking-note" role="status">Collection en préparation. Ce modèle n'est pas encore disponible à la commande. Son prix, sa disponibilité réelle et les conditions de livraison seront précisés avant l'ouverture des ventes.</p>
-          <p>Découvrez <Link href={collection.url}>les autres modèles de cette collection</Link> et <Link href="/guide-des-tailles">notre guide des tailles</Link>.</p>
+          <p>Découvrez <Link href={collection.url}>les autres modèles de cette collection</Link> ou <Link href="/guide-des-tailles">l'ensemble de nos conseils de tailles</Link>.</p>
           <h2>À découvrir dans le même univers</h2>
           <ul>{products.filter(other => other.id !== p.id && other.category === p.category).slice(0, 3).map(other => <li key={other.id}><Link href={productUrl(other)}>{other.name}</Link></li>)}</ul>
         </section>
