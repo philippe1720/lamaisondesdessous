@@ -86,7 +86,7 @@ export default function StockingHome() {
     <section className="stocking-page lmd-home-reassurance" aria-label="Informations utiles pour acheter">
       <h2 className="stocking-section-title">Pour choisir en confiance.</h2>
       <div className="lmd-trust-grid">
-        <div><h3>Votre taille</h3><p>Les correspondances changent selon les marques et les modèles.</p><Link href="/guide-des-tailles">Consulter les guides de tailles →</Link></div>
+        <div><h3>Votre taille</h3><p>Bas, collants et chaussettes : les bonnes mesures ne sont pas les mêmes. Un guide dédié pour chaque famille.</p><Link href="/guide-des-tailles">Voir tous les guides de tailles →</Link><div className="lmd-home-guide-links"><Link href="/guide-tailles-collants">Pour les collants</Link><Link href="/guide-tailles-chaussettes">Pour les chaussettes</Link></div></div>
         <div><h3>Livraison et retours</h3><p>La livraison standard de nos bas est comprise dans le prix affiché. Conditions détaillées avant achat.</p><Link href="/livraison-retours">Lire les conditions →</Link></div>
         <div><h3>Une question ?</h3><p>Besoin d'un renseignement sur un modèle ou son maintien ?</p><a href="mailto:contact@lamaisondesdessous.fr">Nous écrire →</a></div>
       </div>
