@@ -17,7 +17,7 @@ const mainMaterial = (p: PreviewProduct) => p.composition.split(',')[0].replace(
 const collectionCopy = {
   collants: {
     title: 'Collants pour femme — coton, opaques et fantaisie',
-    intro: 'Une robe pour travailler, une promenade ou un dîner improvisé : il existe mille façons de choisir ses collants. Découvrez des pièces aux prénoms féminins, avec leurs particularités, leurs matières et les histoires que vous leur donnerez.',
+    intro: 'Une robe pour travailler, une promenade ou un dîner improvisé : il existe mille façons de choisir ses collants. Découvrez notre sélection de collants opaques, riches en coton ou à motifs, et laissez chaque détail raconter votre façon de vivre.',
     seo: 'Collants pour femme : collants noirs opaques en coton, collants beiges, dentelle à la taille, motifs à pois et chevrons 60 deniers.',
     url: '/collants-femme'
   },
@@ -85,7 +85,7 @@ export function MatterhornCollection() {
             <div className="stocking-picture"><img loading="lazy" width="600" height="800" src={p.images[0]} alt={p.name} /></div>
             <p className="stocking-eyebrow">LA SÉLECTION DE LA MAISON</p>
             <h2>{p.name}</h2>
-            <p>{p.description.split('\n\n')[0]}</p>
+            <p className="lmd-preview-excerpt">{p.description.split('\n\n')[0]}</p>
             <small>{p.color} · Tailles présentées : {p.variants.map(v => v.size).join(', ')}</small>
           </Link>
           <Link className="stocking-button secondary" href={productUrl(p)}>Découvrir son histoire →</Link>
