@@ -12,6 +12,7 @@ export default function StockingHome() {
   const basPhoto = look('20985', '/images/bas/20985-1.jpg');
   const autoPhoto = look('20985', '/images/bas/20985-1.jpg');
   const attachesPhoto = look('20988', '/images/bas/20988-1.jpg');
+  const resillePhoto = look('20990', '/images/bas/20990-1.jpg');
   const collantsPhoto = matterhorn.products.find(p => p.id === '220114')?.images[0] || '';
   const socksPhoto = matterhorn.products.find(p => p.id === '191180')?.images[0] || '';
   const selection = products.filter(p => p.variants.some(v => v.stock > 0)).slice(0, 3);
@@ -24,54 +25,48 @@ export default function StockingHome() {
   <main>
     <section className="stocking-hero lmd-home-hero" aria-labelledby="lmd-home-title">
       <div>
-        <p className="stocking-eyebrow">LA MAISON DES DESSOUS · POUR TOUTES SES VIES</p>
+        <p className="stocking-eyebrow">LA FEMME EST L'AVENIR DE LA FEMME</p>
         <h1 id="lmd-home-title">Un style pour chaque moment. Toujours vous.</h1>
-        <p>Les bas pour les rendez-vous que vous choisissez. Les collants pour vos journées bien remplies. Les chaussettes pour les petits plaisirs du quotidien. Une Maison qui accompagne votre féminité, sans vous dire comment la vivre.</p>
-        <div className="lmd-home-actions">
-          <Link className="stocking-button" href="/choisir-ses-bas">Trouver mes bas</Link>
-          <a className="stocking-button secondary" href="#nos-univers">Découvrir nos univers</a>
-        </div>
-        <small>Nos bas sont proposés à la vente, livraison standard comprise dans le prix. Collants et chaussettes : collections en préparation.</small>
+        <p>La Maison des Dessous vous accompagne dans votre féminité : une tenue pour le travail, un détail pour une soirée, ou le simple plaisir de choisir pour vous.</p>
+        <p className="lmd-hero-prompt">Quel type de bas recherchez-vous ?</p>
+        <nav className="lmd-hero-shortcuts" aria-label="Choisir directement une catégorie de bas">
+          <Link href="/bas-autofixants">Bas autofixants →</Link>
+          <Link href="/bas-porte-jarretelles">Pour porte-jarretelles →</Link>
+          <Link href="/bas-resille">Bas résille →</Link>
+        </nav>
+        <a className="lmd-explore-link" href="#nos-univers">Ou découvrir les 5 catégories de la Maison ↓</a>
+        <small>Bas vendus avec livraison standard comprise dans le prix en France métropolitaine. Collants et chaussettes en préparation.</small>
       </div>
-      <img src={basPhoto} alt="Bas noirs à couture et dentelle : modèle présent dans la boutique La Maison des Dessous" fetchPriority="high" width="800" height="1000" />
+      <img src={basPhoto} alt="Bas noirs à couture et dentelle, modèle actuellement présenté dans la boutique" fetchPriority="high" width="800" height="1000" />
     </section>
 
     <section id="nos-univers" className="stocking-page lmd-home-universes" aria-labelledby="lmd-universe-heading">
-      <p className="stocking-eyebrow">VOTRE STYLE, VOTRE JOURNÉE</p>
-      <h2 id="lmd-universe-heading" className="stocking-section-title">Trois univers. Une seule femme : vous.</h2>
-      <p className="stocking-intro">Un rendez-vous, un matin pressé, une promenade d'hiver : choisissez ce qui vous ressemble, sans changer qui vous êtes.</p>
+      <p className="stocking-eyebrow">LE CHOIX VOUS APPARTIENT</p>
+      <h2 id="lmd-universe-heading" className="stocking-section-title">Choisissez votre catégorie.</h2>
+      <p className="stocking-intro">Cinq façons d'accompagner votre quotidien. Les bas sont disponibles en boutique ; les collants et les chaussettes arrivent dans notre sélection.</p>
       <div className="lmd-universe-grid">
-        <Link className="lmd-universe-tile" href="/boutique">
-          <div className="lmd-universe-image"><img src={basPhoto} alt="Bas de lingerie noirs à couture et dentelle" loading="lazy" width="480" height="600"/><span className="lmd-universe-status">Collection en boutique</span></div>
-          <div className="lmd-universe-copy"><p className="stocking-eyebrow">01 · LE GLAMOUR À VOTRE FAÇON</p><h3>Les bas</h3><p>Autofixants, résille ou attaches : à vous de décider.</p><strong>Choisir mes bas →</strong></div>
+        <Link className="lmd-universe-tile" href="/bas-autofixants">
+          <div className="lmd-universe-image"><img src={autoPhoto} alt="Bas autofixants noirs à jarretière en dentelle, portés sans porte-jarretelles" loading="lazy" width="480" height="600"/><span className="lmd-universe-status">En boutique</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">SANS ATTACHES</p><h3>Bas autofixants</h3><p>Une jarretière siliconée, pour porter vos bas sans porte-jarretelles.</p><strong>Voir les modèles →</strong></div>
+        </Link>
+        <Link className="lmd-universe-tile" href="/bas-porte-jarretelles">
+          <div className="lmd-universe-image"><img src={attachesPhoto} alt="Bas résille noirs à jarretière lacée, modèle à fixer avec porte-jarretelles" loading="lazy" width="480" height="600"/><span className="lmd-universe-status">En boutique</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">AVEC ATTACHES</p><h3>Bas pour porte-jarretelles</h3><p>Le choix des attaches pour un maintien à votre façon.</p><strong>Voir les modèles →</strong></div>
+        </Link>
+        <Link className="lmd-universe-tile" href="/bas-resille">
+          <div className="lmd-universe-image"><img src={resillePhoto} alt="Bas résille noirs à maille ajourée, modèle de la boutique" loading="lazy" width="480" height="600"/><span className="lmd-universe-status">En boutique</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">MAILLE AJOURÉE</p><h3>Bas résille</h3><p>Des lignes graphiques et différents types de maintien, à vérifier sur chaque fiche.</p><strong>Voir les modèles →</strong></div>
         </Link>
         <Link className="lmd-universe-tile" href="/collants-femme">
-          <div className="lmd-universe-image"><img src={collantsPhoto} alt="Collants Gatta Celia noirs riches en coton, photo originale du fournisseur" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">En préparation</span></div>
-          <div className="lmd-universe-copy"><p className="stocking-eyebrow">02 · LES JOURNÉES QUI VOUS APPARTIENNENT</p><h3>Les collants</h3><p>Coton, opaques ou fantaisie pour renouveler vos tenues.</p><strong>Découvrir l'aperçu →</strong></div>
+          <div className="lmd-universe-image"><img src={collantsPhoto} alt="Collants noirs Gatta Celia riches en coton, photographie originale du fournisseur Matterhorn" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">POUR LES JOURNÉES ACTIVES</p><h3>Collants femme</h3><p>Opaques, coton et fantaisie : un aperçu de nos futures références.</p><strong>Découvrir la sélection en préparation →</strong></div>
         </Link>
         <Link className="lmd-universe-tile" href="/chaussettes-femme">
-          <div className="lmd-universe-image"><img src={socksPhoto} alt="Chaussettes Step in Style à motif ourson, photo originale du fournisseur" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">En préparation</span></div>
-          <div className="lmd-universe-copy"><p className="stocking-eyebrow">03 · LE CONFORT ET LA FANTAISIE</p><h3>Les chaussettes</h3><p>Coton, motifs discrets et petits plaisirs de saison.</p><strong>Découvrir l'aperçu →</strong></div>
+          <div className="lmd-universe-image"><img src={socksPhoto} alt="Chaussettes Step in Style noires à motif ourson, photographie originale du fournisseur Matterhorn" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">CONFORT ET FANTAISIE</p><h3>Chaussettes femme</h3><p>Coton, modèles longs et motifs : pour les détails du quotidien.</p><strong>Découvrir la sélection en préparation →</strong></div>
         </Link>
       </div>
-    </section>
-
-    <section className="stocking-page lmd-choose-section" aria-labelledby="lmd-bas-choice">
-      <p className="stocking-eyebrow">VOUS CHERCHEZ DES BAS ?</p>
-      <h2 id="lmd-bas-choice" className="stocking-section-title">Autofixants ou porte-jarretelles ?</h2>
-      <p className="stocking-intro">Deux façons de porter vos bas. Quelques secondes suffisent pour trouver la collection adaptée à votre préférence.</p>
-      <div className="lmd-choice-grid">
-        <Link className="lmd-choice-tile" href="/bas-autofixants">
-          <img src={autoPhoto} loading="lazy" alt="Bas autofixants noirs avec jarretière siliconée, modèle de la boutique" width="640" height="760"/>
-          <div><h3>Je choisis les autofixants</h3><p>Le maintien par une jarretière siliconée, sans porte-jarretelles.</p><strong>Voir les bas autofixants →</strong></div>
-        </Link>
-        <Link className="lmd-choice-tile" href="/bas-porte-jarretelles">
-          <img src={attachesPhoto} loading="lazy" alt="Bas résille noirs à jarretière lacée, à porter avec porte-jarretelles" width="640" height="760"/>
-          <div><h3>Je préfère les porte-jarretelles</h3><p>Des bas conçus pour être fixés à des attaches, à choisir séparément.</p><strong>Voir les bas pour porte-jarretelles →</strong></div>
-        </Link>
-      </div>
-      <p className="stocking-note">Vous aimez la maille ajourée ? <Link href="/bas-resille">Découvrez également les bas résille noirs et beiges.</Link></p>
-      <p className="stocking-note"><Link href="/choisir-ses-bas">Comparer les deux maintiens en quelques instants →</Link></p>
+      <p className="stocking-note">Vous hésitez sur le maintien ? <Link href="/guide-des-bas">Comprendre la différence entre autofixants et porte-jarretelles →</Link></p>
     </section>
 
     <section className="stocking-page" aria-labelledby="lmd-available">
