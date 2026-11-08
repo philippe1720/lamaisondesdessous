@@ -33,7 +33,7 @@ const pages=[
     '<li><a href="/collants-femme">Collants pour femme — sélection en préparation, non commandable</a>.</li>'+
     '<li><a href="/chaussettes-femme">Chaussettes pour femme — sélection en préparation, non commandable</a>.</li></ul>'+
     '<h2>Autofixants ou porte-jarretelles ?</h2>'+
-    '<p><a href="/choisir-ses-bas">Choisir ses bas : comparer les deux types de maintien</a>.</p>'+
+    '<p>Pour comparer les deux maintiens, consultez <a href="/guide-des-bas">notre guide des bas</a>.</p>'+
     '<p><a href="/bas-autofixants">Les bas autofixants, sans attaches</a> · <a href="/bas-porte-jarretelles">Les bas pour porte-jarretelles, avec attaches</a> · <a href="/bas-resille">Les bas résille femme</a>.</p>'+
     '<h2>Les bas en boutique</h2>'+list(products.filter(p=>p.variants.some(v=>v.stock>0)).slice(0,3))+
     '<h2>Choisir en confiance</h2><p><a href="/guide-des-tailles">Conseils tailles</a> · <a href="/livraison-retours">Livraison et retours</a> · <a href="mailto:contact@lamaisondesdessous.fr">Nous contacter</a>.</p>'+
