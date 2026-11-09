@@ -1,6 +1,6 @@
 {
   "source": "Matterhorn — products_sizesFR.xml transmis par le dirigeant, sélection Maya 08/11/2026",
-  "status": "aperçu uniquement — prix, stock et commande non disponibles",
+  "status": "Prix publics affichés sur les fiches et catégories; vente Matterhorn pas encore activée, stocks non synchronisés",
   "products": [
     {
       "id": "220114",
@@ -49,7 +49,10 @@
         }
       ],
       "seoTarget": "collants opaques noirs coton 86% femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 23.84,
+      "supplierListedPriceEur": 9.9,
+      "supplierCostTtcEur": 11.88
     },
     {
       "id": "220112",
@@ -84,7 +87,10 @@
         }
       ],
       "seoTarget": "collants beiges coton 86% femme robe automne",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 25.4,
+      "supplierListedPriceEur": 10.9,
+      "supplierCostTtcEur": 13.08
     },
     {
       "id": "195686",
@@ -126,7 +132,10 @@
         }
       ],
       "seoTarget": "collants noirs femme dentelle taille maille 3D",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 19.16,
+      "supplierListedPriceEur": 6.9,
+      "supplierCostTtcEur": 8.28
     },
     {
       "id": "195688",
@@ -168,7 +177,10 @@
         }
       ],
       "seoTarget": "collants beiges dentelle taille femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 20.72,
+      "supplierListedPriceEur": 7.9,
+      "supplierCostTtcEur": 9.48
     },
     {
       "id": "188103",
@@ -202,7 +214,10 @@
         }
       ],
       "seoTarget": "collants gris chevrons 60 deniers femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 17.6,
+      "supplierListedPriceEur": 5.9,
+      "supplierCostTtcEur": 7.08
     },
     {
       "id": "148319",
@@ -229,7 +244,10 @@
         }
       ],
       "seoTarget": "collants noirs couvrants maille 3D femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 16.04,
+      "supplierListedPriceEur": 4.9,
+      "supplierCostTtcEur": 5.88
     },
     {
       "id": "148322",
@@ -256,7 +274,10 @@
         }
       ],
       "seoTarget": "collants noirs pois dégradés femme fantaisie",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 14.48,
+      "supplierListedPriceEur": 3.9,
+      "supplierCostTtcEur": 4.68
     },
     {
       "id": "148323",
@@ -283,7 +304,10 @@
         }
       ],
       "seoTarget": "collants noirs petits pois femme robe jupe",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 16.04,
+      "supplierListedPriceEur": 4.9,
+      "supplierCostTtcEur": 5.88
     },
     {
       "id": "218783",
@@ -325,7 +349,10 @@
         }
       ],
       "seoTarget": "collants noirs motif géométrique femme mosaïque",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 17.6,
+      "supplierListedPriceEur": 5.9,
+      "supplierCostTtcEur": 7.08
     },
     {
       "id": "220110",
@@ -367,7 +394,10 @@
         }
       ],
       "seoTarget": "collants beiges animalier 20 deniers femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 17.6,
+      "supplierListedPriceEur": 5.9,
+      "supplierCostTtcEur": 7.08
     },
     {
       "id": "226594",
@@ -394,7 +424,10 @@
         }
       ],
       "seoTarget": "chaussettes hautes beiges 95 coton femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     },
     {
       "id": "191180",
@@ -429,7 +462,10 @@
         }
       ],
       "seoTarget": "chaussettes noires ourson coton 85 femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 14.48,
+      "supplierListedPriceEur": 3.9,
+      "supplierCostTtcEur": 4.68
     },
     {
       "id": "191178",
@@ -464,7 +500,10 @@
         }
       ],
       "seoTarget": "chaussettes grises motif ourson 85 coton femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 14.48,
+      "supplierListedPriceEur": 3.9,
+      "supplierCostTtcEur": 4.68
     },
     {
       "id": "191452",
@@ -499,7 +538,10 @@
         }
       ],
       "seoTarget": "socquettes noires femme coton motif ourson",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     },
     {
       "id": "190401",
@@ -527,7 +569,10 @@
         }
       ],
       "seoTarget": "chaussettes rouges noël paillettes coton femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     },
     {
       "id": "226598",
@@ -554,7 +599,10 @@
         }
       ],
       "seoTarget": "chaussettes femme beiges leopard voile fantaisie",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     },
     {
       "id": "226599",
@@ -581,7 +629,10 @@
         }
       ],
       "seoTarget": "chaussettes beiges à pois voile fin femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     },
     {
       "id": "226186",
@@ -609,7 +660,10 @@
         }
       ],
       "seoTarget": "chaussettes longues blanches femme polyamide",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     },
     {
       "id": "226261",
@@ -636,7 +690,10 @@
         }
       ],
       "seoTarget": "chaussettes longues beiges femme tenue ville",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     },
     {
       "id": "226262",
@@ -664,8 +721,23 @@
         }
       ],
       "seoTarget": "chaussettes longues noires femme quotidien",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "priceEur": 12.92,
+      "supplierListedPriceEur": 2.9,
+      "supplierCostTtcEur": 3.48
     }
   ],
-  "stockSourceNote": "Quantités indicatives issues du XML Matterhorn transmis le 07/11/2026 ; aucune synchronisation temps réel et aucune promesse de disponibilité"
+  "stockSourceNote": "Quantités indicatives issues du XML Matterhorn transmis le 07/11/2026 ; aucune synchronisation temps réel et aucune promesse de disponibilité",
+  "pricingRule": {
+    "approvedByOwnerOn": "2026-11-09",
+    "supplierDisplayedPricesAsBase": true,
+    "markupRate": 0.3,
+    "standardShippingIncludedEur": 8.4,
+    "formula": "round(supplierListedPriceEur * 1.20 * 1.30 + 8.40, 2)",
+    "scope": "simulation 1 article, livraison standard incluse",
+    "notes": "Prix fournisseur HT: TVA d'achat 20 % non récupérable, puis majoration 30 %, puis 8,40 EUR de livraison incluse pour commande unitaire selon instruction. Transport 8,40 EUR traité comme coût final communiqué; statut TVA de transport à vérifier. Cotisations micro, frais paiement et retours non inclus dans la majoration; bénéfice net non garanti. Prix duo/colis groupé à calculer selon vrai port du colis.",
+    "sellable": false,
+    "supplierPricesAreHt": true,
+    "supplierVatRate": 0.2
+  }
 }
