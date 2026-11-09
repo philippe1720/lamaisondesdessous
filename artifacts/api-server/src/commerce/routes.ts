@@ -67,6 +67,8 @@ commerceRouter.post('/checkout', async (req, res) => {
       if(!offer || offer.ean!==req.body.upsell || !acceptedOffer(req,offer.ean,offer.priceCents) || lines.some(l=>l.ean===offer.ean)) {res.status(409).json({code:'offer_expired',error:'Veuillez confirmer à nouveau l’ajout de la bougie, ou la retirer pour continuer.'});return;}
       chosen.push({product:{id:offer.supplierId,slug:'',name:offer.name,description:offer.description,composition:'',category:'complement',brand:'',images:[offer.image],variants:[]},variant:{ean:offer.ean,size:'',color:'',stock:offer.stock,priceCents:offer.priceCents},quantity:1});
     }
+    const hasMatterhorn=chosen.some(l=>l.product.id.startsWith('matterhorn-'));
+    if(hasMatterhorn && delivery==='pickup') {res.status(409).json({code:'pickup_unavailable',error:'Pour ces articles, choisissez la livraison à domicile offerte.'});return;}
     // Matterhorn availability is gated by a recent operator stock check.
     // The caller may never override prices or availability.
     const shipping=0;
