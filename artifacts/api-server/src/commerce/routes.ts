@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { randomUUID, randomBytes } from 'node:crypto';
-import { liveCatalog, snapshot, type Product } from './catalog';
+import { liveCatalog, snapshot, matterhornCatalog, type Product } from './catalog';
 import { validateLines } from './core';
 import { relayPoints } from './options';
 import { offerRouter, currentUpsell, acceptedOffer } from './offer';
@@ -30,8 +30,9 @@ commerceRouter.get('/pickup-points',async(req,res)=>{
 });
 commerceRouter.get('/catalog', async (_req, res) => {
   try {
-    if (process.env.BUSYX_FEED_URL) { const {products,updatedAt}=await liveCatalog(); res.json({products,updatedAt,live:true}); }
-    else res.json({...await snapshot(),live:false});
+    const base=process.env.BUSYX_FEED_URL ? await liveCatalog() : await snapshot();
+    const matterhorn=await matterhornCatalog();
+    res.json({products:[...base.products,...matterhorn],updatedAt:base.updatedAt,live:Boolean(process.env.BUSYX_FEED_URL)});
   } catch { res.status(503).json({error:'Disponibilités momentanément indisponibles.'}); }
 });
 
@@ -52,7 +53,8 @@ commerceRouter.post('/checkout', async (req, res) => {
   if (!['home','pickup'].includes(delivery) || (delivery==='pickup' && !point)) { res.status(400).json({error:'Choisissez un mode de livraison et un point de retrait valide.'}); return; }
   let stage: 'stock' | 'payment' = 'stock';
   try {
-    const {products,rows} = await liveCatalog();
+    const {products:busyProducts,rows} = await liveCatalog();
+    const products=[...busyProducts,...await matterhornCatalog()];
     const chosen: {product:Product; variant:Product['variants'][number]; quantity:number}[] = [];
     for(const line of lines) {
       const product=products.find(p=>p.variants.some(v=>v.ean===line.ean));
@@ -65,6 +67,8 @@ commerceRouter.post('/checkout', async (req, res) => {
       if(!offer || offer.ean!==req.body.upsell || !acceptedOffer(req,offer.ean,offer.priceCents) || lines.some(l=>l.ean===offer.ean)) {res.status(409).json({code:'offer_expired',error:'Veuillez confirmer à nouveau l’ajout de la bougie, ou la retirer pour continuer.'});return;}
       chosen.push({product:{id:offer.supplierId,slug:'',name:offer.name,description:offer.description,composition:'',category:'complement',brand:'',images:[offer.image],variants:[]},variant:{ean:offer.ean,size:'',color:'',stock:offer.stock,priceCents:offer.priceCents},quantity:1});
     }
+    // Matterhorn availability is gated by a recent operator stock check.
+    // The caller may never override prices or availability.
     const shipping=0;
     const total=chosen.reduce((s,l)=>s+l.variant.priceCents*l.quantity,0)+shipping;
     if(req.body.expectedTotal!==total) {res.status(409).json({code:'price_changed',error:'Un prix a changé. Vérifiez le total actualisé avant de continuer.'});return;}
