@@ -2,6 +2,7 @@ import { Link, useLocation, useRoute } from 'wouter';
 import { useEffect, useState } from 'react';
 import selectionData from '@/data/matterhorn-preview.json';
 import { SEO } from '@/lib/seo';
+import { VerifiedTightsSizeTable, hasVerifiedSizing } from './verified-sizing';
 
 /**
  * Données fournisseur conservées pour usage interne : option_id, marque,
@@ -131,7 +132,10 @@ export function MatterhornPreviewProduct() {
             <div><dt>Coloris</dt><dd>{p.color}</dd></div>
             <div><dt>Tailles indiquées pour le modèle (non garanties en stock)</dt><dd>{p.variants.map(v => v.size.replace(/^EU /, '')).join(' · ')}</dd></div>
           </dl>
-          <aside className="lmd-guide-cta" aria-label="Guide des tailles pour ce modèle"><div><strong>Quelle taille choisir pour {p.name.split(' — ')[0]} ?</strong><p>Les étiquettes ci-dessus ne sont pas une correspondance de mensurations. Notre guide vous aide à mesurer et à demander confirmation si nécessaire.</p></div><Link className="stocking-button secondary" href={p.category === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Comprendre les tailles de ce modèle →</Link></aside>
+          {p.category === 'collants' && hasVerifiedSizing(p.id) && <VerifiedTightsSizeTable id={p.id} />}
+          <aside className="lmd-guide-cta" aria-label="Guide des tailles pour ce modèle"><div><strong>Quelle taille choisir pour {p.name.split(' — ')[0]} ?</strong><p>{hasVerifiedSizing(p.id)
+            ? 'Consultez le tableau de mensurations confirmé pour ce modèle puis prenez vos mesures avant de choisir.'
+            : 'Les étiquettes ci-dessus ne sont pas une correspondance de mensurations. Notre guide vous aide à mesurer et à demander confirmation si nécessaire.'}</p></div><Link className="stocking-button secondary" href={p.category === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Comprendre les tailles de ce modèle →</Link></aside>
           <p className="stocking-note" role="status">Collection en préparation. Ce modèle n'est pas encore disponible à la commande. Son prix, sa disponibilité réelle et les conditions de livraison seront précisés avant l'ouverture des ventes.</p>
           <p>Découvrez <Link href={collection.url}>les autres modèles de cette collection</Link> ou <Link href="/guide-des-tailles">l'ensemble de nos conseils de tailles</Link>.</p>
           <h2>À découvrir dans le même univers</h2>
