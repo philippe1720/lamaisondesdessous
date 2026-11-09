@@ -18,3 +18,9 @@ test('Cart rejects duplicate variants, negative/fractional quantities and excess
   assert.deepEqual(validateLines([good]),[good]);
   for(const value of [[],[good,good],[{...good,quantity:-1}],[{...good,quantity:1.5}],[{...good,quantity:11}],null]) assert.throws(()=>validateLines(value));
 });
+
+test('Matterhorn option IDs accepted, malformed or duplicate IDs rejected',()=>{
+  assert.deepEqual(validateLines([{ean:'M1251510',quantity:1}]),[{ean:'M1251510',quantity:1}]);
+  assert.throws(()=>validateLines([{ean:'M1251510',quantity:1},{ean:'M1251510',quantity:1}]));
+  assert.throws(()=>validateLines([{ean:'not-an-id',quantity:1}]));
+});
