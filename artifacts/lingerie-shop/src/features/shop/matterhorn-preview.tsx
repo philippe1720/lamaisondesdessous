@@ -134,6 +134,7 @@ export function MatterhornPreviewProduct() {
         <section>
           <h2>Une histoire à porter</h2>
           <div className="lmd-product-story">{p.description.split('\n\n').map((paragraph, i) => <p className="stocking-intro" key={i}>{paragraph}</p>)}</div>
+          {hasVerifiedSizing(p.id) && <VerifiedTightsSizeTable id={p.id} />}
           <h2>Les détails de ce modèle</h2>
           <dl className="stocking-specs">
             <div><dt>Matière</dt><dd>{p.composition}</dd></div>
