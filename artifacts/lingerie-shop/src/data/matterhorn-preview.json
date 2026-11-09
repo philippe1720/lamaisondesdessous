@@ -1,6 +1,6 @@
 {
   "source": "Matterhorn — products_sizesFR.xml transmis par le dirigeant, sélection Maya 08/11/2026",
-  "status": "aperçu uniquement — prix, stock et commande non disponibles",
+  "status": "aperçu non achetable — tarifs publics calculés selon instruction du 09/11/2026; stocks et intégration checkout Matterhorn non validés",
   "products": [
     {
       "id": "220114",
@@ -49,7 +49,11 @@
         }
       ],
       "seoTarget": "collants opaques noirs coton 86% femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 9.9,
+      "priceEur": 21.27,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "220112",
@@ -84,7 +88,11 @@
         }
       ],
       "seoTarget": "collants beiges coton 86% femme robe automne",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 10.9,
+      "priceEur": 22.57,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "195686",
@@ -126,7 +134,11 @@
         }
       ],
       "seoTarget": "collants noirs femme dentelle taille maille 3D",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 6.9,
+      "priceEur": 17.37,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "195688",
@@ -168,7 +180,11 @@
         }
       ],
       "seoTarget": "collants beiges dentelle taille femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 7.9,
+      "priceEur": 18.67,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "188103",
@@ -202,7 +218,11 @@
         }
       ],
       "seoTarget": "collants gris chevrons 60 deniers femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 5.9,
+      "priceEur": 16.07,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "148319",
@@ -229,7 +249,11 @@
         }
       ],
       "seoTarget": "collants noirs couvrants maille 3D femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 4.9,
+      "priceEur": 14.77,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "148322",
@@ -256,7 +280,11 @@
         }
       ],
       "seoTarget": "collants noirs pois dégradés femme fantaisie",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 3.9,
+      "priceEur": 13.47,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "148323",
@@ -283,7 +311,11 @@
         }
       ],
       "seoTarget": "collants noirs petits pois femme robe jupe",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 4.9,
+      "priceEur": 14.77,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "218783",
@@ -325,7 +357,11 @@
         }
       ],
       "seoTarget": "collants noirs motif géométrique femme mosaïque",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 5.9,
+      "priceEur": 16.07,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "220110",
@@ -367,7 +403,11 @@
         }
       ],
       "seoTarget": "collants beiges animalier 20 deniers femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 5.9,
+      "priceEur": 16.07,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "226594",
@@ -394,7 +434,11 @@
         }
       ],
       "seoTarget": "chaussettes hautes beiges 95 coton femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "191180",
@@ -429,7 +473,11 @@
         }
       ],
       "seoTarget": "chaussettes noires ourson coton 85 femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 3.9,
+      "priceEur": 13.47,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "191178",
@@ -464,7 +512,11 @@
         }
       ],
       "seoTarget": "chaussettes grises motif ourson 85 coton femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 3.9,
+      "priceEur": 13.47,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "191452",
@@ -499,7 +551,11 @@
         }
       ],
       "seoTarget": "socquettes noires femme coton motif ourson",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "190401",
@@ -527,7 +583,11 @@
         }
       ],
       "seoTarget": "chaussettes rouges noël paillettes coton femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "226598",
@@ -554,7 +614,11 @@
         }
       ],
       "seoTarget": "chaussettes femme beiges leopard voile fantaisie",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "226599",
@@ -581,7 +645,11 @@
         }
       ],
       "seoTarget": "chaussettes beiges à pois voile fin femme",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "226186",
@@ -609,7 +677,11 @@
         }
       ],
       "seoTarget": "chaussettes longues blanches femme polyamide",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "226261",
@@ -636,7 +708,11 @@
         }
       ],
       "seoTarget": "chaussettes longues beiges femme tenue ville",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     },
     {
       "id": "226262",
@@ -664,8 +740,22 @@
         }
       ],
       "seoTarget": "chaussettes longues noires femme quotidien",
-      "storyTitle": "Un détail pour votre vie de tous les jours"
+      "storyTitle": "Un détail pour votre vie de tous les jours",
+      "supplierListedPriceEur": 2.9,
+      "priceEur": 12.17,
+      "priceIncludesStandardShipping": true,
+      "priceBasis": "prix catalogue Matterhorn x 1,30 + 8,40 EUR de livraison par commande unitaire; barème groupe et statut fiscal non confirmés"
     }
   ],
-  "stockSourceNote": "Quantités indicatives issues du XML Matterhorn transmis le 07/11/2026 ; aucune synchronisation temps réel et aucune promesse de disponibilité"
+  "stockSourceNote": "Quantités indicatives issues du XML Matterhorn transmis le 07/11/2026 ; aucune synchronisation temps réel et aucune promesse de disponibilité",
+  "pricingRule": {
+    "approvedByOwnerOn": "2026-11-09",
+    "supplierDisplayedPricesAsBase": true,
+    "markupRate": 0.3,
+    "standardShippingIncludedEur": 8.4,
+    "formula": "round(supplierListedPriceEur * 1.30 + 8.40, 2)",
+    "scope": "simulation 1 article, livraison standard incluse",
+    "notes": "Prix de catalogue utilisés sur instruction expresse; HT/TTC non confirmé, TVA amont non récupérable si applicable; contributions non certifiées. Un seul port par colis selon le transport facturé; ne pas additionner 8,40 EUR sur chaque article d'un panier groupé.",
+    "sellable": false
+  }
 }
