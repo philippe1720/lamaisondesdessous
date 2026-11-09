@@ -23,7 +23,7 @@ export function validateLines(value: unknown): {ean: string; quantity: number}[]
   if (!Array.isArray(value) || value.length < 1 || value.length > 30) throw new Error('Panier invalide.');
   const seen = new Set<string>();
   for (const line of value) {
-    if (!line || !/^\d{13}$/.test(line.ean) || !Number.isInteger(line.quantity) || line.quantity < 1 || line.quantity > 10 || seen.has(line.ean)) throw new Error('Panier invalide.');
+    if (!line || !/^(?:\d{13}|M\d{5,12})$/.test(line.ean) || !Number.isInteger(line.quantity) || line.quantity < 1 || line.quantity > 10 || seen.has(line.ean)) throw new Error('Panier invalide.');
     seen.add(line.ean);
   }
   return value;
