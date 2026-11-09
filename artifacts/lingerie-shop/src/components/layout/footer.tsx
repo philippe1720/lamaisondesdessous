@@ -44,7 +44,7 @@ export function Footer() {
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. Tous droits réservés.</p>
           <div className="mt-4 md:mt-0 space-x-4">
-            <Link href="/cgv" className="hover:text-primary transition-colors">Politique de confidentialité</Link>
+            <Link href="/cgv#donnees-personnelles" className="hover:text-primary transition-colors">Données personnelles</Link>
           </div>
         </div>
       </div>
