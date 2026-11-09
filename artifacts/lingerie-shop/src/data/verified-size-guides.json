@@ -1,0 +1,89 @@
+{
+  "status": "verified-manufacturer-chart",
+  "lastVerifiedOn": "2026-11-09",
+  "note": "Correspondances de taille publiées sur les fiches du fabricant pour les gammes Celia et Softi-Comfi ; vérifier la référence et la taille disponible avant la vente. Aucune preuve de stock.",
+  "models": {
+    "195686": {
+      "family": "Softi-Comfi",
+      "source": "https://gatta.pl/products/czarne-rajstopy-softi-comfi-20den",
+      "label": "Victoire"
+    },
+    "195688": {
+      "family": "Softi-Comfi",
+      "source": "https://gatta.pl/products/gladkie-rajstopy-softi-comfi-20-den",
+      "label": "Célestine"
+    },
+    "220112": {
+      "family": "Celia",
+      "source": "https://gatta.pl/products/rajstopy-bawelniane-celia-4",
+      "label": "Apolline"
+    },
+    "220114": {
+      "family": "Celia",
+      "source": "https://gatta.pl/products/rajstopy-bawelniane-celia",
+      "label": "Éléonore"
+    }
+  },
+  "ranges": [
+    {
+      "code": "2-S",
+      "heightCm": [
+        154,
+        166
+      ],
+      "hipCm": [
+        96,
+        108
+      ],
+      "weightKg": [
+        48,
+        63
+      ]
+    },
+    {
+      "code": "3-M",
+      "heightCm": [
+        164,
+        174
+      ],
+      "hipCm": [
+        104,
+        116
+      ],
+      "weightKg": [
+        58,
+        73
+      ]
+    },
+    {
+      "code": "4-L",
+      "heightCm": [
+        170,
+        178
+      ],
+      "hipCm": [
+        112,
+        124
+      ],
+      "weightKg": [
+        63,
+        83
+      ]
+    },
+    {
+      "code": "5-XL",
+      "heightCm": [
+        174,
+        180
+      ],
+      "hipCm": [
+        120,
+        134
+      ],
+      "weightKg": [
+        68,
+        93
+      ]
+    }
+  ]
+}
