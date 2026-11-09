@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/lib/seo';
 import selection from '@/data/matterhorn-preview.json';
+import { VerifiedTightsSizeTable, hasVerifiedSizing } from './verified-sizing';
 
 /**
  * Conseils pratiques, sans conversion inventée des tailles :
@@ -69,6 +70,7 @@ function ModelsAndSizes({ category }: {category:'collants'|'chaussettes'}) {
       {products.map(p => <article key={p.id} className="lmd-size-item">
         <h3><Link href={linkFor(p)}>{p.name}</Link></h3>
         <p><strong>Tailles au catalogue :</strong> {displayedSizes(p)}</p>
+        {p.category === 'collants' && hasVerifiedSizing(p.id) && <p className="lmd-sizing-verified-note">Tableau de mensurations confirmé pour ce modèle.</p>}
         <Link href={linkFor(p)}>Voir les détails du modèle →</Link>
       </article>)}
     </div>
@@ -104,7 +106,7 @@ export function TightsSizeGuide() {
         <div><strong>4-L</strong><span>Repère de taille L sur l'étiquette du modèle</span></div>
         <div><strong>5-XL</strong><span>Repère de taille XL sur l'étiquette du modèle</span></div>
       </div>
-      <p><strong>Attention :</strong> ces correspondances expliquent les <em>étiquettes</em> présentes dans notre sélection. Elles ne disent pas qu'une taille S convient à une stature ou à un tour de hanches donné. Pour une recommandation en centimètres, il faut un tableau confirmé pour le modèle précis.</p>
+      <p><strong>Attention :</strong> ces correspondances expliquent les <em>étiquettes</em> présentes dans notre sélection. Elles ne disent pas, à elles seules, qu'une taille S convient à une stature ou à un tour de hanches donné. Nous disposons désormais d'un tableau vérifié pour quatre modèles, présenté ci-dessous ; pour les autres, une correspondance précise reste à confirmer.</p>
     </section>
 
     <section>
@@ -112,6 +114,8 @@ export function TightsSizeGuide() {
       <p>Repérez d'abord votre stature et votre tour de hanches dans le tableau propre au modèle. Les deux doivent entrer dans la plage prévue. Si l'une des deux mesures est à la limite, ou si les tableaux sont absents, demandez-nous une confirmation avant de choisir.</p>
       <p>Un collant trop court peut tirer à l'entrejambe ou descendre pendant la marche ; une ceinture qui roule ou comprime peut indiquer une coupe inadaptée. À l'inverse, des plis excessifs peuvent signaler un mauvais ajustement. La bonne réponse n'est pas toujours de prendre automatiquement une taille au-dessus : il faut tenir compte de la coupe et des mesures.</p>
     </section>
+
+    <VerifiedTightsSizeTable />
 
     <ModelsAndSizes category="collants" />
 
