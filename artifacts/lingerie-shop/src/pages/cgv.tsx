@@ -76,7 +76,7 @@ export default function CGV() {
         <p>Le recours à la médiation ne prive pas le consommateur de son droit de saisir la juridiction compétente. Les dispositions protectrices impératives du droit de la consommation s'appliquent.</p>
       </section>
       <section>
-        <h2>11. Données personnelles et propriété intellectuelle</h2>
+        <h2 id="donnees-personnelles">11. Données personnelles et propriété intellectuelle</h2>
         <p>Les informations nécessaires à la commande sont utilisées pour traiter la commande, le paiement, la livraison, l'assistance et les obligations légales. Les demandes concernant les données personnelles peuvent être adressées à <a href="mailto:contact@lamaisondesdessous.fr">contact@lamaisondesdessous.fr</a>.</p>
         <p>Les textes, logos, photographies de fournisseurs et autres contenus restent protégés par les droits de leurs titulaires respectifs. Leur présence sur ce site n'emporte pas transfert de propriété intellectuelle au client.</p>
       </section>
