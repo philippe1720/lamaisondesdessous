@@ -59,7 +59,7 @@ export function MatterhornCollection() {
           : 'Mesurez vos pieds et apprenez à lire les pointures 35/38, 38/41 ou la taille universelle.'}</p></div>
         <Link className="stocking-button secondary" href={kind === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Voir le guide pratique →</Link>
       </aside>
-      <p className="stocking-note" role="status">Nos prix sont affichés, livraison standard comprise. Commande en préparation jusqu’à la confirmation des disponibilités.</p>
+      <p className="stocking-note" role="status">Livraison standard incluse dans les prix. Disponibilité des tailles à confirmer avant toute commande.</p>
       <nav className="stocking-filters" aria-label="Nos collections">
         <Link href="/bas-autofixants">Bas autofixants</Link>
         <Link href="/bas-porte-jarretelles">Bas pour porte-jarretelles</Link>
@@ -84,7 +84,7 @@ export function MatterhornCollection() {
           </select>
         </label>
       </div>
-      <p className="stocking-note" role="status">{visible.length} modèle{visible.length > 1 ? 's' : ''} à découvrir dans notre sélection à venir.</p>
+      <p className="stocking-note" role="status">{visible.length} modèle{visible.length > 1 ? 's' : ''} à découvrir dans notre sélection.</p>
       <div className="stocking-grid">
         {visible.map(p => <article className="stocking-card" key={p.id}>
           <Link href={productUrl(p)}>
@@ -132,7 +132,7 @@ export function MatterhornPreviewProduct() {
             <div><dt>Tailles indiquées pour le modèle (non garanties en stock)</dt><dd>{p.variants.map(v => v.size.replace(/^EU /, '')).join(' · ')}</dd></div>
           </dl>
           <aside className="lmd-guide-cta" aria-label="Guide des tailles pour ce modèle"><div><strong>Quelle taille choisir pour {p.name.split(' — ')[0]} ?</strong><p>Les étiquettes ci-dessus ne sont pas une correspondance de mensurations. Notre guide vous aide à mesurer et à demander confirmation si nécessaire.</p></div><Link className="stocking-button secondary" href={p.category === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Comprendre les tailles de ce modèle →</Link></aside>
-          <p className="stocking-price">{p.priceEur.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</p><p>Livraison standard comprise dans le prix affiché.</p><p className="stocking-note" role="status">Disponible prochainement à la commande, sous réserve de confirmation du stock fournisseur.</p>
+          <p className="stocking-price">{p.priceEur.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</p><p>Livraison standard comprise dans le prix affiché.</p><p className="stocking-note" role="status">La commande de ce modèle n’est pas encore ouverte : disponibilité fournisseur à confirmer.</p>
           <p>Découvrez <Link href={collection.url}>les autres modèles de cette collection</Link> ou <Link href="/guide-des-tailles">l'ensemble de nos conseils de tailles</Link>.</p>
           <h2>À découvrir dans le même univers</h2>
           <ul>{products.filter(other => other.id !== p.id && other.category === p.category).slice(0, 3).map(other => <li key={other.id}><Link href={productUrl(other)}>{other.name}</Link></li>)}</ul>
