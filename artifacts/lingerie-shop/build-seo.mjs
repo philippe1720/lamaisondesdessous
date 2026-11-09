@@ -6,6 +6,7 @@ const root=path.dirname(new URL(import.meta.url).pathname);
 const {products}=JSON.parse(await readFile(path.join(root,'src/data/catalog.json'),'utf8'));
 const editorial=JSON.parse(await readFile(path.join(root,'src/data/editorial.json'),'utf8'));
 const upcoming=JSON.parse(await readFile(path.join(root,'src/data/matterhorn-preview.json'),'utf8')).products;
+const verifiedSizes=JSON.parse(await readFile(path.join(root,'src/data/verified-size-guides.json'),'utf8'));
 const out=path.join(root,'dist/public');
 const template=(await readFile(path.join(out,'index.html'),'utf8'))
   .replace(/<title>[\s\S]*?<\/title>/gi,'')
@@ -19,6 +20,21 @@ const blocks=entry=>entry.sections.map(s=>`<section><h2>${esc(s.title)}</h2>${s.
 const guideLinks=()=>'<h2>Nos conseils pour choisir et porter vos bas</h2>'+related(editorial.guides.map(g=>({href:g.path,label:g.title})));
 const inCategory=(p,url)=>url==='/bas-resille'?p.details.Aspect==='Résille ajourée':p.category===(url==='/bas-autofixants'?'autofixants':'porte-jarretelles');
 const manifesto='<section><h2>La femme est l’avenir de la femme.</h2><p>Une féminité libre, quotidienne, sensuelle quand vous le souhaitez et simplement vous-même le reste du temps. La Maison des Dessous ne vous transforme pas : elle vous accompagne.</p><a href="/qui-sommes-nous">Découvrir l’esprit de la Maison</a></section>';
+const verifiedSizeHTML=(productId=null)=>{
+  if(productId && !verifiedSizes.models[productId]) return '';
+  const product=productId?upcoming.find(p=>p.id===productId):null;
+  const allowed=product?new Set(product.variants.map(v=>v.size.replace(/^EU /,''))):null;
+  const rows=verifiedSizes.ranges.filter(r=>!allowed||allowed.has(r.code));
+  const label=product?'Mesures vérifiées pour '+product.name.split(' — ')[0]:'Tableau confirmé de quatre collants';
+  const intro=product
+    ? 'Nous avons vérifié les mensurations publiées pour ce modèle : les tailles ci-dessous ne garantissent pas le stock.'
+    : 'Éléonore, Apolline, Victoire et Célestine possèdent un tableau de mensurations confirmé. Ne transposez pas ces valeurs aux autres modèles.';
+  return '<section><h2>'+esc(label)+'</h2><p>'+esc(intro)+'</p>'+
+    '<table><caption>Tailles indicatives du fabricant (vérification 9 novembre 2026)</caption>'+
+    '<thead><tr><th>Taille</th><th>Stature (cm)</th><th>Hanches (cm)</th><th>Poids (kg)</th></tr></thead>'+
+    '<tbody>'+rows.map(r=>'<tr><th>'+esc(r.code)+'</th><td>'+r.heightCm.join('–')+'</td><td>'+r.hipCm.join('–')+'</td><td>'+r.weightKg.join('–')+'</td></tr>').join('')+'</tbody></table>'+
+    '<p>Vérifiez toujours les mesures, les étiquettes et la coupe. En cas de doute ou de chevauchement, demandez conseil avant de choisir.</p></section>';
+};
 const guideSizeModels=category=>'<h2>Tailles indiquées pour les modèles de notre sélection</h2>'+
   '<p>Les étiquettes ci-dessous sont issues de notre sélection en préparation, pas un tableau de mensurations universelles ni une preuve de stock.</p><ul>'+
   upcoming.filter(p=>p.category===category).map(p=>`<li><a href="/${p.category}-femme/${esc(p.slug)}">${esc(p.name)}</a> — ${esc([...new Set(p.variants.map(v=>v.size.replace(/^EU /,'')))].join(', '))}</li>`).join('')+
@@ -34,6 +50,7 @@ const tightsGuideHTML=
   '<p>Un collant qui descend, tire à l’entrejambe ou comprime à la ceinture peut être mal ajusté. Si l’une de vos mesures tombe hors de la plage donnée, ne choisissez pas une taille au hasard. Une taille au-dessus n’est pas automatiquement la bonne réponse.</p>'+
   '<h2>Deniers et taille : deux informations différentes</h2>'+
   '<p>Les deniers décrivent la masse du fil et non la taille du corps. La coupe et l’extensibilité peuvent varier selon le modèle. Enfilez les collants en remontant doucement le tissu, sans tirer uniquement sur la ceinture.</p>'+
+  verifiedSizeHTML()+
   guideSizeModels('collants')+
   '<p>Pour une correspondance individuelle non documentée, écrivez à contact@lamaisondesdessous.fr avec le prénom du modèle, votre stature et votre tour de hanches.</p>'+
   '<p><a href="/collants-femme">Voir notre sélection de collants en préparation</a> · <a href="/guide-tailles-chaussettes">Guide des tailles de chaussettes</a></p>';
@@ -107,6 +124,7 @@ const previewPages=[
     p.description.split('\n\n').map(par=>`<p>${esc(par)}</p>`).join('')+
     `<h2>Les détails de ce modèle</h2><p>Composition : ${esc(p.composition)}. Coloris : ${esc(p.color)}.</p>`+
     `<p>Tailles de cette sélection : ${p.variants.map(v=>esc(v.size)).join(', ')}.</p>`+
+    verifiedSizeHTML(p.id)+
     `<p><a href="/guide-tailles-${p.category}">Lire le guide pratique des tailles pour ${esc(p.category)}</a> : ne choisissez pas une taille sans correspondances confirmées.</p>`+
     `<p>Ce modèle est en préparation et n'est pas disponible à la commande.</p>`+
     `<p><a href="/${p.category}-femme">Découvrir la collection</a></p>`
