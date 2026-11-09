@@ -66,9 +66,11 @@ check('chaque fiche collant vérifiée a le tableau, les autres ne le revendique
   assert.match(preview,/hasVerifiedSizing\(p\.id\)/);
   assert.match(preview,/<VerifiedTightsSizeTable id=\{p\.id\}/);
 });
-check('les aperçus restent non commerciaux', () => {
-  assert.match(preview,/noindex/);
-  assert.match(preview,/n.est pas encore disponible à la commande/);
-  assert.doesNotMatch(preview,/addToCart|handleCheckout|beginCheckout/);
+check('les achats éventuels restent conditionnés au stock vérifié', () => {
+  assert.match(preview, /noindex=\{!available\.length\}/);
+  assert.match(preview, /v\.stock\s*>\s*0/);
+  assert.match(preview, /available\.length\s*\?/);
+  assert.match(preview, /if\(chosen\)add\(chosen\.ean\)/);
+  assert.match(preview, /commande momentanément indisponible/);
 });
 console.log('Guides tailles : '+checks.length+' contrôles réussis.');
