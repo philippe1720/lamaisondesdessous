@@ -24,7 +24,7 @@ export default function StockingHome() {
     .slice(0, 3);
 
   return <><SEO
-    title="Bas pour femme, collants et chaussettes"
+    title="Bas autofixants, bas résille et porte-jarretelles"
     canonical="/"
     description="La Maison des Dessous accompagne votre féminité : bas autofixants, résille et porte-jarretelles en boutique ; collants et chaussettes à découvrir bientôt. Livraison standard incluse dans les prix des bas."
   />
