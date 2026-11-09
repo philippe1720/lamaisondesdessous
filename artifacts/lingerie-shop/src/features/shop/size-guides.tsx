@@ -64,7 +64,7 @@ function ModelsAndSizes({ category }: {category:'collants'|'chaussettes'}) {
   const products = forCategory(category);
   return <section aria-labelledby={'models-'+category}>
     <h2 id={'models-'+category}>Les tailles indiquées pour nos modèles</h2>
-    <p>Voici les étiquettes de taille relevées pour les {products.length} références de notre sélection en préparation. Ce sont des <strong>tailles annoncées pour chaque modèle</strong>, pas un tableau universel de mensurations ni une confirmation de disponibilité en stock.</p>
+    <p>Voici les étiquettes de taille relevées pour les {products.length} références de notre sélection. Ce sont des <strong>tailles annoncées pour chaque modèle</strong>, pas un tableau universel de mensurations ni une confirmation de disponibilité en stock.</p>
     <div className="lmd-size-list">
       {products.map(p => <article key={p.id} className="lmd-size-item">
         <h3><Link href={linkFor(p)}>{p.name}</Link></h3>
@@ -122,7 +122,7 @@ export function TightsSizeGuide() {
     </section>
 
     <AdviceContact category="collants" />
-    <p className="lmd-sizing-return"><Link href="/collants-femme">Découvrir nos collants en préparation →</Link> · <Link href="/guide-tailles-chaussettes">Voir le guide des tailles de chaussettes →</Link></p>
+    <p className="lmd-sizing-return"><Link href="/collants-femme">Découvrir nos collants et leurs prix →</Link> · <Link href="/guide-tailles-chaussettes">Voir le guide des tailles de chaussettes →</Link></p>
   </main>;
 }
 
@@ -175,6 +175,6 @@ export function SocksSizeGuide() {
     </section>
 
     <AdviceContact category="chaussettes" />
-    <p className="lmd-sizing-return"><Link href="/chaussettes-femme">Découvrir nos chaussettes en préparation →</Link> · <Link href="/guide-tailles-collants">Voir le guide des tailles de collants →</Link></p>
+    <p className="lmd-sizing-return"><Link href="/chaussettes-femme">Découvrir nos chaussettes et leurs prix →</Link> · <Link href="/guide-tailles-collants">Voir le guide des tailles de collants →</Link></p>
   </main>;
 }
