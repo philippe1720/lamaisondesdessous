@@ -203,3 +203,18 @@
   .lmd-sizing-contact{padding:17px;}
   .lmd-size-guide>section{margin:28px 0 36px;}
 }
+
+
+/* Correspondances de tailles officielles, lisibles sur écran 360 px. */
+.lmd-verified-sizing{border:1px solid hsl(var(--border));background:hsl(var(--card));padding:20px;margin:24px 0;}
+.lmd-verified-sizing h2{font:clamp(1.25rem,3vw,1.55rem)/1.3 Georgia,serif;margin:0 0 13px;}
+.lmd-verified-sizing p{line-height:1.7;}
+.lmd-sizing-scroll{overflow-x:auto;max-width:100%;overscroll-behavior-x:contain;}
+.lmd-sizing-scroll:focus-visible{outline:2px solid hsl(var(--primary));outline-offset:2px;}
+.lmd-sizing-table{border-collapse:collapse;width:100%;min-width:520px;text-align:left;}
+.lmd-sizing-table caption{padding:8px 0;text-align:left;font-size:.86rem;color:hsl(var(--muted-foreground));}
+.lmd-sizing-table th,.lmd-sizing-table td{padding:12px 10px;border-bottom:1px solid hsl(var(--border));text-align:left;white-space:nowrap;}
+.lmd-sizing-table thead th{background:hsl(var(--background));font-weight:700;}
+.lmd-sizing-table tbody th{font-weight:700;color:hsl(var(--primary));}
+.lmd-sizing-verified-note{color:hsl(var(--primary));font-weight:700;font-size:.86rem;}
+@media(max-width:440px){.lmd-verified-sizing{padding:14px 10px;}}
