@@ -26,7 +26,7 @@ export default function StockingHome() {
   return <><SEO
     title="Bas pour femme, collants et chaussettes"
     canonical="/"
-    description="La Maison des Dessous accompagne votre féminité : bas autofixants, résille et porte-jarretelles en boutique ; collants et chaussettes à découvrir bientôt. Livraison standard incluse dans les prix des bas."
+    description="La Maison des Dessous accompagne votre féminité : bas autofixants, résille et porte-jarretelles en boutique ; collants et chaussettes aux prix affichés. Livraison standard comprise dans les prix affichés."
   />
   <main>
     <section className="stocking-hero lmd-home-hero" aria-labelledby="lmd-home-title">
@@ -41,7 +41,7 @@ export default function StockingHome() {
           <Link href="/bas-resille">Bas résille →</Link>
         </nav>
         <a className="lmd-explore-link" href="#nos-univers">Ou découvrir les 5 catégories de la Maison ↓</a>
-        <small>Bas vendus avec livraison standard comprise dans le prix en France métropolitaine. Collants et chaussettes en préparation.</small>
+        <small>Livraison standard comprise dans les prix affichés en France métropolitaine. Disponibilités des collants et chaussettes à confirmer.</small>
       </div>
       <img src={basPhoto} alt="Bas noirs à couture et dentelle, modèle actuellement présenté dans la boutique" fetchPriority="high" width="800" height="1000" />
     </section>
@@ -49,7 +49,7 @@ export default function StockingHome() {
     <section id="nos-univers" className="stocking-page lmd-home-universes" aria-labelledby="lmd-universe-heading">
       <p className="stocking-eyebrow">LE CHOIX VOUS APPARTIENT</p>
       <h2 id="lmd-universe-heading" className="stocking-section-title">Choisissez votre catégorie.</h2>
-      <p className="stocking-intro">Cinq façons d'accompagner votre quotidien. Les bas sont disponibles en boutique ; les collants et les chaussettes arrivent dans notre sélection.</p>
+      <p className="stocking-intro">Cinq façons d'accompagner votre quotidien. Découvrez nos bas ainsi que notre sélection de collants et de chaussettes avec leurs prix.</p>
       <div className="lmd-universe-grid">
         <Link className="lmd-universe-tile" href="/bas-autofixants">
           <div className="lmd-universe-image"><img src={autoPhoto} alt="Bas autofixants noirs à jarretière en dentelle, portés sans porte-jarretelles" loading="lazy" width="480" height="600"/><span className="lmd-universe-status">En boutique</span></div>
@@ -64,12 +64,12 @@ export default function StockingHome() {
           <div className="lmd-universe-copy"><p className="stocking-eyebrow">MAILLE AJOURÉE</p><h3>Bas résille</h3><p>Des lignes graphiques et différents types de maintien, à vérifier sur chaque fiche.</p><strong>Voir les modèles →</strong></div>
         </Link>
         <Link className="lmd-universe-tile" href="/collants-femme">
-          <div className="lmd-universe-image"><img src={collantsPhoto} alt="Éléonore, collants opaques noirs riches en coton, notre future sélection féminine" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
-          <div className="lmd-universe-copy"><p className="stocking-eyebrow">POUR LES JOURNÉES ACTIVES</p><h3>Collants femme</h3><p>Éléonore, Apolline, Ophélie : des collants pour les moments que vous choisissez.</p><strong>Découvrir la sélection en préparation →</strong></div>
+          <div className="lmd-universe-image"><img src={collantsPhoto} alt="Éléonore, collants opaques noirs riches en coton, notre sélection féminine" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Prix affichés</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">POUR LES JOURNÉES ACTIVES</p><h3>Collants femme</h3><p>Éléonore, Apolline, Ophélie : des collants pour les moments que vous choisissez.</p><strong>Voir les modèles et leurs prix →</strong></div>
         </Link>
         <Link className="lmd-universe-tile" href="/chaussettes-femme">
-          <div className="lmd-universe-image"><img src={socksPhoto} alt="Nina, chaussettes noires en coton à motif ourson, notre future sélection féminine" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Collection en préparation</span></div>
-          <div className="lmd-universe-copy"><p className="stocking-eyebrow">CONFORT ET FANTAISIE</p><h3>Chaussettes femme</h3><p>Nina, Louise, Zélie : les petits détails qui donnent du caractère à vos journées.</p><strong>Découvrir la sélection en préparation →</strong></div>
+          <div className="lmd-universe-image"><img src={socksPhoto} alt="Nina, chaussettes noires en coton à motif ourson, notre sélection féminine" loading="lazy" width="480" height="600"/><span className="lmd-universe-status lmd-status-soon">Prix affichés</span></div>
+          <div className="lmd-universe-copy"><p className="stocking-eyebrow">CONFORT ET FANTAISIE</p><h3>Chaussettes femme</h3><p>Nina, Louise, Zélie : les petits détails qui donnent du caractère à vos journées.</p><strong>Voir les modèles et leurs prix →</strong></div>
         </Link>
       </div>
       <p className="stocking-note">Vous hésitez sur le maintien ? <Link href="/guide-des-bas">Comprendre la différence entre autofixants et porte-jarretelles →</Link></p>
