@@ -33,3 +33,15 @@ export async function liveCatalog() {
   })}));
   return { products, updatedAt: new Date().toISOString(), rows };
 }
+
+
+// Matterhorn: catalogue distinct de BusyX, avec références de variantes propres.
+type MatterhornEntry = { id:string; name:string; slug:string; description:string; composition:string; category:string; brand:string; color:string; images:string[]; priceEur:number; variants:{size:string;supplierOptionId:string;declaredStockAtSource:number}[] };
+export async function matterhornCatalog(): Promise<Product[]> {
+  const data=JSON.parse(await readFile(path.resolve(process.cwd(),'artifacts/lingerie-shop/src/data/matterhorn-preview.json'),'utf8')) as {products:MatterhornEntry[]};
+  return data.products.map(p=>({
+    id:'matterhorn-'+p.id,slug:p.slug,name:p.name,description:p.description,composition:p.composition,
+    category:p.category,brand:p.brand,images:p.images,
+    variants:p.variants.map(v=>({ean:v.supplierOptionId,size:v.size,color:p.color,stock:Math.max(0,Math.min(10,v.declaredStockAtSource)),priceCents:Math.round(p.priceEur*100)}))
+  }));
+}
