@@ -2,6 +2,7 @@ import { Link, useLocation, useRoute } from 'wouter';
 import { useEffect, useState } from 'react';
 import selectionData from '@/data/matterhorn-preview.json';
 import { SEO } from '@/lib/seo';
+import { useShop } from './cart';
 
 /**
  * Données fournisseur conservées pour usage interne : option_id, marque,
@@ -31,6 +32,8 @@ const collectionCopy = {
 
 export function MatterhornCollection() {
   const [path] = useLocation();
+  const {products:shopProducts}=useShop();
+  const saleEnabled=products.some(p=>shopProducts.find(x=>x.id==='matterhorn-'+p.id)?.variants.some(v=>v.stock>0));
   const kind = path === '/collants-femme' ? 'collants' : 'chaussettes';
   const copy = collectionCopy[kind];
   const [color, setColor] = useState('');
@@ -47,7 +50,7 @@ export function MatterhornCollection() {
     (!size || p.variants.some(v => v.size === size))
   );
 
-  return <><SEO title={copy.title} description={copy.seo} noindex />
+  return <><SEO title={copy.title} description={copy.seo} noindex={!saleEnabled} />
     <main className="stocking-page">
       <nav className="stocking-note" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link> · <Link href="/boutique">Boutique</Link> · {kind === 'collants' ? 'Collants' : 'Chaussettes'}</nav>
       <p className="stocking-eyebrow">LA MAISON DES DESSOUS · POUR VOS JAMBES, À VOTRE FAÇON</p>
@@ -59,7 +62,7 @@ export function MatterhornCollection() {
           : 'Mesurez vos pieds et apprenez à lire les pointures 35/38, 38/41 ou la taille universelle.'}</p></div>
         <Link className="stocking-button secondary" href={kind === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Voir le guide pratique →</Link>
       </aside>
-      <p className="stocking-note" role="status">Livraison standard incluse dans les prix. Disponibilité des tailles à confirmer avant toute commande.</p>
+      <p className="stocking-note" role="status">Livraison standard incluse dans les prix. Choisissez votre taille sur la fiche du modèle.</p>
       <nav className="stocking-filters" aria-label="Nos collections">
         <Link href="/bas-autofixants">Bas autofixants</Link>
         <Link href="/bas-porte-jarretelles">Bas pour porte-jarretelles</Link>
@@ -106,12 +109,17 @@ export function MatterhornPreviewProduct() {
   const [, tightsParams] = useRoute('/collants-femme/:slug');
   const [, socksParams] = useRoute('/chaussettes-femme/:slug');
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [selectedOption,setSelectedOption]=useState('');
+  const {products:shopProducts,add}=useShop();
   const slug = tightsParams?.slug || socksParams?.slug;
   const kind = tightsParams ? 'collants' : 'chaussettes';
   const p = products.find(item => item.slug === slug && item.category === kind);
   if (!p) return <main className="stocking-page"><SEO title="Modèle introuvable" noindex/><h1>Modèle introuvable</h1><Link href="/boutique">Retour à la boutique</Link></main>;
   const collection = collectionCopy[p.category as keyof typeof collectionCopy];
-  return <><SEO title={p.name} description={p.seoDescription} noindex />
+  const shopProduct=shopProducts.find(x=>x.id==='matterhorn-'+p.id);
+  const available=shopProduct?.variants.filter(v=>v.stock>0) || [];
+  const chosen=available.find(v=>v.ean===selectedOption) || available[0];
+  return <><SEO title={p.name} description={p.seoDescription} noindex={!available.length} />
     <main className="stocking-page">
       <nav className="stocking-note" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link> · <Link href={collection.url}>{collection.title}</Link> · {p.name}</nav>
       <p className="stocking-eyebrow">LA MAISON DES DESSOUS · UNE HISTOIRE À PORTER</p>
@@ -132,7 +140,7 @@ export function MatterhornPreviewProduct() {
             <div><dt>Tailles indiquées pour le modèle (non garanties en stock)</dt><dd>{p.variants.map(v => v.size.replace(/^EU /, '')).join(' · ')}</dd></div>
           </dl>
           <aside className="lmd-guide-cta" aria-label="Guide des tailles pour ce modèle"><div><strong>Quelle taille choisir pour {p.name.split(' — ')[0]} ?</strong><p>Les étiquettes ci-dessus ne sont pas une correspondance de mensurations. Notre guide vous aide à mesurer et à demander confirmation si nécessaire.</p></div><Link className="stocking-button secondary" href={p.category === 'collants' ? '/guide-tailles-collants' : '/guide-tailles-chaussettes'}>Comprendre les tailles de ce modèle →</Link></aside>
-          <p className="stocking-price">{p.priceEur.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</p><p>Livraison standard comprise dans le prix affiché.</p><p className="stocking-note" role="status">La commande de ce modèle n’est pas encore ouverte : disponibilité fournisseur à confirmer.</p>
+          <p className="stocking-price">{p.priceEur.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</p><p>Livraison standard comprise dans le prix affiché.</p>{available.length ? <div><label className="stocking-select">Choisir la taille<select value={chosen?.ean || ''} onChange={e=>setSelectedOption(e.target.value)}>{available.map(v=><option key={v.ean} value={v.ean}>{v.size.replace(/^EU /,'')}</option>)}</select></label><button type="button" className="stocking-button" onClick={()=>{if(chosen)add(chosen.ean);}}>Ajouter au panier</button><p><Link href="/panier">Voir mon panier →</Link></p></div> : <p className="stocking-note" role="status">Modèle momentanément indisponible.</p>}
           <p>Découvrez <Link href={collection.url}>les autres modèles de cette collection</Link> ou <Link href="/guide-des-tailles">l'ensemble de nos conseils de tailles</Link>.</p>
           <h2>À découvrir dans le même univers</h2>
           <ul>{products.filter(other => other.id !== p.id && other.category === p.category).slice(0, 3).map(other => <li key={other.id}><Link href={productUrl(other)}>{other.name}</Link></li>)}</ul>
