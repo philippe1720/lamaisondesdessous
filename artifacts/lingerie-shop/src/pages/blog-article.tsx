@@ -15,7 +15,7 @@ type ArticleContent = {
   body: React.ReactNode;
 };
 
-const CONTENT: Record<string, ArticleContent> = {
+export const CONTENT: Record<string, ArticleContent> = {
   "comment-laver-sa-lingerie-delicate-2026": {
     title: "Comment laver sa lingerie délicate sans l'abîmer",
     description: "Guide complet pour entretenir votre lingerie en dentelle, soie et tulle. Lavage à la main, machine, séchage : tous les conseils pour des dessous toujours impeccables.",
@@ -23,7 +23,7 @@ const CONTENT: Record<string, ArticleContent> = {
     image: "/images/blog-3.png",
     date: "14 Mars 2026",
     dateISO: "2026-03-14T08:00:00+01:00",
-    author: "Sophie, Styliste Lingerie",
+    author: "La Maison des Dessous",
     body: (
       <>
         <p>
@@ -91,7 +91,7 @@ const CONTENT: Record<string, ArticleContent> = {
     image: "/images/blog-1.png",
     date: "02 Février 2026",
     dateISO: "2026-02-02T08:00:00+01:00",
-    author: "Camille, Conseil en Image",
+    author: "La Maison des Dessous",
     body: (
       <>
         <p>
@@ -166,7 +166,7 @@ const CONTENT: Record<string, ArticleContent> = {
     image: "/images/blog-2.png",
     date: "18 Avril 2025",
     dateISO: "2025-04-18T08:00:00+01:00",
-    author: "Léa, Rédactrice Mode",
+    author: "La Maison des Dessous",
     body: (
       <>
         <p>
@@ -212,7 +212,7 @@ const CONTENT: Record<string, ArticleContent> = {
     image: "/images/photo4.jpg",
     date: "07 Janvier 2025",
     dateISO: "2025-01-07T08:00:00+01:00",
-    author: "Marie, Experte Lingerie",
+    author: "La Maison des Dessous",
     body: (
       <>
         <p>
@@ -271,7 +271,7 @@ const CONTENT: Record<string, ArticleContent> = {
     image: "/images/femmelingerierouge.jpeg",
     date: "28 Octobre 2024",
     dateISO: "2024-10-28T08:00:00+01:00",
-    author: "Sophie, Créatrice",
+    author: "La Maison des Dessous",
     body: (
       <>
         <p>
@@ -319,7 +319,7 @@ const CONTENT: Record<string, ArticleContent> = {
   image: "/images/soutiengorgesexy.jpg",
   date: "28 Juin 2026",
   dateISO: "2026-06-28T08:00:00+01:00",
-  author: "Sophie, Créatrice",
+  author: "La Maison des Dessous",
   body: (
     <>
       <p>
@@ -377,7 +377,7 @@ const CONTENT: Record<string, ArticleContent> = {
     image: "/images/lingeriedenuit.jpg",
     date: "12 Juin 2024",
     dateISO: "2024-06-12T08:00:00+01:00",
-    author: "Sophie, Créatrice",
+    author: "La Maison des Dessous",
     body: (
       <>
         <p>
@@ -432,7 +432,7 @@ const CONTENT: Record<string, ArticleContent> = {
   image: "/images/blog-4.jpg",
   date: "1 Juillet 2026",
   dateISO: "2026-07-01T08:00:00+01:00",
-  author: "Sophie, Créatrice",
+  author: "La Maison des Dessous",
   body: (
     <>
       <p>
@@ -478,7 +478,7 @@ const CONTENT: Record<string, ArticleContent> = {
     image: "/images/soutiengorge.jpeg",
     date: "13 Juillet 2026",
     dateISO: "2026-07-13T08:00:00+02:00",
-    author: "Sophie, Créatrice",
+    author: "La Maison des Dessous",
     body: (
       <>
         <p>
@@ -536,6 +536,7 @@ export default function BlogArticle() {
   if (!article) {
     return (
       <div className="container mx-auto px-4 py-32 text-center">
+        <SEO title="Article introuvable" noindex />
         <h1 className="font-serif text-3xl font-bold mb-6">Article introuvable</h1>
         <Link href="/blog" className="text-primary underline underline-offset-4">
           Retour au blog
@@ -563,7 +564,7 @@ export default function BlogArticle() {
             "image": [`${SITE_CONFIG.url}${article.image}`],
             "datePublished": article.dateISO,
             "author": [{
-              "@type": "Person",
+              "@type": "Organization",
               "name": article.author
             }],
             "publisher": {
