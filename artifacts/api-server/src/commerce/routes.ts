@@ -53,8 +53,14 @@ commerceRouter.post('/checkout', async (req, res) => {
   if (!['home','pickup'].includes(delivery) || (delivery==='pickup' && !point)) { res.status(400).json({error:'Choisissez un mode de livraison et un point de retrait valide.'}); return; }
   let stage: 'stock' | 'payment' = 'stock';
   try {
-    const {products:busyProducts,rows} = await liveCatalog();
-    const products=[...busyProducts,...await matterhornCatalog()];
+    // A Matterhorn-only order must not fail when BusyX is temporarily unavailable.
+    // Mixed baskets and BusyX upsells still require live BusyX verification.
+    const matterhornProducts=await matterhornCatalog();
+    const matterhornOptions=new Set(matterhornProducts.flatMap(p=>p.variants.map(v=>v.ean)));
+    const needsBusy=lines.some(line=>!matterhornOptions.has(line.ean)) || Boolean(req.body.upsell);
+    const busy=needsBusy ? await liveCatalog() : null;
+    const rows=busy?.rows || [];
+    const products=[...(busy?.products || []),...matterhornProducts];
     const chosen: {product:Product; variant:Product['variants'][number]; quantity:number}[] = [];
     for(const line of lines) {
       const product=products.find(p=>p.variants.some(v=>v.ean===line.ean));
